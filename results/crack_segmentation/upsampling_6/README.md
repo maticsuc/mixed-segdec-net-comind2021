@@ -108,14 +108,6 @@ Threshold = 0.000415 (From validation)
 | **Dice**    | 0.37018     | 0.21866     |
 | **Jaccard** | 0.24965     | 0.17007     |
 
-![dice_output](./upsampling_6_1/dices/0.000_dice_868.png)
-![dice_output](./upsampling_6_1/dices/0.000_dice_1494.png)
-![dice_output](./upsampling_6_1/dices/0.334_dice_450.png)
-![dice_output](./upsampling_6_1/dices/0.388_dice_428.png)
-![dice_output](./upsampling_6_1/dices/0.533_dice_303.png)
-![dice_output](./upsampling_6_1/dices/0.678_dice_231.png)
-![dice_output](./upsampling_6_1/dices/0.880_dice_176.png)
-
 ### Run 2
 Threshold = 0.007956 (From validation)
 |             | mean        | std         |
@@ -123,13 +115,14 @@ Threshold = 0.007956 (From validation)
 | **Dice**    | 0.59583     | 0.26028     |
 | **Jaccard** | 0.46685     | 0.23415     |
 
-![dice_output](./upsampling_6_2/dices/0.000_dice_246.png)
-![dice_output](./upsampling_6_2/dices/0.000_dice_1538.png)
-![dice_output](./upsampling_6_2/dices/0.432_dice_673.png)
-![dice_output](./upsampling_6_2/dices/0.591_dice_123.png)
-![dice_output](./upsampling_6_2/dices/0.650_dice_1143.png)
-![dice_output](./upsampling_6_2/dices/0.696_dice_854.png)
-![dice_output](./upsampling_6_2/dices/0.917_dice_343.png)
+Run 1                                       |  Run 2
+:------------------------------------------:|:-------------------------:
+![dice_output](./upsampling_6_1/dices/0.000_dice_919.png)   |  ![dice_output](./upsampling_6_2/dices/0.000_dice_919.png)
+![dice_output](./upsampling_6_1/dices/0.000_dice_1582.png)  |  ![dice_output](./upsampling_6_2/dices/0.000_dice_1582.png)
+![dice_output](./upsampling_6_1/dices/0.156_dice_670.png)  |  ![dice_output](./upsampling_6_2/dices/0.464_dice_670.png)
+![dice_output](./upsampling_6_1/dices/0.369_dice_267.png)  |  ![dice_output](./upsampling_6_2/dices/0.509_dice_267.png)
+![dice_output](./upsampling_6_1/dices/0.372_dice_759.png)  |  ![dice_output](./upsampling_6_2/dices/0.699_dice_759.png)
+![dice_output](./upsampling_6_1/dices/0.880_dice_176.png)  |  ![dice_output](./upsampling_6_2/dices/0.904_dice_176.png)
 
 ## Outputs
 [Run 1](./upsampling_6_1/nohup.out)
