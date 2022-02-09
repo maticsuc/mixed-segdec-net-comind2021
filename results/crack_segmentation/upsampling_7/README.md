@@ -4,11 +4,11 @@
 
 ### Original architecture
 
-![ROC](./originalna_arhitektura.png)
+![original_architecture](./originalna_arhitektura.PNG)
 
 ### New architecture
 
-![ROC](./arhitektura.png)
+![new_architecture](./arhitektura.png)
 
 ## Dataset
 
