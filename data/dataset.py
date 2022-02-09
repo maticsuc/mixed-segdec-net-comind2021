@@ -24,7 +24,7 @@ class Dataset(torch.utils.data.Dataset):
 
         self.neg_retrieval_freq = np.zeros(shape=self.num_neg)
 
-    def __getitem__(self, index) -> (torch.Tensor, torch.Tensor, torch.Tensor, bool, str):
+    def __getitem__(self, index) -> (torch.Tensor, torch.Tensor, bool, str, bool):
 
         if self.counter >= self.len:
             self.counter = 0
@@ -61,7 +61,7 @@ class Dataset(torch.utils.data.Dataset):
                 ix = index - self.num_neg
                 item = self.pos_samples[ix]
 
-        image, is_segmented, image_path, seg_mask_path, sample_name, seg_mask_original, seg_loss_mask_original = item
+        image, seg_mask, is_segmented, image_path, seg_mask_path, sample_name, is_pos = item
 
         if self.cfg.ON_DEMAND_READ:  # STEEL only so far
             if image_path == -1 or seg_mask_path == -1:
@@ -85,7 +85,7 @@ class Dataset(torch.utils.data.Dataset):
 
         self.counter = self.counter + 1
 
-        return image, is_segmented, sample_name, seg_mask_original, seg_loss_mask_original
+        return image, seg_mask, is_segmented, sample_name, is_pos
 
     def __len__(self):
         return self.len

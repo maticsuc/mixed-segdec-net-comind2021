@@ -23,15 +23,12 @@ class CrackSegmentationDataset(Dataset):
 
             seg_mask, positive = self.read_label_resize(seg_mask_path, self.image_size, self.cfg.DILATE)
 
+            seg_mask = self.to_tensor(seg_mask)
+
             if sample_kind == 'pos':
-                seg_loss_mask_original = self.distance_transform(seg_mask, self.cfg.WEIGHTED_SEG_LOSS_MAX, self.cfg.WEIGHTED_SEG_LOSS_P)
-                seg_loss_mask_original = self.to_tensor(seg_loss_mask_original)
-                seg_mask_original = self.to_tensor(seg_mask)
-                self.pos_samples.append((image, True, image_path, seg_mask_path, part, seg_mask_original, seg_loss_mask_original))
+                self.pos_samples.append((image, seg_mask, True, image_path, seg_mask_path, part, True))
             else:
-                seg_loss_mask_original = self.to_tensor(np.ones_like(seg_mask))
-                seg_mask_original = self.to_tensor(seg_mask)
-                self.neg_samples.append((image, True, image_path, seg_mask_path, part, seg_mask_original, seg_loss_mask_original))
+                self.neg_samples.append((image, seg_mask, True, image_path, seg_mask_path, part, False))
 
     def read_contents(self):
         #eager loading

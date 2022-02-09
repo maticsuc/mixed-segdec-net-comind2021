@@ -109,7 +109,7 @@ class SegDecNet(nn.Module):
         self.volume4 = DownSampling(pooling=True, n_conv_blocks=1, in_channels=64, out_channels=1024, kernel_size=15, padding=7)
 
         self.extractor = nn.Sequential(nn.MaxPool2d(kernel_size=2),
-                                       _conv_block(in_chanels=1024, out_chanels=8, kernel_size=5, padding=2),
+                                       _conv_block(in_chanels=1025, out_chanels=8, kernel_size=5, padding=2),
                                        nn.MaxPool2d(kernel_size=2),
                                        _conv_block(in_chanels=8, out_chanels=16, kernel_size=5, padding=2),
                                        nn.MaxPool2d(kernel_size=2),
@@ -135,6 +135,9 @@ class SegDecNet(nn.Module):
         self.upsampling3 = UpSampling(n_conv_blocks=3, in_channels=16, out_channels=8, n_channels_connected=32, kernel_size=5, padding=2)
         self.upsampling4 = nn.Sequential(Conv2d_init(in_channels=8, out_channels=1, kernel_size=5, padding=2, bias=False), FeatureNorm(num_features=1, eps=0.001, include_bias=False))
 
+        # Downsampling
+        self.downsampling = nn.MaxPool2d(8)
+
     def set_gradient_multipliers(self, multiplier):
         self.volume_lr_multiplier_mask = (torch.ones((1,)) * multiplier).to(self.device)
         self.glob_max_lr_multiplier_mask = (torch.ones((1,)) * multiplier).to(self.device)
@@ -151,9 +154,13 @@ class SegDecNet(nn.Module):
         seg_mask_upsampled = self.upsampling3(seg_mask_upsampled, v1)
         seg_mask_upsampled = self.upsampling4(seg_mask_upsampled)
 
-        volume = self.volume_lr_multiplier_layer(v4, self.volume_lr_multiplier_mask)
+        seg_mask_downsampled = self.downsampling(seg_mask_upsampled)
 
-        features = self.extractor(volume)
+        cat = torch.cat([v4, seg_mask_downsampled], dim=1)
+
+        cat = self.volume_lr_multiplier_layer(cat, self.volume_lr_multiplier_mask)
+
+        features = self.extractor(cat)
         global_max_feat = torch.max(torch.max(features, dim=-1, keepdim=True)[0], dim=-2, keepdim=True)[0] # torch.Size([1, 32, 1, 1])
         global_avg_feat = torch.mean(features, dim=(-1, -2), keepdim=True) # torch.Size([1, 32, 1, 1])
         global_max_seg = torch.max(torch.max(seg_mask_upsampled, dim=-1, keepdim=True)[0], dim=-2, keepdim=True)[0] # torch.Size([1, 1, 1, 1])
