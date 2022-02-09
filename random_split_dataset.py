@@ -3,7 +3,7 @@ import os, random, shutil
 random.seed(420)
 
 DATASET = 'crack_segmentation'
-FACTOR = 10
+FACTOR = 20
 
 path_datasets = './datasets'
 path_subset = os.path.join('./datasets', DATASET + '_subset')
