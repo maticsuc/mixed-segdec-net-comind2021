@@ -136,7 +136,7 @@ class SegDecNet(nn.Module):
         self.upsampling4 = nn.Sequential(Conv2d_init(in_channels=8, out_channels=1, kernel_size=5, padding=2, bias=False), FeatureNorm(num_features=1, eps=0.001, include_bias=False))
 
         # Downsampling
-        self.downsampling = nn.MaxPool2d(8)
+        self.downsampling = nn.AvgPool2d(8)
 
     def set_gradient_multipliers(self, multiplier):
         self.volume_lr_multiplier_mask = (torch.ones((1,)) * multiplier).to(self.device)

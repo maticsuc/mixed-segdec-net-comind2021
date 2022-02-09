@@ -31,7 +31,6 @@ class CrackSegmentationDataset(Dataset):
                 self.neg_samples.append((image, seg_mask, True, image_path, seg_mask_path, part, False))
 
     def read_contents(self):
-        #eager loading
 
         self.pos_samples = list()
         self.neg_samples = list()
