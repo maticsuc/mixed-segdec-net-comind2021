@@ -14,6 +14,7 @@ import random
 import cv2
 from config import Config
 from torch.utils.tensorboard import SummaryWriter
+from sklearn.metrics import precision_score, recall_score
 from datetime import datetime
 
 LVL_ERROR = 10
@@ -284,6 +285,15 @@ class End2End:
             return metrics["AP"], metrics["accuracy"], dice_threshold, dice_mean, iou_mean
         else:
             utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
+            
+            # Evalvacija
+            eval_threshold = 0.5
+            y_true = np.array(true_segs).flatten().astype(np.uint8)
+            y_pred = (np.array(predicted_segs).flatten() > eval_threshold).astype(np.uint8)
+            pr = precision_score(y_true, y_pred)
+            re = recall_score(y_true, y_pred)
+            f1 = 2 * (pr * re) / (pr + re)
+            self._log(f"Evaluation on {eval_loader.dataset.kind}: Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Threshold: {eval_threshold}")
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
