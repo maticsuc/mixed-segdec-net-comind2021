@@ -35,32 +35,23 @@ class CrackSegmentationDataset(Dataset):
         self.pos_samples = list()
         self.neg_samples = list()
 
-        path_to_positive_test_samples = os.path.join(self.cfg.DATASET_PATH, 'test_positive')
-        path_to_negative_test_samples = os.path.join(self.cfg.DATASET_PATH, 'test_negative')
-
-        path_to_positive_train_samples = os.path.join(self.cfg.DATASET_PATH, 'train_positive')
-        path_to_negative_train_samples = os.path.join(self.cfg.DATASET_PATH, 'train_negative')
-
-        path_to_positive_val_samples = os.path.join(self.cfg.DATASET_PATH, 'val_positive')
-        path_to_negative_val_samples = os.path.join(self.cfg.DATASET_PATH, 'val_negative')
-
         if self.kind == 'TEST':
             # Test Positive
-            self.read_samples(path_to_positive_test_samples, 'pos')
+            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_positive'), 'pos')
             # Test Negative
-            self.read_samples(path_to_negative_test_samples, 'neg')
+            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_negative'), 'neg')
         
         elif self.kind == 'TRAIN':
             # Train Positive
-            self.read_samples(path_to_positive_train_samples, 'pos')
+            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_positive'), 'pos')
             # Train Negative
-            self.read_samples(path_to_negative_train_samples, 'neg')
+            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_negative'), 'neg')
 
         elif self.kind == 'VAL':
             # Val Positive
-            self.read_samples(path_to_positive_val_samples, 'pos')
+            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val_positive'), 'pos')
             # Val negative
-            self.read_samples(path_to_negative_val_samples, 'neg')
+            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val_negative'), 'neg')
 
         self.num_pos = len(self.pos_samples)
         self.num_neg = len(self.neg_samples)
