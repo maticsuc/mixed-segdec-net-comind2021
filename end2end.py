@@ -287,13 +287,23 @@ class End2End:
             utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
             # Evalvacija
-            eval_threshold = 0.5
+            self._log(f"Evaluation on {eval_loader.dataset.kind}")
+            step = 0.1
             y_true = np.array(true_segs).flatten().astype(np.uint8)
-            y_pred = (np.array(predicted_segs).flatten() > eval_threshold).astype(np.uint8)
-            pr = precision_score(y_true, y_pred)
-            re = recall_score(y_true, y_pred)
-            f1 = 2 * (pr * re) / (pr + re)
-            self._log(f"Evaluation on {eval_loader.dataset.kind}: Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Threshold: {eval_threshold}")
+
+            for threshold in np.arange(0.1, 1, step):
+                y_pred = (np.array(predicted_segs).flatten() > threshold).astype(np.uint8)
+                pr = precision_score(y_true, y_pred)
+                re = recall_score(y_true, y_pred)
+                f1 = 2 * (pr * re) / (pr + re)
+
+                intersection = (y_pred * y_true).sum()
+                union = y_pred.sum() + y_true.sum()
+
+                dice = (2 * intersection + 1e-15) / (union + 1e-15)
+                iou = (intersection + 1e-15) / (union - intersection + 1e-15)
+            
+                print(f"Threshold: {threshold}: Pr: {round(pr, 4)}, Re: {round(re, 4)}, F1: {round(f1, 4)}, Dice: {round(dice, 4)}, IoU: {round(iou, 4)}")
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
