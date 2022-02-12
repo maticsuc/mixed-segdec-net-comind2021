@@ -68,7 +68,7 @@ class End2End:
         self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, dice_threshold=dice_threshold)
 
         # Dodana evalvacija na TRAIN setu
-        self.eval(model=model, device=device, save_images=False, plot_seg=False, reload_final=False, dice_threshold=dice_threshold, eval_loader=train_loader)
+        #self.eval(model=model, device=device, save_images=False, plot_seg=False, reload_final=False, dice_threshold=dice_threshold, eval_loader=train_loader)
 
         self._save_params()
 
@@ -137,7 +137,7 @@ class End2End:
         losses = []
         validation_data = []
         dices_iou = []
-        dice_threshold = 0
+        dice_threshold = 0.5
         max_validation = -1
         validation_step = self.cfg.VALIDATION_N_EPOCHS
 
