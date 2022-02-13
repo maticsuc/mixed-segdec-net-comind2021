@@ -374,14 +374,15 @@ class End2End:
             df_loss.to_csv(os.path.join(self.run_path, "losses.csv"), index=False)
         
         # Dice & IOU plot
-        epochs, dices, iou = map(list, zip(*dices_iou))
-        plt.clf()
-        plt.plot(epochs, dices, label="Dice")
-        plt.plot(epochs, iou, label="IOU")
-        plt.xlabel("Epochs")
-        plt.ylabel("Dice")
-        plt.legend()
-        plt.savefig(os.path.join(self.run_path, "dice_iou"), dpi=200)
+        if len(dices_iou) != 0:
+            epochs, dices, iou = map(list, zip(*dices_iou))
+            plt.clf()
+            plt.plot(epochs, dices, label="Dice")
+            plt.plot(epochs, iou, label="IOU")
+            plt.xlabel("Epochs")
+            plt.ylabel("Dice")
+            plt.legend()
+            plt.savefig(os.path.join(self.run_path, "dice_iou"), dpi=200)
 
         # Loss plot
         # Loss
