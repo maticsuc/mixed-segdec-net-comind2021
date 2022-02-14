@@ -35,7 +35,7 @@ upsampling 8, new architecture
 nohup python -u train_net.py --GPU 2 --RUN_NAME upsampling_8 --DATASET crack_segmentation --DATASET_PATH ./datasets/crack_segmentation --NUM_SEGMENTED 6921 --EPOCHS 50 --LEARNING_RATE 1.0 --DELTA_CLS_LOSS 0.01 --BATCH_SIZE 1 --WEIGHTED_SEG_LOSS False --DYN_BALANCED_LOSS True --GRADIENT_ADJUSTMENT True --FREQUENCY_SAMPLING True --VALIDATE True --VALIDATE_ON_TEST False --USE_BEST_MODEL True --DICE_THRESHOLD 2 --DICE_THR_FACTOR 1 > upsampling_8.out 2>&1 &
 
 sccdnet run
-nohup python -u train_net.py --GPU 3 --RUN_NAME sccdnet --DATASET crack_segmentation --DATASET_PATH ./datasets/sccdnet --NUM_SEGMENTED 4965 --EPOCHS 50 --LEARNING_RATE 1.0 --DELTA_CLS_LOSS 0.01 --BATCH_SIZE 1 --WEIGHTED_SEG_LOSS False --DYN_BALANCED_LOSS True --GRADIENT_ADJUSTMENT True --FREQUENCY_SAMPLING True --VALIDATE False --USE_BEST_MODEL True --DICE_THRESHOLD 1 > sccdnet.out 2>&1 &
+nohup python -u train_net.py --GPU 3 --RUN_NAME sccdnet --DATASET crack_segmentation --DATASET_PATH ./datasets/sccdnet --NUM_SEGMENTED 4965 --EPOCHS 50 --LEARNING_RATE 1.0 --DELTA_CLS_LOSS 0.01 --BATCH_SIZE 1 --WEIGHTED_SEG_LOSS False --DYN_BALANCED_LOSS True --GRADIENT_ADJUSTMENT True --FREQUENCY_SAMPLING True --VALIDATE False --USE_BEST_MODEL False --DICE_THRESHOLD 1 > sccdnet.out 2>&1 &
 
 CFD run
 nohup python -u train_net.py --GPU 1 --RUN_NAME CFD --DATASET crack_segmentation --DATASET_PATH ./datasets/CFD --NUM_SEGMENTED 72 --EPOCHS 50 --LEARNING_RATE 1.0 --DELTA_CLS_LOSS 0.01 --BATCH_SIZE 1 --WEIGHTED_SEG_LOSS False --DYN_BALANCED_LOSS True --GRADIENT_ADJUSTMENT True --FREQUENCY_SAMPLING True --VALIDATE False --USE_BEST_MODEL True --DICE_THRESHOLD 1 > CFD.out 2>&1 &
