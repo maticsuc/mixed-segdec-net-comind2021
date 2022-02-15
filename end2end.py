@@ -284,7 +284,7 @@ class End2End:
 
             return metrics["AP"], metrics["accuracy"], dice_threshold, dice_mean, iou_mean
         else:
-            #utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
+            utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
             # Evalvacija
             self._log(f"Evaluation on {eval_loader.dataset.kind}")
@@ -308,6 +308,8 @@ class End2End:
             distance = 2
             kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + distance * 2, 1 + distance * 2))
 
+            thresholds, pr_d_results, re_results, re_d_results, f1_results, f1_d_results = [], [], [], [], [], []
+
             for threshold in np.arange(0.1, 1, step):
                 results = []
                 for i in range(len(true_segs)):
@@ -330,17 +332,34 @@ class End2End:
                     f1_d = (2 * pr_d * re_d) / (pr_d + re_d) if pr_d and re_d else 0
                     results.append((pr_d, re, re_d, f1, f1_d))
 
-                n_results = len(results)
                 results = np.array(results)
+                pr_d = np.mean(results[:, 0])
+                re = np.mean(results[:, 1])
+                re_d = np.mean(results[:, 2])
+                f1 = np.mean(results[:, 3])
+                f1_d = np.mean(results[:, 4])
 
-                pr_d = sum(results[:, 0]) / n_results
-                re = sum(results[:, 1]) / n_results
-                re_d = sum(results[:, 2]) / n_results
-                f1 = sum(results[:, 3]) / n_results
-                f1_d = sum(results[:, 4]) / n_results
+                thresholds.append(threshold)
+                pr_d_results.append(pr_d)
+                re_results.append(re)
+                re_d_results.append(re_d)
+                f1_results.append(f1)
+                f1_d_results.append(f1_d)
 
-                print(f"Threshold: {round(threshold,1)}: Pr: {round(pr_d, 4)}, Re: {round(re, 4)}, Re_d: {round(re_d, 4)}, F1: {round(f1, 4)}, F1_d: {round(f1_d, 4)}")  
+                print(f"Threshold: {round(threshold,2)}: Pr: {round(pr_d, 4)}, Re: {round(re, 4)}, Re_d: {round(re_d, 4)}, F1: {round(f1, 4)}, F1_d: {round(f1_d, 4)}")  
             
+            # Plot
+            plt.figure()
+            plt.clf()
+            plt.plot(thresholds, pr_d_results, label=f"Pr ({distance} pxl distance)")
+            plt.plot(thresholds, re_results, label='Re')
+            plt.plot(thresholds, re_d_results, label=f"Re ({distance} pxl distance)")
+            plt.plot(thresholds, f1_results, label='F1')
+            plt.plot(thresholds, f1_d_results, label=f"F1 ({distance} pxl distance)")
+            plt.xlabel('Threshold')
+            plt.ylabel('Score')
+            plt.legend()
+            plt.savefig("scores", bbox_inches='tight', dpi=200)
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
