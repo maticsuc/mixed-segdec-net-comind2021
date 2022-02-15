@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from models import SegDecNet
 import numpy as np
 import os
-from torch import nn as nn
+from torch import R, nn as nn
 import torch
 import utils
 import pandas as pd
@@ -304,6 +304,43 @@ class End2End:
                 iou = (intersection + 1e-15) / (union - intersection + 1e-15)
             
                 print(f"Threshold: {threshold}: Pr: {round(pr, 4)}, Re: {round(re, 4)}, F1: {round(f1, 4)}, Dice: {round(dice, 4)}, IoU: {round(iou, 4)}")
+            
+            distance = 2
+            kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + distance * 2, 1 + distance * 2))
+
+            for threshold in np.arange(0.1, 1, step):
+                results = []
+                for i in range(len(true_segs)):
+                    y_true = np.array(true_segs[i]).astype(np.uint8)
+                    y_true_d = cv2.dilate(y_true, kernel)
+                    y_pred = (np.array(predicted_segs[i])>threshold).astype(np.uint8)
+
+                    tp_d = sum(sum((y_true_d==1)&(y_pred==1)))
+                    fp_d = sum(sum((y_true_d==0)&(y_pred==1)))
+
+                    fn = sum(sum((y_true==1)&(y_pred==0)))
+                    fn_d = sum(sum((y_true_d==1)&(y_pred==0)))
+
+                    pr_d = tp_d / (tp_d + fp_d)
+
+                    re = tp_d / (tp_d + fn)
+                    re_d = tp_d / (tp_d + fn_d)
+
+                    f1 = (2 * pr_d * re) / (pr_d + re)
+                    f1_d = (2 * pr_d * re_d) / (pr_d + re_d)
+                    results.append((pr_d, re, re_d, f1, f1_d))
+
+                n_results = len(results)
+                results = np.array(results)
+
+                pr_d = sum(results[:, 0]) / n_results
+                re = sum(results[:, 1]) / n_results
+                re_d = sum(results[:, 2]) / n_results
+                f1 = sum(results[:, 3]) / n_results
+                f1_d = sum(results[:, 4]) / n_results
+
+                print(f"Threshold: {threshold}: Pr: {round(pr_d, 4)}, Re: {round(re, 4)}, Re_d: {re_d}, F1: {round(f1, 4)}, F1_d: {round(f1_d, 4)}")  
+            
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
