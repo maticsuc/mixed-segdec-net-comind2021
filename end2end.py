@@ -284,7 +284,7 @@ class End2End:
 
             return metrics["AP"], metrics["accuracy"], dice_threshold, dice_mean, iou_mean
         else:
-            utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
+            #utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
             # Evalvacija
             self._log(f"Evaluation on {eval_loader.dataset.kind}")
@@ -359,7 +359,7 @@ class End2End:
             plt.xlabel('Threshold')
             plt.ylabel('Score')
             plt.legend()
-            plt.savefig("scores", bbox_inches='tight', dpi=200)
+            plt.savefig(f"{self.run_path}/scores", bbox_inches='tight', dpi=200)
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
