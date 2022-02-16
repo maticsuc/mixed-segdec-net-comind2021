@@ -155,15 +155,15 @@ FN = labelirano kot crack, predicted kot non-crack
 
 FN(distance) = labelirano kot crack, predicted kot non-crack (2 pxl distance)
 
-Pr = $\frac{TP(distance)}{TP(distance) + FP(distance)}$
+Pr = TP(distance) / TP(distance) + FP(distance)
 
-Re = $\frac{TP(distance)}{TP(distance) + FN}$
+Re = TP(distance) / TP(distance) + FN
 
-Re(distance) = $\frac{TP(distance)}{TP(distance) + FN(distance)}$
+Re(distance) = TP(distance) / TP(distance) + FN(distance)
 
-F1 = $\frac{2 * Pr * Re}{Pr + Re}$
+F1 = 2 * Pr * Re / Pr + Re
 
-F1(distance) = $\frac{2 * Pr * Re(distance)}{Pr + Re(distance)}$
+F1(distance) = 2 * Pr * Re(distance) / Pr + Re(distance)
 
 Primeri:
 
