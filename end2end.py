@@ -1,4 +1,5 @@
 import matplotlib
+from sklearn import metrics
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -60,12 +61,12 @@ class End2End:
 
         tensorboard_writer = SummaryWriter(log_dir=self.tensorboard_path) if WRITE_TENSORBOARD else None
 
-        losses, validation_data, dice_threshold, dices_iou = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, validation_loader, tensorboard_writer)
-        train_results = (losses, validation_data, dices_iou)
+        losses, validation_data, best_model_threshold, validation_metrics = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, validation_loader, tensorboard_writer)
+        train_results = (losses, validation_data, validation_metrics)
         self._save_train_results(train_results)
         self._save_model(model)
 
-        self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, dice_threshold=dice_threshold)
+        self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, dice_threshold=best_model_threshold)
 
         # Dodana evalvacija na TRAIN setu
         #self.eval(model=model, device=device, save_images=False, plot_seg=False, reload_final=False, dice_threshold=dice_threshold, eval_loader=train_loader)
@@ -136,8 +137,7 @@ class End2End:
     def _train_model(self, device, model, train_loader, criterion_seg, criterion_dec, optimizer, validation_set, tensorboard_writer):
         losses = []
         validation_data = []
-        dices_iou = []
-        dice_threshold = 0.5
+        validation_metrics = []
         max_validation = -1
         validation_step = self.cfg.VALIDATION_N_EPOCHS
 
@@ -197,19 +197,20 @@ class End2End:
                 tensorboard_writer.add_scalar("Accuracy/Train/", epoch_correct / samples_per_epoch, epoch)
 
             if self.cfg.VALIDATE and (epoch % validation_step == 0 or epoch == num_epochs - 1):
-                validation_ap, validation_accuracy, dice_threshold, dice, iou = self.eval_model(device=device, model=model, eval_loader=validation_set, save_folder=None, save_images=False, is_validation=True, plot_seg=False, dice_threshold=None)
+                validation_ap, validation_accuracy, val_metrics = self.eval_model(device=device, model=model, eval_loader=validation_set, save_folder=None, save_images=False, is_validation=True, plot_seg=False, dice_threshold=None)
                 validation_data.append((validation_ap, epoch))
-                dices_iou.append((epoch, dice, iou))
+                validation_metrics.append((epoch, val_metrics))
 
                 if validation_ap > max_validation:
                     max_validation = validation_ap
                     self._save_model(model, "best_state_dict.pth")
+                    best_model_threshold = val_metrics['threshold']
 
                 model.train()
                 if tensorboard_writer is not None:
                     tensorboard_writer.add_scalar("Accuracy/Validation/", validation_accuracy, epoch)
 
-        return losses, validation_data, dice_threshold, dices_iou
+        return losses, validation_data, best_model_threshold, validation_metrics
 
     def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold):
         model.eval()
@@ -272,94 +273,48 @@ class End2End:
                 dice_metrics = utils.get_metrics(np.array(true_segs, dtype=bool).flatten()[::self.cfg.DICE_THR_FACTOR], np.array(predicted_segs).flatten()[::self.cfg.DICE_THR_FACTOR]) # vsak 10. piksel GT-jev damo v 1D bool array, vsak 10. piksel predicted segmentacij v 1D float array
                 dice_threshold = dice_metrics['best_thr']
 
+            #dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(predicted_segs, true_segs, dice_threshold)
+            val_metrics = self.validation_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
-            dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(predicted_segs, true_segs, dice_threshold)
+            """
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} "
                       f"at f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}\nDice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
+            """
+            self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} "
+                      f"at f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
             
-            # Dodaten izpis minimumov
-            if self.cfg.DICE_THRESHOLD == 1:
-                print(f"Min of max pixels: POSITIVE: {min_pixel_of_max_pixels_pos:f}, NEGATIVE: {min_pixel_of_max_pixels_neg:f}")
-
-            return metrics["AP"], metrics["accuracy"], dice_threshold, dice_mean, iou_mean
+            return metrics["AP"], metrics["accuracy"], val_metrics
         else:
-            #utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
+            utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
-            # Evalvacija
-            self._log(f"Evaluation on {eval_loader.dataset.kind}")
-            step = 0.1
-            y_true = np.array(true_segs).flatten().astype(np.uint8)
+            self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {pxl_distance} pixel distance used.")
 
-            for threshold in np.arange(0.1, 1, step):
-                y_pred = (np.array(predicted_segs).flatten() > threshold).astype(np.uint8)
-                pr = precision_score(y_true, y_pred)
-                re = recall_score(y_true, y_pred)
-                f1 = 2 * (pr * re) / (pr + re)
-
-                intersection = (y_pred * y_true).sum()
-                union = y_pred.sum() + y_true.sum()
-
-                dice = (2 * intersection + 1e-15) / (union + 1e-15)
-                iou = (intersection + 1e-15) / (union - intersection + 1e-15)
+            n_samples = len(true_segs)
+            pxl_distance = 2
+            kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
+            results = []
             
-                print(f"Threshold: {round(threshold,1)}: Pr: {round(pr, 4)}, Re: {round(re, 4)}, F1: {round(f1, 4)}, Dice: {round(dice, 4)}, IoU: {round(iou, 4)}")
+            for i in range(n_samples):
+                y_true = np.array(true_segs[i]).astype(np.uint8)
+                y_true_d = cv2.dilate(y_true, kernel)
+                y_pred = (np.array(predicted_segs[i])>dice_threshold).astype(np.uint8)
 
-            distance = 2
-            kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + distance * 2, 1 + distance * 2))
+                tp_d = sum(sum((y_true_d==1)&(y_pred==1))).item()
+                fp_d = sum(sum((y_true_d==0)&(y_pred==1))).item()
+                fn = sum(sum((y_true==1)&(y_pred==0))).item()
 
-            thresholds, pr_d_results, re_results, re_d_results, f1_results, f1_d_results = [], [], [], [], [], []
+                pr = tp_d / (tp_d + fp_d) if tp_d else 0
+                re = tp_d / (tp_d + fn) if tp_d else 0
+                f1 = (2 * pr * re) / (pr + re) if pr and re else 0
 
-            for threshold in np.arange(0.1, 1, step):
-                results = []
-                for i in range(len(true_segs)):
-                    y_true = np.array(true_segs[i]).astype(np.uint8)
-                    y_true_d = cv2.dilate(y_true, kernel)
-                    y_pred = (np.array(predicted_segs[i])>threshold).astype(np.uint8)
+                results.append((pr, re, f1))
 
-                    tp_d = sum(sum((y_true_d==1)&(y_pred==1))).item()
-                    fp_d = sum(sum((y_true_d==0)&(y_pred==1))).item()
+            pr = np.mean(np.array(results)[:, 0])
+            re = np.mean(np.array(results)[:, 1])
+            f1 = np.mean(np.array(results)[:, 2])
 
-                    fn = sum(sum((y_true==1)&(y_pred==0))).item()
-                    fn_d = sum(sum((y_true_d==1)&(y_pred==0))).item()
-
-                    pr_d = tp_d / (tp_d + fp_d) if tp_d else 0
-
-                    re = tp_d / (tp_d + fn) if tp_d else 0
-                    re_d = tp_d / (tp_d + fn_d) if tp_d else 0
-
-                    f1 = (2 * pr_d * re) / (pr_d + re) if pr_d and re else 0
-                    f1_d = (2 * pr_d * re_d) / (pr_d + re_d) if pr_d and re_d else 0
-                    results.append((pr_d, re, re_d, f1, f1_d))
-
-                results = np.array(results)
-                pr_d = np.mean(results[:, 0])
-                re = np.mean(results[:, 1])
-                re_d = np.mean(results[:, 2])
-                f1 = np.mean(results[:, 3])
-                f1_d = np.mean(results[:, 4])
-
-                thresholds.append(threshold)
-                pr_d_results.append(pr_d)
-                re_results.append(re)
-                re_d_results.append(re_d)
-                f1_results.append(f1)
-                f1_d_results.append(f1_d)
-
-                print(f"Threshold: {round(threshold,2)}: Pr: {round(pr_d, 4)}, Re: {round(re, 4)}, Re_d: {round(re_d, 4)}, F1: {round(f1, 4)}, F1_d: {round(f1_d, 4)}")  
-            
-            # Plot
-            plt.figure()
-            plt.clf()
-            plt.plot(thresholds, pr_d_results, label=f"Pr ({distance} pxl distance)")
-            plt.plot(thresholds, re_results, label='Re')
-            plt.plot(thresholds, re_d_results, label=f"Re ({distance} pxl distance)")
-            plt.plot(thresholds, f1_results, label='F1')
-            plt.plot(thresholds, f1_d_results, label=f"F1 ({distance} pxl distance)")
-            plt.xlabel('Threshold')
-            plt.ylabel('Score')
-            plt.legend()
-            plt.savefig(f"{self.run_path}/scores", bbox_inches='tight', dpi=200)
+            self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {dice_threshold}")
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
@@ -406,7 +361,7 @@ class End2End:
             f.writelines(params_lines)
 
     def _save_train_results(self, results):
-        losses, validation_data, dices_iou = results
+        losses, validation_data, validation_metrics = results
         ls, ld, l, le = map(list, zip(*losses))
         plt.plot(le, l, label="Loss", color="red")
         plt.plot(le, ls, label="Loss seg")
@@ -430,13 +385,17 @@ class End2End:
             df_loss.to_csv(os.path.join(self.run_path, "losses.csv"), index=False)
         
         # Dice & IOU plot
-        if len(dices_iou) != 0:
-            epochs, dices, iou = map(list, zip(*dices_iou))
+        if len(validation_metrics) != 0:
+            epochs, metrics = map(list, zip(*validation_metrics))
+            f1 = [i['F1'] for i in metrics]
+            pr = [i['Pr'] for i in metrics]
+            re = [i['Re'] for i in metrics]
             plt.clf()
-            plt.plot(epochs, dices, label="Dice")
-            plt.plot(epochs, iou, label="IOU")
+            plt.plot(epochs, f1, label="F1")
+            plt.plot(epochs, pr, label="Pr")
+            plt.plot(epochs, re, label="Re")
             plt.xlabel("Epochs")
-            plt.ylabel("Dice")
+            plt.ylabel("Score")
             plt.legend()
             plt.savefig(os.path.join(self.run_path, "dice_iou"), dpi=200)
 
@@ -507,3 +466,44 @@ class End2End:
         for l in sorted(map(lambda e: e[0] + ":" + str(e[1]) + "\n", self.cfg.get_as_dict().items())):
             k, v = l.split(":")
             self._log(f"{k:25s} : {str(v.strip())}")
+        
+    def validation_metrics(self, truth_segmentations, predicted_segmentations, dataset_kind, threshold_step=0.05, pxl_distance=2):
+        n_samples = len(truth_segmentations)
+        kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
+        thresholds, pr_results, re_results, f1_results = [], [], [], []
+        metrics = dict()
+
+        self._log(f"Validation metrics on {dataset_kind} set. {pxl_distance} pixel distance used.")
+
+        for threshold in np.arange(0.1, 1, threshold_step):
+            results = []
+            for i in range(n_samples):
+                y_true = np.array(truth_segmentations[i]).astype(np.uint8)
+                y_true_d = cv2.dilate(y_true, kernel)
+                y_pred = (np.array(predicted_segmentations[i])>threshold).astype(np.uint8)
+
+                tp_d = sum(sum((y_true_d==1)&(y_pred==1))).item()
+                fp_d = sum(sum((y_true_d==0)&(y_pred==1))).item()
+                fn = sum(sum((y_true==1)&(y_pred==0))).item()
+
+                pr = tp_d / (tp_d + fp_d) if tp_d else 0
+                re = tp_d / (tp_d + fn) if tp_d else 0
+                f1 = (2 * pr * re) / (pr + re) if pr and re else 0
+
+                results.append((pr, re, f1))
+
+            thresholds.append(threshold)
+            pr_results.append(np.mean(np.array(results)[:, 0]))
+            re_results.append(np.mean(np.array(results)[:, 1]))
+            f1_results.append(np.mean(np.array(results)[:, 2]))
+
+        f1_max_index = f1_results.index(max(f1_results))
+        metrics['Pr'] = pr_results[f1_max_index]
+        metrics['Re'] = re_results[f1_max_index]
+        metrics['F1'] = max(f1_results)
+        metrics['threshold'] = thresholds[f1_max_index]
+
+        self._log(f"Best F1: {metrics['F1']:f} at {thresholds[f1_max_index]:f}. Pr: {metrics['Pr']:f}, Re: {metrics['Re']:f}")
+        self._log(f"Best threshold: {metrics['threshold']:f}")
+                
+        return metrics

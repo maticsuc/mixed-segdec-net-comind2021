@@ -100,6 +100,12 @@ class Config:
             self.INPUT_CHANNELS = 3
             if self.NUM_SEGMENTED is None:
                 raise Exception("Missing NUM_SEGMENTED for crack_segmentation dataset!")
+        elif self.DATASET == 'CFD':
+            self.INPUT_WIDTH = 480
+            self.INPUT_HEIGHT = 320
+            self.INPUT_CHANNELS = 3
+            if self.NUM_SEGMENTED is None:
+                raise Exception("Missing NUM_SEGMENTED for crack_segmentation dataset!")
         else:
             raise Exception('Unknown dataset {}'.format(self.DATASET))
 
