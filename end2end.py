@@ -139,6 +139,7 @@ class End2End:
         validation_data = []
         validation_metrics = []
         max_validation = -1
+        best_model_threshold = -1
         validation_step = self.cfg.VALIDATION_N_EPOCHS
 
         num_epochs = self.cfg.EPOCHS
@@ -201,8 +202,11 @@ class End2End:
                 validation_data.append((validation_ap, epoch))
                 validation_metrics.append((epoch, val_metrics))
 
-                if validation_ap > max_validation:
+                if self.cfg.BEST_MODEL_TYPE == "dec" and validation_ap > max_validation:
+                    self._save_model(model, "best_state_dict.pth")
                     max_validation = validation_ap
+
+                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['threshold'] > best_model_threshold:
                     self._save_model(model, "best_state_dict.pth")
                     best_model_threshold = val_metrics['threshold']
 
@@ -288,7 +292,6 @@ class End2End:
         else:
             utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
-
             n_samples = len(true_segs)
             pxl_distance = 2
             kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
@@ -397,7 +400,7 @@ class End2End:
             plt.xlabel("Epochs")
             plt.ylabel("Score")
             plt.legend()
-            plt.savefig(os.path.join(self.run_path, "dice_iou"), dpi=200)
+            plt.savefig(os.path.join(self.run_path, "scores"), dpi=200)
 
         # Loss plot
         # Loss
