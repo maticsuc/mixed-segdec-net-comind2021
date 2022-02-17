@@ -16,7 +16,7 @@ class CrackSegmentationDataset(Dataset):
             part = sample.split(".")[0]
             
             image_path = path_to_samples + "/" + sample
-            seg_mask_path = path_to_samples + "/" + part + "_GT.jpg"
+            seg_mask_path = path_to_samples + "/" + part + "_GT." + sample.split(".")[1]
             
             image = self.read_img_resize(image_path, self.grayscale, self.image_size)
             image = self.to_tensor(image)
