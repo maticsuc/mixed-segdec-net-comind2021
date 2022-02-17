@@ -209,6 +209,7 @@ class End2End:
                 elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['F1'] > best_f1:
                     self._save_model(model, "best_state_dict.pth")
                     best_model_threshold = val_metrics['threshold']
+                    best_f1 = val_metrics['F1']
 
                 model.train()
                 if tensorboard_writer is not None:
