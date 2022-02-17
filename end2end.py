@@ -139,7 +139,7 @@ class End2End:
         validation_data = []
         validation_metrics = []
         max_validation = -1
-        best_model_threshold = -1
+        best_f1 = -1
         validation_step = self.cfg.VALIDATION_N_EPOCHS
 
         num_epochs = self.cfg.EPOCHS
@@ -206,7 +206,7 @@ class End2End:
                     self._save_model(model, "best_state_dict.pth")
                     max_validation = validation_ap
 
-                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['threshold'] > best_model_threshold:
+                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['F1'] > best_f1:
                     self._save_model(model, "best_state_dict.pth")
                     best_model_threshold = val_metrics['threshold']
 
