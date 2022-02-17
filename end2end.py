@@ -288,12 +288,12 @@ class End2End:
         else:
             utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
-            self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {pxl_distance} pixel distance used.")
 
             n_samples = len(true_segs)
             pxl_distance = 2
             kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
             results = []
+            self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {pxl_distance} pixel distance used.")
             
             for i in range(n_samples):
                 y_true = np.array(true_segs[i]).astype(np.uint8)
