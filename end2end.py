@@ -207,6 +207,7 @@ class End2End:
                     max_validation = validation_ap
 
                 elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['F1'] > best_f1:
+                    self._log(f"New best model based on {self.cfg.BEST_MODEL_TYPE} metrics.")
                     self._save_model(model, "best_state_dict.pth")
                     best_model_threshold = val_metrics['threshold']
                     best_f1 = val_metrics['F1']
@@ -217,7 +218,7 @@ class End2End:
 
         return losses, validation_data, best_model_threshold, validation_metrics
 
-    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold):
+    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None):
         model.eval()
 
         dsize = self.cfg.INPUT_WIDTH, self.cfg.INPUT_HEIGHT
@@ -262,6 +263,9 @@ class End2End:
                 utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
 
         if is_validation:
+            # Najboljši F1, Pr, Re, threshold
+            seg_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
+
             # Računanje dice thresholda
             # 1. Minimum maksimalnih pikslov vseh predikcij
             if self.cfg.DICE_THRESHOLD == 1:
@@ -272,14 +276,15 @@ class End2End:
                 min_pixel_of_max_pixels_neg = max_pixels_neg.min().item() # Min piksel vseh max pikslov
                 
                 dice_threshold = min_pixel_of_max_pixels_pos
+                seg_metrics['dice_threshold'] = dice_metrics['best_thr']
             
             # 2. precision_recall, subsampling
             elif self.cfg.DICE_THRESHOLD == 2:
                 dice_metrics = utils.get_metrics(np.array(true_segs, dtype=bool).flatten()[::self.cfg.DICE_THR_FACTOR], np.array(predicted_segs).flatten()[::self.cfg.DICE_THR_FACTOR]) # vsak 10. piksel GT-jev damo v 1D bool array, vsak 10. piksel predicted segmentacij v 1D float array
                 dice_threshold = dice_metrics['best_thr']
+                seg_metrics['dice_threshold'] = dice_metrics['best_thr']
 
             #dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(predicted_segs, true_segs, dice_threshold)
-            val_metrics = self.validation_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             """
@@ -289,10 +294,36 @@ class End2End:
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} "
                       f"at f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
             
-            return metrics["AP"], metrics["accuracy"], val_metrics
+            seg_metrics['best_threshold_dec'] = metrics['best_thr']
+
+            return metrics["AP"], metrics["accuracy"], seg_metrics
         else:
-            utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
+            #utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
+            decisions = np.array(predictions) >= dec_threshold
+            FP, FN, TN, TP = utils.calc_confusion_mat(decisions, np.array(predictions_truths))
+
+            pr = sum(TP) / sum(TP) + sum(FP)
+            re = sum(TP) / sum(TP) + sum(FN)
+            f1 = (2 * pr * re) / (pr + re)
+            accuracy = (sum(TP) + sum(TN)) / (sum(TP) + sum(TN) + sum(FP) + sum(FN))
+
+            self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
+
+            non_crack_seg = np.zeros(predicted_segs[0].shape)
+            non_crack_counter = 0
+
+            for i in range(len(predicted_segs)):
+                if not decisions[i]:
+                    predicted_segs[i] = non_crack_seg
+                    non_crack_counter += 1
+            
+            self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
+
+            dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, threshold=dice_threshold, images=images, image_names=res[:, 4], run_path=self.run_path)
+            
+            self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
+
             n_samples = len(true_segs)
             pxl_distance = 2
             kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
@@ -348,7 +379,7 @@ class End2End:
     def reload_model(self, model, load_final=False):
         if self.cfg.USE_BEST_MODEL:
             path = os.path.join(self.model_path, "best_state_dict.pth")
-            model.load_state_dict(torch.load(path))
+            model.load_state_dict(torch.load(path)) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
             self._log(f"Loading model state from {path}")
         elif load_final:
             path = os.path.join(self.model_path, "final_state_dict.pth")
@@ -471,7 +502,7 @@ class End2End:
             k, v = l.split(":")
             self._log(f"{k:25s} : {str(v.strip())}")
         
-    def validation_metrics(self, truth_segmentations, predicted_segmentations, dataset_kind, threshold_step=0.05, pxl_distance=2):
+    def seg_val_metrics(self, truth_segmentations, predicted_segmentations, dataset_kind, threshold_step=0.01, pxl_distance=2):
         n_samples = len(truth_segmentations)
         kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
         thresholds, pr_results, re_results, f1_results = [], [], [], []
