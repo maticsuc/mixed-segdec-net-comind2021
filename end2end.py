@@ -320,7 +320,7 @@ class End2End:
             
             self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
 
-            dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, threshold=dice_threshold, images=images, image_names=res[:, 4], run_path=self.run_path)
+            dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path)
             
             self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
 
