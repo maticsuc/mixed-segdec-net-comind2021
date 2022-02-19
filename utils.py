@@ -66,7 +66,7 @@ def plot_sample(image_name, image, segmentation, label, save_dir, decision=None,
     plt.yticks([])
     plt.title('Output\nscaled')
     if blur:
-        normed = segmentation / segmentation.max()
+        normed = segmentation / segmentation.max() if segmentation.max() > 0 else segmentation
         blured = cv2.blur(normed, (32, 32))
         plt.imshow((blured / blured.max() * 255).astype(np.uint8), cmap="jet")
     else:
