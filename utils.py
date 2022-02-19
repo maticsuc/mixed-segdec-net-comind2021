@@ -68,9 +68,9 @@ def plot_sample(image_name, image, segmentation, label, save_dir, decision=None,
     if blur:
         normed = segmentation / segmentation.max() if segmentation.max() > 0 else segmentation
         blured = cv2.blur(normed, (32, 32))
-        plt.imshow((blured / blured.max() * 255).astype(np.uint8), cmap="jet")
+        plt.imshow(((blured / blured.max() if blured.max() > 0 else blured) * 255).astype(np.uint8), cmap="jet")
     else:
-        plt.imshow((segmentation / segmentation.max() * 255).astype(np.uint8), cmap="jet")
+        plt.imshow(((segmentation / segmentation.max() if segmentation.max() > 0 else segmentation) * 255).astype(np.uint8), cmap="jet")
 
     out_prefix = '{:.3f}_'.format(decision) if decision is not None else ''
     plt.savefig(f"{save_dir}/{out_prefix}result_{image_name}.jpg", bbox_inches='tight', dpi=300)
