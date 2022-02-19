@@ -260,7 +260,10 @@ class End2End:
             images.append(image)
 
             if not is_validation and save_images:
-                utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
+                if dec_threshold and prediction <= dec_threshold:
+                    utils.plot_sample(sample_name[0], image, np.zeros(seg_mask_predicted.shape), seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
+                else:
+                    utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
 
         if is_validation:
             # Najboljši F1, Pr, Re, threshold
