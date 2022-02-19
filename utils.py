@@ -153,7 +153,7 @@ def get_metrics(labels, predictions):
     metrics['accuracy'] = (sum(TP) + sum(TN)) / (sum(TP) + sum(TN) + sum(FP) + sum(FN))
     return metrics
 
-def dice_iou(segmentation_predicted, segmentation_truth, threshold, images=None, image_names=None, run_path=None):
+def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=None, image_names=None, run_path=None, decisions=None):
 
     results_dice = []
     result_iou = []
@@ -177,7 +177,7 @@ def dice_iou(segmentation_predicted, segmentation_truth, threshold, images=None,
         seg_true_bin = segmentation_truth[i]
 
         # Naredimo binarne maske s ustreznim thresholdom
-        seg_pred_bin = (seg_pred > threshold).astype(np.uint8)
+        seg_pred_bin = (seg_pred > seg_threshold).astype(np.uint8)
 
         # Dice
         dice = (2 * (seg_true_bin * seg_pred_bin).sum() + 1e-15) / (seg_true_bin.sum() + seg_pred_bin.sum() + 1e-15)
@@ -201,13 +201,14 @@ def dice_iou(segmentation_predicted, segmentation_truth, threshold, images=None,
             plt.yticks([])
             plt.title('Image')
             plt.imshow(image)
-            plt.xlabel(f"Threshold: {round(threshold, 5)}")
+            plt.xlabel(f"Seg thr: {seg_threshold:f}")
             
             plt.subplot(1, 4, 2)
             plt.xticks([])
             plt.yticks([])
             plt.title('Groundtruth')
             plt.imshow(seg_true_bin, cmap='gray')
+            plt.xlabel(f"Dec out: {decisions[i]}")
             
             plt.subplot(1, 4, 3)
             plt.xticks([])
