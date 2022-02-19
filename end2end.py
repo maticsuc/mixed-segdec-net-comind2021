@@ -301,12 +301,15 @@ class End2End:
             #utils.evaluate_metrics(samples=res, results_path=self.run_path, run_name=self.run_name, segmentation_predicted=predicted_segs, segmentation_truth=true_segs, images=images, dice_threshold=dice_threshold, dataset_kind=eval_loader.dataset.kind)
             
             decisions = np.array(predictions) >= dec_threshold
-            FP, FN, TN, TP = utils.calc_confusion_mat(decisions, np.array(predictions_truths))
+            FP = sum((decisions != np.array(predictions_truths)) & (np.array(predictions_truths).astype(np.bool) == False))
+            FN = sum((decisions != np.array(predictions_truths)) & (np.array(predictions_truths).astype(np.bool) == True))
+            TN = sum((decisions == np.array(predictions_truths)) & (np.array(predictions_truths).astype(np.bool) == False))
+            TP = sum((decisions == np.array(predictions_truths)) & (np.array(predictions_truths).astype(np.bool) == True))
 
             pr = sum(TP) / sum(TP) + sum(FP)
             re = sum(TP) / sum(TP) + sum(FN)
             f1 = (2 * pr * re) / (pr + re)
-            accuracy = (sum(TP) + sum(TN)) / (sum(TP) + sum(TN) + sum(FP) + sum(FN))
+            accuracy = (TP + TN) / (TP + TN + FP + FN)
 
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
 
