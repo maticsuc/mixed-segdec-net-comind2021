@@ -310,14 +310,18 @@ class End2End:
             return metrics["AP"], metrics["accuracy"], seg_metrics
         else:
             decisions = np.array(predictions) >= dec_threshold
-            FP, FN, TN, TP = utils.calc_confusion_mat(decisions, np.array(predictions_truths))
+            tp = sum((np.array(predictions_truths))&(decisions)).item()
+            fp = sum((np.array(predictions_truths)==False)&(decisions)).item()
+            fn = sum((np.array(predictions_truths))&(decisions==False)).item()
+            tn = sum((np.array(predictions_truths)==False)&(decisions==False)).item()
 
-            pr = sum(TP) / sum(TP) + sum(FP)
-            re = sum(TP) / sum(TP) + sum(FN)
-            f1 = (2 * pr * re) / (pr + re)
-            accuracy = (sum(TP) + sum(TN)) / (sum(TP) + sum(TN) + sum(FP) + sum(FN))
+            pr = tp / (tp + fp) if tp else 0
+            re = tp / (tp + fn) if tp else 0
+            f1 = (2 * pr * re) / (pr + re) if pr and re else 0
+            accuracy = (tp + tn) / (tp + tn + fp + fn)
 
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
+            self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
 
             non_crack_seg = np.zeros(predicted_segs[0].shape)
             non_crack_counter = 0
@@ -329,7 +333,7 @@ class End2End:
             
             self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
 
-            dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions)
+            dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions)
             
             self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
 
