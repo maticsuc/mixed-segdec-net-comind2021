@@ -218,7 +218,7 @@ class End2End:
 
         return losses, validation_data, best_model_threshold, validation_metrics
 
-    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None):
+    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None, two_pxl_threshold=None):
         model.eval()
 
         dsize = self.cfg.INPUT_WIDTH, self.cfg.INPUT_HEIGHT
@@ -346,7 +346,7 @@ class End2End:
             for i in range(n_samples):
                 y_true = np.array(true_segs[i]).astype(np.uint8)
                 y_true_d = cv2.dilate(y_true, kernel)
-                y_pred = (np.array(predicted_segs[i])>dice_threshold).astype(np.uint8)
+                y_pred = (np.array(predicted_segs[i])>two_pxl_threshold).astype(np.uint8)
 
                 tp_d = sum(sum((y_true_d==1)&(y_pred==1))).item()
                 fp_d = sum(sum((y_true_d==0)&(y_pred==1))).item()
@@ -362,7 +362,7 @@ class End2End:
             re = np.mean(np.array(results)[:, 1])
             f1 = np.mean(np.array(results)[:, 2])
 
-            self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {dice_threshold}")
+            self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
@@ -549,7 +549,7 @@ class End2End:
         metrics['Pr'] = pr_results[f1_max_index]
         metrics['Re'] = re_results[f1_max_index]
         metrics['F1'] = max(f1_results)
-        metrics['threshold'] = thresholds[f1_max_index]
+        metrics['two_pxl_threshold'] = thresholds[f1_max_index]
 
         self._log(f"Best F1: {metrics['F1']:f} at {thresholds[f1_max_index]:f}. Pr: {metrics['Pr']:f}, Re: {metrics['Re']:f}")
                 
