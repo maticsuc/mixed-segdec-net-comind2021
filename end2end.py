@@ -268,7 +268,6 @@ class End2End:
         if is_validation:
             # Računanje thresholda za decision net
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
-            seg_metrics['best_threshold_dec'] = metrics['best_thr']
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
 
@@ -288,6 +287,7 @@ class End2End:
 
             # Najboljši F1, Pr, Re, threshold
             seg_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
+            seg_metrics['best_threshold_dec'] = metrics['best_thr']
 
             # Računanje dice thresholda
             # 1. Minimum maksimalnih pikslov vseh predikcij
@@ -552,6 +552,5 @@ class End2End:
         metrics['threshold'] = thresholds[f1_max_index]
 
         self._log(f"Best F1: {metrics['F1']:f} at {thresholds[f1_max_index]:f}. Pr: {metrics['Pr']:f}, Re: {metrics['Re']:f}")
-        self._log(f"Best threshold: {metrics['threshold']:f}")
                 
         return metrics
