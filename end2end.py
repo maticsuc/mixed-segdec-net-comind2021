@@ -313,7 +313,7 @@ class End2End:
             self._log(f"Racunanje Dice in IoU z zmanjsevanjem segmentacijskega thresholda.")
             threshold_decrease_results = dict()
             step = 0.01
-            for i in np.arange(1, 0.89, -step):
+            for i in np.arange(0.89, 1.11, step):
                 decreased_threshold = seg_metrics['dice_threshold'] * round(i,2)
                 dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=decreased_threshold)
                 threshold_decrease_results[decreased_threshold] = (dice_mean, dice_std, iou_mean, iou_std)
