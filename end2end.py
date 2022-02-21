@@ -310,14 +310,14 @@ class End2End:
                 self._log(f"Najboljsi threshold: {seg_metrics['dice_threshold']}")
             
             # Zmanjševanje thresholda
-            self._log(f"Racunanje Dice in IoU z zmanjsevanjem segmentacijskega thresholda.")
+            self._log(f"Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.")
             threshold_decrease_results = dict()
-            step = 0.01
-            for i in np.arange(0.5, 1.5, step):
-                decreased_threshold = seg_metrics['dice_threshold'] * round(i,2)
+            step = 0.005
+            for i in np.arange(0.01, 1, step):
+                decreased_threshold = i
                 dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=decreased_threshold)
                 threshold_decrease_results[decreased_threshold] = (dice_mean, dice_std, iou_mean, iou_std)
-                print(f"Faktor: {round(i,2)}, Threshold: {decreased_threshold:f}, Dice: {dice_mean}, IoU: {iou_mean}")
+                print(f"Threshold: {decreased_threshold:f}, Dice: {dice_mean}, IoU: {iou_mean}")
             
             best_dice = None
             best_thr = None
