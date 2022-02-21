@@ -303,7 +303,9 @@ class End2End:
             
             # 2. precision_recall, subsampling
             elif self.cfg.DICE_THRESHOLD == 2:
-                dice_metrics = utils.get_metrics(np.array(true_segs, dtype=bool).flatten()[::self.cfg.DICE_THR_FACTOR], np.array(predicted_segs).flatten()[::self.cfg.DICE_THR_FACTOR]) # vsak 10. piksel GT-jev damo v 1D bool array, vsak 10. piksel predicted segmentacij v 1D float array
+                true_segs = np.array(true_segs, dtype=bool)[decisions]
+                predicted_segs = np.array(predicted_segs)[decisions]
+                dice_metrics = utils.get_metrics(true_segs.flatten()[::self.cfg.DICE_THR_FACTOR], predicted_segs.flatten()[::self.cfg.DICE_THR_FACTOR]) # vsak 10. piksel GT-jev damo v 1D bool array, vsak 10. piksel predicted segmentacij v 1D float array
                 dice_threshold = dice_metrics['best_thr']
                 seg_metrics['dice_threshold'] = dice_metrics['best_thr']
             
@@ -392,7 +394,7 @@ class End2End:
     def reload_model(self, model, load_final=False):
         if self.cfg.USE_BEST_MODEL:
             path = os.path.join(self.model_path, "best_state_dict.pth")
-            model.load_state_dict(torch.load(path)) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
+            model.load_state_dict(torch.load(path, map_location='cuda:0')) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
             self._log(f"Loading model state from {path}")
         elif load_final:
             path = os.path.join(self.model_path, "final_state_dict.pth")
