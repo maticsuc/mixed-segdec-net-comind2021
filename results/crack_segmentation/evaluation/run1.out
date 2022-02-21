@@ -1,0 +1,14 @@
+20-02-22 09:26 upsampling_8 Executing run with path ./RESULTS/crack_segmentation/upsampling_8
+20-02-22 09:26 upsampling_8 Loading model state from ./RESULTS/crack_segmentation/upsampling_8/models/best_state_dict.pth
+20-02-22 09:26 VAL: Number of positives: 1483, Number of negatives: 212, Sum: 1695
+20-02-22 09:27 upsampling_8 Validation metrics on VAL set. 2 pixel distance used.
+20-02-22 09:35 upsampling_8 Best F1: 0.699037 at 0.190000. Pr: 0.691583, Re: 0.741404
+20-02-22 09:35 upsampling_8 Best threshold: 0.190000
+20-02-22 11:05 upsampling_8 VALIDATION on VAL set || AUC=0.999759, and AP=0.999965, with best thr=0.532289 at f-measure=0.998 and FP=4, FN=1, TOTAL SAMPLES=1695
+20-02-22 11:05 upsampling_8 From evaluation on VAL set. Dice threshold: 0.137158, Decision threshold: 0.532289
+20-02-22 11:05 TEST: Number of positives: 1483, Number of negatives: 212, Sum: 1695
+20-02-22 11:17 upsampling_8 Decision EVAL on TEST. Pr: 0.996596, Re: 0.993216, F1: 0.994903, Accuracy: 0.991150, Threshold: 0.5322890877723694
+20-02-22 11:17 upsampling_8 Spremenil 226 segmentacij v crne.
+20-02-22 11:27 upsampling_8 Segmentation EVAL on TEST. Dice: mean: 0.689739, std: 0.203279, IOU: mean: 0.561222, std: 0.230603, Dice Threshold: 0.137158
+20-02-22 11:27 upsampling_8 Evaluation metrics on TEST set. 2 pixel distance used.
+20-02-22 11:28 upsampling_8 Pr: 0.680055, Re: 0.753609, F1: 0.697792, threshold: 0.1371578872203827

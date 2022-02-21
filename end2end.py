@@ -303,13 +303,34 @@ class End2End:
             
             # 2. precision_recall, subsampling
             elif self.cfg.DICE_THRESHOLD == 2:
-                true_segs = np.array(true_segs, dtype=bool)[decisions]
-                predicted_segs = np.array(predicted_segs)[decisions]
-                self._log(f"Racunanje najbolsega thresholda na {len(predicted_segs)} primerih.")
-                dice_metrics = utils.get_metrics(true_segs.flatten()[::self.cfg.DICE_THR_FACTOR], predicted_segs.flatten()[::self.cfg.DICE_THR_FACTOR]) # vsak 10. piksel GT-jev damo v 1D bool array, vsak 10. piksel predicted segmentacij v 1D float array
+                self._log(f"Racunanje najbolsega thresholda na {len(np.array(predicted_segs)[decisions])} primerih.")
+                dice_metrics = utils.get_metrics(np.array(true_segs, dtype=bool)[decisions].flatten()[::self.cfg.DICE_THR_FACTOR], np.array(predicted_segs)[decisions].flatten()[::self.cfg.DICE_THR_FACTOR])
                 dice_threshold = dice_metrics['best_thr']
                 seg_metrics['dice_threshold'] = dice_metrics['best_thr']
                 self._log(f"Najboljsi threshold: {seg_metrics['dice_threshold']}")
+            
+            # Zmanjševanje thresholda
+            self._log(f"Racunanje Dice in IoU z zmanjsevanjem segmentacijskega thresholda.")
+            threshold_decrease_results = dict()
+            step = 0.01
+            for i in np.arange(1, 0.89, -step):
+                decreased_threshold = seg_metrics['dice_threshold'] * round(i,2)
+                dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=decreased_threshold)
+                threshold_decrease_results[decreased_threshold] = (dice_mean, dice_std, iou_mean, iou_std)
+                print(f"Faktor: {round(i,2)}, Threshold: {decreased_threshold:f}, Dice: {dice_mean}, IoU: {iou_mean}")
+            
+            best_dice = None
+            best_thr = None
+            for thr, dice_results in threshold_decrease_results.items():
+                if best_dice is None and best_thr is None:
+                    best_dice = dice_results[0]
+                    best_thr = thr
+                if dice_results[0] > best_dice:
+                    best_dice = dice_results[0]
+                    best_thr = thr
+            
+            self._log(f"Best dice threshold: {best_thr}")
+            seg_metrics['dice_threshold'] = best_thr
 
             return metrics["AP"], metrics["accuracy"], seg_metrics
         else:
