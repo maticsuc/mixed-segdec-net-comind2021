@@ -272,7 +272,7 @@ class End2End:
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
 
             # Naredim decisions z izračunanim thresholdom
-            decisions = np.array(predictions) >= metrics['best_thr']
+            decisions = np.array(predictions) > metrics['best_thr']
 
             # Vse predictane non-crack slike pocrnim
             non_crack_seg = np.zeros(predicted_segs[0].shape)
@@ -305,13 +305,15 @@ class End2End:
             elif self.cfg.DICE_THRESHOLD == 2:
                 true_segs = np.array(true_segs, dtype=bool)[decisions]
                 predicted_segs = np.array(predicted_segs)[decisions]
+                self._log(f"Racunanje najbolsega thresholda na {len(predicted_segs)} primerih.")
                 dice_metrics = utils.get_metrics(true_segs.flatten()[::self.cfg.DICE_THR_FACTOR], predicted_segs.flatten()[::self.cfg.DICE_THR_FACTOR]) # vsak 10. piksel GT-jev damo v 1D bool array, vsak 10. piksel predicted segmentacij v 1D float array
                 dice_threshold = dice_metrics['best_thr']
                 seg_metrics['dice_threshold'] = dice_metrics['best_thr']
-            
+                self._log(f"Najboljsi threshold: {seg_metrics['dice_threshold']}")
+
             return metrics["AP"], metrics["accuracy"], seg_metrics
         else:
-            decisions = np.array(predictions) >= dec_threshold
+            decisions = np.array(predictions) > dec_threshold
             tp = sum((np.array(predictions_truths))&(decisions)).item()
             fp = sum((np.array(predictions_truths)==False)&(decisions)).item()
             fn = sum((np.array(predictions_truths))&(decisions==False)).item()
