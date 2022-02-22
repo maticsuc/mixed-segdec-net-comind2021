@@ -35,23 +35,23 @@ class CrackSegmentationDataset(Dataset):
         self.pos_samples = list()
         self.neg_samples = list()
 
-        if self.kind == 'TEST':
-            # Test Positive
-            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_positive'), 'pos')
-            # Test Negative
-            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_negative'), 'neg')
-        
-        elif self.kind == 'TRAIN':
-            # Train Positive
-            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_positive'), 'pos')
-            # Train Negative
-            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_negative'), 'neg')
-
-        elif self.kind == 'VAL':
-            # Val Positive
-            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val_positive'), 'pos')
-            # Val negative
-            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val_negative'), 'neg')
+        if self.cfg.DATASET == 'CRACK500':
+            if self.kind == 'TEST':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test'), 'pos')
+            elif self.kind == 'TRAIN':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train'), 'pos')
+            elif self.kind == 'VAL':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val'), 'pos')
+        else:
+            if self.kind == 'TEST':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_positive'), 'pos')
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_negative'), 'neg')
+            elif self.kind == 'TRAIN':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_positive'), 'pos')
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_negative'), 'neg')
+            elif self.kind == 'VAL':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val_positive'), 'pos')
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val_negative'), 'neg')
 
         self.num_pos = len(self.pos_samples)
         self.num_neg = len(self.neg_samples)

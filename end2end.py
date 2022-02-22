@@ -317,7 +317,6 @@ class End2End:
                 decreased_threshold = i
                 dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=decreased_threshold)
                 threshold_decrease_results[decreased_threshold] = (dice_mean, dice_std, iou_mean, iou_std)
-                print(f"Threshold: {decreased_threshold:f}, Dice: {dice_mean}, IoU: {iou_mean}")
             
             best_dice = None
             best_thr = None
@@ -329,7 +328,7 @@ class End2End:
                     best_dice = dice_results[0]
                     best_thr = thr
             
-            self._log(f"Best dice threshold: {best_thr}")
+            self._log(f"Best Dice: {best_dice} at threshold: {best_thr}")
             seg_metrics['dice_threshold'] = best_thr
 
             return metrics["AP"], metrics["accuracy"], seg_metrics
