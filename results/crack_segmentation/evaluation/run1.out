@@ -11,4 +11,4 @@
 20-02-22 11:17 upsampling_8 Spremenil 226 segmentacij v crne.
 20-02-22 11:27 upsampling_8 Segmentation EVAL on TEST. Dice: mean: 0.689739, std: 0.203279, IOU: mean: 0.561222, std: 0.230603, Dice Threshold: 0.137158
 20-02-22 11:27 upsampling_8 Evaluation metrics on TEST set. 2 pixel distance used.
-20-02-22 11:28 upsampling_8 Pr: 0.680055, Re: 0.753609, F1: 0.697792, threshold: 0.1371578872203827
+20-02-22 11:28 upsampling_8 Pr: 0.680055, Re: 0.753609, F1: 0.697792, threshold: 0.19
