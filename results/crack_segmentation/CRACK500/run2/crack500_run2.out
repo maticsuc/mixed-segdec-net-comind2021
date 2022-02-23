@@ -1,0 +1,287 @@
+nohup: ignoring input
+23-02-22 02:49 CRACK500_Run2 Executing run with path ./RESULTS/CRACK500/CRACK500_Run2
+23-02-22 02:49 CRACK500_Run2 BATCH_SIZE                : 1
+23-02-22 02:49 CRACK500_Run2 BEST_MODEL_TYPE           : seg
+23-02-22 02:49 CRACK500_Run2 DATASET                   : CRACK500
+23-02-22 02:49 CRACK500_Run2 DATASET_PATH              : ./datasets/CRACK500
+23-02-22 02:49 CRACK500_Run2 DELTA_CLS_LOSS            : 0.01
+23-02-22 02:49 CRACK500_Run2 DICE_THRESHOLD            : 3
+23-02-22 02:49 CRACK500_Run2 DICE_THR_FACTOR           : 10
+23-02-22 02:49 CRACK500_Run2 DILATE                    : 1
+23-02-22 02:49 CRACK500_Run2 DYN_BALANCED_LOSS         : True
+23-02-22 02:49 CRACK500_Run2 EPOCHS                    : 50
+23-02-22 02:49 CRACK500_Run2 FOLD                      : None
+23-02-22 02:49 CRACK500_Run2 FREQUENCY_SAMPLING        : False
+23-02-22 02:49 CRACK500_Run2 GPU                       : 3
+23-02-22 02:49 CRACK500_Run2 GRADIENT_ADJUSTMENT       : True
+23-02-22 02:49 CRACK500_Run2 INPUT_CHANNELS            : 3
+23-02-22 02:49 CRACK500_Run2 INPUT_HEIGHT              : 640
+23-02-22 02:49 CRACK500_Run2 INPUT_WIDTH               : 360
+23-02-22 02:49 CRACK500_Run2 LEARNING_RATE             : 1.0
+23-02-22 02:49 CRACK500_Run2 MEMORY_FIT                : 1
+23-02-22 02:49 CRACK500_Run2 NUM_SEGMENTED             : 1896
+23-02-22 02:49 CRACK500_Run2 ON_DEMAND_READ            : False
+23-02-22 02:49 CRACK500_Run2 REPRODUCIBLE_RUN          : False
+23-02-22 02:49 CRACK500_Run2 RESULTS_PATH              : ./RESULTS
+23-02-22 02:49 CRACK500_Run2 SAVE_IMAGES               : True
+23-02-22 02:49 CRACK500_Run2 TRAIN_NUM                 : None
+23-02-22 02:49 CRACK500_Run2 USE_BEST_MODEL            : True
+23-02-22 02:49 CRACK500_Run2 VALIDATE                  : True
+23-02-22 02:49 CRACK500_Run2 VALIDATE_ON_TEST          : False
+23-02-22 02:49 CRACK500_Run2 VALIDATION_N_EPOCHS       : 5
+23-02-22 02:49 CRACK500_Run2 WEIGHTED_SEG_LOSS         : False
+23-02-22 02:49 CRACK500_Run2 WEIGHTED_SEG_LOSS_MAX     : None
+23-02-22 02:49 CRACK500_Run2 WEIGHTED_SEG_LOSS_P       : None
+23-02-22 02:50 TRAIN: Number of positives: 1896, Number of negatives: 0, Sum: 1896
+23-02-22 02:50 VAL: Number of positives: 348, Number of negatives: 0, Sum: 348
+23-02-22 02:50 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_00.pth
+23-02-22 02:50 CRACK500_Run2 Returning seg_loss_weight 1.0 and dec_loss_weight 0.0
+23-02-22 02:50 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 02:58 CRACK500_Run2 Epoch 1/50 ==> avg_loss_seg=0.12439, avg_loss_dec=0.97396, avg_loss=0.12439, correct=5/1896, in 434.85s/epoch (fwd/bck in 425.33s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 02:58 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.256816 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 02:58 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 03:03 CRACK500_Run2 Best F1: 0.736247 at 0.300000. Pr: 0.733165, Re: 0.806104
+23-02-22 03:03 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 03:05 CRACK500_Run2 Best Dice: 0.681680827382985 at threshold: 0.3
+23-02-22 03:05 CRACK500_Run2 New best model based on seg metrics.
+23-02-22 03:05 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/best_state_dict.pth
+23-02-22 03:05 CRACK500_Run2 Returning seg_loss_weight 0.98 and dec_loss_weight 0.0002
+23-02-22 03:05 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 03:12 CRACK500_Run2 Epoch 2/50 ==> avg_loss_seg=0.10452, avg_loss_dec=0.09523, avg_loss=0.10244, correct=1863/1896, in 437.60s/epoch (fwd/bck in 427.92s/epoch)
+23-02-22 03:12 CRACK500_Run2 Returning seg_loss_weight 0.96 and dec_loss_weight 0.0004
+23-02-22 03:12 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 03:20 CRACK500_Run2 Epoch 3/50 ==> avg_loss_seg=0.09705, avg_loss_dec=0.00981, avg_loss=0.09317, correct=1896/1896, in 443.09s/epoch (fwd/bck in 433.03s/epoch)
+23-02-22 03:20 CRACK500_Run2 Returning seg_loss_weight 0.94 and dec_loss_weight 0.0006
+23-02-22 03:20 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 03:27 CRACK500_Run2 Epoch 4/50 ==> avg_loss_seg=0.09236, avg_loss_dec=0.00333, avg_loss=0.08682, correct=1896/1896, in 442.65s/epoch (fwd/bck in 432.60s/epoch)
+23-02-22 03:27 CRACK500_Run2 Returning seg_loss_weight 0.92 and dec_loss_weight 0.0008
+23-02-22 03:27 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 03:34 CRACK500_Run2 Epoch 5/50 ==> avg_loss_seg=0.08783, avg_loss_dec=0.00184, avg_loss=0.08081, correct=1896/1896, in 442.06s/epoch (fwd/bck in 432.55s/epoch)
+23-02-22 03:34 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_05.pth
+23-02-22 03:34 CRACK500_Run2 Returning seg_loss_weight 0.9 and dec_loss_weight 0.001
+23-02-22 03:34 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 03:42 CRACK500_Run2 Epoch 6/50 ==> avg_loss_seg=0.08589, avg_loss_dec=0.00110, avg_loss=0.07730, correct=1896/1896, in 440.75s/epoch (fwd/bck in 431.18s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 03:42 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.996468 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 03:42 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 03:48 CRACK500_Run2 Best F1: 0.795864 at 0.360000. Pr: 0.786598, Re: 0.839594
+23-02-22 03:48 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 03:49 CRACK500_Run2 Best Dice: 0.7439646771464794 at threshold: 0.37999999999999995
+23-02-22 03:49 CRACK500_Run2 New best model based on seg metrics.
+23-02-22 03:49 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/best_state_dict.pth
+23-02-22 03:49 CRACK500_Run2 Returning seg_loss_weight 0.88 and dec_loss_weight 0.0012
+23-02-22 03:49 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 03:56 CRACK500_Run2 Epoch 7/50 ==> avg_loss_seg=0.08357, avg_loss_dec=0.00076, avg_loss=0.07355, correct=1896/1896, in 436.94s/epoch (fwd/bck in 427.31s/epoch)
+23-02-22 03:56 CRACK500_Run2 Returning seg_loss_weight 0.86 and dec_loss_weight 0.0014000000000000002
+23-02-22 03:56 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 04:04 CRACK500_Run2 Epoch 8/50 ==> avg_loss_seg=0.08145, avg_loss_dec=0.00054, avg_loss=0.07005, correct=1896/1896, in 441.74s/epoch (fwd/bck in 431.53s/epoch)
+23-02-22 04:04 CRACK500_Run2 Returning seg_loss_weight 0.84 and dec_loss_weight 0.0016
+23-02-22 04:04 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 04:11 CRACK500_Run2 Epoch 9/50 ==> avg_loss_seg=0.07892, avg_loss_dec=0.00042, avg_loss=0.06629, correct=1896/1896, in 442.30s/epoch (fwd/bck in 432.49s/epoch)
+23-02-22 04:11 CRACK500_Run2 Returning seg_loss_weight 0.8200000000000001 and dec_loss_weight 0.0018
+23-02-22 04:11 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 04:19 CRACK500_Run2 Epoch 10/50 ==> avg_loss_seg=0.07746, avg_loss_dec=0.00033, avg_loss=0.06352, correct=1896/1896, in 443.68s/epoch (fwd/bck in 434.21s/epoch)
+23-02-22 04:19 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_10.pth
+23-02-22 04:19 CRACK500_Run2 Returning seg_loss_weight 0.8 and dec_loss_weight 0.002
+23-02-22 04:19 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 04:26 CRACK500_Run2 Epoch 11/50 ==> avg_loss_seg=0.07643, avg_loss_dec=0.00026, avg_loss=0.06115, correct=1896/1896, in 443.51s/epoch (fwd/bck in 434.59s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 04:26 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999059 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 04:26 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 04:32 CRACK500_Run2 Best F1: 0.806686 at 0.520000. Pr: 0.799195, Re: 0.846357
+23-02-22 04:32 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 04:33 CRACK500_Run2 Best Dice: 0.7503004372150184 at threshold: 0.5399999999999999
+23-02-22 04:33 CRACK500_Run2 New best model based on seg metrics.
+23-02-22 04:33 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/best_state_dict.pth
+23-02-22 04:33 CRACK500_Run2 Returning seg_loss_weight 0.78 and dec_loss_weight 0.0022
+23-02-22 04:33 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 04:40 CRACK500_Run2 Epoch 12/50 ==> avg_loss_seg=0.07425, avg_loss_dec=0.00021, avg_loss=0.05792, correct=1896/1896, in 435.96s/epoch (fwd/bck in 429.17s/epoch)
+23-02-22 04:40 CRACK500_Run2 Returning seg_loss_weight 0.76 and dec_loss_weight 0.0024
+23-02-22 04:40 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 04:48 CRACK500_Run2 Epoch 13/50 ==> avg_loss_seg=0.07289, avg_loss_dec=0.00018, avg_loss=0.05540, correct=1896/1896, in 441.51s/epoch (fwd/bck in 434.31s/epoch)
+23-02-22 04:48 CRACK500_Run2 Returning seg_loss_weight 0.74 and dec_loss_weight 0.0026000000000000003
+23-02-22 04:48 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 04:55 CRACK500_Run2 Epoch 14/50 ==> avg_loss_seg=0.07076, avg_loss_dec=0.00015, avg_loss=0.05236, correct=1896/1896, in 439.63s/epoch (fwd/bck in 432.17s/epoch)
+23-02-22 04:55 CRACK500_Run2 Returning seg_loss_weight 0.72 and dec_loss_weight 0.0028000000000000004
+23-02-22 04:55 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 05:02 CRACK500_Run2 Epoch 15/50 ==> avg_loss_seg=0.06974, avg_loss_dec=0.00013, avg_loss=0.05022, correct=1896/1896, in 441.03s/epoch (fwd/bck in 434.01s/epoch)
+23-02-22 05:02 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_15.pth
+23-02-22 05:02 CRACK500_Run2 Returning seg_loss_weight 0.7 and dec_loss_weight 0.003
+23-02-22 05:02 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 05:10 CRACK500_Run2 Epoch 16/50 ==> avg_loss_seg=0.06692, avg_loss_dec=0.00011, avg_loss=0.04685, correct=1896/1896, in 439.59s/epoch (fwd/bck in 435.98s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 05:10 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999457 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 05:10 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 05:14 CRACK500_Run2 Best F1: 0.798701 at 0.495000. Pr: 0.791919, Re: 0.842171
+23-02-22 05:14 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 05:16 CRACK500_Run2 Best Dice: 0.7442462679225228 at threshold: 0.5149999999999999
+23-02-22 05:16 CRACK500_Run2 Returning seg_loss_weight 0.6799999999999999 and dec_loss_weight 0.0032
+23-02-22 05:16 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 05:23 CRACK500_Run2 Epoch 17/50 ==> avg_loss_seg=0.06417, avg_loss_dec=0.00010, avg_loss=0.04364, correct=1896/1896, in 432.48s/epoch (fwd/bck in 429.82s/epoch)
+23-02-22 05:23 CRACK500_Run2 Returning seg_loss_weight 0.6599999999999999 and dec_loss_weight 0.0034000000000000002
+23-02-22 05:23 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 05:30 CRACK500_Run2 Epoch 18/50 ==> avg_loss_seg=0.06215, avg_loss_dec=0.00009, avg_loss=0.04102, correct=1896/1896, in 438.30s/epoch (fwd/bck in 435.71s/epoch)
+23-02-22 05:30 CRACK500_Run2 Returning seg_loss_weight 0.64 and dec_loss_weight 0.0036
+23-02-22 05:30 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 05:38 CRACK500_Run2 Epoch 19/50 ==> avg_loss_seg=0.05899, avg_loss_dec=0.00008, avg_loss=0.03775, correct=1896/1896, in 438.90s/epoch (fwd/bck in 435.98s/epoch)
+23-02-22 05:38 CRACK500_Run2 Returning seg_loss_weight 0.62 and dec_loss_weight 0.0038
+23-02-22 05:38 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 05:45 CRACK500_Run2 Epoch 20/50 ==> avg_loss_seg=0.05687, avg_loss_dec=0.00007, avg_loss=0.03526, correct=1896/1896, in 439.48s/epoch (fwd/bck in 437.00s/epoch)
+23-02-22 05:45 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_20.pth
+23-02-22 05:45 CRACK500_Run2 Returning seg_loss_weight 0.6 and dec_loss_weight 0.004
+23-02-22 05:45 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 05:52 CRACK500_Run2 Epoch 21/50 ==> avg_loss_seg=0.05454, avg_loss_dec=0.00006, avg_loss=0.03272, correct=1896/1896, in 437.48s/epoch (fwd/bck in 435.75s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 05:53 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999689 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 05:53 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 05:56 CRACK500_Run2 Best F1: 0.794465 at 0.320000. Pr: 0.789551, Re: 0.834593
+23-02-22 05:56 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 05:58 CRACK500_Run2 Best Dice: 0.7413903577533789 at threshold: 0.33499999999999996
+23-02-22 05:58 CRACK500_Run2 Returning seg_loss_weight 0.5800000000000001 and dec_loss_weight 0.0042
+23-02-22 05:58 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 06:05 CRACK500_Run2 Epoch 22/50 ==> avg_loss_seg=0.05207, avg_loss_dec=0.00005, avg_loss=0.03020, correct=1896/1896, in 433.33s/epoch (fwd/bck in 429.41s/epoch)
+23-02-22 06:05 CRACK500_Run2 Returning seg_loss_weight 0.56 and dec_loss_weight 0.0044
+23-02-22 06:05 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 06:12 CRACK500_Run2 Epoch 23/50 ==> avg_loss_seg=0.04824, avg_loss_dec=0.00004, avg_loss=0.02702, correct=1896/1896, in 439.14s/epoch (fwd/bck in 435.19s/epoch)
+23-02-22 06:12 CRACK500_Run2 Returning seg_loss_weight 0.54 and dec_loss_weight 0.0046
+23-02-22 06:12 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 06:20 CRACK500_Run2 Epoch 24/50 ==> avg_loss_seg=0.04760, avg_loss_dec=0.00004, avg_loss=0.02570, correct=1896/1896, in 439.07s/epoch (fwd/bck in 435.44s/epoch)
+23-02-22 06:20 CRACK500_Run2 Returning seg_loss_weight 0.52 and dec_loss_weight 0.0048
+23-02-22 06:20 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 06:27 CRACK500_Run2 Epoch 25/50 ==> avg_loss_seg=0.04343, avg_loss_dec=0.00003, avg_loss=0.02258, correct=1896/1896, in 440.32s/epoch (fwd/bck in 436.46s/epoch)
+23-02-22 06:27 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_25.pth
+23-02-22 06:27 CRACK500_Run2 Returning seg_loss_weight 0.5 and dec_loss_weight 0.005
+23-02-22 06:27 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 06:34 CRACK500_Run2 Epoch 26/50 ==> avg_loss_seg=0.04036, avg_loss_dec=0.00003, avg_loss=0.02018, correct=1896/1896, in 439.62s/epoch (fwd/bck in 435.70s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 06:35 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999840 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 06:35 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 06:39 CRACK500_Run2 Best F1: 0.794041 at 0.415000. Pr: 0.784867, Re: 0.840647
+23-02-22 06:39 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 06:41 CRACK500_Run2 Best Dice: 0.7402877232386322 at threshold: 0.43999999999999995
+23-02-22 06:41 CRACK500_Run2 Returning seg_loss_weight 0.48 and dec_loss_weight 0.005200000000000001
+23-02-22 06:41 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 06:48 CRACK500_Run2 Epoch 27/50 ==> avg_loss_seg=0.03756, avg_loss_dec=0.00002, avg_loss=0.01803, correct=1896/1896, in 433.74s/epoch (fwd/bck in 429.80s/epoch)
+23-02-22 06:48 CRACK500_Run2 Returning seg_loss_weight 0.45999999999999996 and dec_loss_weight 0.0054
+23-02-22 06:48 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 06:55 CRACK500_Run2 Epoch 28/50 ==> avg_loss_seg=0.03519, avg_loss_dec=0.00002, avg_loss=0.01619, correct=1896/1896, in 439.68s/epoch (fwd/bck in 436.07s/epoch)
+23-02-22 06:55 CRACK500_Run2 Returning seg_loss_weight 0.43999999999999995 and dec_loss_weight 0.005600000000000001
+23-02-22 06:55 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 07:03 CRACK500_Run2 Epoch 29/50 ==> avg_loss_seg=0.03309, avg_loss_dec=0.00002, avg_loss=0.01456, correct=1896/1896, in 439.40s/epoch (fwd/bck in 435.53s/epoch)
+23-02-22 07:03 CRACK500_Run2 Returning seg_loss_weight 0.42000000000000004 and dec_loss_weight 0.0058
+23-02-22 07:03 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 07:10 CRACK500_Run2 Epoch 30/50 ==> avg_loss_seg=0.03094, avg_loss_dec=0.00002, avg_loss=0.01299, correct=1896/1896, in 441.00s/epoch (fwd/bck in 434.69s/epoch)
+23-02-22 07:10 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_30.pth
+23-02-22 07:10 CRACK500_Run2 Returning seg_loss_weight 0.4 and dec_loss_weight 0.006
+23-02-22 07:10 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 07:17 CRACK500_Run2 Epoch 31/50 ==> avg_loss_seg=0.02868, avg_loss_dec=0.00001, avg_loss=0.01147, correct=1896/1896, in 438.81s/epoch (fwd/bck in 435.21s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 07:18 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999888 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 07:18 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 07:22 CRACK500_Run2 Best F1: 0.788710 at 0.295000. Pr: 0.770004, Re: 0.845233
+23-02-22 07:22 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 07:24 CRACK500_Run2 Best Dice: 0.7355474333814912 at threshold: 0.33499999999999996
+23-02-22 07:24 CRACK500_Run2 Returning seg_loss_weight 0.38 and dec_loss_weight 0.0062
+23-02-22 07:24 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 07:31 CRACK500_Run2 Epoch 32/50 ==> avg_loss_seg=0.02668, avg_loss_dec=0.00001, avg_loss=0.01014, correct=1896/1896, in 433.10s/epoch (fwd/bck in 429.53s/epoch)
+23-02-22 07:31 CRACK500_Run2 Returning seg_loss_weight 0.36 and dec_loss_weight 0.0064
+23-02-22 07:31 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 07:38 CRACK500_Run2 Epoch 33/50 ==> avg_loss_seg=0.02491, avg_loss_dec=0.00001, avg_loss=0.00897, correct=1896/1896, in 439.11s/epoch (fwd/bck in 435.35s/epoch)
+23-02-22 07:38 CRACK500_Run2 Returning seg_loss_weight 0.33999999999999997 and dec_loss_weight 0.006600000000000001
+23-02-22 07:38 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 07:46 CRACK500_Run2 Epoch 34/50 ==> avg_loss_seg=0.02344, avg_loss_dec=0.00001, avg_loss=0.00797, correct=1896/1896, in 438.51s/epoch (fwd/bck in 434.93s/epoch)
+23-02-22 07:46 CRACK500_Run2 Returning seg_loss_weight 0.31999999999999995 and dec_loss_weight 0.0068000000000000005
+23-02-22 07:46 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 07:53 CRACK500_Run2 Epoch 35/50 ==> avg_loss_seg=0.02195, avg_loss_dec=0.00001, avg_loss=0.00702, correct=1896/1896, in 438.68s/epoch (fwd/bck in 435.09s/epoch)
+23-02-22 07:53 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_35.pth
+23-02-22 07:53 CRACK500_Run2 Returning seg_loss_weight 0.30000000000000004 and dec_loss_weight 0.006999999999999999
+23-02-22 07:53 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 08:00 CRACK500_Run2 Epoch 36/50 ==> avg_loss_seg=0.02059, avg_loss_dec=0.00001, avg_loss=0.00618, correct=1896/1896, in 439.15s/epoch (fwd/bck in 435.64s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 08:01 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999907 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 08:01 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 08:06 CRACK500_Run2 Best F1: 0.786664 at 0.205000. Pr: 0.765238, Re: 0.848204
+23-02-22 08:06 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 08:07 CRACK500_Run2 Best Dice: 0.7331695303511624 at threshold: 0.24499999999999997
+23-02-22 08:07 CRACK500_Run2 Returning seg_loss_weight 0.28 and dec_loss_weight 0.0072
+23-02-22 08:07 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 08:14 CRACK500_Run2 Epoch 37/50 ==> avg_loss_seg=0.01932, avg_loss_dec=0.00001, avg_loss=0.00541, correct=1896/1896, in 433.99s/epoch (fwd/bck in 429.61s/epoch)
+23-02-22 08:14 CRACK500_Run2 Returning seg_loss_weight 0.26 and dec_loss_weight 0.0074
+23-02-22 08:14 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 08:22 CRACK500_Run2 Epoch 38/50 ==> avg_loss_seg=0.01824, avg_loss_dec=0.00000, avg_loss=0.00474, correct=1896/1896, in 439.18s/epoch (fwd/bck in 437.42s/epoch)
+23-02-22 08:22 CRACK500_Run2 Returning seg_loss_weight 0.24 and dec_loss_weight 0.0076
+23-02-22 08:22 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 08:29 CRACK500_Run2 Epoch 39/50 ==> avg_loss_seg=0.01715, avg_loss_dec=0.00000, avg_loss=0.00412, correct=1896/1896, in 439.27s/epoch (fwd/bck in 436.90s/epoch)
+23-02-22 08:29 CRACK500_Run2 Returning seg_loss_weight 0.21999999999999997 and dec_loss_weight 0.0078000000000000005
+23-02-22 08:29 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 08:36 CRACK500_Run2 Epoch 40/50 ==> avg_loss_seg=0.01614, avg_loss_dec=0.00000, avg_loss=0.00355, correct=1896/1896, in 439.35s/epoch (fwd/bck in 436.05s/epoch)
+23-02-22 08:36 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_40.pth
+23-02-22 08:36 CRACK500_Run2 Returning seg_loss_weight 0.19999999999999996 and dec_loss_weight 0.008
+23-02-22 08:36 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 08:44 CRACK500_Run2 Epoch 41/50 ==> avg_loss_seg=0.01531, avg_loss_dec=0.00000, avg_loss=0.00306, correct=1896/1896, in 439.29s/epoch (fwd/bck in 436.34s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 08:44 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999953 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 08:44 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 08:48 CRACK500_Run2 Best F1: 0.781576 at 0.290000. Pr: 0.763485, Re: 0.839374
+23-02-22 08:48 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 08:50 CRACK500_Run2 Best Dice: 0.7281302289262422 at threshold: 0.32999999999999996
+23-02-22 08:50 CRACK500_Run2 Returning seg_loss_weight 0.18000000000000005 and dec_loss_weight 0.008199999999999999
+23-02-22 08:50 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 08:57 CRACK500_Run2 Epoch 42/50 ==> avg_loss_seg=0.01446, avg_loss_dec=0.00000, avg_loss=0.00260, correct=1896/1896, in 432.23s/epoch (fwd/bck in 429.59s/epoch)
+23-02-22 08:57 CRACK500_Run2 Returning seg_loss_weight 0.16000000000000003 and dec_loss_weight 0.0084
+23-02-22 08:57 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 09:04 CRACK500_Run2 Epoch 43/50 ==> avg_loss_seg=0.01370, avg_loss_dec=0.00000, avg_loss=0.00219, correct=1896/1896, in 438.71s/epoch (fwd/bck in 435.07s/epoch)
+23-02-22 09:04 CRACK500_Run2 Returning seg_loss_weight 0.14 and dec_loss_weight 0.0086
+23-02-22 09:04 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 09:12 CRACK500_Run2 Epoch 44/50 ==> avg_loss_seg=0.01302, avg_loss_dec=0.00000, avg_loss=0.00182, correct=1896/1896, in 437.63s/epoch (fwd/bck in 434.27s/epoch)
+23-02-22 09:12 CRACK500_Run2 Returning seg_loss_weight 0.12 and dec_loss_weight 0.0088
+23-02-22 09:12 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 09:19 CRACK500_Run2 Epoch 45/50 ==> avg_loss_seg=0.01239, avg_loss_dec=0.00000, avg_loss=0.00149, correct=1896/1896, in 438.66s/epoch (fwd/bck in 435.67s/epoch)
+23-02-22 09:19 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/ep_45.pth
+23-02-22 09:19 CRACK500_Run2 Returning seg_loss_weight 0.09999999999999998 and dec_loss_weight 0.009000000000000001
+23-02-22 09:19 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 09:26 CRACK500_Run2 Epoch 46/50 ==> avg_loss_seg=0.01182, avg_loss_dec=0.00000, avg_loss=0.00118, correct=1896/1896, in 440.19s/epoch (fwd/bck in 436.57s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 09:27 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999984 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 09:27 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 09:31 CRACK500_Run2 Best F1: 0.775853 at 0.240000. Pr: 0.756276, Re: 0.837931
+23-02-22 09:31 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 09:32 CRACK500_Run2 Best Dice: 0.7229298700624326 at threshold: 0.29
+23-02-22 09:32 CRACK500_Run2 Returning seg_loss_weight 0.07999999999999996 and dec_loss_weight 0.0092
+23-02-22 09:32 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 09:39 CRACK500_Run2 Epoch 47/50 ==> avg_loss_seg=0.01137, avg_loss_dec=0.00000, avg_loss=0.00091, correct=1896/1896, in 433.26s/epoch (fwd/bck in 429.90s/epoch)
+23-02-22 09:39 CRACK500_Run2 Returning seg_loss_weight 0.06000000000000005 and dec_loss_weight 0.0094
+23-02-22 09:39 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 09:47 CRACK500_Run2 Epoch 48/50 ==> avg_loss_seg=0.01097, avg_loss_dec=0.00000, avg_loss=0.00066, correct=1896/1896, in 439.40s/epoch (fwd/bck in 435.94s/epoch)
+23-02-22 09:47 CRACK500_Run2 Returning seg_loss_weight 0.040000000000000036 and dec_loss_weight 0.0096
+23-02-22 09:47 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 09:54 CRACK500_Run2 Epoch 49/50 ==> avg_loss_seg=0.01070, avg_loss_dec=0.00000, avg_loss=0.00043, correct=1896/1896, in 438.81s/epoch (fwd/bck in 436.25s/epoch)
+23-02-22 09:54 CRACK500_Run2 Returning seg_loss_weight 0.020000000000000018 and dec_loss_weight 0.0098
+23-02-22 09:54 CRACK500_Run2 Returning dec_gradient_multiplier 0
+23-02-22 10:01 CRACK500_Run2 Epoch 50/50 ==> avg_loss_seg=0.01053, avg_loss_dec=0.00000, avg_loss=0.00021, correct=1896/1896, in 440.29s/epoch (fwd/bck in 435.16s/epoch)
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+23-02-22 10:02 CRACK500_Run2 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.999987 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+23-02-22 10:02 CRACK500_Run2 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+23-02-22 10:05 CRACK500_Run2 Best F1: 0.772875 at 0.235000. Pr: 0.754272, Re: 0.834661
+23-02-22 10:05 CRACK500_Run2 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+23-02-22 10:07 CRACK500_Run2 Best Dice: 0.7199616975921066 at threshold: 0.26499999999999996
+23-02-22 10:07 CRACK500_Run2 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run2/models/final_state_dict.pth
+23-02-22 10:07 CRACK500_Run2 Loading model state from ./RESULTS/CRACK500/CRACK500_Run2/models/best_state_dict.pth
+23-02-22 10:07 TEST: Number of positives: 1124, Number of negatives: 0, Sum: 1124
+23-02-22 10:15 CRACK500_Run2 Decision EVAL on TEST. Pr: 1.000000, Re: 0.996441, F1: 0.998217, Accuracy: 0.996441, Threshold: 0.9990587830543518
+23-02-22 10:15 CRACK500_Run2 TP: 1120, FP: 0, FN: 4, TN: 0
+23-02-22 10:23 CRACK500_Run2 Segmentation EVAL on TEST. Dice: mean: 0.686590, std: 0.151395, IOU: mean: 0.541003, std: 0.160257, Dice Threshold: 0.540000
+23-02-22 10:23 CRACK500_Run2 Evaluation metrics on TEST set. 2 pixel distance used.
+23-02-22 10:23 CRACK500_Run2 Pr: 0.746946, Re: 0.786900, F1: 0.747593, threshold: 0.5200000000000004

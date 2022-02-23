@@ -61,25 +61,25 @@ class End2End:
 
         tensorboard_writer = SummaryWriter(log_dir=self.tensorboard_path) if WRITE_TENSORBOARD else None
 
-        losses, validation_data, best_model_threshold, validation_metrics = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, validation_loader, tensorboard_writer)
+        losses, validation_data, best_model_metrics, validation_metrics = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, validation_loader, tensorboard_writer)
         train_results = (losses, validation_data, validation_metrics)
         self._save_train_results(train_results)
         self._save_model(model)
 
-        self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, dice_threshold=best_model_threshold)
+        self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, dice_threshold=best_model_metrics['dice_threshold'], best_model_metrics=best_model_metrics)
 
         # Dodana evalvacija na TRAIN setu
         #self.eval(model=model, device=device, save_images=False, plot_seg=False, reload_final=False, dice_threshold=dice_threshold, eval_loader=train_loader)
 
         self._save_params()
 
-    def eval(self, model, device, save_images, plot_seg, reload_final, dice_threshold, eval_loader=None):
+    def eval(self, model, device, save_images, plot_seg, reload_final, dice_threshold, eval_loader=None, best_model_metrics=None):
         self.reload_model(model, reload_final)
         is_validation = True
         if eval_loader is None:
             eval_loader = get_dataset("TEST", self.cfg)
             is_validation = False
-        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dice_threshold=dice_threshold)
+        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dice_threshold=dice_threshold, dec_threshold=best_model_metrics['best_threshold_dec'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
@@ -209,14 +209,14 @@ class End2End:
                 elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['F1'] > best_f1:
                     self._log(f"New best model based on {self.cfg.BEST_MODEL_TYPE} metrics.")
                     self._save_model(model, "best_state_dict.pth")
-                    best_model_threshold = val_metrics['threshold']
+                    best_model_metrics = val_metrics
                     best_f1 = val_metrics['F1']
 
                 model.train()
                 if tensorboard_writer is not None:
                     tensorboard_writer.add_scalar("Accuracy/Validation/", validation_accuracy, epoch)
 
-        return losses, validation_data, best_model_threshold, validation_metrics
+        return losses, validation_data, best_model_metrics, validation_metrics
 
     def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None, two_pxl_threshold=None):
         model.eval()
@@ -416,7 +416,7 @@ class End2End:
     def reload_model(self, model, load_final=False):
         if self.cfg.USE_BEST_MODEL:
             path = os.path.join(self.model_path, "best_state_dict.pth")
-            model.load_state_dict(torch.load(path, map_location='cuda:0')) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
+            model.load_state_dict(torch.load(path)) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
             self._log(f"Loading model state from {path}")
         elif load_final:
             path = os.path.join(self.model_path, "final_state_dict.pth")
@@ -539,7 +539,7 @@ class End2End:
             k, v = l.split(":")
             self._log(f"{k:25s} : {str(v.strip())}")
         
-    def seg_val_metrics(self, truth_segmentations, predicted_segmentations, dataset_kind, threshold_step=0.01, pxl_distance=2):
+    def seg_val_metrics(self, truth_segmentations, predicted_segmentations, dataset_kind, threshold_step=0.005, pxl_distance=2):
         n_samples = len(truth_segmentations)
         kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
         thresholds, pr_results, re_results, f1_results = [], [], [], []
