@@ -128,6 +128,6 @@ Primerjava **Run 3** in **Original** run-a.
 Za 1.0 se je spremenilo 17 primerov.
 
 ## Outputs
-[Run 1](./upsampling_7/run1.out)
-[Run 2](./upsampling_7/run2.out)
-[Run 3](./upsampling_7/run3.out)
+[Run 1](./run1.out)
+[Run 2](./run2.out)
+[Run 3](./run3.out)

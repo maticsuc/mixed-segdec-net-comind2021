@@ -139,7 +139,7 @@ class End2End:
         validation_data = []
         validation_metrics = []
         max_validation = -1
-        best_f1 = -1
+        best_dice = -1
         validation_step = self.cfg.VALIDATION_N_EPOCHS
 
         num_epochs = self.cfg.EPOCHS
@@ -206,11 +206,17 @@ class End2End:
                     self._save_model(model, "best_state_dict.pth")
                     max_validation = validation_ap
 
-                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['F1'] > best_f1:
+                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['best_dice'] > best_dice:
                     self._log(f"New best model based on {self.cfg.BEST_MODEL_TYPE} metrics.")
                     self._save_model(model, "best_state_dict.pth")
                     best_model_metrics = val_metrics
-                    best_f1 = val_metrics['F1']
+                    best_dice = val_metrics['best_dice']
+                
+                elif self.cfg.BEST_MODEL_TYPE == "both" and ((validation_ap > max_validation and val_metrics['best_dice'] >= best_dice) or (val_metrics['best_dice'] > best_dice and validation_ap >= max_validation)):
+                    max_validation = validation_ap
+                    best_dice = val_metrics['best_dice']
+                    self._save_model(model, "best_state_dict.pth")
+                    best_model_metrics = val_metrics
 
                 model.train()
                 if tensorboard_writer is not None:
@@ -330,6 +336,7 @@ class End2End:
             
             self._log(f"Best Dice: {best_dice} at threshold: {best_thr}")
             seg_metrics['dice_threshold'] = best_thr
+            seg_metrics['best_dice'] = best_dice
 
             return metrics["AP"], metrics["accuracy"], seg_metrics
         else:
