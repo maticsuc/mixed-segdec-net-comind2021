@@ -1,3 +1,4 @@
+from curses import color_content
 import cv2
 import numpy as np
 import torch
@@ -5,6 +6,7 @@ from scipy.ndimage.morphology import distance_transform_edt
 from scipy.signal import convolve2d
 from config import Config
 from torchvision.transforms import functional as F
+from torchvision.transforms import transforms as T
 
 
 class Dataset(torch.utils.data.Dataset):
@@ -87,7 +89,7 @@ class Dataset(torch.utils.data.Dataset):
         self.counter = self.counter + 1
 
         # Augmentacija
-        if self.cfg.AUGMENTATION and self.kind != 'TEST':
+        if self.cfg.AUGMENTATION and self.kind == 'TRAIN':
             p1 = 0.5
             p2 = 0.1
             if torch.rand(1) < p1:
@@ -102,7 +104,11 @@ class Dataset(torch.utils.data.Dataset):
                 # 180 Rotation
                 if torch.rand(1) < p2:
                     image = F.rotate(image, 180)
-                    seg_mask = F.rotate(seg_mask, 180)             
+                    seg_mask = F.rotate(seg_mask, 180)
+                # Color Jittering
+                if torch.rand(1) < p2:
+                    color_jitter = T.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5)
+                    image = color_jitter(image)
 
         return image, seg_mask, is_segmented, sample_name, is_pos
 
