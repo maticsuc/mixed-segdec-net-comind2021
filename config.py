@@ -49,6 +49,7 @@ class Config:
     DICE_THR_FACTOR = 10 # Factor of subsampling if dice threshold is 2. Set 1 for no subsampling
 
     BEST_MODEL_TYPE = "dec"
+    AUGMENTATION = False
 
     def init_extra(self):
         if self.WEIGHTED_SEG_LOSS and (self.WEIGHTED_SEG_LOSS_P is None or self.WEIGHTED_SEG_LOSS_MAX is None):
@@ -138,6 +139,7 @@ class Config:
         self.DICE_THR_FACTOR = args.DICE_THR_FACTOR
 
         self.BEST_MODEL_TYPE = args.BEST_MODEL_TYPE
+        self.AUGMENTATION = args.AUGMENTATION
 
         if args.FOLD is not None: self.FOLD = args.FOLD
         if args.TRAIN_NUM is not None: self.TRAIN_NUM = args.TRAIN_NUM
@@ -185,7 +187,8 @@ class Config:
             "DILATE": self.DILATE,
             "DICE_THRESHOLD": self.DICE_THRESHOLD,
             "DICE_THR_FACTOR": self.DICE_THR_FACTOR,
-            "BEST_MODEL_TYPE": self.BEST_MODEL_TYPE
+            "BEST_MODEL_TYPE": self.BEST_MODEL_TYPE,
+            "AUGMENTATION": self.AUGMENTATION
         }
         return params
 
@@ -225,5 +228,6 @@ def load_from_dict(dictionary):
     cfg.DICE_THRESHOLD = dictionary.get("DICE_THRESHOLD", None)
     cfg.DICE_THR_FACTOR = dictionary.get("DICE_THR_FACTOR", None)
     cfg.BEST_MODEL_TYPE = dictionary.get("BEST_MODEL_TYPE", None)
+    cfg.AUGMENTATION = dictionary.get("AUGMENTATION", None)
 
     return cfg

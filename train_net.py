@@ -50,6 +50,8 @@ def parse_args():
 
     parser.add_argument('--BEST_MODEL_TYPE', type=str, default="dec", required=False, help="Best model save depend on segmentation or decision.")
 
+    parser.add_argument('--AUGMENTATION', type=str2bool, default=False, required=False, help="Wheter to use data augmentation.")
+
     args = parser.parse_args()
 
     return args

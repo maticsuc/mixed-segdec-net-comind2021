@@ -4,6 +4,7 @@ import torch
 from scipy.ndimage.morphology import distance_transform_edt
 from scipy.signal import convolve2d
 from config import Config
+from torchvision.transforms import functional as F
 
 
 class Dataset(torch.utils.data.Dataset):
@@ -84,6 +85,24 @@ class Dataset(torch.utils.data.Dataset):
             seg_loss_mask = self.to_tensor(self.downsize(seg_loss_mask))
 
         self.counter = self.counter + 1
+
+        # Augmentacija
+        if self.cfg.AUGMENTATION and self.kind != 'TEST':
+            p1 = 0.5
+            p2 = 0.1
+            if torch.rand(1) < p1:
+                # Horizontal flip
+                if torch.rand(1) < p2:
+                    image = F.hflip(image)
+                    seg_mask = F.hflip(seg_mask)
+                # Vertical flip
+                if torch.rand(1) < p2:
+                    image = F.vflip(image)
+                    seg_mask = F.vflip(seg_mask)
+                # 180 Rotation
+                if torch.rand(1) < p2:
+                    image = F.rotate(image, 180)
+                    seg_mask = F.rotate(seg_mask, 180)             
 
         return image, seg_mask, is_segmented, sample_name, is_pos
 
