@@ -68,9 +68,6 @@ class End2End:
 
         self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, dice_threshold=best_model_metrics['dice_threshold'], best_model_metrics=best_model_metrics)
 
-        # Dodana evalvacija na TRAIN setu
-        #self.eval(model=model, device=device, save_images=False, plot_seg=False, reload_final=False, dice_threshold=dice_threshold, eval_loader=train_loader)
-
         self._save_params()
 
     def eval(self, model, device, save_images, plot_seg, reload_final, dice_threshold, eval_loader=None, best_model_metrics=None):
@@ -79,7 +76,7 @@ class End2End:
         if eval_loader is None:
             eval_loader = get_dataset("TEST", self.cfg)
             is_validation = False
-        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dice_threshold=dice_threshold, dec_threshold=best_model_metrics['dec_threshold'])
+        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dice_threshold=dice_threshold, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
@@ -140,6 +137,7 @@ class End2End:
         validation_metrics = []
         max_validation = -1
         best_dice = -1
+        best_f1 = -1
         validation_step = self.cfg.VALIDATION_N_EPOCHS
 
         num_epochs = self.cfg.EPOCHS
@@ -206,11 +204,11 @@ class End2End:
                     self._save_model(model, "best_state_dict.pth")
                     max_validation = validation_ap
 
-                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['dice_score'] > best_dice:
+                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['F1'] > best_f1:
                     self._log(f"New best model based on {self.cfg.BEST_MODEL_TYPE} metrics.")
                     self._save_model(model, "best_state_dict.pth")
                     best_model_metrics = val_metrics
-                    best_dice = val_metrics['dice_score']
+                    best_f1 = val_metrics['F1']
                 
                 elif self.cfg.BEST_MODEL_TYPE == "both" and ((validation_ap > max_validation and val_metrics['dice_score'] >= best_dice) or (val_metrics['dice_score'] > best_dice and validation_ap >= max_validation)):
                     self._save_model(model, "best_state_dict.pth")
@@ -275,19 +273,20 @@ class End2End:
                 utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
 
         if is_validation:
-            # RUN 1
-            val_metrics = dict()
             # Računanje thresholda za decision net
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
+            
+            # Najboljši F1, Pr, Re, threshold
+            val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
             val_metrics['dec_threshold'] = metrics['best_thr']
 
+            """
             # Naredim decisions z izračunanim thresholdom
             #decisions = np.array(predictions) > metrics['best_thr']
 
             # Vse predictane non-crack slike pocrnim
-            """
             non_crack_seg = np.zeros(predicted_segs[0].shape)
             non_crack_counter = 0
 
@@ -298,10 +297,6 @@ class End2End:
             
             self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
 
-            # Najboljši F1, Pr, Re, threshold
-            seg_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
-            seg_metrics['best_threshold_dec'] = metrics['best_thr']
-            """
             # Računanje dice thresholda
             # 1. Minimum maksimalnih pikslov vseh predikcij
             if self.cfg.DICE_THRESHOLD == 1:
@@ -321,9 +316,9 @@ class End2End:
                 val_metrics['dice_threshold'] = dice_metrics['best_thr']
                 val_metrics['dice_score'] = dice_metrics['best_f_measure']
                 self._log(f"Dice: {val_metrics['dice_score']}, threshold: {val_metrics['dice_threshold']}")
+            """
             
             # Zmanjševanje thresholda
-            """
             self._log(f"Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.")
             threshold_decrease_results = dict()
             step = 0.005
@@ -343,9 +338,8 @@ class End2End:
                     best_thr = thr
             
             self._log(f"Best Dice: {best_dice} at threshold: {best_thr}")
-            seg_metrics['dice_threshold'] = best_thr
-            seg_metrics['best_dice'] = best_dice
-            """
+            val_metrics['dice_threshold'] = best_thr
+            val_metrics['dice_score'] = best_dice
 
             return metrics["AP"], metrics["accuracy"], val_metrics
         else:
@@ -380,6 +374,7 @@ class End2End:
             
             self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
 
+            """
             n_samples = len(true_segs)
             pxl_distance = 2
             kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
@@ -406,7 +401,6 @@ class End2End:
             f1 = np.mean(np.array(results)[:, 2])
 
             self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
-            """
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
@@ -478,7 +472,6 @@ class End2End:
         
         # Dice & IOU plot
         if len(validation_metrics) != 0:
-            """
             epochs, metrics = map(list, zip(*validation_metrics))
             f1 = [i['F1'] for i in metrics]
             pr = [i['Pr'] for i in metrics]
@@ -491,7 +484,6 @@ class End2End:
             plt.ylabel("Score")
             plt.legend()
             plt.savefig(os.path.join(self.run_path, "scores"), dpi=200)
-            """
 
         # Loss plot
         # Loss
