@@ -234,9 +234,9 @@ class End2End:
         predicted_segs_pos, predicted_segs_neg = [], []
 
         for data_point in eval_loader:
-            image, seg_mask, _, sample_name, _ = data_point
+            image, seg_mask, _, sample_name, is_pos = data_point
             image, seg_mask = image.to(device), seg_mask.to(device)
-            is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
+            #is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
             prediction, seg_mask_predicted = model(image)
             prediction = nn.Sigmoid()(prediction)
             seg_mask_predicted = nn.Sigmoid()(seg_mask_predicted)
