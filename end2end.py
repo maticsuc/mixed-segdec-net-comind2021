@@ -277,12 +277,13 @@ class End2End:
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
-            
+            val_metrics = dict()
+            val_metrics['dec_threshold'] = metrics['best_thr']
+            """
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
             val_metrics['dec_threshold'] = metrics['best_thr']
 
-            """
             # Naredim decisions z izračunanim thresholdom
             #decisions = np.array(predictions) > metrics['best_thr']
 
@@ -374,7 +375,6 @@ class End2End:
             
             self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
 
-            """
             n_samples = len(true_segs)
             pxl_distance = 2
             kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
@@ -401,6 +401,7 @@ class End2End:
             f1 = np.mean(np.array(results)[:, 2])
 
             self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
+            """
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
