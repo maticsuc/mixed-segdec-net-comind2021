@@ -237,6 +237,7 @@ class End2End:
             image, seg_mask, _, sample_name, is_pos = data_point
             image, seg_mask = image.to(device), seg_mask.to(device)
             #is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
+            is_pos = is_pos.item()
             prediction, seg_mask_predicted = model(image)
             prediction = nn.Sigmoid()(prediction)
             seg_mask_predicted = nn.Sigmoid()(seg_mask_predicted)
@@ -431,7 +432,7 @@ class End2End:
     def reload_model(self, model, load_final=False):
         if self.cfg.USE_BEST_MODEL:
             path = os.path.join(self.model_path, "best_state_dict.pth")
-            model.load_state_dict(torch.load(path)) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
+            model.load_state_dict(torch.load(path, map_location='cuda:0')) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
             self._log(f"Loading model state from {path}")
         elif load_final:
             path = os.path.join(self.model_path, "final_state_dict.pth")
