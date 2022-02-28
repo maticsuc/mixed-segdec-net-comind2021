@@ -46,4 +46,4 @@ end2end._log(f"From evaluation on VAL set. Dice threshold: {val_metrics['dice_th
 # Evalvacija na TEST setu
 
 test_loader = get_dataset("TEST", end2end.cfg)
-end2end.eval_model(device=device, model=model, eval_loader=test_loader, save_folder=end2end.outputs_path, save_images=end2end.cfg.SAVE_IMAGES, is_validation=False, plot_seg=False, dice_threshold=val_metrics['dice_threshold'], dec_threshold=val_metrics['dec_threshold'])
+end2end.eval_model(device=device, model=model, eval_loader=test_loader, save_folder=end2end.outputs_path, save_images=end2end.cfg.SAVE_IMAGES, is_validation=False, plot_seg=False, dice_threshold=val_metrics['dice_threshold'], dec_threshold=val_metrics['dec_threshold'], faktor=val_metrics['faktor'])

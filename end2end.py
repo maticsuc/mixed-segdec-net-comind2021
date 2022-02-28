@@ -222,7 +222,7 @@ class End2End:
 
         return losses, validation_data, best_model_metrics, validation_metrics
 
-    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None, two_pxl_threshold=None):
+    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None, two_pxl_threshold=None, faktor=None):
         model.eval()
 
         dsize = self.cfg.INPUT_WIDTH, self.cfg.INPUT_HEIGHT
@@ -334,11 +334,12 @@ class End2End:
             step = 0.005
             for i in np.arange(0.01, 1, step):
                 decreased_threshold = i
-                dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=decreased_threshold)
-                threshold_decrease_results[decreased_threshold] = (dice_mean, dice_std, iou_mean, iou_std)
+                dice_mean, dice_std, iou_mean, iou_std, faktor = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=decreased_threshold, decisions=decisions, is_validation=True)
+                threshold_decrease_results[decreased_threshold] = (dice_mean, dice_std, iou_mean, iou_std, faktor)
             
             best_dice = None
             best_thr = None
+            best_faktor = None
             for thr, dice_results in threshold_decrease_results.items():
                 if best_dice is None and best_thr is None:
                     best_dice = dice_results[0]
@@ -346,10 +347,13 @@ class End2End:
                 if dice_results[0] > best_dice:
                     best_dice = dice_results[0]
                     best_thr = thr
+                    best_faktor = dice_results[4]
             
             self._log(f"Best Dice: {best_dice} at threshold: {best_thr}")
+            self._log(f"Faktor za zmanjsevanje thresholda glede na max pixel v primerih crne segmentacije: {best_faktor}")
             val_metrics['dice_threshold'] = best_thr
             val_metrics['dice_score'] = best_dice
+            val_metrics['faktor'] = best_faktor
 
             return metrics["AP"], metrics["accuracy"], val_metrics
         else:
@@ -389,7 +393,7 @@ class End2End:
                 file.write(sample + "\n")
             file.close()
 
-            dice_mean, dice_std, iou_mean, iou_std = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions)
+            dice_mean, dice_std, iou_mean, iou_std, faktor = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions, faktor=faktor)
             
             self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
 

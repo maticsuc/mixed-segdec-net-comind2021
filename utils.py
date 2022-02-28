@@ -153,11 +153,13 @@ def get_metrics(labels, predictions):
     metrics['accuracy'] = (sum(TP) + sum(TN)) / (sum(TP) + sum(TN) + sum(FP) + sum(FN))
     return metrics
 
-def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=None, image_names=None, run_path=None, decisions=None):
+def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=None, image_names=None, run_path=None, decisions=None, is_validation=False, faktor=None):
 
     results_dice = []
     result_iou = []
     spusceni_thresholdi = []
+    faktorji_spustitve_thresholdov = []
+    mean_faktor = None
 
     # Preverimo ali so vsi listi enako dolgi
     if images is not None:
@@ -180,13 +182,31 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
         # Naredimo binarne maske s ustreznim thresholdom
         seg_pred_bin = (seg_pred > seg_threshold).astype(np.uint8)
 
-        if decisions is not None:
-            faktor = 0.95
+        # Beljenje črnih segmentacij, ki so klasificirane kot razpoke
+        if not is_validation and decisions is not None and faktor is not None:
             # Primer klasificiran kot razpoka, segmentacija pa crna - spustimo threshold na max pixel * faktor
             if decisions[i] and seg_pred_bin.max().item() == 0:
                 spuscen_threshold = faktor * seg_pred.max().item()
                 seg_pred_bin = (seg_pred > spuscen_threshold).astype(np.uint8)
                 spusceni_thresholdi.append(image_names[i])
+
+        # Računanje najboljšega faktorja za zmanjševanje thresholda (VALIDACIJA)
+        if is_validation and decisions is not None:
+            # Primer klasificiran kot razpoka, segmentacija pa crna - spustimo threshold na max pixel * faktor
+            if decisions[i] and seg_pred_bin.max().item() == 0:
+                best_dice = -1
+                best_faktor = -1
+                step = 0.01
+                for i in np.arange(0.01, 1, step):
+                    i = round(i, 2)
+                    spuscen_threshold = i * seg_pred.max().item()
+                    seg_pred_bin = (seg_pred > spuscen_threshold).astype(np.uint8)
+                    dice = (2 * (seg_true_bin * seg_pred_bin).sum() + 1e-15) / (seg_true_bin.sum() + seg_pred_bin.sum() + 1e-15)
+                    if dice > best_dice:
+                        best_dice = dice
+                        best_faktor = i
+
+            faktorji_spustitve_thresholdov.append(best_faktor)           
 
         # Dice
         dice = (2 * (seg_true_bin * seg_pred_bin).sum() + 1e-15) / (seg_true_bin.sum() + seg_pred_bin.sum() + 1e-15)
@@ -243,5 +263,8 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
             file.write(sample + "\n")
         file.close()
 
+    if len(faktorji_spustitve_thresholdov) > 0:
+        mean_faktor = np.mean(np.array(faktorji_spustitve_thresholdov))
+
     # Vrnemo povprečno vrednost ter standardno deviacijo za dice in IOU
-    return np.mean(results_dice), np.std(results_dice), np.mean(result_iou), np.std(result_iou)
+    return np.mean(results_dice), np.std(results_dice), np.mean(result_iou), np.std(result_iou), mean_faktor
