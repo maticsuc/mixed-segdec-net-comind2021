@@ -205,8 +205,7 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
                     if dice > best_dice:
                         best_dice = dice
                         best_faktor = i
-
-            faktorji_spustitve_thresholdov.append(best_faktor)           
+                faktorji_spustitve_thresholdov.append(best_faktor)           
 
         # Dice
         dice = (2 * (seg_true_bin * seg_pred_bin).sum() + 1e-15) / (seg_true_bin.sum() + seg_pred_bin.sum() + 1e-15)
