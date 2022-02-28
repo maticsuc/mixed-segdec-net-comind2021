@@ -180,7 +180,7 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
         # Naredimo binarne maske s ustreznim thresholdom
         seg_pred_bin = (seg_pred > seg_threshold).astype(np.uint8)
 
-        if decisions:
+        if decisions is not None:
             faktor = 0.95
             # Primer klasificiran kot razpoka, segmentacija pa crna - spustimo threshold na max pixel * faktor
             if decisions[i] and seg_pred_bin.max().item() == 0:
