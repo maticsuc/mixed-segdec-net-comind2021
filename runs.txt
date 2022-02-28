@@ -64,3 +64,9 @@ nohup python -u train_net.py --GPU 0 --RUN_NAME run1 --DATASET crack_segmentatio
 Evaluation
 Run 2
 nohup python -u manual_eval.py > run2.out 2>&1 &
+
+Run 3
+nohup python -u manual_eval.py > run3.out 2>&1 &
+
+Run 4
+nohup python -u manual_eval.py > run4.out 2>&1 &

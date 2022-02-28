@@ -157,6 +157,7 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
 
     results_dice = []
     result_iou = []
+    spusceni_thresholdi = []
 
     # Preverimo ali so vsi listi enako dolgi
     if images is not None:
@@ -178,6 +179,14 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
 
         # Naredimo binarne maske s ustreznim thresholdom
         seg_pred_bin = (seg_pred > seg_threshold).astype(np.uint8)
+
+        if decisions:
+            faktor = 0.95
+            # Primer klasificiran kot razpoka, segmentacija pa crna - spustimo threshold na max pixel * faktor
+            if decisions[i] and seg_pred_bin.max().item() == 0:
+                spuscen_threshold = faktor * seg_pred.max().item()
+                seg_pred_bin = (seg_pred > spuscen_threshold).astype(np.uint8)
+                spusceni_thresholdi.append(image_names[i])
 
         # Dice
         dice = (2 * (seg_true_bin * seg_pred_bin).sum() + 1e-15) / (seg_true_bin.sum() + seg_pred_bin.sum() + 1e-15)
@@ -225,6 +234,14 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
             plt.xlabel(f"Dice: {round(dice, 5)}")
             plt.savefig(f"{save_folder}/{round(dice, 3):.3f}_dice_{image_name}.png", bbox_inches='tight', dpi=300)
             plt.close()
+
+    # Zapisem primere s spuscenim thresholdom v txt datoteko
+    if len(spusceni_thresholdi) > 0:
+        txt_file = "spusceni_thresholdi.txt"
+        file = open(os.path.join(run_path, txt_file), "w")
+        for sample in spusceni_thresholdi:
+            file.write(sample + "\n")
+        file.close()
 
     # Vrnemo povprečno vrednost ter standardno deviacijo za dice in IOU
     return np.mean(results_dice), np.std(results_dice), np.mean(result_iou), np.std(result_iou)
