@@ -1,0 +1,228 @@
+26-02-22 20:05 run1 Executing run with path ./RESULTS/crack_segmentation/run1
+26-02-22 20:05 run1 BATCH_SIZE                : 1
+26-02-22 20:05 run1 BEST_MODEL_TYPE           : both
+26-02-22 20:05 run1 DATASET                   : crack_segmentation
+26-02-22 20:05 run1 DATASET_PATH              : ./datasets/crack_segmentation
+26-02-22 20:05 run1 DELTA_CLS_LOSS            : 0.01
+26-02-22 20:05 run1 DICE_THRESHOLD            : 2
+26-02-22 20:05 run1 DICE_THR_FACTOR           : 1
+26-02-22 20:05 run1 DILATE                    : 1
+26-02-22 20:05 run1 DYN_BALANCED_LOSS         : True
+26-02-22 20:05 run1 EPOCHS                    : 50
+26-02-22 20:05 run1 FOLD                      : None
+26-02-22 20:05 run1 FREQUENCY_SAMPLING        : True
+26-02-22 20:05 run1 GPU                       : 0
+26-02-22 20:05 run1 GRADIENT_ADJUSTMENT       : True
+26-02-22 20:05 run1 INPUT_CHANNELS            : 3
+26-02-22 20:05 run1 INPUT_HEIGHT              : 448
+26-02-22 20:05 run1 INPUT_WIDTH               : 448
+26-02-22 20:05 run1 LEARNING_RATE             : 1.0
+26-02-22 20:05 run1 MEMORY_FIT                : 1
+26-02-22 20:05 run1 NUM_SEGMENTED             : 6921
+26-02-22 20:05 run1 ON_DEMAND_READ            : False
+26-02-22 20:05 run1 REPRODUCIBLE_RUN          : False
+26-02-22 20:05 run1 RESULTS_PATH              : ./RESULTS
+26-02-22 20:05 run1 SAVE_IMAGES               : True
+26-02-22 20:05 run1 TRAIN_NUM                 : None
+26-02-22 20:05 run1 USE_BEST_MODEL            : True
+26-02-22 20:05 run1 VALIDATE                  : True
+26-02-22 20:05 run1 VALIDATE_ON_TEST          : False
+26-02-22 20:05 run1 VALIDATION_N_EPOCHS       : 5
+26-02-22 20:05 run1 WEIGHTED_SEG_LOSS         : False
+26-02-22 20:05 run1 WEIGHTED_SEG_LOSS_MAX     : None
+26-02-22 20:05 run1 WEIGHTED_SEG_LOSS_P       : None
+26-02-22 20:14 TRAIN: Number of positives: 6921, Number of negatives: 987, Sum: 7908
+26-02-22 20:16 VAL: Number of positives: 1483, Number of negatives: 212, Sum: 1695
+26-02-22 20:16 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_00.pth
+26-02-22 20:16 run1 Returning seg_loss_weight 1.0 and dec_loss_weight 0.0
+26-02-22 20:16 run1 Returning dec_gradient_multiplier 0
+26-02-22 20:41 run1 Epoch 1/50 ==> avg_loss_seg=0.08642, avg_loss_dec=0.77235, avg_loss=0.08642, correct=2148/7908, in 1541.89s/epoch (fwd/bck in 1536.98s/epoch)
+26-02-22 20:43 run1 VALIDATION on VAL set || AUC=0.145239, and AP=0.734524, with best thr=0.335952 sat f-measure=0.931 and FP=219, FN=0, TOTAL SAMPLES=1695
+26-02-22 22:09 run1 Dice: 0.6048393611300217, threshold: 0.16916608810424805
+26-02-22 22:09 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/best_state_dict.pth
+26-02-22 22:09 run1 Returning seg_loss_weight 0.98 and dec_loss_weight 0.0002
+26-02-22 22:09 run1 Returning dec_gradient_multiplier 0
+26-02-22 22:34 run1 Epoch 2/50 ==> avg_loss_seg=0.06801, avg_loss_dec=0.34133, avg_loss=0.06672, correct=6872/7908, in 1504.62s/epoch (fwd/bck in 1498.71s/epoch)
+26-02-22 22:34 run1 Returning seg_loss_weight 0.96 and dec_loss_weight 0.0004
+26-02-22 22:34 run1 Returning dec_gradient_multiplier 0
+26-02-22 22:59 run1 Epoch 3/50 ==> avg_loss_seg=0.06263, avg_loss_dec=0.19067, avg_loss=0.06020, correct=7307/7908, in 1506.60s/epoch (fwd/bck in 1501.68s/epoch)
+26-02-22 22:59 run1 Returning seg_loss_weight 0.94 and dec_loss_weight 0.0006
+26-02-22 22:59 run1 Returning dec_gradient_multiplier 0
+26-02-22 23:25 run1 Epoch 4/50 ==> avg_loss_seg=0.05923, avg_loss_dec=0.10064, avg_loss=0.05574, correct=7679/7908, in 1507.81s/epoch (fwd/bck in 1502.90s/epoch)
+26-02-22 23:25 run1 Returning seg_loss_weight 0.92 and dec_loss_weight 0.0008
+26-02-22 23:25 run1 Returning dec_gradient_multiplier 0
+26-02-22 23:50 run1 Epoch 5/50 ==> avg_loss_seg=0.05784, avg_loss_dec=0.08202, avg_loss=0.05328, correct=7701/7908, in 1504.80s/epoch (fwd/bck in 1499.89s/epoch)
+26-02-22 23:50 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_05.pth
+26-02-22 23:50 run1 Returning seg_loss_weight 0.9 and dec_loss_weight 0.001
+26-02-22 23:50 run1 Returning dec_gradient_multiplier 0
+27-02-22 00:15 run1 Epoch 6/50 ==> avg_loss_seg=0.05616, avg_loss_dec=0.06971, avg_loss=0.05061, correct=7722/7908, in 1505.09s/epoch (fwd/bck in 1500.14s/epoch)
+27-02-22 00:16 run1 VALIDATION on VAL set || AUC=0.994933, and AP=0.999242, with best thr=0.684430 sat f-measure=0.989 and FP=20, FN=12, TOTAL SAMPLES=1695
+27-02-22 01:42 run1 Dice: 0.7155862291496107, threshold: 0.19347819685935974
+27-02-22 01:42 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/best_state_dict.pth
+27-02-22 01:42 run1 Returning seg_loss_weight 0.88 and dec_loss_weight 0.0012
+27-02-22 01:42 run1 Returning dec_gradient_multiplier 0
+27-02-22 02:07 run1 Epoch 7/50 ==> avg_loss_seg=0.05486, avg_loss_dec=0.04774, avg_loss=0.04834, correct=7782/7908, in 1505.44s/epoch (fwd/bck in 1500.51s/epoch)
+27-02-22 02:07 run1 Returning seg_loss_weight 0.86 and dec_loss_weight 0.0014000000000000002
+27-02-22 02:07 run1 Returning dec_gradient_multiplier 0
+27-02-22 02:32 run1 Epoch 8/50 ==> avg_loss_seg=0.05454, avg_loss_dec=0.05204, avg_loss=0.04697, correct=7767/7908, in 1507.59s/epoch (fwd/bck in 1502.67s/epoch)
+27-02-22 02:32 run1 Returning seg_loss_weight 0.84 and dec_loss_weight 0.0016
+27-02-22 02:32 run1 Returning dec_gradient_multiplier 0
+27-02-22 02:57 run1 Epoch 9/50 ==> avg_loss_seg=0.05174, avg_loss_dec=0.03777, avg_loss=0.04353, correct=7804/7908, in 1504.39s/epoch (fwd/bck in 1499.45s/epoch)
+27-02-22 02:57 run1 Returning seg_loss_weight 0.8200000000000001 and dec_loss_weight 0.0018
+27-02-22 02:57 run1 Returning dec_gradient_multiplier 0
+27-02-22 03:22 run1 Epoch 10/50 ==> avg_loss_seg=0.05139, avg_loss_dec=0.03285, avg_loss=0.04220, correct=7819/7908, in 1511.81s/epoch (fwd/bck in 1504.83s/epoch)
+27-02-22 03:22 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_10.pth
+27-02-22 03:22 run1 Returning seg_loss_weight 0.8 and dec_loss_weight 0.002
+27-02-22 03:22 run1 Returning dec_gradient_multiplier 0
+27-02-22 03:48 run1 Epoch 11/50 ==> avg_loss_seg=0.05046, avg_loss_dec=0.02950, avg_loss=0.04043, correct=7828/7908, in 1512.98s/epoch (fwd/bck in 1505.12s/epoch)
+27-02-22 03:49 run1 VALIDATION on VAL set || AUC=0.998221, and AP=0.999745, with best thr=0.570406 sat f-measure=0.995 and FP=8, FN=6, TOTAL SAMPLES=1695
+27-02-22 05:22 run1 Dice: 0.723954327892349, threshold: 0.23178499937057495
+27-02-22 05:22 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/best_state_dict.pth
+27-02-22 05:22 run1 Returning seg_loss_weight 0.78 and dec_loss_weight 0.0022
+27-02-22 05:22 run1 Returning dec_gradient_multiplier 0
+27-02-22 05:47 run1 Epoch 12/50 ==> avg_loss_seg=0.04807, avg_loss_dec=0.01892, avg_loss=0.03753, correct=7858/7908, in 1517.30s/epoch (fwd/bck in 1509.80s/epoch)
+27-02-22 05:47 run1 Returning seg_loss_weight 0.76 and dec_loss_weight 0.0024
+27-02-22 05:47 run1 Returning dec_gradient_multiplier 0
+27-02-22 06:12 run1 Epoch 13/50 ==> avg_loss_seg=0.04972, avg_loss_dec=0.03726, avg_loss=0.03788, correct=7811/7908, in 1516.84s/epoch (fwd/bck in 1508.68s/epoch)
+27-02-22 06:12 run1 Returning seg_loss_weight 0.74 and dec_loss_weight 0.0026000000000000003
+27-02-22 06:12 run1 Returning dec_gradient_multiplier 0
+27-02-22 06:37 run1 Epoch 14/50 ==> avg_loss_seg=0.04787, avg_loss_dec=0.02487, avg_loss=0.03549, correct=7833/7908, in 1516.23s/epoch (fwd/bck in 1508.67s/epoch)
+27-02-22 06:37 run1 Returning seg_loss_weight 0.72 and dec_loss_weight 0.0028000000000000004
+27-02-22 06:37 run1 Returning dec_gradient_multiplier 0
+27-02-22 07:03 run1 Epoch 15/50 ==> avg_loss_seg=0.04548, avg_loss_dec=0.01334, avg_loss=0.03278, correct=7874/7908, in 1517.66s/epoch (fwd/bck in 1510.11s/epoch)
+27-02-22 07:03 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_15.pth
+27-02-22 07:03 run1 Returning seg_loss_weight 0.7 and dec_loss_weight 0.003
+27-02-22 07:03 run1 Returning dec_gradient_multiplier 0
+27-02-22 07:28 run1 Epoch 16/50 ==> avg_loss_seg=0.04331, avg_loss_dec=0.01268, avg_loss=0.03035, correct=7881/7908, in 1517.19s/epoch (fwd/bck in 1509.42s/epoch)
+27-02-22 07:29 run1 VALIDATION on VAL set || AUC=0.998552, and AP=0.999786, with best thr=0.907425 sat f-measure=0.996 and FP=5, FN=7, TOTAL SAMPLES=1695
+27-02-22 09:02 run1 Dice: 0.7285567886912973, threshold: 0.2249264419078827
+27-02-22 09:02 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/best_state_dict.pth
+27-02-22 09:02 run1 Returning seg_loss_weight 0.6799999999999999 and dec_loss_weight 0.0032
+27-02-22 09:02 run1 Returning dec_gradient_multiplier 0
+27-02-22 09:28 run1 Epoch 17/50 ==> avg_loss_seg=0.04093, avg_loss_dec=0.00727, avg_loss=0.02785, correct=7891/7908, in 1519.67s/epoch (fwd/bck in 1512.00s/epoch)
+27-02-22 09:28 run1 Returning seg_loss_weight 0.6599999999999999 and dec_loss_weight 0.0034000000000000002
+27-02-22 09:28 run1 Returning dec_gradient_multiplier 0
+27-02-22 09:53 run1 Epoch 18/50 ==> avg_loss_seg=0.03950, avg_loss_dec=0.00685, avg_loss=0.02609, correct=7896/7908, in 1515.70s/epoch (fwd/bck in 1510.01s/epoch)
+27-02-22 09:53 run1 Returning seg_loss_weight 0.64 and dec_loss_weight 0.0036
+27-02-22 09:53 run1 Returning dec_gradient_multiplier 0
+27-02-22 10:18 run1 Epoch 19/50 ==> avg_loss_seg=0.03770, avg_loss_dec=0.00450, avg_loss=0.02414, correct=7902/7908, in 1505.63s/epoch (fwd/bck in 1500.71s/epoch)
+27-02-22 10:18 run1 Returning seg_loss_weight 0.62 and dec_loss_weight 0.0038
+27-02-22 10:18 run1 Returning dec_gradient_multiplier 0
+27-02-22 10:43 run1 Epoch 20/50 ==> avg_loss_seg=0.03629, avg_loss_dec=0.00211, avg_loss=0.02251, correct=7903/7908, in 1506.01s/epoch (fwd/bck in 1501.16s/epoch)
+27-02-22 10:43 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_20.pth
+27-02-22 10:43 run1 Returning seg_loss_weight 0.6 and dec_loss_weight 0.004
+27-02-22 10:43 run1 Returning dec_gradient_multiplier 0
+27-02-22 11:08 run1 Epoch 21/50 ==> avg_loss_seg=0.03499, avg_loss_dec=0.00122, avg_loss=0.02100, correct=7907/7908, in 1506.72s/epoch (fwd/bck in 1501.83s/epoch)
+27-02-22 11:09 run1 VALIDATION on VAL set || AUC=0.998865, and AP=0.999840, with best thr=0.903671 sat f-measure=0.997 and FP=5, FN=5, TOTAL SAMPLES=1695
+27-02-22 12:35 run1 Dice: 0.7325954066888307, threshold: 0.20117735862731934
+27-02-22 12:35 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/best_state_dict.pth
+27-02-22 12:35 run1 Returning seg_loss_weight 0.5800000000000001 and dec_loss_weight 0.0042
+27-02-22 12:35 run1 Returning dec_gradient_multiplier 0
+27-02-22 13:00 run1 Epoch 22/50 ==> avg_loss_seg=0.03368, avg_loss_dec=0.00211, avg_loss=0.01954, correct=7903/7908, in 1504.37s/epoch (fwd/bck in 1499.50s/epoch)
+27-02-22 13:00 run1 Returning seg_loss_weight 0.56 and dec_loss_weight 0.0044
+27-02-22 13:00 run1 Returning dec_gradient_multiplier 0
+27-02-22 13:26 run1 Epoch 23/50 ==> avg_loss_seg=0.03279, avg_loss_dec=0.00091, avg_loss=0.01837, correct=7908/7908, in 1505.58s/epoch (fwd/bck in 1500.73s/epoch)
+27-02-22 13:26 run1 Returning seg_loss_weight 0.54 and dec_loss_weight 0.0046
+27-02-22 13:26 run1 Returning dec_gradient_multiplier 0
+27-02-22 13:51 run1 Epoch 24/50 ==> avg_loss_seg=0.03200, avg_loss_dec=0.00128, avg_loss=0.01728, correct=7905/7908, in 1507.54s/epoch (fwd/bck in 1502.70s/epoch)
+27-02-22 13:51 run1 Returning seg_loss_weight 0.52 and dec_loss_weight 0.0048
+27-02-22 13:51 run1 Returning dec_gradient_multiplier 0
+27-02-22 14:16 run1 Epoch 25/50 ==> avg_loss_seg=0.03110, avg_loss_dec=0.00050, avg_loss=0.01617, correct=7908/7908, in 1506.14s/epoch (fwd/bck in 1501.22s/epoch)
+27-02-22 14:16 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_25.pth
+27-02-22 14:16 run1 Returning seg_loss_weight 0.5 and dec_loss_weight 0.005
+27-02-22 14:16 run1 Returning dec_gradient_multiplier 0
+27-02-22 14:41 run1 Epoch 26/50 ==> avg_loss_seg=0.03029, avg_loss_dec=0.00034, avg_loss=0.01515, correct=7908/7908, in 1508.98s/epoch (fwd/bck in 1502.67s/epoch)
+27-02-22 14:42 run1 VALIDATION on VAL set || AUC=0.999372, and AP=0.999909, with best thr=0.544721 sat f-measure=0.997 and FP=5, FN=4, TOTAL SAMPLES=1695
+27-02-22 16:16 run1 Dice: 0.7324208822231671, threshold: 0.1548672765493393
+27-02-22 16:16 run1 Returning seg_loss_weight 0.48 and dec_loss_weight 0.005200000000000001
+27-02-22 16:16 run1 Returning dec_gradient_multiplier 0
+27-02-22 16:41 run1 Epoch 27/50 ==> avg_loss_seg=0.02939, avg_loss_dec=0.00169, avg_loss=0.01411, correct=7901/7908, in 1517.51s/epoch (fwd/bck in 1509.96s/epoch)
+27-02-22 16:41 run1 Returning seg_loss_weight 0.45999999999999996 and dec_loss_weight 0.0054
+27-02-22 16:41 run1 Returning dec_gradient_multiplier 0
+27-02-22 17:06 run1 Epoch 28/50 ==> avg_loss_seg=0.02867, avg_loss_dec=0.00044, avg_loss=0.01319, correct=7908/7908, in 1522.25s/epoch (fwd/bck in 1513.61s/epoch)
+27-02-22 17:06 run1 Returning seg_loss_weight 0.43999999999999995 and dec_loss_weight 0.005600000000000001
+27-02-22 17:06 run1 Returning dec_gradient_multiplier 0
+27-02-22 17:32 run1 Epoch 29/50 ==> avg_loss_seg=0.02819, avg_loss_dec=0.00140, avg_loss=0.01241, correct=7903/7908, in 1519.45s/epoch (fwd/bck in 1511.65s/epoch)
+27-02-22 17:32 run1 Returning seg_loss_weight 0.42000000000000004 and dec_loss_weight 0.0058
+27-02-22 17:32 run1 Returning dec_gradient_multiplier 0
+27-02-22 17:57 run1 Epoch 30/50 ==> avg_loss_seg=0.02754, avg_loss_dec=0.00118, avg_loss=0.01157, correct=7905/7908, in 1518.59s/epoch (fwd/bck in 1510.63s/epoch)
+27-02-22 17:57 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_30.pth
+27-02-22 17:57 run1 Returning seg_loss_weight 0.4 and dec_loss_weight 0.006
+27-02-22 17:57 run1 Returning dec_gradient_multiplier 0
+27-02-22 18:22 run1 Epoch 31/50 ==> avg_loss_seg=0.02667, avg_loss_dec=0.00036, avg_loss=0.01067, correct=7907/7908, in 1516.77s/epoch (fwd/bck in 1508.29s/epoch)
+27-02-22 18:24 run1 VALIDATION on VAL set || AUC=0.999146, and AP=0.999877, with best thr=0.887520 sat f-measure=0.997 and FP=3, FN=6, TOTAL SAMPLES=1695
+27-02-22 19:57 run1 Dice: 0.7311359530051134, threshold: 0.19979867339134216
+27-02-22 19:57 run1 Returning seg_loss_weight 0.38 and dec_loss_weight 0.0062
+27-02-22 19:57 run1 Returning dec_gradient_multiplier 0
+27-02-22 20:22 run1 Epoch 32/50 ==> avg_loss_seg=0.02598, avg_loss_dec=0.00014, avg_loss=0.00987, correct=7908/7908, in 1518.45s/epoch (fwd/bck in 1510.37s/epoch)
+27-02-22 20:22 run1 Returning seg_loss_weight 0.36 and dec_loss_weight 0.0064
+27-02-22 20:22 run1 Returning dec_gradient_multiplier 0
+27-02-22 20:47 run1 Epoch 33/50 ==> avg_loss_seg=0.02540, avg_loss_dec=0.00010, avg_loss=0.00914, correct=7908/7908, in 1515.68s/epoch (fwd/bck in 1507.58s/epoch)
+27-02-22 20:47 run1 Returning seg_loss_weight 0.33999999999999997 and dec_loss_weight 0.006600000000000001
+27-02-22 20:47 run1 Returning dec_gradient_multiplier 0
+27-02-22 21:12 run1 Epoch 34/50 ==> avg_loss_seg=0.02488, avg_loss_dec=0.00090, avg_loss=0.00847, correct=7904/7908, in 1514.01s/epoch (fwd/bck in 1507.58s/epoch)
+27-02-22 21:12 run1 Returning seg_loss_weight 0.31999999999999995 and dec_loss_weight 0.0068000000000000005
+27-02-22 21:12 run1 Returning dec_gradient_multiplier 0
+27-02-22 21:38 run1 Epoch 35/50 ==> avg_loss_seg=0.02441, avg_loss_dec=0.00021, avg_loss=0.00781, correct=7908/7908, in 1506.49s/epoch (fwd/bck in 1501.30s/epoch)
+27-02-22 21:38 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_35.pth
+27-02-22 21:38 run1 Returning seg_loss_weight 0.30000000000000004 and dec_loss_weight 0.006999999999999999
+27-02-22 21:38 run1 Returning dec_gradient_multiplier 0
+27-02-22 22:03 run1 Epoch 36/50 ==> avg_loss_seg=0.02381, avg_loss_dec=0.00009, avg_loss=0.00714, correct=7908/7908, in 1504.54s/epoch (fwd/bck in 1499.55s/epoch)
+27-02-22 22:04 run1 VALIDATION on VAL set || AUC=0.999137, and AP=0.999875, with best thr=0.828448 sat f-measure=0.996 and FP=6, FN=5, TOTAL SAMPLES=1695
+27-02-22 23:29 run1 Dice: 0.731708922633303, threshold: 0.1878345012664795
+27-02-22 23:29 run1 Returning seg_loss_weight 0.28 and dec_loss_weight 0.0072
+27-02-22 23:29 run1 Returning dec_gradient_multiplier 0
+27-02-22 23:54 run1 Epoch 37/50 ==> avg_loss_seg=0.02333, avg_loss_dec=0.00006, avg_loss=0.00653, correct=7908/7908, in 1503.61s/epoch (fwd/bck in 1498.64s/epoch)
+27-02-22 23:54 run1 Returning seg_loss_weight 0.26 and dec_loss_weight 0.0074
+27-02-22 23:54 run1 Returning dec_gradient_multiplier 0
+28-02-22 00:20 run1 Epoch 38/50 ==> avg_loss_seg=0.02283, avg_loss_dec=0.00006, avg_loss=0.00594, correct=7908/7908, in 1507.84s/epoch (fwd/bck in 1502.88s/epoch)
+28-02-22 00:20 run1 Returning seg_loss_weight 0.24 and dec_loss_weight 0.0076
+28-02-22 00:20 run1 Returning dec_gradient_multiplier 0
+28-02-22 00:45 run1 Epoch 39/50 ==> avg_loss_seg=0.02236, avg_loss_dec=0.00003, avg_loss=0.00537, correct=7908/7908, in 1505.54s/epoch (fwd/bck in 1500.57s/epoch)
+28-02-22 00:45 run1 Returning seg_loss_weight 0.21999999999999997 and dec_loss_weight 0.0078000000000000005
+28-02-22 00:45 run1 Returning dec_gradient_multiplier 0
+28-02-22 01:10 run1 Epoch 40/50 ==> avg_loss_seg=0.02197, avg_loss_dec=0.00002, avg_loss=0.00483, correct=7908/7908, in 1507.40s/epoch (fwd/bck in 1502.45s/epoch)
+28-02-22 01:10 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_40.pth
+28-02-22 01:10 run1 Returning seg_loss_weight 0.19999999999999996 and dec_loss_weight 0.008
+28-02-22 01:10 run1 Returning dec_gradient_multiplier 0
+28-02-22 01:35 run1 Epoch 41/50 ==> avg_loss_seg=0.02160, avg_loss_dec=0.00002, avg_loss=0.00432, correct=7908/7908, in 1505.68s/epoch (fwd/bck in 1500.72s/epoch)
+28-02-22 01:36 run1 VALIDATION on VAL set || AUC=0.999137, and AP=0.999876, with best thr=0.811819 sat f-measure=0.996 and FP=6, FN=5, TOTAL SAMPLES=1695
+28-02-22 03:03 run1 Dice: 0.7260975314941488, threshold: 0.12298647314310074
+28-02-22 03:03 run1 Returning seg_loss_weight 0.18000000000000005 and dec_loss_weight 0.008199999999999999
+28-02-22 03:03 run1 Returning dec_gradient_multiplier 0
+28-02-22 03:28 run1 Epoch 42/50 ==> avg_loss_seg=0.02126, avg_loss_dec=0.00002, avg_loss=0.00383, correct=7908/7908, in 1501.92s/epoch (fwd/bck in 1497.06s/epoch)
+28-02-22 03:28 run1 Returning seg_loss_weight 0.16000000000000003 and dec_loss_weight 0.0084
+28-02-22 03:28 run1 Returning dec_gradient_multiplier 0
+28-02-22 03:53 run1 Epoch 43/50 ==> avg_loss_seg=0.02086, avg_loss_dec=0.00001, avg_loss=0.00334, correct=7908/7908, in 1501.33s/epoch (fwd/bck in 1496.47s/epoch)
+28-02-22 03:53 run1 Returning seg_loss_weight 0.14 and dec_loss_weight 0.0086
+28-02-22 03:53 run1 Returning dec_gradient_multiplier 0
+28-02-22 04:18 run1 Epoch 44/50 ==> avg_loss_seg=0.02053, avg_loss_dec=0.00001, avg_loss=0.00287, correct=7908/7908, in 1504.37s/epoch (fwd/bck in 1499.52s/epoch)
+28-02-22 04:18 run1 Returning seg_loss_weight 0.12 and dec_loss_weight 0.0088
+28-02-22 04:18 run1 Returning dec_gradient_multiplier 0
+28-02-22 04:43 run1 Epoch 45/50 ==> avg_loss_seg=0.02020, avg_loss_dec=0.00001, avg_loss=0.00242, correct=7908/7908, in 1503.59s/epoch (fwd/bck in 1498.75s/epoch)
+28-02-22 04:43 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/ep_45.pth
+28-02-22 04:43 run1 Returning seg_loss_weight 0.09999999999999998 and dec_loss_weight 0.009000000000000001
+28-02-22 04:43 run1 Returning dec_gradient_multiplier 0
+28-02-22 05:08 run1 Epoch 46/50 ==> avg_loss_seg=0.01996, avg_loss_dec=0.00001, avg_loss=0.00200, correct=7908/7908, in 1501.00s/epoch (fwd/bck in 1496.15s/epoch)
+28-02-22 05:09 run1 VALIDATION on VAL set || AUC=0.999087, and AP=0.999869, with best thr=0.834426 sat f-measure=0.996 and FP=7, FN=5, TOTAL SAMPLES=1695
+28-02-22 06:35 run1 Dice: 0.7244727890537337, threshold: 0.14423935115337372
+28-02-22 06:35 run1 Returning seg_loss_weight 0.07999999999999996 and dec_loss_weight 0.0092
+28-02-22 06:35 run1 Returning dec_gradient_multiplier 0
+28-02-22 07:00 run1 Epoch 47/50 ==> avg_loss_seg=0.01967, avg_loss_dec=0.00001, avg_loss=0.00157, correct=7908/7908, in 1503.02s/epoch (fwd/bck in 1498.11s/epoch)
+28-02-22 07:00 run1 Returning seg_loss_weight 0.06000000000000005 and dec_loss_weight 0.0094
+28-02-22 07:00 run1 Returning dec_gradient_multiplier 0
+28-02-22 07:25 run1 Epoch 48/50 ==> avg_loss_seg=0.01947, avg_loss_dec=0.00001, avg_loss=0.00117, correct=7908/7908, in 1506.02s/epoch (fwd/bck in 1501.20s/epoch)
+28-02-22 07:25 run1 Returning seg_loss_weight 0.040000000000000036 and dec_loss_weight 0.0096
+28-02-22 07:25 run1 Returning dec_gradient_multiplier 0
+28-02-22 07:50 run1 Epoch 49/50 ==> avg_loss_seg=0.01928, avg_loss_dec=0.00001, avg_loss=0.00077, correct=7908/7908, in 1502.82s/epoch (fwd/bck in 1498.02s/epoch)
+28-02-22 07:50 run1 Returning seg_loss_weight 0.020000000000000018 and dec_loss_weight 0.0098
+28-02-22 07:50 run1 Returning dec_gradient_multiplier 0
+28-02-22 08:15 run1 Epoch 50/50 ==> avg_loss_seg=0.01912, avg_loss_dec=0.00001, avg_loss=0.00038, correct=7908/7908, in 1506.57s/epoch (fwd/bck in 1501.77s/epoch)
+28-02-22 08:16 run1 VALIDATION on VAL set || AUC=0.999084, and AP=0.999868, with best thr=0.799459 sat f-measure=0.996 and FP=8, FN=5, TOTAL SAMPLES=1695
+28-02-22 09:42 run1 Dice: 0.7220039373897235, threshold: 0.11305630952119827
+28-02-22 09:43 run1 Saving current model state to ./RESULTS/crack_segmentation/run1/models/final_state_dict.pth
+28-02-22 09:43 run1 Loading model state from ./RESULTS/crack_segmentation/run1/models/best_state_dict.pth
+28-02-22 09:43 TEST: Number of positives: 1483, Number of negatives: 212, Sum: 1695
+28-02-22 09:53 run1 Decision EVAL on TEST. Pr: 0.996585, Re: 0.989824, F1: 0.993193, Accuracy: 0.988201, Threshold: 0.9036707282066345
+28-02-22 09:53 run1 TP: 1464, FP: 5, FN: 19, TN: 207
+28-02-22 10:03 run1 Segmentation EVAL on TEST. Dice: mean: 0.685242, std: 0.206598, IOU: mean: 0.556350, std: 0.230236, Dice Threshold: 0.201177

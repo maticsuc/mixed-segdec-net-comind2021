@@ -1,0 +1,11 @@
+28-02-22 14:59 run1 Executing run with path ./RESULTS/crack_segmentation/run1
+28-02-22 14:59 run1 Loading model state from ./RESULTS/crack_segmentation/run1/models/best_state_dict.pth
+28-02-22 14:59 VAL: Number of positives: 1483, Number of negatives: 212, Sum: 1695
+28-02-22 15:02 run1 VALIDATION on VAL set || AUC=0.997987, and AP=0.999729, with best thr=0.868690 sat f-measure=0.995 and FP=4, FN=10, TOTAL SAMPLES=1695
+28-02-22 15:02 run1 Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.
+28-02-22 15:08 run1 Best Dice: 0.7055275809324729 at threshold: 0.38499999999999995
+28-02-22 15:08 run1 From evaluation on VAL set. Dice threshold: 0.385000, Decision threshold: 0.868690
+28-02-22 15:09 TEST: Number of positives: 1483, Number of negatives: 212, Sum: 1695
+28-02-22 15:24 run1 Decision EVAL on TEST. Pr: 0.996596, Re: 0.987188, F1: 0.991870, Accuracy: 0.985841, Threshold: 0.8686904907226562
+28-02-22 15:24 run1 TP: 1464, FP: 5, FN: 19, TN: 207
+28-02-22 15:38 run1 Segmentation EVAL on TEST. Dice: mean: 0.705196, std: 0.199220, IOU: mean: 0.578411, std: 0.225810, Dice Threshold: 0.385000

@@ -62,6 +62,9 @@ Ablation, Run 1
 nohup python -u train_net.py --GPU 0 --RUN_NAME run1 --DATASET crack_segmentation --DATASET_PATH ./datasets/crack_segmentation --NUM_SEGMENTED 6921 --EPOCHS 50 --LEARNING_RATE 1.0 --DELTA_CLS_LOSS 0.01 --BATCH_SIZE 1 --WEIGHTED_SEG_LOSS False --DYN_BALANCED_LOSS True --GRADIENT_ADJUSTMENT True --FREQUENCY_SAMPLING True --VALIDATE True --VALIDATE_ON_TEST False --USE_BEST_MODEL True --DICE_THRESHOLD 2 --DICE_THR_FACTOR 1 --BEST_MODEL_TYPE both > run1.out 2>&1 &
 
 Evaluation
+Run 1
+nohup python -u manual_eval.py > run1.out 2>&1 &
+
 Run 2
 nohup python -u manual_eval.py > run2.out 2>&1 &
 
