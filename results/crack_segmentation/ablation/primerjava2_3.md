@@ -1,3 +1,17 @@
+|Primer|      Run 2                                     |      Run 3      |
+|-----:|------------------------------------------------|-----------------|
+|  1494|![dice_output](./dices/run2/0.000_dice_1494.png)|![dice_output](./dices/run3/1.000_dice_1494.png)|
+|  1495|![dice_output](./dices/run2/0.000_dice_1495.png)|![dice_output](./dices/run3/1.000_dice_1495.png)|
+|  1538|![dice_output](./dices/run2/0.000_dice_1538.png)|![dice_output](./dices/run3/1.000_dice_1538.png)|
+|  1549|![dice_output](./dices/run2/0.000_dice_1549.png)|![dice_output](./dices/run3/1.000_dice_1549.png)|
+|  1550|![dice_output](./dices/run2/0.000_dice_1550.png)|![dice_output](./dices/run3/1.000_dice_1550.png)|
+|  1649|![dice_output](./dices/run2/0.000_dice_1649.png)|![dice_output](./dices/run3/1.000_dice_1649.png)|
+|  1661|![dice_output](./dices/run2/0.000_dice_1661.png)|![dice_output](./dices/run3/1.000_dice_1661.png)|
+|   230|![dice_output](./dices/run2/0.711_dice_230.png) |![dice_output](./dices/run3/0.000_dice_230.png) |
+|  1423|![dice_output](./dices/run2/0.583_dice_1423.png)|![dice_output](./dices/run3/0.000_dice_1423.png)|
+|   679|![dice_output](./dices/run2/0.464_dice_679.png) |![dice_output](./dices/run3/0.000_dice_679.png) |
+|   623|![dice_output](./dices/run2/0.014_dice_623.png) |![dice_output](./dices/run3/0.000_dice_623.png) |
+
 |Primer|Run 2 Dice|Run 3 Dice|Razlika|
 |-----:|---------:|---------:|------:|
 |  1494|     0.000|         1|  1.000|
