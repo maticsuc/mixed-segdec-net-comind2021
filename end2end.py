@@ -279,6 +279,7 @@ class End2End:
             val_metrics = dict()
             val_metrics['dec_threshold'] = metrics['best_thr']
 
+            """
             # Naredim decisions z izračunanim thresholdom
             decisions = np.array(predictions) > val_metrics['dec_threshold']
 
@@ -301,12 +302,13 @@ class End2End:
             for sample in pocrnjeni_primeri:
                 file.write(sample + "\n")
             file.close()
-
             """
+
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
-            val_metrics['dec_threshold'] = metrics['best_thr']
+            #val_metrics['dec_threshold'] = metrics['best_thr']
 
+            """
             # Računanje dice thresholda
             # 1. Minimum maksimalnih pikslov vseh predikcij
             if self.cfg.DICE_THRESHOLD == 1:
@@ -326,8 +328,8 @@ class End2End:
                 val_metrics['dice_threshold'] = dice_metrics['best_thr']
                 val_metrics['dice_score'] = dice_metrics['best_f_measure']
                 self._log(f"Dice: {val_metrics['dice_score']}, threshold: {val_metrics['dice_threshold']}")
-            """
             
+            """
             # Zmanjševanje thresholda
             self._log(f"Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.")
             threshold_decrease_results = dict()
@@ -373,6 +375,7 @@ class End2End:
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
 
+            """
             # Vse predictane non-crack slike pocrnim
             non_crack_seg = np.zeros(predicted_segs[0].shape)
             non_crack_counter = 0
@@ -393,11 +396,11 @@ class End2End:
                 file.write(sample + "\n")
             file.close()
 
-            dice_mean, dice_std, iou_mean, iou_std, faktor = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions, faktor=faktor)
+            """
+            dice_mean, dice_std, iou_mean, iou_std, faktor = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions, faktor=None)
             
             self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
 
-            """
             n_samples = len(true_segs)
             pxl_distance = 2
             kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
@@ -424,7 +427,6 @@ class End2End:
             f1 = np.mean(np.array(results)[:, 2])
 
             self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
-            """
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
