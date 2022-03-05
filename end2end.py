@@ -280,7 +280,7 @@ class End2End:
             #val_metrics['dec_threshold'] = metrics['best_thr']
 
             # Naredim decisions z izračunanim thresholdom
-            decisions = np.array(predictions) > val_metrics['dec_threshold']
+            decisions = np.array(predictions) > metrics['best_thr']
 
             """
             # Vse predictane non-crack slike pocrnim
