@@ -279,10 +279,10 @@ class End2End:
             val_metrics = dict()
             val_metrics['dec_threshold'] = metrics['best_thr']
 
-            """
             # Naredim decisions z izračunanim thresholdom
             decisions = np.array(predictions) > val_metrics['dec_threshold']
 
+            """
             # Vse predictane non-crack slike pocrnim
             non_crack_seg = np.zeros(predicted_segs[0].shape)
             non_crack_counter = 0
