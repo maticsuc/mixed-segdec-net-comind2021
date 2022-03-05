@@ -276,8 +276,8 @@ class End2End:
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
-            val_metrics = dict()
-            val_metrics['dec_threshold'] = metrics['best_thr']
+            #val_metrics = dict()
+            #val_metrics['dec_threshold'] = metrics['best_thr']
 
             # Naredim decisions z izračunanim thresholdom
             decisions = np.array(predictions) > val_metrics['dec_threshold']
@@ -306,7 +306,7 @@ class End2End:
 
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
-            #val_metrics['dec_threshold'] = metrics['best_thr']
+            val_metrics['dec_threshold'] = metrics['best_thr']
 
             """
             # Računanje dice thresholda
