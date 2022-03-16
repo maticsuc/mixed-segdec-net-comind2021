@@ -88,9 +88,9 @@ class Dataset(torch.utils.data.Dataset):
         self.counter = self.counter + 1
 
         # Augmentacija
-        if self.cfg.AUGMENTATION and self.kind == 'TRAIN':
-            p1 = 0.5
-            p2 = 0.5
+        if self.cfg.AUGMENTATION and self.kind == 'TRAIN' and is_pos:
+            p1 = 0.75
+            p2 = 0.75
             if torch.rand(1) < p1:
                 # Horizontal flip
                 if torch.rand(1) < p2:
