@@ -1,5 +1,9 @@
 # Results of training on CRACK500 dataset
 
+[Članek](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9680172)
+
+[Pregled vseh člankov](https://docs.google.com/spreadsheets/d/1AUmJ-JQtpvQt3Rs0maRirAxbBW6zBOBaPq1kVDSdvK0/edit?usp=sharing)
+
 ## Model architecture
 
 ![architecture](./arhitektura_v2.png)
@@ -54,6 +58,11 @@
 - Dodana augmentacija
     - Horizontalen in vertikalen flip, rotacija 180, Color Jittering
 
+### Run 4
+- Augmentacija
+    - Horizontalen in vertikalen flip, rotacija 180, Color Jittering
+- Dodani negativni primeri - 1411 v učno množico
+
 ## Test Evaluation
 
 ### Decision
@@ -62,6 +71,7 @@
 | Run 1  | 1         | 0.997331 | 0.998664 | 0.997331 | 0.999685  | 1121 | 0    | 3    | 0    |
 | Run 2  | 1         | 0.996441 | 0.998217 | 0.996641 | 0.999059  | 1120 | 0    | 4    | 0    |
 | Run 3  | 1         | 0.997331 | 0.998664 | 0.997331 | 0.999777  | 1121 | 0    | 3    | 0    |
+| Run 4  | 1         | 0.999110 | 0.999555 | 0.999110 | 0.157367  | 1123 | 0    | 1    | 0    |
 
 ### Segmentation
 | Run    | Dice mean | Dice std | IoU mean | IoU std  | Threshold |
@@ -69,6 +79,7 @@
 | Run 1  | 0.68227   | 0.15953  | 0.53757  | 0.16587  | 0.42      |
 | Run 2  | 0.68659   | 0.15140  | 0.54100  | 0.16026  | 0.54      |
 | Run 3  | 0.69214   | 0.15253  | 0.54779  | 0.16129  | 0.45      |
+| Run 4  | 0.68739   | 0.15454  | 0.54246  | 0.16170  | 0.315     |
 
 ### 2 pixel distance
 | Run    | Precision     | Recall       | F1           | Threshold |
@@ -76,6 +87,7 @@
 | Run 1  | 0.728432      | 0.793387     | 0.740356     | 0.4       |
 | Run 2  | **0.746946**  | 0.786900     | 0.747593     | 0.52      |
 | Run 3  | 0.728117      | **0.814876** | **0.750255** | 0.42      |
+| Run 4  | 0.727387      | 0.809951     | 0.747036     | 0.28      |
 
 ### Primerjava - 2 pixel distance
 
@@ -88,23 +100,22 @@
 | **Run 1**    | 0.7284     | **0.7934** | 0.7404     |
 | **Run 2**    | 0.7469     | 0.7869     | 0.7476     |
 | **Run 3**    | 0.7281     | 0.8149     | 0.7503     |
-
-[Članek](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9680172)
+| **Run 4**    | 0.7274     | 0.8099     | 0.7470     |
 
 ## Losses
 
-| **Loss**          | Run 1                                | Run 2                            | Run 3                            | 
-| ------------------| -------------------------------------| ---------------------------------| ---------------------------------|
-| Segmentation Loss | ![loss_seg](./run1/loss_seg.png)     | ![loss_seg](./run2/loss_seg.png) | ![loss_seg](./run3/loss_seg.png) |
-| Decision Loss     | ![loss_dec](./run1/loss_dec.png)     | ![loss_dec](./run2/loss_dec.png) | ![loss_dec](./run3/loss_dec.png) |
-| Total Loss        | ![loss_dec](./run1/loss.png)         | ![loss_dec](./run2/loss.png)     | ![loss_dec](./run3/loss.png)     |
-| Validation Loss   | ![loss_dec](./run1/loss_val.png)     | ![loss_dec](./run2/loss_val.png) | ![loss_dec](./run3/loss_val.png) |
+| **Loss**          | Run 1                                | Run 2                            | Run 3                            | Run 4                            | 
+| ------------------| -------------------------------------| ---------------------------------| ---------------------------------| ---------------------------------|
+| Segmentation Loss | ![loss_seg](./run1/loss_seg.png)     | ![loss_seg](./run2/loss_seg.png) | ![loss_seg](./run3/loss_seg.png) | ![loss_seg](./run4/loss_seg.png) |
+| Decision Loss     | ![loss_dec](./run1/loss_dec.png)     | ![loss_dec](./run2/loss_dec.png) | ![loss_dec](./run3/loss_dec.png) | ![loss_dec](./run4/loss_dec.png) |
+| Total Loss        | ![loss_dec](./run1/loss.png)         | ![loss_dec](./run2/loss.png)     | ![loss_dec](./run3/loss.png)     | ![loss_dec](./run4/loss.png)     |
+| Validation Loss   | ![loss_dec](./run1/loss_val.png)     | ![loss_dec](./run2/loss_val.png) | ![loss_dec](./run3/loss_val.png) | ![loss_dec](./run4/loss_val.png) |
 
 ### Pr, Re, F1
 
-| **Loss**          | Run 1                                | Run 2                            | Run 3                            | 
-| ------------------| -------------------------------------| ---------------------------------| ---------------------------------|
-| Scores            | ![loss_seg](./run1/scores.png)       | ![loss_seg](./run2/scores.png)   | ![loss_seg](./run3/scores.png)   |
+| **Loss**          | Run 1                                | Run 2                            | Run 3                            | Run 4                            | 
+| ------------------| -------------------------------------| ---------------------------------| ---------------------------------| ---------------------------------|
+| Scores            | ![loss_seg](./run1/scores.png)       | ![loss_seg](./run2/scores.png)   | ![loss_seg](./run3/scores.png)   | ![loss_seg](./run4/scores.png)   |
 
 ### Outputs of model learning
 [Run 1](./run1/crack500_run1.out)
@@ -112,3 +123,5 @@
 [Run 2](./run2/crack500_run2.out)
 
 [Run 3](./run3/crack500_run3.out)
+
+[Run 4](./run4/crack500_run4.out)
