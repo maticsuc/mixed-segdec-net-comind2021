@@ -73,6 +73,10 @@
 | Run 3  | 1         | 0.997331 | 0.998664 | 0.997331 | 0.999777  | 1121 | 0    | 3    | 0    |
 | Run 4  | 1         | 0.999110 | 0.999555 | 0.999110 | 0.157367  | 1123 | 0    | 1    | 0    |
 
+### False Negative - Run 4
+![FN_Run4](./run4/0.580_dice_1.png)
+![FN_Run4](./run4/0.087_result_1.jpg)
+
 ### Segmentation
 | Run    | Dice mean | Dice std | IoU mean | IoU std  | Threshold |
 | -------| ----------| ---------| ---------|----------|-----------|
