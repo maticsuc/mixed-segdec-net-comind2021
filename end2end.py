@@ -232,7 +232,7 @@ class End2End:
 
         images, predicted_segs, true_segs = [], [], []
         predicted_segs_pos, predicted_segs_neg = [], []
-        samples = []
+        samples = {"images": list(), "image_names": list()}
 
         for data_point in eval_loader:
             image, seg_mask, _, sample_name, is_pos = data_point
@@ -258,7 +258,8 @@ class End2End:
             seg_mask_predicted = seg_mask_predicted[0][0]
             seg_mask = seg_mask[0][0]
             predicted_segs.append(seg_mask_predicted)
-            samples.append(sample_name[0])
+            samples["image_names"].append(sample_name[0])
+            samples["images"].append(image)
             true_segs.append(seg_mask)
             images.append(image)
 
@@ -360,6 +361,7 @@ class End2End:
             return metrics["AP"], metrics["accuracy"], val_metrics
         else:
             decisions = np.array(predictions) > dec_threshold
+            samples["decisions"] = list(decisions)
             FP, FN, TN, TP = utils.calc_confusion_mat(decisions, np.array(predictions_truths))
 
             fp = sum(FP).item()
@@ -401,30 +403,11 @@ class End2End:
             
             self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
 
-            n_samples = len(true_segs)
-            pxl_distance = 2
-            kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
-            results = []
-            self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {pxl_distance} pixel distance used.")
-            
-            for i in range(n_samples):
-                y_true = np.array(true_segs[i]).astype(np.uint8)
-                y_true_d = cv2.dilate(y_true, kernel)
-                y_pred = (np.array(predicted_segs[i])>two_pxl_threshold).astype(np.uint8)
+            # Segmentation metrics + vizualizacija
 
-                tp_d = sum(sum((y_true_d==1)&(y_pred==1))).item()
-                fp_d = sum(sum((y_true_d==0)&(y_pred==1))).item()
-                fn = sum(sum((y_true==1)&(y_pred==0))).item()
-
-                pr = tp_d / (tp_d + fp_d) if tp_d else 0
-                re = tp_d / (tp_d + fn) if tp_d else 0
-                f1 = (2 * pr * re) / (pr + re) if pr and re else 0
-
-                results.append((pr, re, f1))
-
-            pr = np.mean(np.array(results)[:, 0])
-            re = np.mean(np.array(results)[:, 1])
-            f1 = np.mean(np.array(results)[:, 2])
+            self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. 2 pixel distance used.")
+           
+            pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path)
 
             self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
 

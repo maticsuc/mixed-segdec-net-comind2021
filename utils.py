@@ -1,3 +1,5 @@
+from tkinter import image_names
+from unicodedata import decimal
 import matplotlib
 
 matplotlib.use('Agg')
@@ -267,3 +269,82 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
 
     # Vrnemo povprečno vrednost ter standardno deviacijo za dice in IOU
     return np.mean(results_dice), np.std(results_dice), np.mean(result_iou), np.std(result_iou), mean_faktor
+
+def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=None, run_path=None):
+    # Save folder
+    if run_path is not None:
+        save_folder = f"{run_path}/seg_metrics"
+        create_folder(save_folder)
+
+    n_samples = len(seg_truth)
+    pxl_distance = 2
+    kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
+    results = []
+    
+    for i in range(n_samples):
+        y_true = np.array(seg_truth[i]).astype(np.uint8)
+        y_true_d = cv2.dilate(y_true, kernel)
+        y_pred = (np.array(seg_predicted[i])>two_pixel_threshold).astype(np.uint8)
+
+        tp_d = sum(sum((y_true_d==1)&(y_pred==1))).item()
+        fp_d = sum(sum((y_true_d==0)&(y_pred==1))).item()
+        fn = sum(sum((y_true==1)&(y_pred==0))).item()
+
+        pr = tp_d / (tp_d + fp_d) if tp_d else 0
+        re = tp_d / (tp_d + fn) if tp_d else 0
+        f1 = (2 * pr * re) / (pr + re) if pr and re else 0
+
+        results.append((pr, re, f1))
+
+        # Vizualizacija
+        if samples is not None:
+            image = samples['images'][i]
+            image_name = samples['image_names'][i]
+            decision = samples['decisions'][i]
+
+            plt.figure()
+            plt.clf()
+
+            plt.subplot(2, 3, 1)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title('Image')
+            plt.imshow(image)
+            plt.xlabel(f"Decision: {decision}")
+
+            plt.subplot(2, 3, 2)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title('Groundtruth')
+            plt.imshow(seg_truth[i], cmap='gray')
+            plt.xlabel(f"Pr: {round(pr, 4)}")
+
+            plt.subplot(2, 3, 3)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title('Segmentation')
+            plt.imshow(seg_predicted[i], cmap='gray', vmin=0, vmax=1) # Popravljeno z vmin in vmax argumenti
+            plt.xlabel(f"Pr: {round(re, 4)}")
+
+            plt.subplot(2, 3, 4)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title('Groundtruth\nDilated')
+            plt.imshow(y_true_d, cmap='gray', vmin=0, vmax=1) # Popravljeno z vmin in vmax argumenti
+            plt.xlabel(f"Threshold: {round(two_pixel_threshold, 3)}")
+
+            plt.subplot(2, 3, 5)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title('Segmentation mask')
+            plt.imshow(y_pred, cmap='gray', vmin=0, vmax=1) # Popravljeno z vmin in vmax argumenti
+            plt.xlabel(f"F1: {round(f1, 4)}")
+
+            plt.savefig(f"{save_folder}/{round(f1, 3):.3f}_{image_name}.png", bbox_inches='tight', dpi=300)
+            plt.close()
+
+    pr = np.mean(np.array(results)[:, 0])
+    re = np.mean(np.array(results)[:, 1])
+    f1 = np.mean(np.array(results)[:, 2])
+
+    return pr, re, f1
