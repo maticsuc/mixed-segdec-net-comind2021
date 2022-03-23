@@ -1,3 +1,4 @@
+from tabnanny import verbose
 import matplotlib
 from sklearn import metrics
 
@@ -54,6 +55,7 @@ class End2End:
         device = self._get_device()
         model = self._get_model().to(device)
         optimizer = self._get_optimizer(model)
+        scheduler = self._get_scheduler(optimizer)
         loss_seg, loss_dec = self._get_loss(True), self._get_loss(False)
 
         train_loader = get_dataset("TRAIN", self.cfg)
@@ -61,7 +63,7 @@ class End2End:
 
         tensorboard_writer = SummaryWriter(log_dir=self.tensorboard_path) if WRITE_TENSORBOARD else None
 
-        losses, validation_data, best_model_metrics, validation_metrics = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, validation_loader, tensorboard_writer)
+        losses, validation_data, best_model_metrics, validation_metrics = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
         train_results = (losses, validation_data, validation_metrics)
         self._save_train_results(train_results)
         self._save_model(model)
@@ -131,7 +133,7 @@ class End2End:
 
         return total_loss_seg, total_loss_dec, total_loss, total_correct
 
-    def _train_model(self, device, model, train_loader, criterion_seg, criterion_dec, optimizer, validation_set, tensorboard_writer):
+    def _train_model(self, device, model, train_loader, criterion_seg, criterion_dec, optimizer, scheduler, validation_set, tensorboard_writer):
         losses = []
         validation_data = []
         validation_metrics = []
@@ -186,8 +188,9 @@ class End2End:
             epoch_loss = epoch_loss / samples_per_epoch
             losses.append((epoch_loss_seg, epoch_loss_dec, epoch_loss, epoch))
 
-            self._log(
-                f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, avg_loss_dec={epoch_loss_dec:.5f}, avg_loss={epoch_loss:.5f}, correct={epoch_correct}/{samples_per_epoch}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
+            self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, avg_loss_dec={epoch_loss_dec:.5f}, avg_loss={epoch_loss:.5f}, correct={epoch_correct}/{samples_per_epoch}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
+
+            scheduler.step()
 
             if tensorboard_writer is not None:
                 tensorboard_writer.add_scalar("Loss/Train/segmentation", epoch_loss_seg, epoch)
@@ -526,6 +529,9 @@ class End2End:
 
     def _get_optimizer(self, model):
         return torch.optim.SGD(model.parameters(), self.cfg.LEARNING_RATE)
+
+    def _get_scheduler(self, optimizer):
+        return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=5, gamma=0.9, verbose=True)
 
     def _get_loss(self, is_seg):
         reduction = "none" if self.cfg.WEIGHTED_SEG_LOSS and is_seg else "mean"
