@@ -174,7 +174,11 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
     # Save folder
     if run_path is not None:
         save_folder = f"{run_path}/dices"
+        save_folder_seg_pred = f"{run_path}/seg_pred"
+        save_folder_seg_pred_bin = f"{run_path}/seg_pred_bin"
         create_folder(save_folder)
+        create_folder(save_folder_seg_pred)
+        create_folder(save_folder_seg_pred_bin)
 
     # Za vsak par izračunamo dice in IOU
     for i in range(len(segmentation_predicted)):
@@ -223,6 +227,11 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
         if images is not None:
             image = images[i]
             image_name = image_names[i]
+
+            # Shanjevanje slik za diplomo
+            plt.imsave(f"{save_folder_seg_pred}/{image_name}.png", seg_pred, cmap='gray', vmin=0, vmax=1, dpi=200)
+            plt.imsave(f"{save_folder_seg_pred_bin}/{image_name}.png", seg_pred_bin, cmap='gray', vmin=0, vmax=1, dpi=200)
+
             plt.figure()
             plt.clf()
 
