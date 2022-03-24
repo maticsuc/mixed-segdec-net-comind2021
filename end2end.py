@@ -531,7 +531,7 @@ class End2End:
         return torch.optim.SGD(model.parameters(), self.cfg.LEARNING_RATE)
 
     def _get_scheduler(self, optimizer):
-        return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=5, gamma=0.9, verbose=True)
+        return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=1, gamma=0.95, verbose=True)
 
     def _get_loss(self, is_seg):
         reduction = "none" if self.cfg.WEIGHTED_SEG_LOSS and is_seg else "mean"
