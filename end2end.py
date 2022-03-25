@@ -1,3 +1,4 @@
+import sched
 from tabnanny import verbose
 import matplotlib
 from sklearn import metrics
@@ -63,8 +64,8 @@ class End2End:
 
         tensorboard_writer = SummaryWriter(log_dir=self.tensorboard_path) if WRITE_TENSORBOARD else None
 
-        losses, validation_data, best_model_metrics, validation_metrics = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
-        train_results = (losses, validation_data, validation_metrics)
+        losses, validation_data, best_model_metrics, validation_metrics, lrs = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
+        train_results = (losses, validation_data, validation_metrics, lrs)
         self._save_train_results(train_results)
         self._save_model(model)
 
@@ -137,6 +138,7 @@ class End2End:
         losses = []
         validation_data = []
         validation_metrics = []
+        lrs = []
         max_validation = -1
         best_dice = -1
         best_f1 = -1
@@ -191,6 +193,9 @@ class End2End:
             self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, avg_loss_dec={epoch_loss_dec:.5f}, avg_loss={epoch_loss:.5f}, correct={epoch_correct}/{samples_per_epoch}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
 
             scheduler.step()
+            scheduler.get_last_lr()
+            self._log(f"Last computing learning rate by scheduler: {scheduler.get_last_lr()}")
+            lrs.append((epoch, scheduler.get_last_lr()))
 
             if tensorboard_writer is not None:
                 tensorboard_writer.add_scalar("Loss/Train/segmentation", epoch_loss_seg, epoch)
@@ -223,7 +228,7 @@ class End2End:
                 if tensorboard_writer is not None:
                     tensorboard_writer.add_scalar("Accuracy/Validation/", validation_accuracy, epoch)
 
-        return losses, validation_data, best_model_metrics, validation_metrics
+        return losses, validation_data, best_model_metrics, validation_metrics, lrs
 
     def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None, two_pxl_threshold=None, faktor=None):
         model.eval()
@@ -459,7 +464,7 @@ class End2End:
             f.writelines(params_lines)
 
     def _save_train_results(self, results):
-        losses, validation_data, validation_metrics = results
+        losses, validation_data, validation_metrics, lrs = results
         ls, ld, l, le = map(list, zip(*losses))
         plt.plot(le, l, label="Loss", color="red")
         plt.plot(le, ls, label="Loss seg")
@@ -518,6 +523,14 @@ class End2End:
         plt.xlabel("Epochs")
         plt.ylabel("Loss Dec")
         plt.savefig(os.path.join(self.run_path, "loss_dec"), dpi=200)
+
+        # Learning rate plot
+        epochs, lr = map(list, zip(*lrs))
+        plt.clf()
+        plt.plot(epochs, lr)
+        plt.xlabel("Epochs")
+        plt.ylabel("Learning rate")
+        plt.savefig(os.path.join(self.run_path, "learning rate"), dpi=200)
 
     def _save_model(self, model, name="final_state_dict.pth"):
         output_name = os.path.join(self.model_path, name)
