@@ -50,6 +50,7 @@ class Config:
 
     BEST_MODEL_TYPE = "dec"
     AUGMENTATION = False
+    USE_NEGATIVES = False
 
     def init_extra(self):
         if self.WEIGHTED_SEG_LOSS and (self.WEIGHTED_SEG_LOSS_P is None or self.WEIGHTED_SEG_LOSS_MAX is None):
@@ -140,6 +141,7 @@ class Config:
 
         self.BEST_MODEL_TYPE = args.BEST_MODEL_TYPE
         self.AUGMENTATION = args.AUGMENTATION
+        self.USE_NEGATIVES = args.USE_NEGATIVES
 
         if args.FOLD is not None: self.FOLD = args.FOLD
         if args.TRAIN_NUM is not None: self.TRAIN_NUM = args.TRAIN_NUM
@@ -188,7 +190,8 @@ class Config:
             "DICE_THRESHOLD": self.DICE_THRESHOLD,
             "DICE_THR_FACTOR": self.DICE_THR_FACTOR,
             "BEST_MODEL_TYPE": self.BEST_MODEL_TYPE,
-            "AUGMENTATION": self.AUGMENTATION
+            "AUGMENTATION": self.AUGMENTATION,
+            "USE_NEGATIVES": self.USE_NEGATIVES
         }
         return params
 
@@ -229,5 +232,6 @@ def load_from_dict(dictionary):
     cfg.DICE_THR_FACTOR = dictionary.get("DICE_THR_FACTOR", None)
     cfg.BEST_MODEL_TYPE = dictionary.get("BEST_MODEL_TYPE", None)
     cfg.AUGMENTATION = dictionary.get("AUGMENTATION", None)
+    cfg.USE_NEGATIVES = dictionary.get("USE_NEGATIVES", None)
 
     return cfg

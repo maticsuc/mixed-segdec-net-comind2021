@@ -40,7 +40,8 @@ class CrackSegmentationDataset(Dataset):
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test'), 'pos')
             elif self.kind == 'TRAIN':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train'), 'pos')
-                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_negative'), 'neg')
+                if self.cfg.USE_NEGATIVES:
+                    self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_negative'), 'neg')
             elif self.kind == 'VAL':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val'), 'pos')
         else:

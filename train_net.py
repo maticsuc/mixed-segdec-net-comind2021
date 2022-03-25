@@ -52,6 +52,8 @@ def parse_args():
 
     parser.add_argument('--AUGMENTATION', type=str2bool, default=False, required=False, help="Wheter to use data augmentation.")
 
+    parser.add_argument('--USE_NEGATIVES', type=str2bool, default=False, required=False, help="Wheter to use negative samples with CRACK500 dataset.")
+
     args = parser.parse_args()
 
     return args
