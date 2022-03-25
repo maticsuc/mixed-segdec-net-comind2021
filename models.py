@@ -138,6 +138,11 @@ class SegDecNet(nn.Module):
         # Downsampling
         self.downsampling = nn.AvgPool2d(8)
 
+        # 1x1 Convolution Skip Connections
+        self.skip_convolution1 = _conv_block(in_chanels=32, out_chanels=32, kernel_size=1, padding=0)
+        self.skip_convolution2 = _conv_block(in_chanels=64, out_chanels=64, kernel_size=1, padding=0)
+        self.skip_convolution3 = _conv_block(in_chanels=64, out_chanels=64, kernel_size=1, padding=0)
+
     def set_gradient_multipliers(self, multiplier):
         self.volume_lr_multiplier_mask = (torch.ones((1,)) * multiplier).to(self.device)
         self.glob_max_lr_multiplier_mask = (torch.ones((1,)) * multiplier).to(self.device)
@@ -148,6 +153,11 @@ class SegDecNet(nn.Module):
         v2 = self.volume2(v1)
         v3 = self.volume3(v2)
         v4 = self.volume4(v3)
+
+        # 1x1 Convolution Skip Connections
+        v1 = self.skip_convolution1(v1)
+        v2 = self.skip_convolution2(v2)
+        v3 = self.skip_convolution3(v3)
         
         seg_mask_upsampled = self.upsampling1(v4, v3)
         seg_mask_upsampled = self.upsampling2(seg_mask_upsampled, v2)
