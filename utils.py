@@ -11,6 +11,7 @@ import os
 import errno
 import pickle
 import cv2
+import shutil
 
 
 def create_folder(folder, exist_ok=True):
@@ -20,6 +21,14 @@ def create_folder(folder, exist_ok=True):
         if e.errno != errno.EEXIST or not exist_ok:
             raise
 
+def save_current_learning_method(save_path):
+    """
+    Shrani end2end.py, utils.py, models.py datoteke v directory modela.
+    """
+    create_folder(f"{save_path}/learning_method")
+    files = ['end2end.py', 'utils.py', 'models.py']
+    for file in files:
+        shutil.copy2(file, f"{save_path}/learning_method/{file}")
 
 def calc_confusion_mat(D, Y):
     FP = (D != Y) & (Y.astype(np.bool) == False)

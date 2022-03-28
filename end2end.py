@@ -64,6 +64,9 @@ class End2End:
 
         tensorboard_writer = SummaryWriter(log_dir=self.tensorboard_path) if WRITE_TENSORBOARD else None
 
+        # Save current learning method to model's directory
+        utils.save_current_learning_method(save_path=self.run_path)
+
         losses, validation_data, best_model_metrics, validation_metrics, lrs = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
         train_results = (losses, validation_data, validation_metrics, lrs)
         self._save_train_results(train_results)
