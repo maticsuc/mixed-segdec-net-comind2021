@@ -54,6 +54,8 @@ def parse_args():
 
     parser.add_argument('--USE_NEGATIVES', type=str2bool, default=False, required=False, help="Wheter to use negative samples with CRACK500 dataset.")
 
+    parser.add_argument('--OPTIMIZER', type=str, default="sgd", required=False, help="Optimizer to be used.")
+
     args = parser.parse_args()
 
     return args

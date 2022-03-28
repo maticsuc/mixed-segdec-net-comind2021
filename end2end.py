@@ -193,9 +193,9 @@ class End2End:
             self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, avg_loss_dec={epoch_loss_dec:.5f}, avg_loss={epoch_loss:.5f}, correct={epoch_correct}/{samples_per_epoch}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
 
             scheduler.step()
-            scheduler.get_last_lr()
-            self._log(f"Last computing learning rate by scheduler: {scheduler.get_last_lr()}")
-            lrs.append((epoch, scheduler.get_last_lr()))
+            last_learning_rate = scheduler.get_last_lr()[-1]
+            self._log(f"Last computing learning rate by scheduler: {last_learning_rate}")
+            lrs.append((epoch, last_learning_rate))
 
             if tensorboard_writer is not None:
                 tensorboard_writer.add_scalar("Loss/Train/segmentation", epoch_loss_seg, epoch)
@@ -530,7 +530,7 @@ class End2End:
         plt.plot(epochs, lr)
         plt.xlabel("Epochs")
         plt.ylabel("Learning rate")
-        plt.savefig(os.path.join(self.run_path, "learning rate"), dpi=200)
+        plt.savefig(os.path.join(self.run_path, "learning_rate"), dpi=200)
 
     def _save_model(self, model, name="final_state_dict.pth"):
         output_name = os.path.join(self.model_path, name)
@@ -541,7 +541,10 @@ class End2End:
         torch.save(model.state_dict(), output_name)
 
     def _get_optimizer(self, model):
-        return torch.optim.SGD(model.parameters(), self.cfg.LEARNING_RATE)
+        if self.cfg.OPTIMIZER == "sgd":
+            return torch.optim.SGD(model.parameters(), self.cfg.LEARNING_RATE)
+        elif self.cfg.OPTIMIZER == "adam":
+            return torch.optim.Adam(model.parameters(), self.cfg.LEARNING_RATE)
 
     def _get_scheduler(self, optimizer):
         return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=1, gamma=0.95, verbose=True)
