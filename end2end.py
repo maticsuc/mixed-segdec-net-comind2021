@@ -242,7 +242,6 @@ class End2End:
         predictions, predictions_truths = [], []
 
         images, predicted_segs, true_segs = [], [], []
-        predicted_segs_pos, predicted_segs_neg = [], []
         samples = {"images": list(), "image_names": list()}
 
         for data_point in eval_loader:
@@ -288,86 +287,13 @@ class End2End:
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
-            #val_metrics = dict()
-            #val_metrics['dec_threshold'] = metrics['best_thr']
 
             # Naredim decisions z izračunanim thresholdom
             decisions = np.array(predictions) > metrics['best_thr']
 
-            """
-            # Vse predictane non-crack slike pocrnim
-            non_crack_seg = np.zeros(predicted_segs[0].shape)
-            non_crack_counter = 0
-            pocrnjeni_primeri = list()
-
-            for i in range(len(predicted_segs)):
-                if not decisions[i]:
-                    predicted_segs[i] = non_crack_seg
-                    non_crack_counter += 1
-                    pocrnjeni_primeri.append(samples[i])
-            
-            self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
-
-            # Zapisem pocrnjene primere v txt datoteko
-            txt_file = "pocrnjeni_primeri_val.txt"
-            file = open(os.path.join(self.run_path, txt_file), "w")
-            for sample in pocrnjeni_primeri:
-                file.write(sample + "\n")
-            file.close()
-            """
-
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
             val_metrics['dec_threshold'] = metrics['best_thr']
-
-            """
-            # Računanje dice thresholda
-            # 1. Minimum maksimalnih pikslov vseh predikcij
-            if self.cfg.DICE_THRESHOLD == 1:
-                max_pixels_pos = np.amax(np.amax(np.array(predicted_segs_pos), axis=1), axis=1) # Max piksli pozitivnih predicted segmentacij
-                min_pixel_of_max_pixels_pos = max_pixels_pos.min().item() # Min piksel vseh max pikslov
-                
-                max_pixels_neg = np.amax(np.amax(np.array(predicted_segs_neg), axis=1), axis=1) # Max piksli negativnih predicted segmentacij
-                min_pixel_of_max_pixels_neg = max_pixels_neg.min().item() # Min piksel vseh max pikslov
-                
-                dice_threshold = min_pixel_of_max_pixels_pos
-                val_metrics['dice_threshold'] = dice_metrics['best_thr']
-            
-            # 2. precision_recall, subsampling
-            elif self.cfg.DICE_THRESHOLD == 2:
-                dice_metrics = utils.get_metrics(np.array(true_segs, dtype=bool).flatten()[::self.cfg.DICE_THR_FACTOR], np.array(predicted_segs).flatten()[::self.cfg.DICE_THR_FACTOR])
-                dice_threshold = dice_metrics['best_thr']
-                val_metrics['dice_threshold'] = dice_metrics['best_thr']
-                val_metrics['dice_score'] = dice_metrics['best_f_measure']
-                self._log(f"Dice: {val_metrics['dice_score']}, threshold: {val_metrics['dice_threshold']}")
-            
-            """
-            # Zmanjševanje thresholda
-            self._log(f"Racunanje Dice in IoU z razlicnimi segmentacijskimi thresholdi.")
-            threshold_decrease_results = dict()
-            step = 0.005
-            for i in np.arange(0.01, 1, step):
-                decreased_threshold = i
-                dice_mean, dice_std, iou_mean, iou_std, faktor = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=decreased_threshold, decisions=decisions, is_validation=True)
-                threshold_decrease_results[decreased_threshold] = (dice_mean, dice_std, iou_mean, iou_std, faktor)
-            
-            best_dice = None
-            best_thr = None
-            best_faktor = None
-            for thr, dice_results in threshold_decrease_results.items():
-                if best_dice is None and best_thr is None:
-                    best_dice = dice_results[0]
-                    best_thr = thr
-                if dice_results[0] > best_dice:
-                    best_dice = dice_results[0]
-                    best_thr = thr
-                    best_faktor = dice_results[4]
-            
-            self._log(f"Best Dice: {best_dice} at threshold: {best_thr}")
-            self._log(f"Faktor za zmanjsevanje thresholda glede na max pixel v primerih crne segmentacije: {best_faktor}")
-            val_metrics['dice_threshold'] = best_thr
-            val_metrics['dice_score'] = best_dice
-            val_metrics['faktor'] = best_faktor
 
             return metrics["AP"], metrics["accuracy"], val_metrics
         else:
@@ -388,28 +314,6 @@ class End2End:
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
 
-            """
-            # Vse predictane non-crack slike pocrnim
-            non_crack_seg = np.zeros(predicted_segs[0].shape)
-            non_crack_counter = 0
-            pocrnjeni_primeri = list()
-
-            for i in range(len(predicted_segs)):
-                if not decisions[i]:
-                    predicted_segs[i] = non_crack_seg
-                    non_crack_counter += 1
-                    pocrnjeni_primeri.append(samples[i])
-            
-            self._log(f"Spremenil {non_crack_counter} segmentacij v crne.")
-
-            # Zapisem pocrnjene primere v txt datoteko
-            txt_file = "pocrnjeni_primeri_test.txt"
-            file = open(os.path.join(self.run_path, txt_file), "w")
-            for sample in pocrnjeni_primeri:
-                file.write(sample + "\n")
-            file.close()
-
-            """
             dice_mean, dice_std, iou_mean, iou_std, faktor = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions, faktor=None)
             
             self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")

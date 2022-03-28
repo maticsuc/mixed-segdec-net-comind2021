@@ -44,10 +44,6 @@ class Config:
     INPUT_HEIGHT = None
     INPUT_CHANNELS = None
 
-    # Dice threshold parameters
-    DICE_THRESHOLD = 1 # Method of selecting dice threshold
-    DICE_THR_FACTOR = 10 # Factor of subsampling if dice threshold is 2. Set 1 for no subsampling
-
     BEST_MODEL_TYPE = "dec"
     AUGMENTATION = False
     USE_NEGATIVES = False
@@ -137,9 +133,6 @@ class Config:
         self.FREQUENCY_SAMPLING = args.FREQUENCY_SAMPLING
         self.NUM_SEGMENTED = args.NUM_SEGMENTED
 
-        self.DICE_THRESHOLD = args.DICE_THRESHOLD
-        self.DICE_THR_FACTOR = args.DICE_THR_FACTOR
-
         self.BEST_MODEL_TYPE = args.BEST_MODEL_TYPE
         self.AUGMENTATION = args.AUGMENTATION
         self.USE_NEGATIVES = args.USE_NEGATIVES
@@ -189,8 +182,6 @@ class Config:
             "INPUT_CHANNELS": self.INPUT_CHANNELS,
             "SAVE_IMAGES": self.SAVE_IMAGES,
             "DILATE": self.DILATE,
-            "DICE_THRESHOLD": self.DICE_THRESHOLD,
-            "DICE_THR_FACTOR": self.DICE_THR_FACTOR,
             "BEST_MODEL_TYPE": self.BEST_MODEL_TYPE,
             "AUGMENTATION": self.AUGMENTATION,
             "USE_NEGATIVES": self.USE_NEGATIVES,
@@ -231,8 +222,6 @@ def load_from_dict(dictionary):
     cfg.INPUT_CHANNELS = dictionary.get("INPUT_CHANNELS", None)
     cfg.SAVE_IMAGES = dictionary.get("SAVE_IMAGES", None)
     cfg.DILATE = dictionary.get("DILATE", None)
-    cfg.DICE_THRESHOLD = dictionary.get("DICE_THRESHOLD", None)
-    cfg.DICE_THR_FACTOR = dictionary.get("DICE_THR_FACTOR", None)
     cfg.BEST_MODEL_TYPE = dictionary.get("BEST_MODEL_TYPE", None)
     cfg.AUGMENTATION = dictionary.get("AUGMENTATION", None)
     cfg.USE_NEGATIVES = dictionary.get("USE_NEGATIVES", None)
