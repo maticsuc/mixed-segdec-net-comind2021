@@ -335,27 +335,27 @@ def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=
             plt.yticks([])
             plt.title('Groundtruth')
             plt.imshow(seg_truth[i], cmap='gray')
-            plt.xlabel(f"Pr: {round(pr, 4)}")
+            plt.xlabel(f"Seg thr: {round(two_pixel_threshold, 3)}")
 
             plt.subplot(2, 3, 3)
             plt.xticks([])
             plt.yticks([])
             plt.title('Segmentation')
-            plt.imshow(seg_predicted[i], cmap='gray', vmin=0, vmax=1) # Popravljeno z vmin in vmax argumenti
-            plt.xlabel(f"Pr: {round(re, 4)}")
+            plt.imshow(seg_predicted[i], cmap='gray', vmin=0, vmax=1)
+            plt.xlabel(f"Pr: {round(pr, 4)}")
 
             plt.subplot(2, 3, 4)
             plt.xticks([])
             plt.yticks([])
             plt.title('Groundtruth\nDilated')
-            plt.imshow(y_true_d, cmap='gray', vmin=0, vmax=1) # Popravljeno z vmin in vmax argumenti
-            plt.xlabel(f"Threshold: {round(two_pixel_threshold, 3)}")
+            plt.imshow(y_true_d, cmap='gray', vmin=0, vmax=1)
+            plt.xlabel(f"Re: {round(re, 4)}")
 
             plt.subplot(2, 3, 5)
             plt.xticks([])
             plt.yticks([])
             plt.title('Segmentation mask')
-            plt.imshow(y_pred, cmap='gray', vmin=0, vmax=1) # Popravljeno z vmin in vmax argumenti
+            plt.imshow(y_pred, cmap='gray', vmin=0, vmax=1)
             plt.xlabel(f"F1: {round(f1, 4)}")
 
             plt.savefig(f"{save_folder}/{round(f1, 3):.3f}_{image_name}.png", bbox_inches='tight', dpi=300)

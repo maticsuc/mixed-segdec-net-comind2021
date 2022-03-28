@@ -4,6 +4,8 @@
 
 [Pregled vseh člankov](https://docs.google.com/spreadsheets/d/1AUmJ-JQtpvQt3Rs0maRirAxbBW6zBOBaPq1kVDSdvK0/edit?usp=sharing)
 
+[Dataset](https://github.com/fyangneil/pavement-crack-detection)
+
 ## Model architecture
 
 ![architecture](./arhitektura_v2.png)
