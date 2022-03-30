@@ -455,10 +455,10 @@ class End2End:
             return torch.optim.Adam(model.parameters(), self.cfg.LEARNING_RATE)
 
     def _get_scheduler(self, optimizer):
-        if self.cfg.SCHEDULER.lower() == 'steplr':
-            return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=1, gamma=0.95, verbose=True)
-        else:
+        if self.cfg.SCHEDULER is None:
             return None
+        elif self.cfg.SCHEDULER.lower() == 'steplr':
+            return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=1, gamma=0.95)
 
     def _get_learning_rate(self, optimizer):
         for p in optimizer.param_groups:
