@@ -48,6 +48,7 @@ class Config:
     AUGMENTATION = False
     USE_NEGATIVES = False
     OPTIMIZER = "sgd"
+    SCHEDULER = None
 
     def init_extra(self):
         if self.WEIGHTED_SEG_LOSS and (self.WEIGHTED_SEG_LOSS_P is None or self.WEIGHTED_SEG_LOSS_MAX is None):
@@ -137,6 +138,7 @@ class Config:
         self.AUGMENTATION = args.AUGMENTATION
         self.USE_NEGATIVES = args.USE_NEGATIVES
         self.OPTIMIZER = args.OPTIMIZER
+        self.SCHEDULER = args.SCHEDULER
 
         if args.FOLD is not None: self.FOLD = args.FOLD
         if args.TRAIN_NUM is not None: self.TRAIN_NUM = args.TRAIN_NUM
@@ -185,7 +187,8 @@ class Config:
             "BEST_MODEL_TYPE": self.BEST_MODEL_TYPE,
             "AUGMENTATION": self.AUGMENTATION,
             "USE_NEGATIVES": self.USE_NEGATIVES,
-            "OPTIMIZER": self.OPTIMIZER
+            "OPTIMIZER": self.OPTIMIZER,
+            "SCHEDULER": self.SCHEDULER
         }
         return params
 
@@ -226,5 +229,6 @@ def load_from_dict(dictionary):
     cfg.AUGMENTATION = dictionary.get("AUGMENTATION", None)
     cfg.USE_NEGATIVES = dictionary.get("USE_NEGATIVES", None)
     cfg.OPTIMIZER = dictionary.get("OPTIMIZER", None)
+    cfg.SCHEDULER = dictionary.get("SCHEDULER", None)
 
     return cfg

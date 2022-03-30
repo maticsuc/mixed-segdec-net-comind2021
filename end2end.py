@@ -195,10 +195,15 @@ class End2End:
 
             self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, avg_loss_dec={epoch_loss_dec:.5f}, avg_loss={epoch_loss:.5f}, correct={epoch_correct}/{samples_per_epoch}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
 
-            scheduler.step()
-            last_learning_rate = scheduler.get_last_lr()[-1]
-            self._log(f"Last computing learning rate by scheduler: {last_learning_rate}")
-            lrs.append((epoch, last_learning_rate))
+            if self.cfg.SCHEDULER is not None:
+                scheduler.step()
+                last_learning_rate = scheduler.get_last_lr()[-1]
+                self._log(f"Last computing learning rate by scheduler: {last_learning_rate}")
+                lrs.append((epoch, last_learning_rate))
+            else:
+                lrs.append((epoch, self._get_learning_rate(optimizer=optimizer)))
+
+            self._log(f"Last computing learning rate by optimizer: {self._get_learning_rate(optimizer=optimizer)}")
 
             if tensorboard_writer is not None:
                 tensorboard_writer.add_scalar("Loss/Train/segmentation", epoch_loss_seg, epoch)
@@ -450,7 +455,14 @@ class End2End:
             return torch.optim.Adam(model.parameters(), self.cfg.LEARNING_RATE)
 
     def _get_scheduler(self, optimizer):
-        return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=1, gamma=0.95, verbose=True)
+        if self.cfg.SCHEDULER.lower() == 'steplr':
+            return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=1, gamma=0.95, verbose=True)
+        else:
+            return None
+
+    def _get_learning_rate(self, optimizer):
+        for p in optimizer.param_groups:
+            return p["lr"]
 
     def _get_loss(self, is_seg):
         reduction = "none" if self.cfg.WEIGHTED_SEG_LOSS and is_seg else "mean"
