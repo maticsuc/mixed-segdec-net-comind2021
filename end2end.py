@@ -72,17 +72,17 @@ class End2End:
         self._save_train_results(train_results)
         self._save_model(model)
 
-        self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, dice_threshold=best_model_metrics['dice_threshold'], best_model_metrics=best_model_metrics)
+        self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, best_model_metrics=best_model_metrics)
 
         self._save_params()
 
-    def eval(self, model, device, save_images, plot_seg, reload_final, dice_threshold, eval_loader=None, best_model_metrics=None):
+    def eval(self, model, device, save_images, plot_seg, reload_final, eval_loader=None, best_model_metrics=None):
         self.reload_model(model, reload_final)
         is_validation = True
         if eval_loader is None:
             eval_loader = get_dataset("TEST", self.cfg)
             is_validation = False
-        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dice_threshold=dice_threshold, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
+        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
@@ -207,7 +207,7 @@ class End2End:
                 tensorboard_writer.add_scalar("Accuracy/Train/", epoch_correct / samples_per_epoch, epoch)
 
             if self.cfg.VALIDATE and (epoch % validation_step == 0 or epoch == num_epochs - 1):
-                validation_ap, validation_accuracy, val_metrics = self.eval_model(device=device, model=model, eval_loader=validation_set, save_folder=None, save_images=False, is_validation=True, plot_seg=False, dice_threshold=None)
+                validation_ap, validation_accuracy, val_metrics = self.eval_model(device=device, model=model, eval_loader=validation_set, save_folder=None, save_images=False, is_validation=True, plot_seg=False)
                 validation_data.append((validation_ap, epoch))
                 validation_metrics.append((epoch, val_metrics))
 
@@ -233,7 +233,7 @@ class End2End:
 
         return losses, validation_data, best_model_metrics, validation_metrics, lrs
 
-    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dice_threshold, dec_threshold=None, two_pxl_threshold=None, faktor=None):
+    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dec_threshold=None, two_pxl_threshold=None, faktor=None):
         model.eval()
 
         dsize = self.cfg.INPUT_WIDTH, self.cfg.INPUT_HEIGHT
@@ -313,10 +313,6 @@ class End2End:
 
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
-
-            dice_mean, dice_std, iou_mean, iou_std, faktor = utils.dice_iou(segmentation_predicted=predicted_segs, segmentation_truth=true_segs, seg_threshold=dice_threshold, images=images, image_names=np.array(res)[:, 4], run_path=self.run_path, decisions=decisions, faktor=None)
-            
-            self._log(f"Segmentation EVAL on {eval_loader.dataset.kind}. Dice: mean: {dice_mean:f}, std: {dice_std:f}, IOU: mean: {iou_mean:f}, std: {iou_std:f}, Dice Threshold: {dice_threshold:f}")
 
             # Segmentation metrics + vizualizacija
 

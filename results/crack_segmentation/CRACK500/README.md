@@ -67,6 +67,19 @@
 
 ## Test Evaluation
 
+### Pr, Re, F1 - 2 pxl distance
+*Assume that the detected pixels which are no more than five pixels away from the manually labeled pixel are true positive pixels.* [Članek](https://ieeexplore.ieee.org/document/7471507)
+
+*If a pixel lies within two pixels to a ground truth pixel and they are  both  crack  or  non-crack,  we  consider  it  is  a  correct predict.* [Članek](https://ieeexplore.ieee.org/document/9680172)
+
+*Because there are transition regions between the crackpixels and the non-crack pixels in the subjectively labeled ground truth, we consider 2 pixels near any labeled crackpixel as true positives.* [Članek](https://arxiv.org/abs/2001.01912)
+
+Dilated GT = GT dilated, morph cross kernel 5x5
+
+- TP = Dilated GT == 1 & Prediction == 1
+- FP = Dilated GT == 0 & Prediction == 1
+- FN = GT == 1 & Prediction == 0
+
 ### Decision
 | Run    | Precision | Recall   | F1       | Accuracy | Threshold | TP   | FP   | FN   | TN   |
 | -------| ----------| ---------| ---------|----------|-----------|------|------|------|------|
