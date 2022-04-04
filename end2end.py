@@ -458,8 +458,9 @@ class End2End:
     def _get_scheduler(self, optimizer):
         if self.cfg.SCHEDULER is None:
             return None
-        elif self.cfg.SCHEDULER.lower() == 'steplr':
-            return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=1, gamma=0.95)
+        else:
+            self._log(f"Using Learning Rate Scheduler: StepLR, Step size: {int(self.cfg.SCHEDULER[0])}, Gamma: {self.cfg.SCHEDULER[1]}")
+            return torch.optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=int(self.cfg.SCHEDULER[0]), gamma=self.cfg.SCHEDULER[1])
 
     def _get_learning_rate(self, optimizer):
         for p in optimizer.param_groups:
