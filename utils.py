@@ -164,6 +164,12 @@ def get_metrics(labels, predictions):
     metrics['accuracy'] = (sum(TP) + sum(TN)) / (sum(TP) + sum(TN) + sum(FP) + sum(FN))
     return metrics
 
+def save_predicted_segmentation(predicted_segmentation, sample_name, run_path):
+    save_folder = f"{run_path}/seg_pred"
+    if not os.path.exists(save_folder):
+        create_folder(save_folder)
+    plt.imsave(f"{save_folder}/{sample_name}.png", predicted_segmentation, cmap='gray', vmin=0, vmax=1, dpi=200)
+
 def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=None, image_names=None, run_path=None, decisions=None, is_validation=False, faktor=None):
 
     results_dice = []

@@ -286,6 +286,7 @@ class End2End:
                     utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
                 """
                 utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
+                utils.save_predicted_segmentation(seg_mask_predicted, sample_name[0], self.run_path)
 
         if is_validation:
             # Računanje thresholda za decision net
