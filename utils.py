@@ -334,12 +334,12 @@ def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=
             plt.yticks([])
             plt.title('Image')
             plt.imshow(image)
-            plt.xlabel(f"Decision: {decision}")
+            plt.xlabel(f"Decision:\n{decision}")
 
             plt.subplot(1, 5, 2)
             plt.xticks([])
             plt.yticks([])
-            plt.title('Groundtruth')
+            plt.title('GT')
             plt.imshow(seg_truth[i], cmap='gray')
             plt.xlabel(f"Seg thr: {round(two_pixel_threshold, 3)}")
 
@@ -353,14 +353,14 @@ def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=
             plt.subplot(1, 5, 4)
             plt.xticks([])
             plt.yticks([])
-            plt.title('Groundtruth\nDilated')
+            plt.title('GT\nDilated')
             plt.imshow(y_true_d, cmap='gray', vmin=0, vmax=1)
             plt.xlabel(f"Re: {round(re, 4)}")
 
             plt.subplot(1, 5, 5)
             plt.xticks([])
             plt.yticks([])
-            plt.title('Segmentation mask')
+            plt.title('Segmentation\nmask')
             plt.imshow(y_pred, cmap='gray', vmin=0, vmax=1)
             plt.xlabel(f"F1: {round(f1, 4)}")
 
