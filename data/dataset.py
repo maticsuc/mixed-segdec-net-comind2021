@@ -106,7 +106,7 @@ class Dataset(torch.utils.data.Dataset):
                     seg_mask = F.rotate(seg_mask, 180)
                 # Color Jittering
                 if torch.rand(1) < p2:
-                    color_jitter = T.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5)
+                    color_jitter = T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2)
                     image = color_jitter(image)
 
         return image, seg_mask, is_segmented, sample_name, is_pos
