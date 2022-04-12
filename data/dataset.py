@@ -109,7 +109,7 @@ class Dataset(torch.utils.data.Dataset):
                     color_jitter = T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2)
                     image = color_jitter(image)
 
-        return image, seg_mask, is_segmented, sample_name, is_pos
+        return image, seg_mask, is_segmented, sample_name, is_pos, index
 
     def __len__(self):
         return self.len

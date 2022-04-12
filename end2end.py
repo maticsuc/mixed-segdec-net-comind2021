@@ -86,7 +86,7 @@ class End2End:
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
-        images, seg_masks, is_segmented, sample_names, is_pos = data
+        images, seg_masks, is_segmented, sample_names, is_pos, indexes = data
 
         batch_size = self.cfg.BATCH_SIZE
         memory_fit = self.cfg.MEMORY_FIT  # Not supported yet for >1
@@ -101,6 +101,8 @@ class End2End:
         total_loss_seg = 0
         total_loss_dec = 0
 
+        sample_seg_losses = dict()
+
         for sub_iter in range(num_subiters):
             images_ = images[sub_iter * memory_fit:(sub_iter + 1) * memory_fit, :, :, :].to(device)
             seg_mask_ = seg_masks[sub_iter * memory_fit:(sub_iter + 1) * memory_fit, :, :, :].to(device)
@@ -114,6 +116,9 @@ class End2End:
             if is_segmented[sub_iter]:
                 loss_seg = criterion_seg(seg_mask_predicted, seg_mask_)
                 loss_dec = criterion_dec(decision, is_pos_)
+
+                index = indexes[sub_iter * memory_fit:(sub_iter + 1) * memory_fit].item()
+                sample_seg_losses[index] = loss_seg.item()
 
                 total_loss_seg += loss_seg.item()
                 total_loss_dec += loss_dec.item()
@@ -135,7 +140,7 @@ class End2End:
         optimizer.step()
         optimizer.zero_grad()
 
-        return total_loss_seg, total_loss_dec, total_loss, total_correct
+        return total_loss_seg, total_loss_dec, total_loss, total_correct, sample_seg_losses
 
     def _train_model(self, device, model, train_loader, criterion_seg, criterion_dec, optimizer, scheduler, validation_set, tensorboard_writer):
         losses = []
@@ -168,9 +173,10 @@ class End2End:
 
             time_acc = 0
             start = timer()
+            sample_seg_losses = dict()
             for iter_index, (data) in enumerate(train_loader):
                 start_1 = timer()
-                curr_loss_seg, curr_loss_dec, curr_loss, correct = self.training_iteration(data, device, model,
+                curr_loss_seg, curr_loss_dec, curr_loss, correct, sample_seg_losses_ = self.training_iteration(data, device, model,
                                                                                            criterion_seg,
                                                                                            criterion_dec,
                                                                                            optimizer, weight_loss_seg,
@@ -186,7 +192,29 @@ class End2End:
 
                 epoch_correct += correct
 
+                sample_seg_losses = sample_seg_losses | sample_seg_losses_
+
             end = timer()
+
+            if self.cfg.HARD_NEG_MINING is not None:
+                # Stevilo samplov za hard negative mining - v procentih
+                n_samples = int(len(sample_seg_losses) * self.cfg.HARD_NEG_MINING) + (int(len(sample_seg_losses) * self.cfg.HARD_NEG_MINING) % self.cfg.BATCH_SIZE)
+                
+                # Padajoce sortiranih n indexov
+                sample_seg_losses_indexes = sorted(sample_seg_losses, key=sample_seg_losses.get, reverse=True)[:n_samples]
+                
+                # Nov sampler in loader
+                sampler = torch.utils.data.SubsetRandomSampler(sample_seg_losses_indexes)
+                negative_samples_loader = torch.utils.data.DataLoader(dataset=train_loader.dataset, sampler=sampler, batch_size=train_loader.batch_size, drop_last=train_loader.drop_last, pin_memory=train_loader.pin_memory)
+
+                # Učimo še enkrat izbrane sample
+                diff = []
+                for iter_index, data in enumerate(negative_samples_loader):
+                    curr_loss_seg, curr_loss_dec, curr_loss, correct, sample_seg_losses_ = self.training_iteration(data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec, tensorboard_writer, (epoch * samples_per_epoch + iter_index))
+                    diff.append(sample_seg_losses[data[5].item()] - curr_loss_seg)
+                    print(data[5].item(), sample_seg_losses[data[5].item()], curr_loss_seg)
+                
+                self._log(f"Hard negative mining: Samples: {n_samples}, Mean sample loss difference: {np.mean(np.array(diff)):f}")
 
             epoch_loss_seg = epoch_loss_seg / samples_per_epoch
             epoch_loss_dec = epoch_loss_dec / samples_per_epoch
@@ -250,7 +278,7 @@ class End2End:
         samples = {"images": list(), "image_names": list()}
 
         for data_point in eval_loader:
-            image, seg_mask, _, sample_name, is_pos = data_point
+            image, seg_mask, _, sample_name, is_pos, _ = data_point
             image, seg_mask = image.to(device), seg_mask.to(device)
             #is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
             is_pos = is_pos.item()

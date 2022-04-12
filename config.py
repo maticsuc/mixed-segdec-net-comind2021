@@ -49,6 +49,7 @@ class Config:
     USE_NEGATIVES = False
     OPTIMIZER = "sgd"
     SCHEDULER = None
+    HARD_NEG_MINING = None
 
     def init_extra(self):
         if self.WEIGHTED_SEG_LOSS and (self.WEIGHTED_SEG_LOSS_P is None or self.WEIGHTED_SEG_LOSS_MAX is None):
@@ -139,6 +140,7 @@ class Config:
         self.USE_NEGATIVES = args.USE_NEGATIVES
         self.OPTIMIZER = args.OPTIMIZER
         self.SCHEDULER = args.SCHEDULER
+        self.HARD_NEG_MINING = args.HARD_NEG_MINING
 
         if args.FOLD is not None: self.FOLD = args.FOLD
         if args.TRAIN_NUM is not None: self.TRAIN_NUM = args.TRAIN_NUM
@@ -188,7 +190,8 @@ class Config:
             "AUGMENTATION": self.AUGMENTATION,
             "USE_NEGATIVES": self.USE_NEGATIVES,
             "OPTIMIZER": self.OPTIMIZER,
-            "SCHEDULER": self.SCHEDULER
+            "SCHEDULER": self.SCHEDULER,
+            "HARD_NEG_MINING": self.HARD_NEG_MINING
         }
         return params
 
@@ -230,5 +233,6 @@ def load_from_dict(dictionary):
     cfg.USE_NEGATIVES = dictionary.get("USE_NEGATIVES", None)
     cfg.OPTIMIZER = dictionary.get("OPTIMIZER", None)
     cfg.SCHEDULER = dictionary.get("SCHEDULER", None)
+    cfg.HARD_NEG_MINING = dictionary.get("HARD_NEG_MINING", None)
 
     return cfg

@@ -29,7 +29,7 @@
 | Parameter                      | Value        |
 | -----------                    | -------------|
 | Batch size                     | 1            |
-| Epochs                         | 100          |
+| Epochs                         | 50           |
 | Learning rate                  | 1            |
 | Delta CLS Loss                 | 0.01         |
 | Dilate                         | 1            |

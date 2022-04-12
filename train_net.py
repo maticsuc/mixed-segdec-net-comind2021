@@ -54,6 +54,8 @@ def parse_args():
     parser.add_argument('--OPTIMIZER', type=str, default="sgd", required=False, help="Optimizer to be used.")
     parser.add_argument('--SCHEDULER', type=float, nargs="+", default=None, required=False, help="Learning rate scheduler parameters to be used.")
 
+    parser.add_argument('--HARD_NEG_MINING', type=float, default=None, required=False, help="Whether to use hard negative mining or not.")
+
     args = parser.parse_args()
 
     return args
