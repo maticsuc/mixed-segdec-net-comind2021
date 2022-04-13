@@ -212,7 +212,6 @@ class End2End:
                 for iter_index, data in enumerate(negative_samples_loader):
                     curr_loss_seg, curr_loss_dec, curr_loss, correct, sample_seg_losses_ = self.training_iteration(data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec, tensorboard_writer, (epoch * samples_per_epoch + iter_index))
                     diff.append(sample_seg_losses[data[5].item()] - curr_loss_seg)
-                    print(data[5].item(), sample_seg_losses[data[5].item()], curr_loss_seg)
                 
                 self._log(f"Hard negative mining: Samples: {n_samples}, Mean sample loss difference: {np.mean(np.array(diff)):f}")
 
