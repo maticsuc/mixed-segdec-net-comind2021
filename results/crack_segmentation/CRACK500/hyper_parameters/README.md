@@ -8,7 +8,7 @@
 
 ## Model architecture
 
-![architecture](./arhitektura_v2.png)
+![architecture](../arhitektura_v2.png)
 
 ## Dataset
 
