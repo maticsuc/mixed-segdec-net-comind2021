@@ -74,4 +74,4 @@
 
 ### Output
 
-[Output](./crack500_run6_5.out)
+[Output](./crack500_run6_6.out)
