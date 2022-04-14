@@ -9,7 +9,7 @@ from typing import Optional
 
 from torch.utils.data import RandomSampler
 from torch.utils.data import SequentialSampler
-from data import HardExamplesBatchSampler
+from data.dataset import HardExamplesBatchSampler
 
 def get_dataset(kind: str, cfg: Config) -> Optional[DataLoader]:
     if kind == "VAL" and not cfg.VALIDATE:

@@ -86,7 +86,7 @@ class End2End:
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
-        images, seg_masks, is_segmented, sample_names, is_pos = data
+        images, seg_masks, is_segmented, sample_names, is_pos, _ = data
 
         batch_size = self.cfg.BATCH_SIZE
         memory_fit = self.cfg.MEMORY_FIT  # Not supported yet for >1
@@ -190,7 +190,7 @@ class End2End:
 
                 epoch_correct += correct
 
-                train_loader.batch_sampler.update_sample_loss_batch(data, difficulty_score, index_key='index')
+                train_loader.batch_sampler.update_sample_loss_batch(data, difficulty_score, index_key=5)
 
             end = timer()
 
@@ -257,7 +257,7 @@ class End2End:
         samples = {"images": list(), "image_names": list()}
 
         for data_point in eval_loader:
-            image, seg_mask, _, sample_name, is_pos = data_point
+            image, seg_mask, _, sample_name, is_pos, _ = data_point
             image, seg_mask = image.to(device), seg_mask.to(device)
             #is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
             is_pos = is_pos.item()

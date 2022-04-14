@@ -7,9 +7,9 @@ from config import Config
 from torchvision.transforms import functional as F
 from torchvision.transforms import transforms as T
 
-from datasets import LockableSeedRandomAccess
 from torch.utils.data import Sampler
 import pickle
+#from datasets import LockableSeedRandomAccess
 
 class Dataset(torch.utils.data.Dataset):
     def __init__(self, path: str, cfg: Config, kind: str):
@@ -112,7 +112,7 @@ class Dataset(torch.utils.data.Dataset):
                     color_jitter = T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2)
                     image = color_jitter(image)
 
-        return image, seg_mask, is_segmented, sample_name, is_pos
+        return image, seg_mask, is_segmented, sample_name, is_pos, index
 
     def __len__(self):
         return self.len
@@ -226,7 +226,7 @@ class HardExamplesBatchSampler(Sampler):
         self.sample_storage_tmp = dict()
 
     def update_sample_loss_batch(self, gt_sample, losses, index_key='index', storage_keys=[]):
-        assert index_key in gt_sample, "Index key %s is not present in gt_sample" % index_key
+        #assert index_key in gt_sample, "Index key %s is not present in gt_sample" % index_key
 
         indices = gt_sample[index_key]
 
@@ -270,10 +270,12 @@ class HardExamplesBatchSampler(Sampler):
             if self.rank == 0:
                 print('Number of hard samples present: %d/%d' % (len(hard_ids), len(self.sample_losses)))
 
+        """
         if isinstance(self.dataset,LockableSeedRandomAccess):
             # lock seeds for hard samples BUT not for the whole dataset i.e. 90% of the whole dataset
             # (otherwise this will fully lock seeds for all samples and prevent new random augmentation of samples)
             self.dataset.lock_samples_seed(self.hard_sampler.indices if len(self.hard_sampler.indices) < len(self.sample_losses)*0.9 else [])
+        """
 
         # update storage for next iteration
         self.sample_storage = self._synchronize_dict(self.sample_storage_tmp) if self.is_distributed else self.sample_storage_tmp

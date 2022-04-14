@@ -54,7 +54,7 @@ def parse_args():
     parser.add_argument('--OPTIMIZER', type=str, default="sgd", required=False, help="Optimizer to be used.")
     parser.add_argument('--SCHEDULER', type=float, nargs="+", default=None, required=False, help="Learning rate scheduler parameters to be used.")
 
-    parser.add_argument('--HARD_NEG_MINING', type=float, default=None, required=False, help="Whether to use hard negative mining or not.")
+    parser.add_argument('--HARD_NEG_MINING', type=float, nargs="+", default=None, required=False, help="Hard negative mining parameters. First parameter is hard_sample_size, second hard_samples_selected_min_percent.")
 
     args = parser.parse_args()
 

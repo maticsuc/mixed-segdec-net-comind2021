@@ -5,7 +5,7 @@ from end2end import End2End
 configuration = Config()
 
 configuration.RUN_NAME = "TEST"
-configuration.BATCH_SIZE = 1
+configuration.BATCH_SIZE = 2
 configuration.DATASET = "CRACK500"
 configuration.DATASET_PATH = "./datasets/CRACK500"
 configuration.DELTA_CLS_LOSS = 0.01
@@ -22,7 +22,7 @@ configuration.VALIDATE = True
 configuration.VALIDATE_ON_TEST = False
 configuration.VALIDATION_N_EPOCHS = 5
 configuration.USE_BEST_MODEL = True
-configuration.HARD_NEG_MINING = 0.2
+configuration.HARD_NEG_MINING = [1, 0.1]
 configuration.BEST_MODEL_TYPE = 'seg'
 
 configuration.init_extra()
