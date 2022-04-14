@@ -1,0 +1,677 @@
+nohup: ignoring input
+13-04-22 09:10 CRACK500_Run6_7 Executing run with path ./RESULTS/CRACK500/CRACK500_Run6_7
+13-04-22 09:10 CRACK500_Run6_7 AUGMENTATION              : False
+13-04-22 09:10 CRACK500_Run6_7 BATCH_SIZE                : 1
+13-04-22 09:10 CRACK500_Run6_7 BEST_MODEL_TYPE           : seg
+13-04-22 09:10 CRACK500_Run6_7 DATASET                   : CRACK500
+13-04-22 09:10 CRACK500_Run6_7 DATASET_PATH              : ./datasets/CRACK500
+13-04-22 09:10 CRACK500_Run6_7 DELTA_CLS_LOSS            : 0.01
+13-04-22 09:10 CRACK500_Run6_7 DILATE                    : 1
+13-04-22 09:10 CRACK500_Run6_7 DYN_BALANCED_LOSS         : True
+13-04-22 09:10 CRACK500_Run6_7 EPOCHS                    : 100
+13-04-22 09:10 CRACK500_Run6_7 FOLD                      : None
+13-04-22 09:10 CRACK500_Run6_7 FREQUENCY_SAMPLING        : False
+13-04-22 09:10 CRACK500_Run6_7 GPU                       : 0
+13-04-22 09:10 CRACK500_Run6_7 GRADIENT_ADJUSTMENT       : True
+13-04-22 09:10 CRACK500_Run6_7 HARD_NEG_MINING           : 0.2
+13-04-22 09:10 CRACK500_Run6_7 INPUT_CHANNELS            : 3
+13-04-22 09:10 CRACK500_Run6_7 INPUT_HEIGHT              : 360
+13-04-22 09:10 CRACK500_Run6_7 INPUT_WIDTH               : 640
+13-04-22 09:10 CRACK500_Run6_7 LEARNING_RATE             : 0.001
+13-04-22 09:10 CRACK500_Run6_7 MEMORY_FIT                : 1
+13-04-22 09:10 CRACK500_Run6_7 NUM_SEGMENTED             : 1896
+13-04-22 09:10 CRACK500_Run6_7 ON_DEMAND_READ            : False
+13-04-22 09:10 CRACK500_Run6_7 OPTIMIZER                 : adam
+13-04-22 09:10 CRACK500_Run6_7 REPRODUCIBLE_RUN          : False
+13-04-22 09:10 CRACK500_Run6_7 RESULTS_PATH              : ./RESULTS
+13-04-22 09:10 CRACK500_Run6_7 SAVE_IMAGES               : True
+13-04-22 09:10 CRACK500_Run6_7 SCHEDULER                 : None
+13-04-22 09:10 CRACK500_Run6_7 TRAIN_NUM                 : None
+13-04-22 09:10 CRACK500_Run6_7 USE_BEST_MODEL            : True
+13-04-22 09:10 CRACK500_Run6_7 USE_NEGATIVES             : False
+13-04-22 09:10 CRACK500_Run6_7 VALIDATE                  : True
+13-04-22 09:10 CRACK500_Run6_7 VALIDATE_ON_TEST          : False
+13-04-22 09:10 CRACK500_Run6_7 VALIDATION_N_EPOCHS       : 5
+13-04-22 09:10 CRACK500_Run6_7 WEIGHTED_SEG_LOSS         : False
+13-04-22 09:10 CRACK500_Run6_7 WEIGHTED_SEG_LOSS_MAX     : None
+13-04-22 09:10 CRACK500_Run6_7 WEIGHTED_SEG_LOSS_P       : None
+13-04-22 09:11 TRAIN: Number of positives: 1896, Number of negatives: 0, Sum: 1896
+13-04-22 09:11 VAL: Number of positives: 348, Number of negatives: 0, Sum: 348
+13-04-22 09:11 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_00.pth
+13-04-22 09:11 CRACK500_Run6_7 Returning seg_loss_weight 1.0 and dec_loss_weight 0.0
+13-04-22 09:11 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:16 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.383445
+13-04-22 09:16 CRACK500_Run6_7 Epoch 1/100 ==> avg_loss_seg=0.34482, avg_loss_dec=0.01908, avg_loss=0.34482, correct=1885/1896, in 260.02s/epoch (fwd/bck in 258.17s/epoch)
+13-04-22 09:16 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 09:16 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.648510 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 09:16 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 09:19 CRACK500_Run6_7 Best F1: 0.751198 at 0.415000. Pr: 0.772586, Re: 0.782620
+13-04-22 09:19 CRACK500_Run6_7 New best model based on seg metrics.
+13-04-22 09:19 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/best_state_dict.pth
+13-04-22 09:19 CRACK500_Run6_7 Returning seg_loss_weight 0.99 and dec_loss_weight 0.0001
+13-04-22 09:19 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:24 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.055077
+13-04-22 09:24 CRACK500_Run6_7 Epoch 2/100 ==> avg_loss_seg=0.14836, avg_loss_dec=0.00006, avg_loss=0.14687, correct=1896/1896, in 259.18s/epoch (fwd/bck in 257.54s/epoch)
+13-04-22 09:24 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 09:24 CRACK500_Run6_7 Returning seg_loss_weight 0.98 and dec_loss_weight 0.0002
+13-04-22 09:24 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:29 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.014136
+13-04-22 09:29 CRACK500_Run6_7 Epoch 3/100 ==> avg_loss_seg=0.10321, avg_loss_dec=0.00000, avg_loss=0.10115, correct=1896/1896, in 259.68s/epoch (fwd/bck in 257.96s/epoch)
+13-04-22 09:29 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 09:29 CRACK500_Run6_7 Returning seg_loss_weight 0.97 and dec_loss_weight 0.0003
+13-04-22 09:29 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:34 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.012538
+13-04-22 09:34 CRACK500_Run6_7 Epoch 4/100 ==> avg_loss_seg=0.09096, avg_loss_dec=0.00000, avg_loss=0.08823, correct=1896/1896, in 260.13s/epoch (fwd/bck in 258.53s/epoch)
+13-04-22 09:34 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 09:34 CRACK500_Run6_7 Returning seg_loss_weight 0.96 and dec_loss_weight 0.0004
+13-04-22 09:34 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:40 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.009650
+13-04-22 09:40 CRACK500_Run6_7 Epoch 5/100 ==> avg_loss_seg=0.08484, avg_loss_dec=0.00000, avg_loss=0.08144, correct=1896/1896, in 260.82s/epoch (fwd/bck in 259.17s/epoch)
+13-04-22 09:40 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 09:40 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_05.pth
+13-04-22 09:40 CRACK500_Run6_7 Returning seg_loss_weight 0.95 and dec_loss_weight 0.0005
+13-04-22 09:40 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:45 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.009815
+13-04-22 09:45 CRACK500_Run6_7 Epoch 6/100 ==> avg_loss_seg=0.08162, avg_loss_dec=0.00000, avg_loss=0.07754, correct=1896/1896, in 260.08s/epoch (fwd/bck in 258.48s/epoch)
+13-04-22 09:45 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 09:45 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 09:45 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 09:47 CRACK500_Run6_7 Best F1: 0.766370 at 0.520000. Pr: 0.749452, Re: 0.835635
+13-04-22 09:47 CRACK500_Run6_7 New best model based on seg metrics.
+13-04-22 09:47 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/best_state_dict.pth
+13-04-22 09:48 CRACK500_Run6_7 Returning seg_loss_weight 0.94 and dec_loss_weight 0.0006
+13-04-22 09:48 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:53 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.009849
+13-04-22 09:53 CRACK500_Run6_7 Epoch 7/100 ==> avg_loss_seg=0.07895, avg_loss_dec=0.00000, avg_loss=0.07421, correct=1896/1896, in 260.33s/epoch (fwd/bck in 258.63s/epoch)
+13-04-22 09:53 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 09:53 CRACK500_Run6_7 Returning seg_loss_weight 0.9299999999999999 and dec_loss_weight 0.0007000000000000001
+13-04-22 09:53 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 09:58 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.013346
+13-04-22 09:58 CRACK500_Run6_7 Epoch 8/100 ==> avg_loss_seg=0.07701, avg_loss_dec=0.00000, avg_loss=0.07162, correct=1896/1896, in 260.76s/epoch (fwd/bck in 258.99s/epoch)
+13-04-22 09:58 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 09:58 CRACK500_Run6_7 Returning seg_loss_weight 0.92 and dec_loss_weight 0.0008
+13-04-22 09:58 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:03 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.008566
+13-04-22 10:03 CRACK500_Run6_7 Epoch 9/100 ==> avg_loss_seg=0.07503, avg_loss_dec=0.00000, avg_loss=0.06903, correct=1896/1896, in 263.85s/epoch (fwd/bck in 258.17s/epoch)
+13-04-22 10:03 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:03 CRACK500_Run6_7 Returning seg_loss_weight 0.91 and dec_loss_weight 0.0009
+13-04-22 10:03 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:08 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.008203
+13-04-22 10:08 CRACK500_Run6_7 Epoch 10/100 ==> avg_loss_seg=0.07275, avg_loss_dec=0.00000, avg_loss=0.06620, correct=1896/1896, in 262.97s/epoch (fwd/bck in 258.17s/epoch)
+13-04-22 10:08 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:08 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_10.pth
+13-04-22 10:08 CRACK500_Run6_7 Returning seg_loss_weight 0.9 and dec_loss_weight 0.001
+13-04-22 10:08 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:14 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.008611
+13-04-22 10:14 CRACK500_Run6_7 Epoch 11/100 ==> avg_loss_seg=0.07085, avg_loss_dec=0.00000, avg_loss=0.06376, correct=1896/1896, in 261.31s/epoch (fwd/bck in 257.96s/epoch)
+13-04-22 10:14 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 10:14 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 10:14 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 10:17 CRACK500_Run6_7 Best F1: 0.741864 at 0.280000. Pr: 0.717912, Re: 0.850860
+13-04-22 10:17 CRACK500_Run6_7 Returning seg_loss_weight 0.89 and dec_loss_weight 0.0011
+13-04-22 10:17 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:22 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.008402
+13-04-22 10:22 CRACK500_Run6_7 Epoch 12/100 ==> avg_loss_seg=0.06903, avg_loss_dec=0.00000, avg_loss=0.06143, correct=1896/1896, in 263.77s/epoch (fwd/bck in 256.21s/epoch)
+13-04-22 10:22 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:22 CRACK500_Run6_7 Returning seg_loss_weight 0.88 and dec_loss_weight 0.0012
+13-04-22 10:22 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:27 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.012168
+13-04-22 10:27 CRACK500_Run6_7 Epoch 13/100 ==> avg_loss_seg=0.06727, avg_loss_dec=0.00000, avg_loss=0.05920, correct=1896/1896, in 265.92s/epoch (fwd/bck in 256.05s/epoch)
+13-04-22 10:27 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:27 CRACK500_Run6_7 Returning seg_loss_weight 0.87 and dec_loss_weight 0.0013000000000000002
+13-04-22 10:27 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:33 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.011469
+13-04-22 10:33 CRACK500_Run6_7 Epoch 14/100 ==> avg_loss_seg=0.06510, avg_loss_dec=0.00000, avg_loss=0.05663, correct=1896/1896, in 264.11s/epoch (fwd/bck in 257.44s/epoch)
+13-04-22 10:33 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:33 CRACK500_Run6_7 Returning seg_loss_weight 0.86 and dec_loss_weight 0.0014000000000000002
+13-04-22 10:33 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:38 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.008992
+13-04-22 10:38 CRACK500_Run6_7 Epoch 15/100 ==> avg_loss_seg=0.06216, avg_loss_dec=0.00000, avg_loss=0.05345, correct=1896/1896, in 265.08s/epoch (fwd/bck in 257.56s/epoch)
+13-04-22 10:38 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:38 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_15.pth
+13-04-22 10:38 CRACK500_Run6_7 Returning seg_loss_weight 0.85 and dec_loss_weight 0.0015
+13-04-22 10:38 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:43 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.012934
+13-04-22 10:43 CRACK500_Run6_7 Epoch 16/100 ==> avg_loss_seg=0.06061, avg_loss_dec=0.00000, avg_loss=0.05152, correct=1896/1896, in 266.77s/epoch (fwd/bck in 256.99s/epoch)
+13-04-22 10:43 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 10:43 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 10:43 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 10:46 CRACK500_Run6_7 Best F1: 0.785495 at 0.475000. Pr: 0.779935, Re: 0.830828
+13-04-22 10:46 CRACK500_Run6_7 New best model based on seg metrics.
+13-04-22 10:46 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/best_state_dict.pth
+13-04-22 10:46 CRACK500_Run6_7 Returning seg_loss_weight 0.84 and dec_loss_weight 0.0016
+13-04-22 10:46 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:52 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.011202
+13-04-22 10:52 CRACK500_Run6_7 Epoch 17/100 ==> avg_loss_seg=0.05729, avg_loss_dec=0.00000, avg_loss=0.04812, correct=1896/1896, in 263.93s/epoch (fwd/bck in 255.33s/epoch)
+13-04-22 10:52 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:52 CRACK500_Run6_7 Returning seg_loss_weight 0.83 and dec_loss_weight 0.0017000000000000001
+13-04-22 10:52 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 10:57 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.013702
+13-04-22 10:57 CRACK500_Run6_7 Epoch 18/100 ==> avg_loss_seg=0.05478, avg_loss_dec=0.00000, avg_loss=0.04546, correct=1896/1896, in 265.06s/epoch (fwd/bck in 256.29s/epoch)
+13-04-22 10:57 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 10:57 CRACK500_Run6_7 Returning seg_loss_weight 0.8200000000000001 and dec_loss_weight 0.0018
+13-04-22 10:57 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:02 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.010345
+13-04-22 11:02 CRACK500_Run6_7 Epoch 19/100 ==> avg_loss_seg=0.05159, avg_loss_dec=0.00000, avg_loss=0.04231, correct=1896/1896, in 263.69s/epoch (fwd/bck in 258.98s/epoch)
+13-04-22 11:02 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:02 CRACK500_Run6_7 Returning seg_loss_weight 0.81 and dec_loss_weight 0.0019
+13-04-22 11:02 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:08 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.009754
+13-04-22 11:08 CRACK500_Run6_7 Epoch 20/100 ==> avg_loss_seg=0.04876, avg_loss_dec=0.00000, avg_loss=0.03950, correct=1896/1896, in 264.48s/epoch (fwd/bck in 257.65s/epoch)
+13-04-22 11:08 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:08 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_20.pth
+13-04-22 11:08 CRACK500_Run6_7 Returning seg_loss_weight 0.8 and dec_loss_weight 0.002
+13-04-22 11:08 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:13 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.008564
+13-04-22 11:13 CRACK500_Run6_7 Epoch 21/100 ==> avg_loss_seg=0.04600, avg_loss_dec=0.00000, avg_loss=0.03680, correct=1896/1896, in 265.05s/epoch (fwd/bck in 257.37s/epoch)
+13-04-22 11:13 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 11:13 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 11:13 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 11:16 CRACK500_Run6_7 Best F1: 0.760047 at 0.300000. Pr: 0.724934, Re: 0.849953
+13-04-22 11:16 CRACK500_Run6_7 Returning seg_loss_weight 0.79 and dec_loss_weight 0.0021
+13-04-22 11:16 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:21 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.006246
+13-04-22 11:21 CRACK500_Run6_7 Epoch 22/100 ==> avg_loss_seg=0.04350, avg_loss_dec=0.00000, avg_loss=0.03437, correct=1896/1896, in 263.30s/epoch (fwd/bck in 255.68s/epoch)
+13-04-22 11:21 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:21 CRACK500_Run6_7 Returning seg_loss_weight 0.78 and dec_loss_weight 0.0022
+13-04-22 11:21 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:26 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.007212
+13-04-22 11:26 CRACK500_Run6_7 Epoch 23/100 ==> avg_loss_seg=0.04092, avg_loss_dec=0.00000, avg_loss=0.03191, correct=1896/1896, in 264.60s/epoch (fwd/bck in 256.83s/epoch)
+13-04-22 11:26 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:26 CRACK500_Run6_7 Returning seg_loss_weight 0.77 and dec_loss_weight 0.0023
+13-04-22 11:26 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:32 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.006919
+13-04-22 11:32 CRACK500_Run6_7 Epoch 24/100 ==> avg_loss_seg=0.03898, avg_loss_dec=0.00000, avg_loss=0.03001, correct=1896/1896, in 264.91s/epoch (fwd/bck in 257.08s/epoch)
+13-04-22 11:32 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:32 CRACK500_Run6_7 Returning seg_loss_weight 0.76 and dec_loss_weight 0.0024
+13-04-22 11:32 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:37 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.005090
+13-04-22 11:37 CRACK500_Run6_7 Epoch 25/100 ==> avg_loss_seg=0.03626, avg_loss_dec=0.00000, avg_loss=0.02756, correct=1896/1896, in 264.62s/epoch (fwd/bck in 257.01s/epoch)
+13-04-22 11:37 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:37 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_25.pth
+13-04-22 11:37 CRACK500_Run6_7 Returning seg_loss_weight 0.75 and dec_loss_weight 0.0025
+13-04-22 11:37 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:42 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.005149
+13-04-22 11:42 CRACK500_Run6_7 Epoch 26/100 ==> avg_loss_seg=0.03441, avg_loss_dec=0.00000, avg_loss=0.02581, correct=1896/1896, in 264.81s/epoch (fwd/bck in 256.92s/epoch)
+13-04-22 11:42 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 11:43 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 11:43 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 11:45 CRACK500_Run6_7 Best F1: 0.773681 at 0.325000. Pr: 0.754665, Re: 0.833025
+13-04-22 11:45 CRACK500_Run6_7 Returning seg_loss_weight 0.74 and dec_loss_weight 0.0026000000000000003
+13-04-22 11:45 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:51 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.011343
+13-04-22 11:51 CRACK500_Run6_7 Epoch 27/100 ==> avg_loss_seg=0.03440, avg_loss_dec=0.00000, avg_loss=0.02546, correct=1896/1896, in 262.60s/epoch (fwd/bck in 257.46s/epoch)
+13-04-22 11:51 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:51 CRACK500_Run6_7 Returning seg_loss_weight 0.73 and dec_loss_weight 0.0027
+13-04-22 11:51 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 11:56 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.002859
+13-04-22 11:56 CRACK500_Run6_7 Epoch 28/100 ==> avg_loss_seg=0.03028, avg_loss_dec=0.00000, avg_loss=0.02211, correct=1896/1896, in 264.02s/epoch (fwd/bck in 258.18s/epoch)
+13-04-22 11:56 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 11:56 CRACK500_Run6_7 Returning seg_loss_weight 0.72 and dec_loss_weight 0.0028000000000000004
+13-04-22 11:56 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:01 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.002585
+13-04-22 12:01 CRACK500_Run6_7 Epoch 29/100 ==> avg_loss_seg=0.02905, avg_loss_dec=0.00000, avg_loss=0.02092, correct=1896/1896, in 264.43s/epoch (fwd/bck in 258.61s/epoch)
+13-04-22 12:01 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:01 CRACK500_Run6_7 Returning seg_loss_weight 0.71 and dec_loss_weight 0.0029
+13-04-22 12:01 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:06 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.003552
+13-04-22 12:06 CRACK500_Run6_7 Epoch 30/100 ==> avg_loss_seg=0.02753, avg_loss_dec=0.00000, avg_loss=0.01955, correct=1896/1896, in 263.81s/epoch (fwd/bck in 257.82s/epoch)
+13-04-22 12:06 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:06 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_30.pth
+13-04-22 12:06 CRACK500_Run6_7 Returning seg_loss_weight 0.7 and dec_loss_weight 0.003
+13-04-22 12:06 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:12 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001560
+13-04-22 12:12 CRACK500_Run6_7 Epoch 31/100 ==> avg_loss_seg=0.02561, avg_loss_dec=0.00000, avg_loss=0.01793, correct=1896/1896, in 263.56s/epoch (fwd/bck in 257.40s/epoch)
+13-04-22 12:12 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 12:12 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 12:12 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 12:15 CRACK500_Run6_7 Best F1: 0.780062 at 0.325000. Pr: 0.765532, Re: 0.836081
+13-04-22 12:15 CRACK500_Run6_7 Returning seg_loss_weight 0.69 and dec_loss_weight 0.0031
+13-04-22 12:15 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:20 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.001887
+13-04-22 12:20 CRACK500_Run6_7 Epoch 32/100 ==> avg_loss_seg=0.02447, avg_loss_dec=0.00000, avg_loss=0.01688, correct=1896/1896, in 263.53s/epoch (fwd/bck in 257.76s/epoch)
+13-04-22 12:20 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:20 CRACK500_Run6_7 Returning seg_loss_weight 0.6799999999999999 and dec_loss_weight 0.0032
+13-04-22 12:20 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:25 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.002600
+13-04-22 12:25 CRACK500_Run6_7 Epoch 33/100 ==> avg_loss_seg=0.02308, avg_loss_dec=0.00000, avg_loss=0.01570, correct=1896/1896, in 264.85s/epoch (fwd/bck in 258.62s/epoch)
+13-04-22 12:25 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:25 CRACK500_Run6_7 Returning seg_loss_weight 0.6699999999999999 and dec_loss_weight 0.0033000000000000004
+13-04-22 12:25 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:31 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001375
+13-04-22 12:31 CRACK500_Run6_7 Epoch 34/100 ==> avg_loss_seg=0.02205, avg_loss_dec=0.00000, avg_loss=0.01477, correct=1896/1896, in 264.21s/epoch (fwd/bck in 257.55s/epoch)
+13-04-22 12:31 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:31 CRACK500_Run6_7 Returning seg_loss_weight 0.6599999999999999 and dec_loss_weight 0.0034000000000000002
+13-04-22 12:31 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:36 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001152
+13-04-22 12:36 CRACK500_Run6_7 Epoch 35/100 ==> avg_loss_seg=0.02076, avg_loss_dec=0.00000, avg_loss=0.01370, correct=1896/1896, in 264.08s/epoch (fwd/bck in 257.47s/epoch)
+13-04-22 12:36 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:36 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_35.pth
+13-04-22 12:36 CRACK500_Run6_7 Returning seg_loss_weight 0.65 and dec_loss_weight 0.0034999999999999996
+13-04-22 12:36 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:41 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.003071
+13-04-22 12:41 CRACK500_Run6_7 Epoch 36/100 ==> avg_loss_seg=0.02043, avg_loss_dec=0.00000, avg_loss=0.01328, correct=1896/1896, in 262.72s/epoch (fwd/bck in 258.83s/epoch)
+13-04-22 12:41 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 12:41 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 12:41 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 12:44 CRACK500_Run6_7 Best F1: 0.772638 at 0.340000. Pr: 0.761530, Re: 0.824423
+13-04-22 12:44 CRACK500_Run6_7 Returning seg_loss_weight 0.64 and dec_loss_weight 0.0036
+13-04-22 12:44 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:49 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.002862
+13-04-22 12:49 CRACK500_Run6_7 Epoch 37/100 ==> avg_loss_seg=0.01905, avg_loss_dec=0.00000, avg_loss=0.01219, correct=1896/1896, in 263.09s/epoch (fwd/bck in 256.47s/epoch)
+13-04-22 12:49 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:49 CRACK500_Run6_7 Returning seg_loss_weight 0.63 and dec_loss_weight 0.0037
+13-04-22 12:49 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 12:55 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001179
+13-04-22 12:55 CRACK500_Run6_7 Epoch 38/100 ==> avg_loss_seg=0.01787, avg_loss_dec=0.00000, avg_loss=0.01126, correct=1896/1896, in 264.20s/epoch (fwd/bck in 257.60s/epoch)
+13-04-22 12:55 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 12:55 CRACK500_Run6_7 Returning seg_loss_weight 0.62 and dec_loss_weight 0.0038
+13-04-22 12:55 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:00 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000759
+13-04-22 13:00 CRACK500_Run6_7 Epoch 39/100 ==> avg_loss_seg=0.01715, avg_loss_dec=0.00000, avg_loss=0.01063, correct=1896/1896, in 264.82s/epoch (fwd/bck in 257.59s/epoch)
+13-04-22 13:00 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:00 CRACK500_Run6_7 Returning seg_loss_weight 0.61 and dec_loss_weight 0.0039000000000000003
+13-04-22 13:00 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:05 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001645
+13-04-22 13:05 CRACK500_Run6_7 Epoch 40/100 ==> avg_loss_seg=0.01678, avg_loss_dec=0.00000, avg_loss=0.01024, correct=1896/1896, in 264.53s/epoch (fwd/bck in 257.39s/epoch)
+13-04-22 13:05 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:05 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_40.pth
+13-04-22 13:05 CRACK500_Run6_7 Returning seg_loss_weight 0.6 and dec_loss_weight 0.004
+13-04-22 13:05 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:11 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001007
+13-04-22 13:11 CRACK500_Run6_7 Epoch 41/100 ==> avg_loss_seg=0.01595, avg_loss_dec=0.00000, avg_loss=0.00957, correct=1896/1896, in 263.32s/epoch (fwd/bck in 256.84s/epoch)
+13-04-22 13:11 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 13:11 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 13:11 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 13:13 CRACK500_Run6_7 Best F1: 0.772414 at 0.215000. Pr: 0.760891, Re: 0.824098
+13-04-22 13:13 CRACK500_Run6_7 Returning seg_loss_weight 0.5900000000000001 and dec_loss_weight 0.0040999999999999995
+13-04-22 13:13 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:19 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000771
+13-04-22 13:19 CRACK500_Run6_7 Epoch 42/100 ==> avg_loss_seg=0.01526, avg_loss_dec=0.00000, avg_loss=0.00900, correct=1896/1896, in 263.35s/epoch (fwd/bck in 255.31s/epoch)
+13-04-22 13:19 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:19 CRACK500_Run6_7 Returning seg_loss_weight 0.5800000000000001 and dec_loss_weight 0.0042
+13-04-22 13:19 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:24 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.002697
+13-04-22 13:24 CRACK500_Run6_7 Epoch 43/100 ==> avg_loss_seg=0.01515, avg_loss_dec=0.00000, avg_loss=0.00879, correct=1896/1896, in 264.73s/epoch (fwd/bck in 256.91s/epoch)
+13-04-22 13:24 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:24 CRACK500_Run6_7 Returning seg_loss_weight 0.5700000000000001 and dec_loss_weight 0.0043
+13-04-22 13:24 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:29 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000612
+13-04-22 13:29 CRACK500_Run6_7 Epoch 44/100 ==> avg_loss_seg=0.01398, avg_loss_dec=0.00000, avg_loss=0.00797, correct=1896/1896, in 264.07s/epoch (fwd/bck in 257.67s/epoch)
+13-04-22 13:29 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:29 CRACK500_Run6_7 Returning seg_loss_weight 0.56 and dec_loss_weight 0.0044
+13-04-22 13:29 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:35 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001213
+13-04-22 13:35 CRACK500_Run6_7 Epoch 45/100 ==> avg_loss_seg=0.01395, avg_loss_dec=0.00000, avg_loss=0.00781, correct=1896/1896, in 263.15s/epoch (fwd/bck in 258.38s/epoch)
+13-04-22 13:35 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:35 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_45.pth
+13-04-22 13:35 CRACK500_Run6_7 Returning seg_loss_weight 0.55 and dec_loss_weight 0.0045000000000000005
+13-04-22 13:35 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:40 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000971
+13-04-22 13:40 CRACK500_Run6_7 Epoch 46/100 ==> avg_loss_seg=0.01296, avg_loss_dec=0.00000, avg_loss=0.00713, correct=1896/1896, in 262.85s/epoch (fwd/bck in 257.47s/epoch)
+13-04-22 13:40 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 13:40 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 13:40 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 13:43 CRACK500_Run6_7 Best F1: 0.774106 at 0.175000. Pr: 0.765146, Re: 0.822347
+13-04-22 13:43 CRACK500_Run6_7 Returning seg_loss_weight 0.54 and dec_loss_weight 0.0046
+13-04-22 13:43 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:48 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001981
+13-04-22 13:48 CRACK500_Run6_7 Epoch 47/100 ==> avg_loss_seg=0.01314, avg_loss_dec=0.00000, avg_loss=0.00710, correct=1896/1896, in 262.60s/epoch (fwd/bck in 256.84s/epoch)
+13-04-22 13:48 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:48 CRACK500_Run6_7 Returning seg_loss_weight 0.53 and dec_loss_weight 0.0047
+13-04-22 13:48 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:53 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000352
+13-04-22 13:53 CRACK500_Run6_7 Epoch 48/100 ==> avg_loss_seg=0.01192, avg_loss_dec=0.00000, avg_loss=0.00632, correct=1896/1896, in 263.97s/epoch (fwd/bck in 257.45s/epoch)
+13-04-22 13:53 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:53 CRACK500_Run6_7 Returning seg_loss_weight 0.52 and dec_loss_weight 0.0048
+13-04-22 13:53 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 13:59 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.005008
+13-04-22 13:59 CRACK500_Run6_7 Epoch 49/100 ==> avg_loss_seg=0.01293, avg_loss_dec=0.00000, avg_loss=0.00672, correct=1896/1896, in 264.10s/epoch (fwd/bck in 256.58s/epoch)
+13-04-22 13:59 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 13:59 CRACK500_Run6_7 Returning seg_loss_weight 0.51 and dec_loss_weight 0.0049
+13-04-22 13:59 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:04 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000555
+13-04-22 14:04 CRACK500_Run6_7 Epoch 50/100 ==> avg_loss_seg=0.01099, avg_loss_dec=0.00000, avg_loss=0.00560, correct=1896/1896, in 264.37s/epoch (fwd/bck in 257.16s/epoch)
+13-04-22 14:04 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:04 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_50.pth
+13-04-22 14:04 CRACK500_Run6_7 Returning seg_loss_weight 0.5 and dec_loss_weight 0.005
+13-04-22 14:04 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:09 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.001096
+13-04-22 14:09 CRACK500_Run6_7 Epoch 51/100 ==> avg_loss_seg=0.01110, avg_loss_dec=0.00000, avg_loss=0.00555, correct=1896/1896, in 263.94s/epoch (fwd/bck in 256.79s/epoch)
+13-04-22 14:09 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 14:09 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 14:09 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 14:12 CRACK500_Run6_7 Best F1: 0.770763 at 0.235000. Pr: 0.762788, Re: 0.816782
+13-04-22 14:12 CRACK500_Run6_7 Returning seg_loss_weight 0.49 and dec_loss_weight 0.0051
+13-04-22 14:12 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:17 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000719
+13-04-22 14:17 CRACK500_Run6_7 Epoch 52/100 ==> avg_loss_seg=0.01087, avg_loss_dec=0.00000, avg_loss=0.00533, correct=1896/1896, in 263.46s/epoch (fwd/bck in 255.39s/epoch)
+13-04-22 14:17 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:17 CRACK500_Run6_7 Returning seg_loss_weight 0.48 and dec_loss_weight 0.005200000000000001
+13-04-22 14:17 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:23 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.008280
+13-04-22 14:23 CRACK500_Run6_7 Epoch 53/100 ==> avg_loss_seg=0.01060, avg_loss_dec=0.00000, avg_loss=0.00509, correct=1896/1896, in 262.86s/epoch (fwd/bck in 257.63s/epoch)
+13-04-22 14:23 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:23 CRACK500_Run6_7 Returning seg_loss_weight 0.47 and dec_loss_weight 0.0053
+13-04-22 14:23 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:28 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.003756
+13-04-22 14:28 CRACK500_Run6_7 Epoch 54/100 ==> avg_loss_seg=0.01086, avg_loss_dec=0.00000, avg_loss=0.00510, correct=1896/1896, in 263.79s/epoch (fwd/bck in 256.28s/epoch)
+13-04-22 14:28 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:28 CRACK500_Run6_7 Returning seg_loss_weight 0.45999999999999996 and dec_loss_weight 0.0054
+13-04-22 14:28 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:33 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.001411
+13-04-22 14:33 CRACK500_Run6_7 Epoch 55/100 ==> avg_loss_seg=0.00900, avg_loss_dec=0.00000, avg_loss=0.00414, correct=1896/1896, in 264.24s/epoch (fwd/bck in 255.90s/epoch)
+13-04-22 14:33 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:33 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_55.pth
+13-04-22 14:33 CRACK500_Run6_7 Returning seg_loss_weight 0.44999999999999996 and dec_loss_weight 0.0055000000000000005
+13-04-22 14:33 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:39 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000339
+13-04-22 14:39 CRACK500_Run6_7 Epoch 56/100 ==> avg_loss_seg=0.00999, avg_loss_dec=0.00000, avg_loss=0.00450, correct=1896/1896, in 263.91s/epoch (fwd/bck in 256.16s/epoch)
+13-04-22 14:39 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 14:39 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 14:39 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 14:41 CRACK500_Run6_7 Best F1: 0.774654 at 0.290000. Pr: 0.763687, Re: 0.824547
+13-04-22 14:41 CRACK500_Run6_7 Returning seg_loss_weight 0.43999999999999995 and dec_loss_weight 0.005600000000000001
+13-04-22 14:41 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:47 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000378
+13-04-22 14:47 CRACK500_Run6_7 Epoch 57/100 ==> avg_loss_seg=0.00957, avg_loss_dec=0.00000, avg_loss=0.00421, correct=1896/1896, in 262.75s/epoch (fwd/bck in 255.36s/epoch)
+13-04-22 14:47 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:47 CRACK500_Run6_7 Returning seg_loss_weight 0.43000000000000005 and dec_loss_weight 0.005699999999999999
+13-04-22 14:47 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:52 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000104
+13-04-22 14:52 CRACK500_Run6_7 Epoch 58/100 ==> avg_loss_seg=0.00932, avg_loss_dec=0.00000, avg_loss=0.00401, correct=1896/1896, in 264.00s/epoch (fwd/bck in 256.35s/epoch)
+13-04-22 14:52 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:52 CRACK500_Run6_7 Returning seg_loss_weight 0.42000000000000004 and dec_loss_weight 0.0058
+13-04-22 14:52 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 14:57 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000592
+13-04-22 14:57 CRACK500_Run6_7 Epoch 59/100 ==> avg_loss_seg=0.00897, avg_loss_dec=0.00000, avg_loss=0.00377, correct=1896/1896, in 264.79s/epoch (fwd/bck in 257.25s/epoch)
+13-04-22 14:57 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 14:57 CRACK500_Run6_7 Returning seg_loss_weight 0.41000000000000003 and dec_loss_weight 0.0059
+13-04-22 14:57 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:03 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.002448
+13-04-22 15:03 CRACK500_Run6_7 Epoch 60/100 ==> avg_loss_seg=0.00853, avg_loss_dec=0.00000, avg_loss=0.00350, correct=1896/1896, in 264.44s/epoch (fwd/bck in 256.62s/epoch)
+13-04-22 15:03 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:03 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_60.pth
+13-04-22 15:03 CRACK500_Run6_7 Returning seg_loss_weight 0.4 and dec_loss_weight 0.006
+13-04-22 15:03 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:08 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000821
+13-04-22 15:08 CRACK500_Run6_7 Epoch 61/100 ==> avg_loss_seg=0.00849, avg_loss_dec=0.00000, avg_loss=0.00340, correct=1896/1896, in 265.13s/epoch (fwd/bck in 257.11s/epoch)
+13-04-22 15:08 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 15:08 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 15:08 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 15:12 CRACK500_Run6_7 Best F1: 0.773663 at 0.125000. Pr: 0.765785, Re: 0.819345
+13-04-22 15:12 CRACK500_Run6_7 Returning seg_loss_weight 0.39 and dec_loss_weight 0.0061
+13-04-22 15:12 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:17 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000071
+13-04-22 15:17 CRACK500_Run6_7 Epoch 62/100 ==> avg_loss_seg=0.00823, avg_loss_dec=0.00000, avg_loss=0.00321, correct=1896/1896, in 263.27s/epoch (fwd/bck in 255.46s/epoch)
+13-04-22 15:17 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:17 CRACK500_Run6_7 Returning seg_loss_weight 0.38 and dec_loss_weight 0.0062
+13-04-22 15:17 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:22 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000426
+13-04-22 15:22 CRACK500_Run6_7 Epoch 63/100 ==> avg_loss_seg=0.00831, avg_loss_dec=0.00000, avg_loss=0.00316, correct=1896/1896, in 265.48s/epoch (fwd/bck in 257.15s/epoch)
+13-04-22 15:22 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:22 CRACK500_Run6_7 Returning seg_loss_weight 0.37 and dec_loss_weight 0.0063
+13-04-22 15:22 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:28 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000032
+13-04-22 15:28 CRACK500_Run6_7 Epoch 64/100 ==> avg_loss_seg=0.00800, avg_loss_dec=0.00000, avg_loss=0.00296, correct=1896/1896, in 265.54s/epoch (fwd/bck in 257.00s/epoch)
+13-04-22 15:28 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:28 CRACK500_Run6_7 Returning seg_loss_weight 0.36 and dec_loss_weight 0.0064
+13-04-22 15:28 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:33 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.002987
+13-04-22 15:33 CRACK500_Run6_7 Epoch 65/100 ==> avg_loss_seg=0.00858, avg_loss_dec=0.00000, avg_loss=0.00309, correct=1896/1896, in 264.64s/epoch (fwd/bck in 257.31s/epoch)
+13-04-22 15:33 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:33 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_65.pth
+13-04-22 15:33 CRACK500_Run6_7 Returning seg_loss_weight 0.35 and dec_loss_weight 0.006500000000000001
+13-04-22 15:33 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:38 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000397
+13-04-22 15:38 CRACK500_Run6_7 Epoch 66/100 ==> avg_loss_seg=0.00713, avg_loss_dec=0.00000, avg_loss=0.00249, correct=1896/1896, in 265.51s/epoch (fwd/bck in 257.39s/epoch)
+13-04-22 15:38 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 15:39 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 15:39 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 15:42 CRACK500_Run6_7 Best F1: 0.775103 at 0.165000. Pr: 0.766959, Re: 0.821763
+13-04-22 15:42 CRACK500_Run6_7 Returning seg_loss_weight 0.33999999999999997 and dec_loss_weight 0.006600000000000001
+13-04-22 15:42 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:48 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000966
+13-04-22 15:48 CRACK500_Run6_7 Epoch 67/100 ==> avg_loss_seg=0.00764, avg_loss_dec=0.00000, avg_loss=0.00260, correct=1896/1896, in 263.35s/epoch (fwd/bck in 256.10s/epoch)
+13-04-22 15:48 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:48 CRACK500_Run6_7 Returning seg_loss_weight 0.32999999999999996 and dec_loss_weight 0.0067
+13-04-22 15:48 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:53 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.002204
+13-04-22 15:53 CRACK500_Run6_7 Epoch 68/100 ==> avg_loss_seg=0.00782, avg_loss_dec=0.00000, avg_loss=0.00258, correct=1896/1896, in 265.51s/epoch (fwd/bck in 257.76s/epoch)
+13-04-22 15:53 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:53 CRACK500_Run6_7 Returning seg_loss_weight 0.31999999999999995 and dec_loss_weight 0.0068000000000000005
+13-04-22 15:53 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 15:58 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000235
+13-04-22 15:58 CRACK500_Run6_7 Epoch 69/100 ==> avg_loss_seg=0.00674, avg_loss_dec=0.00000, avg_loss=0.00216, correct=1896/1896, in 264.94s/epoch (fwd/bck in 257.26s/epoch)
+13-04-22 15:58 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 15:58 CRACK500_Run6_7 Returning seg_loss_weight 0.31000000000000005 and dec_loss_weight 0.0069
+13-04-22 15:58 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:03 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000142
+13-04-22 16:03 CRACK500_Run6_7 Epoch 70/100 ==> avg_loss_seg=0.00703, avg_loss_dec=0.00000, avg_loss=0.00218, correct=1896/1896, in 264.94s/epoch (fwd/bck in 257.19s/epoch)
+13-04-22 16:03 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:03 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_70.pth
+13-04-22 16:03 CRACK500_Run6_7 Returning seg_loss_weight 0.30000000000000004 and dec_loss_weight 0.006999999999999999
+13-04-22 16:03 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:09 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.007153
+13-04-22 16:09 CRACK500_Run6_7 Epoch 71/100 ==> avg_loss_seg=0.00711, avg_loss_dec=0.00000, avg_loss=0.00213, correct=1896/1896, in 264.71s/epoch (fwd/bck in 257.31s/epoch)
+13-04-22 16:09 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 16:09 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 16:09 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 16:13 CRACK500_Run6_7 Best F1: 0.767834 at 0.265000. Pr: 0.762367, Re: 0.813890
+13-04-22 16:13 CRACK500_Run6_7 Returning seg_loss_weight 0.29000000000000004 and dec_loss_weight 0.0070999999999999995
+13-04-22 16:13 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:18 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.002547
+13-04-22 16:18 CRACK500_Run6_7 Epoch 72/100 ==> avg_loss_seg=0.00699, avg_loss_dec=0.00000, avg_loss=0.00203, correct=1896/1896, in 264.30s/epoch (fwd/bck in 256.57s/epoch)
+13-04-22 16:18 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:18 CRACK500_Run6_7 Returning seg_loss_weight 0.28 and dec_loss_weight 0.0072
+13-04-22 16:18 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:23 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.001854
+13-04-22 16:23 CRACK500_Run6_7 Epoch 73/100 ==> avg_loss_seg=0.00579, avg_loss_dec=0.00000, avg_loss=0.00162, correct=1896/1896, in 264.93s/epoch (fwd/bck in 257.32s/epoch)
+13-04-22 16:23 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:23 CRACK500_Run6_7 Returning seg_loss_weight 0.27 and dec_loss_weight 0.0073
+13-04-22 16:23 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:28 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000629
+13-04-22 16:28 CRACK500_Run6_7 Epoch 74/100 ==> avg_loss_seg=0.00681, avg_loss_dec=0.00000, avg_loss=0.00184, correct=1896/1896, in 264.76s/epoch (fwd/bck in 257.07s/epoch)
+13-04-22 16:28 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:28 CRACK500_Run6_7 Returning seg_loss_weight 0.26 and dec_loss_weight 0.0074
+13-04-22 16:28 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:34 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.004208
+13-04-22 16:34 CRACK500_Run6_7 Epoch 75/100 ==> avg_loss_seg=0.00740, avg_loss_dec=0.00000, avg_loss=0.00192, correct=1896/1896, in 265.34s/epoch (fwd/bck in 257.44s/epoch)
+13-04-22 16:34 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:34 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_75.pth
+13-04-22 16:34 CRACK500_Run6_7 Returning seg_loss_weight 0.25 and dec_loss_weight 0.0075
+13-04-22 16:34 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:39 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000432
+13-04-22 16:39 CRACK500_Run6_7 Epoch 76/100 ==> avg_loss_seg=0.00588, avg_loss_dec=0.00000, avg_loss=0.00147, correct=1896/1896, in 264.68s/epoch (fwd/bck in 257.43s/epoch)
+13-04-22 16:39 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 16:39 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 16:39 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 16:43 CRACK500_Run6_7 Best F1: 0.773233 at 0.180000. Pr: 0.770462, Re: 0.813580
+13-04-22 16:43 CRACK500_Run6_7 Returning seg_loss_weight 0.24 and dec_loss_weight 0.0076
+13-04-22 16:43 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:48 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000026
+13-04-22 16:48 CRACK500_Run6_7 Epoch 77/100 ==> avg_loss_seg=0.00614, avg_loss_dec=0.00000, avg_loss=0.00147, correct=1896/1896, in 263.46s/epoch (fwd/bck in 255.42s/epoch)
+13-04-22 16:48 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:48 CRACK500_Run6_7 Returning seg_loss_weight 0.22999999999999998 and dec_loss_weight 0.0077
+13-04-22 16:48 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:53 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.003278
+13-04-22 16:53 CRACK500_Run6_7 Epoch 78/100 ==> avg_loss_seg=0.00691, avg_loss_dec=0.00000, avg_loss=0.00159, correct=1896/1896, in 264.39s/epoch (fwd/bck in 256.30s/epoch)
+13-04-22 16:53 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:53 CRACK500_Run6_7 Returning seg_loss_weight 0.21999999999999997 and dec_loss_weight 0.0078000000000000005
+13-04-22 16:53 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 16:59 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000574
+13-04-22 16:59 CRACK500_Run6_7 Epoch 79/100 ==> avg_loss_seg=0.00557, avg_loss_dec=0.00000, avg_loss=0.00123, correct=1896/1896, in 265.00s/epoch (fwd/bck in 257.38s/epoch)
+13-04-22 16:59 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 16:59 CRACK500_Run6_7 Returning seg_loss_weight 0.20999999999999996 and dec_loss_weight 0.0079
+13-04-22 16:59 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:04 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000915
+13-04-22 17:04 CRACK500_Run6_7 Epoch 80/100 ==> avg_loss_seg=0.00615, avg_loss_dec=0.00000, avg_loss=0.00129, correct=1896/1896, in 265.66s/epoch (fwd/bck in 257.21s/epoch)
+13-04-22 17:04 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 17:04 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_80.pth
+13-04-22 17:04 CRACK500_Run6_7 Returning seg_loss_weight 0.19999999999999996 and dec_loss_weight 0.008
+13-04-22 17:04 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:09 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000156
+13-04-22 17:09 CRACK500_Run6_7 Epoch 81/100 ==> avg_loss_seg=0.00585, avg_loss_dec=0.00000, avg_loss=0.00117, correct=1896/1896, in 264.64s/epoch (fwd/bck in 257.07s/epoch)
+13-04-22 17:09 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 17:10 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 17:10 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 17:13 CRACK500_Run6_7 Best F1: 0.774384 at 0.165000. Pr: 0.765655, Re: 0.821507
+13-04-22 17:13 CRACK500_Run6_7 Returning seg_loss_weight 0.18999999999999995 and dec_loss_weight 0.008100000000000001
+13-04-22 17:13 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:19 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000190
+13-04-22 17:19 CRACK500_Run6_7 Epoch 82/100 ==> avg_loss_seg=0.00573, avg_loss_dec=0.00000, avg_loss=0.00109, correct=1896/1896, in 263.89s/epoch (fwd/bck in 256.19s/epoch)
+13-04-22 17:19 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 17:19 CRACK500_Run6_7 Returning seg_loss_weight 0.18000000000000005 and dec_loss_weight 0.008199999999999999
+13-04-22 17:19 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:24 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.001993
+13-04-22 17:24 CRACK500_Run6_7 Epoch 83/100 ==> avg_loss_seg=0.00611, avg_loss_dec=0.00000, avg_loss=0.00110, correct=1896/1896, in 265.21s/epoch (fwd/bck in 257.18s/epoch)
+13-04-22 17:24 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 17:24 CRACK500_Run6_7 Returning seg_loss_weight 0.17000000000000004 and dec_loss_weight 0.0083
+13-04-22 17:24 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:29 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000614
+13-04-22 17:29 CRACK500_Run6_7 Epoch 84/100 ==> avg_loss_seg=0.00514, avg_loss_dec=0.00000, avg_loss=0.00087, correct=1896/1896, in 264.95s/epoch (fwd/bck in 256.61s/epoch)
+13-04-22 17:29 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 17:29 CRACK500_Run6_7 Returning seg_loss_weight 0.16000000000000003 and dec_loss_weight 0.0084
+13-04-22 17:29 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:34 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.003827
+13-04-22 17:34 CRACK500_Run6_7 Epoch 85/100 ==> avg_loss_seg=0.00628, avg_loss_dec=0.00000, avg_loss=0.00100, correct=1896/1896, in 264.67s/epoch (fwd/bck in 256.84s/epoch)
+13-04-22 17:34 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 17:34 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_85.pth
+13-04-22 17:34 CRACK500_Run6_7 Returning seg_loss_weight 0.15000000000000002 and dec_loss_weight 0.0085
+13-04-22 17:34 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:40 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000031
+13-04-22 17:40 CRACK500_Run6_7 Epoch 86/100 ==> avg_loss_seg=0.00500, avg_loss_dec=0.00000, avg_loss=0.00075, correct=1896/1896, in 265.10s/epoch (fwd/bck in 257.36s/epoch)
+13-04-22 17:40 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 17:40 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 17:40 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 17:44 CRACK500_Run6_7 Best F1: 0.770047 at 0.100000. Pr: 0.767951, Re: 0.809348
+13-04-22 17:44 CRACK500_Run6_7 Returning seg_loss_weight 0.14 and dec_loss_weight 0.0086
+13-04-22 17:44 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:49 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: -0.000333
+13-04-22 17:49 CRACK500_Run6_7 Epoch 87/100 ==> avg_loss_seg=0.00500, avg_loss_dec=0.00000, avg_loss=0.00070, correct=1896/1896, in 264.23s/epoch (fwd/bck in 255.20s/epoch)
+13-04-22 17:49 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 17:49 CRACK500_Run6_7 Returning seg_loss_weight 0.13 and dec_loss_weight 0.0087
+13-04-22 17:49 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 17:54 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000503
+13-04-22 17:54 CRACK500_Run6_7 Epoch 88/100 ==> avg_loss_seg=0.00521, avg_loss_dec=0.00000, avg_loss=0.00068, correct=1896/1896, in 264.71s/epoch (fwd/bck in 256.49s/epoch)
+13-04-22 17:54 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 17:54 CRACK500_Run6_7 Returning seg_loss_weight 0.12 and dec_loss_weight 0.0088
+13-04-22 17:54 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:00 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000098
+13-04-22 18:00 CRACK500_Run6_7 Epoch 89/100 ==> avg_loss_seg=0.00501, avg_loss_dec=0.00000, avg_loss=0.00060, correct=1896/1896, in 264.78s/epoch (fwd/bck in 256.86s/epoch)
+13-04-22 18:00 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:00 CRACK500_Run6_7 Returning seg_loss_weight 0.10999999999999999 and dec_loss_weight 0.0089
+13-04-22 18:00 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:05 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000318
+13-04-22 18:05 CRACK500_Run6_7 Epoch 90/100 ==> avg_loss_seg=0.00497, avg_loss_dec=0.00000, avg_loss=0.00055, correct=1896/1896, in 264.32s/epoch (fwd/bck in 256.37s/epoch)
+13-04-22 18:05 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:05 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_90.pth
+13-04-22 18:05 CRACK500_Run6_7 Returning seg_loss_weight 0.09999999999999998 and dec_loss_weight 0.009000000000000001
+13-04-22 18:05 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:10 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000293
+13-04-22 18:10 CRACK500_Run6_7 Epoch 91/100 ==> avg_loss_seg=0.00486, avg_loss_dec=0.00000, avg_loss=0.00049, correct=1896/1896, in 264.74s/epoch (fwd/bck in 256.46s/epoch)
+13-04-22 18:10 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 18:10 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 18:10 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 18:13 CRACK500_Run6_7 Best F1: 0.773067 at 0.130000. Pr: 0.768142, Re: 0.816148
+13-04-22 18:13 CRACK500_Run6_7 Returning seg_loss_weight 0.08999999999999997 and dec_loss_weight 0.0091
+13-04-22 18:13 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:18 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000268
+13-04-22 18:18 CRACK500_Run6_7 Epoch 92/100 ==> avg_loss_seg=0.00470, avg_loss_dec=0.00000, avg_loss=0.00042, correct=1896/1896, in 262.62s/epoch (fwd/bck in 254.88s/epoch)
+13-04-22 18:18 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:18 CRACK500_Run6_7 Returning seg_loss_weight 0.07999999999999996 and dec_loss_weight 0.0092
+13-04-22 18:18 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:24 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000009
+13-04-22 18:24 CRACK500_Run6_7 Epoch 93/100 ==> avg_loss_seg=0.00464, avg_loss_dec=0.00000, avg_loss=0.00037, correct=1896/1896, in 263.99s/epoch (fwd/bck in 256.77s/epoch)
+13-04-22 18:24 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:24 CRACK500_Run6_7 Returning seg_loss_weight 0.06999999999999995 and dec_loss_weight 0.009300000000000001
+13-04-22 18:24 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:29 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000360
+13-04-22 18:29 CRACK500_Run6_7 Epoch 94/100 ==> avg_loss_seg=0.00453, avg_loss_dec=0.00000, avg_loss=0.00032, correct=1896/1896, in 263.84s/epoch (fwd/bck in 256.54s/epoch)
+13-04-22 18:29 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:29 CRACK500_Run6_7 Returning seg_loss_weight 0.06000000000000005 and dec_loss_weight 0.0094
+13-04-22 18:29 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:34 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000216
+13-04-22 18:34 CRACK500_Run6_7 Epoch 95/100 ==> avg_loss_seg=0.00433, avg_loss_dec=0.00000, avg_loss=0.00026, correct=1896/1896, in 263.51s/epoch (fwd/bck in 257.36s/epoch)
+13-04-22 18:34 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:34 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/ep_95.pth
+13-04-22 18:34 CRACK500_Run6_7 Returning seg_loss_weight 0.050000000000000044 and dec_loss_weight 0.0095
+13-04-22 18:34 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:39 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000139
+13-04-22 18:39 CRACK500_Run6_7 Epoch 96/100 ==> avg_loss_seg=0.00417, avg_loss_dec=0.00000, avg_loss=0.00021, correct=1896/1896, in 263.52s/epoch (fwd/bck in 256.64s/epoch)
+13-04-22 18:39 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 18:40 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 18:40 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 18:42 CRACK500_Run6_7 Best F1: 0.768739 at 0.160000. Pr: 0.763272, Re: 0.812808
+13-04-22 18:42 CRACK500_Run6_7 Returning seg_loss_weight 0.040000000000000036 and dec_loss_weight 0.0096
+13-04-22 18:42 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:48 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000475
+13-04-22 18:48 CRACK500_Run6_7 Epoch 97/100 ==> avg_loss_seg=0.00400, avg_loss_dec=0.00000, avg_loss=0.00016, correct=1896/1896, in 263.41s/epoch (fwd/bck in 255.79s/epoch)
+13-04-22 18:48 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:48 CRACK500_Run6_7 Returning seg_loss_weight 0.030000000000000027 and dec_loss_weight 0.0097
+13-04-22 18:48 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:53 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000304
+13-04-22 18:53 CRACK500_Run6_7 Epoch 98/100 ==> avg_loss_seg=0.00370, avg_loss_dec=0.00000, avg_loss=0.00011, correct=1896/1896, in 264.89s/epoch (fwd/bck in 257.01s/epoch)
+13-04-22 18:53 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:53 CRACK500_Run6_7 Returning seg_loss_weight 0.020000000000000018 and dec_loss_weight 0.0098
+13-04-22 18:53 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 18:58 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000208
+13-04-22 18:58 CRACK500_Run6_7 Epoch 99/100 ==> avg_loss_seg=0.00345, avg_loss_dec=0.00000, avg_loss=0.00007, correct=1896/1896, in 263.49s/epoch (fwd/bck in 256.07s/epoch)
+13-04-22 18:58 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+13-04-22 18:58 CRACK500_Run6_7 Returning seg_loss_weight 0.010000000000000009 and dec_loss_weight 0.0099
+13-04-22 18:58 CRACK500_Run6_7 Returning dec_gradient_multiplier 0
+13-04-22 19:04 CRACK500_Run6_7 Hard negative mining: Samples: 379, Mean sample loss difference: 0.000557
+13-04-22 19:04 CRACK500_Run6_7 Epoch 100/100 ==> avg_loss_seg=0.00312, avg_loss_dec=0.00000, avg_loss=0.00003, correct=1896/1896, in 263.97s/epoch (fwd/bck in 256.52s/epoch)
+13-04-22 19:04 CRACK500_Run6_7 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-04-22 19:04 CRACK500_Run6_7 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-04-22 19:04 CRACK500_Run6_7 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-04-22 19:07 CRACK500_Run6_7 Best F1: 0.771417 at 0.100000. Pr: 0.774692, Re: 0.805482
+13-04-22 19:07 CRACK500_Run6_7 Saving current model state to ./RESULTS/CRACK500/CRACK500_Run6_7/models/final_state_dict.pth
+13-04-22 19:07 CRACK500_Run6_7 Loading model state from ./RESULTS/CRACK500/CRACK500_Run6_7/models/best_state_dict.pth
+13-04-22 19:07 TEST: Number of positives: 1124, Number of negatives: 0, Sum: 1124
+13-04-22 19:18 CRACK500_Run6_7 Decision EVAL on TEST. Pr: 0.000000, Re: 0.000000, F1: 0.000000, Accuracy: 0.000000, Threshold: 1.0
+13-04-22 19:18 CRACK500_Run6_7 TP: 0, FP: 0, FN: 1124, TN: 0
+13-04-22 19:18 CRACK500_Run6_7 Evaluation metrics on TEST set. 2 pixel distance used.
+13-04-22 19:27 CRACK500_Run6_7 Pr: 0.715461, Re: 0.790557, F1: 0.730140, threshold: 0.4750000000000003
