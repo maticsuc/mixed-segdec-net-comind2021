@@ -47,7 +47,7 @@ def get_dataset(kind: str, cfg: Config) -> Optional[DataLoader]:
         batch_sampler = HardExamplesBatchSampler(ds,
                                              default_sampler,
                                              batch_size=batch_size,
-                                             hard_sample_size=hard_sample_size,
+                                             hard_sample_size=int(hard_sample_size),
                                              drop_last=True,
                                              hard_samples_selected_min_percent=hard_samples_selected_min_percent)
 
