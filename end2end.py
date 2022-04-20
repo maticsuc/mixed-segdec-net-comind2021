@@ -190,7 +190,8 @@ class End2End:
 
                 epoch_correct += correct
 
-                train_loader.batch_sampler.update_sample_loss_batch(data, difficulty_score, index_key=5)
+                if self.cfg.HARD_NEG_MINING is not None:
+                    train_loader.batch_sampler.update_sample_loss_batch(data, difficulty_score, index_key=5)
 
             end = timer()
 
