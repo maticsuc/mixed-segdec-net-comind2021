@@ -11,12 +11,13 @@ class CrackSegmentationDataset(Dataset):
 
     def read_samples(self, path_to_samples, sample_kind):
         samples = [i for i in sorted(os.listdir(path_to_samples)) if 'GT' not in i]
+        gt_file_type = [i for i in sorted(os.listdir(path_to_samples)) if 'GT' in i][0].split('.')[1]
 
         for sample in samples:
-            part = sample.split(".")[0]
+            part, _ = sample.split(".")
             
-            image_path = path_to_samples + "/" + sample
-            seg_mask_path = path_to_samples + "/" + part + "_GT." + sample.split(".")[1]
+            image_path = os.path.join(path_to_samples, sample)
+            seg_mask_path = os.path.join(path_to_samples, f"{part}_GT.{gt_file_type}")
             
             image = self.read_img_resize(image_path, self.grayscale, self.image_size)
             image = self.to_tensor(image)
@@ -40,8 +41,8 @@ class CrackSegmentationDataset(Dataset):
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test'), 'pos')
             elif self.kind == 'TRAIN':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train'), 'pos')
-                if self.cfg.USE_NEGATIVES:
-                    self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_negative'), 'neg')
+                if self.cfg.USE_NEGATIVES is not None:
+                    self.read_samples(os.path.join(self.cfg.DATASET_PATH, self.cfg.USE_NEGATIVES), 'neg')
             elif self.kind == 'VAL':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val'), 'pos')
         else:

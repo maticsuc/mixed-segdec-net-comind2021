@@ -46,7 +46,7 @@ class Config:
 
     BEST_MODEL_TYPE = "dec"
     AUGMENTATION = False
-    USE_NEGATIVES = False
+    USE_NEGATIVES = None
     OPTIMIZER = "sgd"
     SCHEDULER = None
     HARD_NEG_MINING = None

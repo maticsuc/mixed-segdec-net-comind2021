@@ -37,7 +37,7 @@ def get_dataset(kind: str, cfg: Config) -> Optional[DataLoader]:
 
     if kind == "TRAIN" and cfg.HARD_NEG_MINING is not None:
 
-        hard_sample_size, hard_samples_selected_min_percent = cfg.HARD_NEG_MINING
+        hard_sample_size, hard_samples_selected_min_percent, difficulty_score_type = cfg.HARD_NEG_MINING
 
         if shuffle:
             default_sampler = RandomSampler(ds)

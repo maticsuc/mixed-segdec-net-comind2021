@@ -117,7 +117,19 @@ class End2End:
                 loss_seg = criterion_seg(seg_mask_predicted, seg_mask_)
                 loss_dec = criterion_dec(decision, is_pos_)
 
-                difficulty_score[sub_iter] = loss_seg.item()
+                if self.cfg.HARD_NEG_MINING is not None:
+                    _, _, difficulty_score_mode = self.cfg.HARD_NEG_MINING
+                    if difficulty_score_mode == 1:
+                        difficulty_score[sub_iter] = loss_seg.item()
+                    elif difficulty_score_mode == 2:
+                        threshold = 0.5
+                        y_true = seg_mask_.detach().cpu().numpy()[0][0].astype(np.uint8)
+                        y_pred = (seg_mask_predicted.detach().cpu().numpy()[0][0]>threshold).astype(np.uint8)
+
+                        fp = sum(sum((y_true==0)&(y_pred==1))).item()
+                        fn = sum(sum((y_true==1)&(y_pred==0))).item()
+
+                        difficulty_score[sub_iter] = loss_seg.item() * ((2 * fp) + fn + 1)
 
                 total_loss_seg += loss_seg.item()
                 total_loss_dec += loss_dec.item()
