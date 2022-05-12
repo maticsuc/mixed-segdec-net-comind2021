@@ -67,10 +67,13 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
-        losses, validation_data, best_model_metrics, validation_metrics, lrs = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
+        losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
         train_results = (losses, validation_data, validation_metrics, lrs)
         self._save_train_results(train_results)
         self._save_model(model)
+
+        # Save difficulty_score_dict
+        np.save(os.path.join(self.run_path, "difficulty_score_dict.npy"), difficulty_score_dict)
 
         self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, best_model_metrics=best_model_metrics)
 
@@ -166,6 +169,8 @@ class End2End:
         num_epochs = self.cfg.EPOCHS
         samples_per_epoch = len(train_loader) * self.cfg.BATCH_SIZE
 
+        difficulty_score_dict = dict()
+
         self.set_dec_gradient_multiplier(model, 0.0)
 
         for epoch in range(num_epochs):
@@ -180,6 +185,9 @@ class End2End:
 
             epoch_loss_seg, epoch_loss_dec, epoch_loss = 0, 0, 0
             epoch_correct = 0
+
+            difficulty_score_dict[epoch] = []
+
             from timeit import default_timer as timer
 
             time_acc = 0
@@ -204,6 +212,8 @@ class End2End:
 
                 if self.cfg.HARD_NEG_MINING is not None:
                     train_loader.batch_sampler.update_sample_loss_batch(data, difficulty_score, index_key=5)
+
+                difficulty_score_dict[epoch].append({index.item(): score for index, score in zip(data[-1], difficulty_score)})
 
             end = timer()
 
@@ -256,7 +266,7 @@ class End2End:
                 if tensorboard_writer is not None:
                     tensorboard_writer.add_scalar("Accuracy/Validation/", validation_accuracy, epoch)
 
-        return losses, validation_data, best_model_metrics, validation_metrics, lrs
+        return losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict
 
     def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dec_threshold=None, two_pxl_threshold=None, faktor=None):
         model.eval()

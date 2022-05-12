@@ -17,12 +17,12 @@ configuration.GPU = 0
 configuration.LEARNING_RATE = 1.0
 configuration.WEIGHTED_SEG_LOSS = False
 configuration.GRADIENT_ADJUSTMENT = True
-configuration.NUM_SEGMENTED = 10 # 6921, 230
+configuration.NUM_SEGMENTED = 20 # 6921, 230
 configuration.VALIDATE = True
 configuration.VALIDATE_ON_TEST = False
 configuration.VALIDATION_N_EPOCHS = 5
 configuration.USE_BEST_MODEL = True
-configuration.HARD_NEG_MINING = [5, 0.1]
+configuration.HARD_NEG_MINING = [5, 0.1, 2]
 configuration.BEST_MODEL_TYPE = 'seg'
 
 configuration.init_extra()
