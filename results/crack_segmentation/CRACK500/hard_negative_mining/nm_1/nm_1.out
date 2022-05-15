@@ -1,0 +1,842 @@
+nohup: ignoring input
+12-05-22 09:55 nm_1 Executing run with path ./RESULTS/CRACK500/nm_1
+12-05-22 09:55 nm_1 AUGMENTATION              : True
+12-05-22 09:55 nm_1 BATCH_SIZE                : 10
+12-05-22 09:55 nm_1 BEST_MODEL_TYPE           : seg
+12-05-22 09:55 nm_1 DATASET                   : CRACK500
+12-05-22 09:55 nm_1 DATASET_PATH              : ./datasets/CRACK500_JPG_PNG_MIXED
+12-05-22 09:55 nm_1 DELTA_CLS_LOSS            : 0.01
+12-05-22 09:55 nm_1 DILATE                    : 1
+12-05-22 09:55 nm_1 DYN_BALANCED_LOSS         : True
+12-05-22 09:55 nm_1 EPOCHS                    : 100
+12-05-22 09:55 nm_1 FOLD                      : None
+12-05-22 09:55 nm_1 FREQUENCY_SAMPLING        : False
+12-05-22 09:55 nm_1 GPU                       : 0
+12-05-22 09:55 nm_1 GRADIENT_ADJUSTMENT       : True
+12-05-22 09:55 nm_1 HARD_NEG_MINING           : [5.0, 0.1, 1.0]
+12-05-22 09:55 nm_1 INPUT_CHANNELS            : 3
+12-05-22 09:55 nm_1 INPUT_HEIGHT              : 360
+12-05-22 09:55 nm_1 INPUT_WIDTH               : 640
+12-05-22 09:55 nm_1 LEARNING_RATE             : 0.001
+12-05-22 09:55 nm_1 MEMORY_FIT                : 1
+12-05-22 09:55 nm_1 NUM_SEGMENTED             : 1896
+12-05-22 09:55 nm_1 ON_DEMAND_READ            : False
+12-05-22 09:55 nm_1 OPTIMIZER                 : adam
+12-05-22 09:55 nm_1 REPRODUCIBLE_RUN          : False
+12-05-22 09:55 nm_1 RESULTS_PATH              : ./RESULTS
+12-05-22 09:55 nm_1 SAVE_IMAGES               : False
+12-05-22 09:55 nm_1 SCHEDULER                 : None
+12-05-22 09:55 nm_1 TRAIN_NUM                 : None
+12-05-22 09:55 nm_1 USE_BEST_MODEL            : True
+12-05-22 09:55 nm_1 USE_NEGATIVES             : None
+12-05-22 09:55 nm_1 VALIDATE                  : True
+12-05-22 09:55 nm_1 VALIDATE_ON_TEST          : False
+12-05-22 09:55 nm_1 VALIDATION_N_EPOCHS       : 2
+12-05-22 09:55 nm_1 WEIGHTED_SEG_LOSS         : False
+12-05-22 09:55 nm_1 WEIGHTED_SEG_LOSS_MAX     : None
+12-05-22 09:55 nm_1 WEIGHTED_SEG_LOSS_P       : None
+12-05-22 09:56 TRAIN: Number of positives: 1896, Number of negatives: 0, Sum: 1896
+12-05-22 09:56 VAL: Number of positives: 348, Number of negatives: 0, Sum: 348
+12-05-22 09:56 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_00.pth
+12-05-22 09:56 nm_1 Returning seg_loss_weight 1.0 and dec_loss_weight 0.0
+12-05-22 09:56 nm_1 Returning dec_gradient_multiplier 0
+12-05-22 10:05 nm_1 Epoch 1/100 ==> avg_loss_seg=0.42883, avg_loss_dec=14.38217, avg_loss=0.42883, correct=5/3790, in 534.01s/epoch (fwd/bck in 504.33s/epoch)
+12-05-22 10:05 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 10:05 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 10:05 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 10:08 nm_1 Best F1: 0.734930 at 0.325000. Pr: 0.785400, Re: 0.738947
+12-05-22 10:08 nm_1 New best model based on seg metrics.
+12-05-22 10:08 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 10:08 nm_1 Returning seg_loss_weight 0.99 and dec_loss_weight 0.0001
+12-05-22 10:08 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 233/1896
+12-05-22 10:17 nm_1 Epoch 2/100 ==> avg_loss_seg=0.45406, avg_loss_dec=0.60048, avg_loss=0.44957, correct=3667/3790, in 533.34s/epoch (fwd/bck in 504.38s/epoch)
+12-05-22 10:17 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 10:17 nm_1 Returning seg_loss_weight 0.98 and dec_loss_weight 0.0002
+12-05-22 10:17 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 222/1896
+12-05-22 10:26 nm_1 Epoch 3/100 ==> avg_loss_seg=0.34056, avg_loss_dec=0.00000, avg_loss=0.33375, correct=3780/3790, in 535.39s/epoch (fwd/bck in 505.24s/epoch)
+12-05-22 10:26 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 10:26 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 10:26 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 10:29 nm_1 Best F1: 0.759441 at 0.455000. Pr: 0.774704, Re: 0.791208
+12-05-22 10:29 nm_1 New best model based on seg metrics.
+12-05-22 10:29 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 10:29 nm_1 Returning seg_loss_weight 0.97 and dec_loss_weight 0.0003
+12-05-22 10:29 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 234/1896
+12-05-22 10:38 nm_1 Epoch 4/100 ==> avg_loss_seg=0.28173, avg_loss_dec=0.00000, avg_loss=0.27328, correct=3780/3790, in 535.47s/epoch (fwd/bck in 504.68s/epoch)
+12-05-22 10:38 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 10:38 nm_1 Returning seg_loss_weight 0.96 and dec_loss_weight 0.0004
+12-05-22 10:38 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 201/1896
+12-05-22 10:47 nm_1 Epoch 5/100 ==> avg_loss_seg=0.24119, avg_loss_dec=0.00000, avg_loss=0.23154, correct=3780/3790, in 535.11s/epoch (fwd/bck in 504.56s/epoch)
+12-05-22 10:47 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 10:47 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 10:47 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 10:49 nm_1 Best F1: 0.767826 at 0.425000. Pr: 0.778545, Re: 0.804256
+12-05-22 10:49 nm_1 New best model based on seg metrics.
+12-05-22 10:49 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 10:49 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_05.pth
+12-05-22 10:49 nm_1 Returning seg_loss_weight 0.95 and dec_loss_weight 0.0005
+12-05-22 10:49 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 208/1896
+12-05-22 10:58 nm_1 Epoch 6/100 ==> avg_loss_seg=0.21072, avg_loss_dec=0.00000, avg_loss=0.20018, correct=3780/3790, in 533.55s/epoch (fwd/bck in 503.36s/epoch)
+12-05-22 10:58 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 10:58 nm_1 Returning seg_loss_weight 0.94 and dec_loss_weight 0.0006
+12-05-22 10:58 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 204/1896
+12-05-22 11:07 nm_1 Epoch 7/100 ==> avg_loss_seg=0.18869, avg_loss_dec=0.00000, avg_loss=0.17737, correct=3780/3790, in 533.52s/epoch (fwd/bck in 504.05s/epoch)
+12-05-22 11:07 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 11:07 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 11:07 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 11:10 nm_1 Best F1: 0.768136 at 0.265000. Pr: 0.771184, Re: 0.810534
+12-05-22 11:10 nm_1 New best model based on seg metrics.
+12-05-22 11:10 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 11:10 nm_1 Returning seg_loss_weight 0.9299999999999999 and dec_loss_weight 0.0007000000000000001
+12-05-22 11:10 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 217/1896
+12-05-22 11:19 nm_1 Epoch 8/100 ==> avg_loss_seg=0.16940, avg_loss_dec=0.00000, avg_loss=0.15754, correct=3780/3790, in 532.72s/epoch (fwd/bck in 503.06s/epoch)
+12-05-22 11:19 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 11:19 nm_1 Returning seg_loss_weight 0.92 and dec_loss_weight 0.0008
+12-05-22 11:19 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 190/1896
+12-05-22 11:28 nm_1 Epoch 9/100 ==> avg_loss_seg=0.16179, avg_loss_dec=0.00000, avg_loss=0.14885, correct=3780/3790, in 535.51s/epoch (fwd/bck in 504.29s/epoch)
+12-05-22 11:28 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 11:28 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 11:28 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 11:31 nm_1 Best F1: 0.767076 at 0.420000. Pr: 0.774046, Re: 0.810825
+12-05-22 11:31 nm_1 Returning seg_loss_weight 0.91 and dec_loss_weight 0.0009
+12-05-22 11:31 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 207/1896
+12-05-22 11:40 nm_1 Epoch 10/100 ==> avg_loss_seg=0.14942, avg_loss_dec=0.00000, avg_loss=0.13597, correct=3780/3790, in 533.90s/epoch (fwd/bck in 503.30s/epoch)
+12-05-22 11:40 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 11:40 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_10.pth
+12-05-22 11:40 nm_1 Returning seg_loss_weight 0.9 and dec_loss_weight 0.001
+12-05-22 11:40 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 215/1896
+12-05-22 11:49 nm_1 Epoch 11/100 ==> avg_loss_seg=0.13973, avg_loss_dec=0.00000, avg_loss=0.12576, correct=3780/3790, in 534.41s/epoch (fwd/bck in 504.55s/epoch)
+12-05-22 11:49 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 11:49 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 11:49 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 11:52 nm_1 Best F1: 0.769490 at 0.475000. Pr: 0.770883, Re: 0.818421
+12-05-22 11:52 nm_1 New best model based on seg metrics.
+12-05-22 11:52 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 11:52 nm_1 Returning seg_loss_weight 0.89 and dec_loss_weight 0.0011
+12-05-22 11:52 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 193/1896
+12-05-22 12:00 nm_1 Epoch 12/100 ==> avg_loss_seg=0.13336, avg_loss_dec=0.00000, avg_loss=0.11869, correct=3780/3790, in 534.66s/epoch (fwd/bck in 503.62s/epoch)
+12-05-22 12:00 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 12:00 nm_1 Returning seg_loss_weight 0.88 and dec_loss_weight 0.0012
+12-05-22 12:00 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 213/1896
+12-05-22 12:09 nm_1 Epoch 13/100 ==> avg_loss_seg=0.12587, avg_loss_dec=0.00000, avg_loss=0.11077, correct=3780/3790, in 535.50s/epoch (fwd/bck in 504.02s/epoch)
+12-05-22 12:09 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 12:10 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 12:10 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 12:12 nm_1 Best F1: 0.777029 at 0.385000. Pr: 0.780346, Re: 0.821569
+12-05-22 12:12 nm_1 New best model based on seg metrics.
+12-05-22 12:12 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 12:12 nm_1 Returning seg_loss_weight 0.87 and dec_loss_weight 0.0013000000000000002
+12-05-22 12:12 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 216/1896
+12-05-22 12:21 nm_1 Epoch 14/100 ==> avg_loss_seg=0.11907, avg_loss_dec=0.00000, avg_loss=0.10359, correct=3780/3790, in 532.77s/epoch (fwd/bck in 503.78s/epoch)
+12-05-22 12:21 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 12:21 nm_1 Returning seg_loss_weight 0.86 and dec_loss_weight 0.0014000000000000002
+12-05-22 12:21 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 222/1896
+12-05-22 12:30 nm_1 Epoch 15/100 ==> avg_loss_seg=0.11221, avg_loss_dec=0.00000, avg_loss=0.09650, correct=3780/3790, in 533.39s/epoch (fwd/bck in 504.11s/epoch)
+12-05-22 12:30 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 12:30 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 12:30 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 12:33 nm_1 Best F1: 0.758821 at 0.225000. Pr: 0.765192, Re: 0.800175
+12-05-22 12:33 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_15.pth
+12-05-22 12:33 nm_1 Returning seg_loss_weight 0.85 and dec_loss_weight 0.0015
+12-05-22 12:33 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 235/1896
+12-05-22 12:42 nm_1 Epoch 16/100 ==> avg_loss_seg=0.10833, avg_loss_dec=0.00000, avg_loss=0.09208, correct=3780/3790, in 532.59s/epoch (fwd/bck in 503.29s/epoch)
+12-05-22 12:42 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 12:42 nm_1 Returning seg_loss_weight 0.84 and dec_loss_weight 0.0016
+12-05-22 12:42 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 256/1896
+12-05-22 12:51 nm_1 Epoch 17/100 ==> avg_loss_seg=0.10138, avg_loss_dec=0.00000, avg_loss=0.08516, correct=3780/3790, in 535.68s/epoch (fwd/bck in 505.43s/epoch)
+12-05-22 12:51 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 12:51 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 12:51 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 12:54 nm_1 Best F1: 0.788449 at 0.385000. Pr: 0.787826, Re: 0.830251
+12-05-22 12:54 nm_1 New best model based on seg metrics.
+12-05-22 12:54 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 12:54 nm_1 Returning seg_loss_weight 0.83 and dec_loss_weight 0.0017000000000000001
+12-05-22 12:54 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 239/1896
+12-05-22 13:02 nm_1 Epoch 18/100 ==> avg_loss_seg=0.09791, avg_loss_dec=0.00000, avg_loss=0.08126, correct=3780/3790, in 531.50s/epoch (fwd/bck in 503.59s/epoch)
+12-05-22 13:02 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 13:02 nm_1 Returning seg_loss_weight 0.8200000000000001 and dec_loss_weight 0.0018
+12-05-22 13:02 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 234/1896
+12-05-22 13:11 nm_1 Epoch 19/100 ==> avg_loss_seg=0.09573, avg_loss_dec=0.00000, avg_loss=0.07850, correct=3780/3790, in 538.11s/epoch (fwd/bck in 503.85s/epoch)
+12-05-22 13:11 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 13:12 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 13:12 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 13:14 nm_1 Best F1: 0.781421 at 0.480000. Pr: 0.778031, Re: 0.833758
+12-05-22 13:14 nm_1 Returning seg_loss_weight 0.81 and dec_loss_weight 0.0019
+12-05-22 13:14 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 230/1896
+12-05-22 13:23 nm_1 Epoch 20/100 ==> avg_loss_seg=0.09130, avg_loss_dec=0.00000, avg_loss=0.07396, correct=3780/3790, in 533.26s/epoch (fwd/bck in 503.56s/epoch)
+12-05-22 13:23 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 13:23 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_20.pth
+12-05-22 13:23 nm_1 Returning seg_loss_weight 0.8 and dec_loss_weight 0.002
+12-05-22 13:23 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 249/1896
+12-05-22 13:32 nm_1 Epoch 21/100 ==> avg_loss_seg=0.08447, avg_loss_dec=0.00000, avg_loss=0.06758, correct=3780/3790, in 534.74s/epoch (fwd/bck in 504.49s/epoch)
+12-05-22 13:32 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 13:32 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 13:32 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 13:35 nm_1 Best F1: 0.783357 at 0.310000. Pr: 0.774678, Re: 0.836094
+12-05-22 13:35 nm_1 Returning seg_loss_weight 0.79 and dec_loss_weight 0.0021
+12-05-22 13:35 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 243/1896
+12-05-22 13:44 nm_1 Epoch 22/100 ==> avg_loss_seg=0.08559, avg_loss_dec=0.00000, avg_loss=0.06762, correct=3780/3790, in 532.20s/epoch (fwd/bck in 503.64s/epoch)
+12-05-22 13:44 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 13:44 nm_1 Returning seg_loss_weight 0.78 and dec_loss_weight 0.0022
+12-05-22 13:44 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 240/1896
+12-05-22 13:53 nm_1 Epoch 23/100 ==> avg_loss_seg=0.08286, avg_loss_dec=0.00000, avg_loss=0.06463, correct=3780/3790, in 534.86s/epoch (fwd/bck in 504.23s/epoch)
+12-05-22 13:53 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 13:53 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 13:53 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 13:56 nm_1 Best F1: 0.784110 at 0.365000. Pr: 0.780583, Re: 0.829910
+12-05-22 13:56 nm_1 Returning seg_loss_weight 0.77 and dec_loss_weight 0.0023
+12-05-22 13:56 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 241/1896
+12-05-22 14:05 nm_1 Epoch 24/100 ==> avg_loss_seg=0.08112, avg_loss_dec=0.00000, avg_loss=0.06246, correct=3780/3790, in 530.84s/epoch (fwd/bck in 503.17s/epoch)
+12-05-22 14:05 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 14:05 nm_1 Returning seg_loss_weight 0.76 and dec_loss_weight 0.0024
+12-05-22 14:05 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 204/1896
+12-05-22 14:13 nm_1 Epoch 25/100 ==> avg_loss_seg=0.07851, avg_loss_dec=0.00000, avg_loss=0.05967, correct=3780/3790, in 533.11s/epoch (fwd/bck in 504.61s/epoch)
+12-05-22 14:13 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 14:14 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 14:14 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 14:16 nm_1 Best F1: 0.783553 at 0.315000. Pr: 0.774722, Re: 0.834238
+12-05-22 14:16 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_25.pth
+12-05-22 14:16 nm_1 Returning seg_loss_weight 0.75 and dec_loss_weight 0.0025
+12-05-22 14:16 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 220/1896
+12-05-22 14:25 nm_1 Epoch 26/100 ==> avg_loss_seg=0.07246, avg_loss_dec=0.00000, avg_loss=0.05434, correct=3780/3790, in 531.98s/epoch (fwd/bck in 502.91s/epoch)
+12-05-22 14:25 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 14:25 nm_1 Returning seg_loss_weight 0.74 and dec_loss_weight 0.0026000000000000003
+12-05-22 14:25 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 221/1896
+12-05-22 14:34 nm_1 Epoch 27/100 ==> avg_loss_seg=0.07283, avg_loss_dec=0.00000, avg_loss=0.05389, correct=3780/3790, in 533.82s/epoch (fwd/bck in 504.03s/epoch)
+12-05-22 14:34 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 14:34 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 14:34 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 14:37 nm_1 Best F1: 0.787952 at 0.405000. Pr: 0.783626, Re: 0.834510
+12-05-22 14:37 nm_1 Returning seg_loss_weight 0.73 and dec_loss_weight 0.0027
+12-05-22 14:37 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 198/1896
+12-05-22 14:46 nm_1 Epoch 28/100 ==> avg_loss_seg=0.07037, avg_loss_dec=0.00000, avg_loss=0.05137, correct=3780/3790, in 538.65s/epoch (fwd/bck in 503.85s/epoch)
+12-05-22 14:46 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 14:46 nm_1 Returning seg_loss_weight 0.72 and dec_loss_weight 0.0028000000000000004
+12-05-22 14:46 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 225/1896
+12-05-22 14:55 nm_1 Epoch 29/100 ==> avg_loss_seg=0.06938, avg_loss_dec=0.00000, avg_loss=0.04995, correct=3780/3790, in 536.12s/epoch (fwd/bck in 504.56s/epoch)
+12-05-22 14:55 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 14:56 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 14:56 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 14:59 nm_1 Best F1: 0.788800 at 0.355000. Pr: 0.787555, Re: 0.831419
+12-05-22 14:59 nm_1 New best model based on seg metrics.
+12-05-22 14:59 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 14:59 nm_1 Returning seg_loss_weight 0.71 and dec_loss_weight 0.0029
+12-05-22 14:59 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 210/1896
+12-05-22 15:08 nm_1 Epoch 30/100 ==> avg_loss_seg=0.06704, avg_loss_dec=0.00000, avg_loss=0.04760, correct=3780/3790, in 541.17s/epoch (fwd/bck in 504.36s/epoch)
+12-05-22 15:08 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 15:08 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_30.pth
+12-05-22 15:08 nm_1 Returning seg_loss_weight 0.7 and dec_loss_weight 0.003
+12-05-22 15:08 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 207/1896
+12-05-22 15:17 nm_1 Epoch 31/100 ==> avg_loss_seg=0.06619, avg_loss_dec=0.00000, avg_loss=0.04634, correct=3780/3790, in 539.78s/epoch (fwd/bck in 505.09s/epoch)
+12-05-22 15:17 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 15:17 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 15:17 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 15:20 nm_1 Best F1: 0.782070 at 0.335000. Pr: 0.775936, Re: 0.831624
+12-05-22 15:20 nm_1 Returning seg_loss_weight 0.69 and dec_loss_weight 0.0031
+12-05-22 15:20 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 217/1896
+12-05-22 15:29 nm_1 Epoch 32/100 ==> avg_loss_seg=0.06390, avg_loss_dec=0.00000, avg_loss=0.04409, correct=3780/3790, in 547.49s/epoch (fwd/bck in 505.73s/epoch)
+12-05-22 15:29 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 15:29 nm_1 Returning seg_loss_weight 0.6799999999999999 and dec_loss_weight 0.0032
+12-05-22 15:29 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 236/1896
+12-05-22 15:38 nm_1 Epoch 33/100 ==> avg_loss_seg=0.06243, avg_loss_dec=0.00000, avg_loss=0.04245, correct=3780/3790, in 550.57s/epoch (fwd/bck in 506.09s/epoch)
+12-05-22 15:38 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 15:39 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 15:39 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 15:42 nm_1 Best F1: 0.786042 at 0.335000. Pr: 0.777274, Re: 0.837000
+12-05-22 15:42 nm_1 Returning seg_loss_weight 0.6699999999999999 and dec_loss_weight 0.0033000000000000004
+12-05-22 15:42 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 221/1896
+12-05-22 15:51 nm_1 Epoch 34/100 ==> avg_loss_seg=0.06012, avg_loss_dec=0.00000, avg_loss=0.04028, correct=3780/3790, in 545.44s/epoch (fwd/bck in 505.38s/epoch)
+12-05-22 15:51 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 15:51 nm_1 Returning seg_loss_weight 0.6599999999999999 and dec_loss_weight 0.0034000000000000002
+12-05-22 15:51 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 212/1896
+12-05-22 16:00 nm_1 Epoch 35/100 ==> avg_loss_seg=0.05732, avg_loss_dec=0.00000, avg_loss=0.03783, correct=3780/3790, in 551.82s/epoch (fwd/bck in 505.99s/epoch)
+12-05-22 16:00 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 16:00 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 16:00 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 16:03 nm_1 Best F1: 0.789460 at 0.355000. Pr: 0.777674, Re: 0.843363
+12-05-22 16:03 nm_1 New best model based on seg metrics.
+12-05-22 16:03 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 16:03 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_35.pth
+12-05-22 16:03 nm_1 Returning seg_loss_weight 0.65 and dec_loss_weight 0.0034999999999999996
+12-05-22 16:03 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 241/1896
+12-05-22 16:13 nm_1 Epoch 36/100 ==> avg_loss_seg=0.05734, avg_loss_dec=0.00000, avg_loss=0.03727, correct=3780/3790, in 548.78s/epoch (fwd/bck in 505.16s/epoch)
+12-05-22 16:13 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 16:13 nm_1 Returning seg_loss_weight 0.64 and dec_loss_weight 0.0036
+12-05-22 16:13 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 221/1896
+12-05-22 16:22 nm_1 Epoch 37/100 ==> avg_loss_seg=0.05613, avg_loss_dec=0.00000, avg_loss=0.03592, correct=3780/3790, in 548.99s/epoch (fwd/bck in 505.64s/epoch)
+12-05-22 16:22 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 16:22 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 16:22 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 16:25 nm_1 Best F1: 0.786425 at 0.305000. Pr: 0.778042, Re: 0.837921
+12-05-22 16:25 nm_1 Returning seg_loss_weight 0.63 and dec_loss_weight 0.0037
+12-05-22 16:25 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 224/1896
+12-05-22 16:35 nm_1 Epoch 38/100 ==> avg_loss_seg=0.05598, avg_loss_dec=0.00000, avg_loss=0.03527, correct=3780/3790, in 571.00s/epoch (fwd/bck in 524.81s/epoch)
+12-05-22 16:35 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 16:35 nm_1 Returning seg_loss_weight 0.62 and dec_loss_weight 0.0038
+12-05-22 16:35 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 214/1896
+12-05-22 16:44 nm_1 Epoch 39/100 ==> avg_loss_seg=0.05272, avg_loss_dec=0.00000, avg_loss=0.03269, correct=3780/3790, in 548.17s/epoch (fwd/bck in 506.11s/epoch)
+12-05-22 16:44 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 16:44 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 16:44 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 16:47 nm_1 Best F1: 0.791206 at 0.345000. Pr: 0.781132, Re: 0.841256
+12-05-22 16:47 nm_1 New best model based on seg metrics.
+12-05-22 16:47 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 16:47 nm_1 Returning seg_loss_weight 0.61 and dec_loss_weight 0.0039000000000000003
+12-05-22 16:47 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 199/1896
+12-05-22 16:56 nm_1 Epoch 40/100 ==> avg_loss_seg=0.05135, avg_loss_dec=0.00000, avg_loss=0.03132, correct=3780/3790, in 547.34s/epoch (fwd/bck in 505.00s/epoch)
+12-05-22 16:56 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 16:56 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_40.pth
+12-05-22 16:56 nm_1 Returning seg_loss_weight 0.6 and dec_loss_weight 0.004
+12-05-22 16:56 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 228/1896
+12-05-22 17:05 nm_1 Epoch 41/100 ==> avg_loss_seg=0.05153, avg_loss_dec=0.00000, avg_loss=0.03092, correct=3780/3790, in 547.56s/epoch (fwd/bck in 505.99s/epoch)
+12-05-22 17:05 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 17:05 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 17:05 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 17:09 nm_1 Best F1: 0.787132 at 0.255000. Pr: 0.778260, Re: 0.833733
+12-05-22 17:09 nm_1 Returning seg_loss_weight 0.5900000000000001 and dec_loss_weight 0.0040999999999999995
+12-05-22 17:09 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 213/1896
+12-05-22 17:18 nm_1 Epoch 42/100 ==> avg_loss_seg=0.04944, avg_loss_dec=0.00000, avg_loss=0.02917, correct=3780/3790, in 546.75s/epoch (fwd/bck in 505.29s/epoch)
+12-05-22 17:18 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 17:18 nm_1 Returning seg_loss_weight 0.5800000000000001 and dec_loss_weight 0.0042
+12-05-22 17:18 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 219/1896
+12-05-22 17:27 nm_1 Epoch 43/100 ==> avg_loss_seg=0.04806, avg_loss_dec=0.00000, avg_loss=0.02787, correct=3780/3790, in 548.14s/epoch (fwd/bck in 506.29s/epoch)
+12-05-22 17:27 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 17:27 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 17:27 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 17:30 nm_1 Best F1: 0.790319 at 0.365000. Pr: 0.780330, Re: 0.838649
+12-05-22 17:30 nm_1 Returning seg_loss_weight 0.5700000000000001 and dec_loss_weight 0.0043
+12-05-22 17:30 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 219/1896
+12-05-22 17:39 nm_1 Epoch 44/100 ==> avg_loss_seg=0.04826, avg_loss_dec=0.00000, avg_loss=0.02751, correct=3780/3790, in 550.11s/epoch (fwd/bck in 505.03s/epoch)
+12-05-22 17:39 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 17:39 nm_1 Returning seg_loss_weight 0.56 and dec_loss_weight 0.0044
+12-05-22 17:39 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 230/1896
+12-05-22 17:49 nm_1 Epoch 45/100 ==> avg_loss_seg=0.04729, avg_loss_dec=0.00000, avg_loss=0.02648, correct=3780/3790, in 551.26s/epoch (fwd/bck in 506.33s/epoch)
+12-05-22 17:49 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 17:49 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 17:49 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 17:52 nm_1 Best F1: 0.786781 at 0.275000. Pr: 0.779080, Re: 0.832931
+12-05-22 17:52 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_45.pth
+12-05-22 17:52 nm_1 Returning seg_loss_weight 0.55 and dec_loss_weight 0.0045000000000000005
+12-05-22 17:52 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 228/1896
+12-05-22 18:01 nm_1 Epoch 46/100 ==> avg_loss_seg=0.04712, avg_loss_dec=0.00000, avg_loss=0.02592, correct=3780/3790, in 547.01s/epoch (fwd/bck in 505.75s/epoch)
+12-05-22 18:01 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 18:01 nm_1 Returning seg_loss_weight 0.54 and dec_loss_weight 0.0046
+12-05-22 18:01 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 230/1896
+12-05-22 18:10 nm_1 Epoch 47/100 ==> avg_loss_seg=0.04372, avg_loss_dec=0.00000, avg_loss=0.02361, correct=3780/3790, in 546.99s/epoch (fwd/bck in 506.04s/epoch)
+12-05-22 18:10 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 18:10 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 18:10 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 18:14 nm_1 Best F1: 0.780837 at 0.270000. Pr: 0.764663, Re: 0.839937
+12-05-22 18:14 nm_1 Returning seg_loss_weight 0.53 and dec_loss_weight 0.0047
+12-05-22 18:14 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 243/1896
+12-05-22 18:23 nm_1 Epoch 48/100 ==> avg_loss_seg=0.04331, avg_loss_dec=0.00000, avg_loss=0.02296, correct=3780/3790, in 548.37s/epoch (fwd/bck in 505.39s/epoch)
+12-05-22 18:23 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 18:23 nm_1 Returning seg_loss_weight 0.52 and dec_loss_weight 0.0048
+12-05-22 18:23 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 238/1896
+12-05-22 18:32 nm_1 Epoch 49/100 ==> avg_loss_seg=0.04232, avg_loss_dec=0.00000, avg_loss=0.02200, correct=3780/3790, in 547.58s/epoch (fwd/bck in 506.75s/epoch)
+12-05-22 18:32 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 18:32 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 18:32 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 18:35 nm_1 Best F1: 0.790674 at 0.275000. Pr: 0.783798, Re: 0.834352
+12-05-22 18:35 nm_1 Returning seg_loss_weight 0.51 and dec_loss_weight 0.0049
+12-05-22 18:35 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 240/1896
+12-05-22 18:44 nm_1 Epoch 50/100 ==> avg_loss_seg=0.04198, avg_loss_dec=0.00000, avg_loss=0.02141, correct=3780/3790, in 546.10s/epoch (fwd/bck in 505.10s/epoch)
+12-05-22 18:44 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 18:44 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_50.pth
+12-05-22 18:44 nm_1 Returning seg_loss_weight 0.5 and dec_loss_weight 0.005
+12-05-22 18:44 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 228/1896
+12-05-22 18:53 nm_1 Epoch 51/100 ==> avg_loss_seg=0.04226, avg_loss_dec=0.00000, avg_loss=0.02113, correct=3780/3790, in 548.63s/epoch (fwd/bck in 505.78s/epoch)
+12-05-22 18:53 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 18:54 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 18:54 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 18:57 nm_1 Best F1: 0.776441 at 0.330000. Pr: 0.757536, Re: 0.841779
+12-05-22 18:57 nm_1 Returning seg_loss_weight 0.49 and dec_loss_weight 0.0051
+12-05-22 18:57 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 235/1896
+12-05-22 19:06 nm_1 Epoch 52/100 ==> avg_loss_seg=0.03960, avg_loss_dec=0.00000, avg_loss=0.01941, correct=3780/3790, in 551.39s/epoch (fwd/bck in 505.50s/epoch)
+12-05-22 19:06 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 19:06 nm_1 Returning seg_loss_weight 0.48 and dec_loss_weight 0.005200000000000001
+12-05-22 19:06 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 249/1896
+12-05-22 19:15 nm_1 Epoch 53/100 ==> avg_loss_seg=0.03907, avg_loss_dec=0.00000, avg_loss=0.01875, correct=3780/3790, in 546.86s/epoch (fwd/bck in 505.97s/epoch)
+12-05-22 19:15 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 19:15 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 19:15 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 19:18 nm_1 Best F1: 0.783968 at 0.420000. Pr: 0.778822, Re: 0.824779
+12-05-22 19:18 nm_1 Returning seg_loss_weight 0.47 and dec_loss_weight 0.0053
+12-05-22 19:18 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 210/1896
+12-05-22 19:28 nm_1 Epoch 54/100 ==> avg_loss_seg=0.03901, avg_loss_dec=0.00000, avg_loss=0.01834, correct=3780/3790, in 548.09s/epoch (fwd/bck in 505.22s/epoch)
+12-05-22 19:28 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 19:28 nm_1 Returning seg_loss_weight 0.45999999999999996 and dec_loss_weight 0.0054
+12-05-22 19:28 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 239/1896
+12-05-22 19:37 nm_1 Epoch 55/100 ==> avg_loss_seg=0.03785, avg_loss_dec=0.00000, avg_loss=0.01741, correct=3780/3790, in 546.80s/epoch (fwd/bck in 505.97s/epoch)
+12-05-22 19:37 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 19:37 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 19:37 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 19:40 nm_1 Best F1: 0.789628 at 0.305000. Pr: 0.777933, Re: 0.839366
+12-05-22 19:40 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_55.pth
+12-05-22 19:40 nm_1 Returning seg_loss_weight 0.44999999999999996 and dec_loss_weight 0.0055000000000000005
+12-05-22 19:40 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 241/1896
+12-05-22 19:49 nm_1 Epoch 56/100 ==> avg_loss_seg=0.03629, avg_loss_dec=0.00000, avg_loss=0.01633, correct=3780/3790, in 545.98s/epoch (fwd/bck in 504.70s/epoch)
+12-05-22 19:49 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 19:49 nm_1 Returning seg_loss_weight 0.43999999999999995 and dec_loss_weight 0.005600000000000001
+12-05-22 19:49 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 211/1896
+12-05-22 19:58 nm_1 Epoch 57/100 ==> avg_loss_seg=0.03618, avg_loss_dec=0.00000, avg_loss=0.01592, correct=3780/3790, in 550.88s/epoch (fwd/bck in 505.95s/epoch)
+12-05-22 19:58 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 19:59 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 19:59 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 20:02 nm_1 Best F1: 0.788282 at 0.370000. Pr: 0.781335, Re: 0.832608
+12-05-22 20:02 nm_1 Returning seg_loss_weight 0.43000000000000005 and dec_loss_weight 0.005699999999999999
+12-05-22 20:02 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 242/1896
+12-05-22 20:11 nm_1 Epoch 58/100 ==> avg_loss_seg=0.03696, avg_loss_dec=0.00000, avg_loss=0.01589, correct=3780/3790, in 543.88s/epoch (fwd/bck in 504.95s/epoch)
+12-05-22 20:11 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 20:11 nm_1 Returning seg_loss_weight 0.42000000000000004 and dec_loss_weight 0.0058
+12-05-22 20:11 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 259/1896
+12-05-22 20:20 nm_1 Epoch 59/100 ==> avg_loss_seg=0.03527, avg_loss_dec=0.00000, avg_loss=0.01481, correct=3780/3790, in 554.62s/epoch (fwd/bck in 506.70s/epoch)
+12-05-22 20:20 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 20:20 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 20:20 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 20:23 nm_1 Best F1: 0.785577 at 0.375000. Pr: 0.774356, Re: 0.835179
+12-05-22 20:23 nm_1 Returning seg_loss_weight 0.41000000000000003 and dec_loss_weight 0.0059
+12-05-22 20:23 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 233/1896
+12-05-22 20:32 nm_1 Epoch 60/100 ==> avg_loss_seg=0.03517, avg_loss_dec=0.00000, avg_loss=0.01442, correct=3780/3790, in 544.19s/epoch (fwd/bck in 504.91s/epoch)
+12-05-22 20:32 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 20:32 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_60.pth
+12-05-22 20:32 nm_1 Returning seg_loss_weight 0.4 and dec_loss_weight 0.006
+12-05-22 20:32 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 237/1896
+12-05-22 20:42 nm_1 Epoch 61/100 ==> avg_loss_seg=0.03432, avg_loss_dec=0.00000, avg_loss=0.01373, correct=3780/3790, in 545.11s/epoch (fwd/bck in 505.91s/epoch)
+12-05-22 20:42 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 20:42 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 20:42 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 20:45 nm_1 Best F1: 0.783989 at 0.345000. Pr: 0.773810, Re: 0.834064
+12-05-22 20:45 nm_1 Returning seg_loss_weight 0.39 and dec_loss_weight 0.0061
+12-05-22 20:45 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 235/1896
+12-05-22 20:54 nm_1 Epoch 62/100 ==> avg_loss_seg=0.03275, avg_loss_dec=0.00000, avg_loss=0.01277, correct=3780/3790, in 541.28s/epoch (fwd/bck in 504.66s/epoch)
+12-05-22 20:54 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 20:54 nm_1 Returning seg_loss_weight 0.38 and dec_loss_weight 0.0062
+12-05-22 20:54 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 258/1896
+12-05-22 21:03 nm_1 Epoch 63/100 ==> avg_loss_seg=0.03246, avg_loss_dec=0.00000, avg_loss=0.01233, correct=3780/3790, in 545.11s/epoch (fwd/bck in 506.41s/epoch)
+12-05-22 21:03 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 21:03 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 21:03 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 21:06 nm_1 Best F1: 0.782745 at 0.245000. Pr: 0.763799, Re: 0.844918
+12-05-22 21:06 nm_1 Returning seg_loss_weight 0.37 and dec_loss_weight 0.0063
+12-05-22 21:06 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 251/1896
+12-05-22 21:15 nm_1 Epoch 64/100 ==> avg_loss_seg=0.03181, avg_loss_dec=0.00000, avg_loss=0.01177, correct=3780/3790, in 542.77s/epoch (fwd/bck in 504.93s/epoch)
+12-05-22 21:15 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 21:15 nm_1 Returning seg_loss_weight 0.36 and dec_loss_weight 0.0064
+12-05-22 21:15 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 237/1896
+12-05-22 21:24 nm_1 Epoch 65/100 ==> avg_loss_seg=0.03129, avg_loss_dec=0.00000, avg_loss=0.01126, correct=3780/3790, in 547.69s/epoch (fwd/bck in 506.61s/epoch)
+12-05-22 21:24 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 21:24 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 21:24 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 21:27 nm_1 Best F1: 0.786944 at 0.300000. Pr: 0.775267, Re: 0.836528
+12-05-22 21:27 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_65.pth
+12-05-22 21:27 nm_1 Returning seg_loss_weight 0.35 and dec_loss_weight 0.006500000000000001
+12-05-22 21:27 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 252/1896
+12-05-22 21:36 nm_1 Epoch 66/100 ==> avg_loss_seg=0.03056, avg_loss_dec=0.00000, avg_loss=0.01070, correct=3780/3790, in 542.84s/epoch (fwd/bck in 504.97s/epoch)
+12-05-22 21:36 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 21:36 nm_1 Returning seg_loss_weight 0.33999999999999997 and dec_loss_weight 0.006600000000000001
+12-05-22 21:36 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 269/1896
+12-05-22 21:46 nm_1 Epoch 67/100 ==> avg_loss_seg=0.03046, avg_loss_dec=0.00000, avg_loss=0.01036, correct=3780/3790, in 543.04s/epoch (fwd/bck in 506.26s/epoch)
+12-05-22 21:46 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 21:46 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 21:46 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 21:49 nm_1 Best F1: 0.783952 at 0.450000. Pr: 0.769511, Re: 0.837096
+12-05-22 21:49 nm_1 Returning seg_loss_weight 0.32999999999999996 and dec_loss_weight 0.0067
+12-05-22 21:49 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 257/1896
+12-05-22 21:58 nm_1 Epoch 68/100 ==> avg_loss_seg=0.03044, avg_loss_dec=0.00000, avg_loss=0.01005, correct=3780/3790, in 546.64s/epoch (fwd/bck in 504.97s/epoch)
+12-05-22 21:58 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 21:58 nm_1 Returning seg_loss_weight 0.31999999999999995 and dec_loss_weight 0.0068000000000000005
+12-05-22 21:58 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 259/1896
+12-05-22 22:07 nm_1 Epoch 69/100 ==> avg_loss_seg=0.02920, avg_loss_dec=0.00000, avg_loss=0.00934, correct=3780/3790, in 543.42s/epoch (fwd/bck in 506.44s/epoch)
+12-05-22 22:07 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 22:07 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 22:07 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 22:10 nm_1 Best F1: 0.785855 at 0.275000. Pr: 0.772561, Re: 0.838038
+12-05-22 22:10 nm_1 Returning seg_loss_weight 0.31000000000000005 and dec_loss_weight 0.0069
+12-05-22 22:10 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 263/1896
+12-05-22 22:19 nm_1 Epoch 70/100 ==> avg_loss_seg=0.02801, avg_loss_dec=0.00000, avg_loss=0.00868, correct=3780/3790, in 543.58s/epoch (fwd/bck in 504.83s/epoch)
+12-05-22 22:19 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 22:19 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_70.pth
+12-05-22 22:19 nm_1 Returning seg_loss_weight 0.30000000000000004 and dec_loss_weight 0.006999999999999999
+12-05-22 22:19 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 257/1896
+12-05-22 22:28 nm_1 Epoch 71/100 ==> avg_loss_seg=0.02816, avg_loss_dec=0.00000, avg_loss=0.00845, correct=3780/3790, in 541.87s/epoch (fwd/bck in 504.89s/epoch)
+12-05-22 22:28 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 22:28 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 22:28 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 22:31 nm_1 Best F1: 0.791631 at 0.380000. Pr: 0.778845, Re: 0.840779
+12-05-22 22:31 nm_1 New best model based on seg metrics.
+12-05-22 22:31 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+12-05-22 22:31 nm_1 Returning seg_loss_weight 0.29000000000000004 and dec_loss_weight 0.0070999999999999995
+12-05-22 22:31 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 249/1896
+12-05-22 22:41 nm_1 Epoch 72/100 ==> avg_loss_seg=0.02852, avg_loss_dec=0.00000, avg_loss=0.00827, correct=3780/3790, in 547.16s/epoch (fwd/bck in 505.16s/epoch)
+12-05-22 22:41 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 22:41 nm_1 Returning seg_loss_weight 0.28 and dec_loss_weight 0.0072
+12-05-22 22:41 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 239/1896
+12-05-22 22:50 nm_1 Epoch 73/100 ==> avg_loss_seg=0.02713, avg_loss_dec=0.00000, avg_loss=0.00760, correct=3780/3790, in 545.66s/epoch (fwd/bck in 505.79s/epoch)
+12-05-22 22:50 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 22:50 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 22:50 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 22:53 nm_1 Best F1: 0.782498 at 0.465000. Pr: 0.766303, Re: 0.840580
+12-05-22 22:53 nm_1 Returning seg_loss_weight 0.27 and dec_loss_weight 0.0073
+12-05-22 22:53 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 250/1896
+12-05-22 23:02 nm_1 Epoch 74/100 ==> avg_loss_seg=0.02626, avg_loss_dec=0.00000, avg_loss=0.00709, correct=3780/3790, in 542.96s/epoch (fwd/bck in 504.79s/epoch)
+12-05-22 23:02 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 23:02 nm_1 Returning seg_loss_weight 0.26 and dec_loss_weight 0.0074
+12-05-22 23:02 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 232/1896
+12-05-22 23:11 nm_1 Epoch 75/100 ==> avg_loss_seg=0.02601, avg_loss_dec=0.00000, avg_loss=0.00676, correct=3780/3790, in 544.41s/epoch (fwd/bck in 506.32s/epoch)
+12-05-22 23:11 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 23:11 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 23:11 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 23:14 nm_1 Best F1: 0.777568 at 0.370000. Pr: 0.766547, Re: 0.829234
+12-05-22 23:14 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_75.pth
+12-05-22 23:14 nm_1 Returning seg_loss_weight 0.25 and dec_loss_weight 0.0075
+12-05-22 23:14 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 263/1896
+12-05-22 23:23 nm_1 Epoch 76/100 ==> avg_loss_seg=0.02678, avg_loss_dec=0.00000, avg_loss=0.00670, correct=3780/3790, in 542.02s/epoch (fwd/bck in 504.66s/epoch)
+12-05-22 23:23 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 23:23 nm_1 Returning seg_loss_weight 0.24 and dec_loss_weight 0.0076
+12-05-22 23:23 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 262/1896
+12-05-22 23:32 nm_1 Epoch 77/100 ==> avg_loss_seg=0.02616, avg_loss_dec=0.00000, avg_loss=0.00628, correct=3780/3790, in 544.14s/epoch (fwd/bck in 506.15s/epoch)
+12-05-22 23:32 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 23:32 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 23:32 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 23:35 nm_1 Best F1: 0.774231 at 0.325000. Pr: 0.762243, Re: 0.824579
+12-05-22 23:35 nm_1 Returning seg_loss_weight 0.22999999999999998 and dec_loss_weight 0.0077
+12-05-22 23:35 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 252/1896
+12-05-22 23:45 nm_1 Epoch 78/100 ==> avg_loss_seg=0.02545, avg_loss_dec=0.00000, avg_loss=0.00585, correct=3780/3790, in 548.97s/epoch (fwd/bck in 506.14s/epoch)
+12-05-22 23:45 nm_1 Last computing learning rate by optimizer: 0.001
+12-05-22 23:45 nm_1 Returning seg_loss_weight 0.21999999999999997 and dec_loss_weight 0.0078000000000000005
+12-05-22 23:45 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 242/1896
+12-05-22 23:54 nm_1 Epoch 79/100 ==> avg_loss_seg=0.02450, avg_loss_dec=0.00000, avg_loss=0.00539, correct=3780/3790, in 542.02s/epoch (fwd/bck in 506.66s/epoch)
+12-05-22 23:54 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+12-05-22 23:54 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+12-05-22 23:54 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+12-05-22 23:57 nm_1 Best F1: 0.786280 at 0.270000. Pr: 0.770243, Re: 0.841360
+12-05-22 23:57 nm_1 Returning seg_loss_weight 0.20999999999999996 and dec_loss_weight 0.0079
+12-05-22 23:57 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 258/1896
+13-05-22 00:06 nm_1 Epoch 80/100 ==> avg_loss_seg=0.02524, avg_loss_dec=0.00000, avg_loss=0.00530, correct=3780/3790, in 538.88s/epoch (fwd/bck in 504.64s/epoch)
+13-05-22 00:06 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 00:06 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_80.pth
+13-05-22 00:06 nm_1 Returning seg_loss_weight 0.19999999999999996 and dec_loss_weight 0.008
+13-05-22 00:06 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 258/1896
+13-05-22 00:15 nm_1 Epoch 81/100 ==> avg_loss_seg=0.02488, avg_loss_dec=0.00000, avg_loss=0.00498, correct=3780/3790, in 536.86s/epoch (fwd/bck in 505.66s/epoch)
+13-05-22 00:15 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 00:15 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 00:15 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 00:18 nm_1 Best F1: 0.779666 at 0.315000. Pr: 0.760422, Re: 0.840537
+13-05-22 00:18 nm_1 Returning seg_loss_weight 0.18999999999999995 and dec_loss_weight 0.008100000000000001
+13-05-22 00:18 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 248/1896
+13-05-22 00:27 nm_1 Epoch 82/100 ==> avg_loss_seg=0.02429, avg_loss_dec=0.00000, avg_loss=0.00461, correct=3780/3790, in 539.56s/epoch (fwd/bck in 504.96s/epoch)
+13-05-22 00:27 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 00:27 nm_1 Returning seg_loss_weight 0.18000000000000005 and dec_loss_weight 0.008199999999999999
+13-05-22 00:27 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 242/1896
+13-05-22 00:36 nm_1 Epoch 83/100 ==> avg_loss_seg=0.02437, avg_loss_dec=0.00000, avg_loss=0.00439, correct=3780/3790, in 540.33s/epoch (fwd/bck in 505.56s/epoch)
+13-05-22 00:36 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 00:36 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 00:36 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 00:39 nm_1 Best F1: 0.784951 at 0.335000. Pr: 0.773416, Re: 0.834928
+13-05-22 00:39 nm_1 Returning seg_loss_weight 0.17000000000000004 and dec_loss_weight 0.0083
+13-05-22 00:39 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 268/1896
+13-05-22 00:48 nm_1 Epoch 84/100 ==> avg_loss_seg=0.02323, avg_loss_dec=0.00000, avg_loss=0.00395, correct=3780/3790, in 539.71s/epoch (fwd/bck in 505.26s/epoch)
+13-05-22 00:48 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 00:48 nm_1 Returning seg_loss_weight 0.16000000000000003 and dec_loss_weight 0.0084
+13-05-22 00:48 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 243/1896
+13-05-22 00:57 nm_1 Epoch 85/100 ==> avg_loss_seg=0.02277, avg_loss_dec=0.00000, avg_loss=0.00364, correct=3780/3790, in 538.38s/epoch (fwd/bck in 505.77s/epoch)
+13-05-22 00:57 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 00:57 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 00:57 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 01:00 nm_1 Best F1: 0.785562 at 0.340000. Pr: 0.767405, Re: 0.842749
+13-05-22 01:00 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_85.pth
+13-05-22 01:00 nm_1 Returning seg_loss_weight 0.15000000000000002 and dec_loss_weight 0.0085
+13-05-22 01:00 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 261/1896
+13-05-22 01:09 nm_1 Epoch 86/100 ==> avg_loss_seg=0.02228, avg_loss_dec=0.00000, avg_loss=0.00334, correct=3780/3790, in 538.72s/epoch (fwd/bck in 505.28s/epoch)
+13-05-22 01:09 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 01:09 nm_1 Returning seg_loss_weight 0.14 and dec_loss_weight 0.0086
+13-05-22 01:09 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 241/1896
+13-05-22 01:18 nm_1 Epoch 87/100 ==> avg_loss_seg=0.02223, avg_loss_dec=0.00000, avg_loss=0.00311, correct=3780/3790, in 540.90s/epoch (fwd/bck in 505.82s/epoch)
+13-05-22 01:18 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 01:18 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 01:18 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 01:21 nm_1 Best F1: 0.784259 at 0.420000. Pr: 0.772141, Re: 0.834951
+13-05-22 01:21 nm_1 Returning seg_loss_weight 0.13 and dec_loss_weight 0.0087
+13-05-22 01:21 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 274/1896
+13-05-22 01:30 nm_1 Epoch 88/100 ==> avg_loss_seg=0.02137, avg_loss_dec=0.00000, avg_loss=0.00278, correct=3780/3790, in 538.66s/epoch (fwd/bck in 504.42s/epoch)
+13-05-22 01:30 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 01:30 nm_1 Returning seg_loss_weight 0.12 and dec_loss_weight 0.0088
+13-05-22 01:30 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 260/1896
+13-05-22 01:39 nm_1 Epoch 89/100 ==> avg_loss_seg=0.02153, avg_loss_dec=0.00000, avg_loss=0.00258, correct=3780/3790, in 539.09s/epoch (fwd/bck in 506.47s/epoch)
+13-05-22 01:39 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 01:39 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 01:39 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 01:42 nm_1 Best F1: 0.782977 at 0.430000. Pr: 0.768628, Re: 0.836760
+13-05-22 01:42 nm_1 Returning seg_loss_weight 0.10999999999999999 and dec_loss_weight 0.0089
+13-05-22 01:42 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 252/1896
+13-05-22 01:51 nm_1 Epoch 90/100 ==> avg_loss_seg=0.02029, avg_loss_dec=0.00000, avg_loss=0.00223, correct=3780/3790, in 539.34s/epoch (fwd/bck in 504.93s/epoch)
+13-05-22 01:51 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 01:51 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_90.pth
+13-05-22 01:51 nm_1 Returning seg_loss_weight 0.09999999999999998 and dec_loss_weight 0.009000000000000001
+13-05-22 01:51 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 277/1896
+13-05-22 02:00 nm_1 Epoch 91/100 ==> avg_loss_seg=0.02006, avg_loss_dec=0.00000, avg_loss=0.00201, correct=3780/3790, in 538.15s/epoch (fwd/bck in 505.75s/epoch)
+13-05-22 02:00 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 02:00 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 02:00 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 02:03 nm_1 Best F1: 0.783502 at 0.375000. Pr: 0.768048, Re: 0.838288
+13-05-22 02:03 nm_1 Returning seg_loss_weight 0.08999999999999997 and dec_loss_weight 0.0091
+13-05-22 02:03 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 263/1896
+13-05-22 02:12 nm_1 Epoch 92/100 ==> avg_loss_seg=0.02004, avg_loss_dec=0.00000, avg_loss=0.00180, correct=3780/3790, in 538.89s/epoch (fwd/bck in 505.10s/epoch)
+13-05-22 02:12 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 02:12 nm_1 Returning seg_loss_weight 0.07999999999999996 and dec_loss_weight 0.0092
+13-05-22 02:12 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 241/1896
+13-05-22 02:21 nm_1 Epoch 93/100 ==> avg_loss_seg=0.01896, avg_loss_dec=0.00000, avg_loss=0.00152, correct=3780/3790, in 541.33s/epoch (fwd/bck in 506.22s/epoch)
+13-05-22 02:21 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 02:21 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 02:21 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 02:24 nm_1 Best F1: 0.787828 at 0.325000. Pr: 0.778074, Re: 0.834648
+13-05-22 02:24 nm_1 Returning seg_loss_weight 0.06999999999999995 and dec_loss_weight 0.009300000000000001
+13-05-22 02:24 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 262/1896
+13-05-22 02:33 nm_1 Epoch 94/100 ==> avg_loss_seg=0.01878, avg_loss_dec=0.00000, avg_loss=0.00131, correct=3780/3790, in 537.39s/epoch (fwd/bck in 504.09s/epoch)
+13-05-22 02:33 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 02:33 nm_1 Returning seg_loss_weight 0.06000000000000005 and dec_loss_weight 0.0094
+13-05-22 02:33 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 275/1896
+13-05-22 02:42 nm_1 Epoch 95/100 ==> avg_loss_seg=0.01837, avg_loss_dec=0.00000, avg_loss=0.00110, correct=3780/3790, in 539.43s/epoch (fwd/bck in 506.28s/epoch)
+13-05-22 02:42 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 02:42 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 02:42 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 02:45 nm_1 Best F1: 0.781098 at 0.270000. Pr: 0.764972, Re: 0.835173
+13-05-22 02:45 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/ep_95.pth
+13-05-22 02:45 nm_1 Returning seg_loss_weight 0.050000000000000044 and dec_loss_weight 0.0095
+13-05-22 02:45 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 252/1896
+13-05-22 02:54 nm_1 Epoch 96/100 ==> avg_loss_seg=0.01826, avg_loss_dec=0.00000, avg_loss=0.00091, correct=3780/3790, in 537.73s/epoch (fwd/bck in 505.09s/epoch)
+13-05-22 02:54 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 02:54 nm_1 Returning seg_loss_weight 0.040000000000000036 and dec_loss_weight 0.0096
+13-05-22 02:54 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 252/1896
+13-05-22 03:03 nm_1 Epoch 97/100 ==> avg_loss_seg=0.01877, avg_loss_dec=0.00000, avg_loss=0.00075, correct=3780/3790, in 539.93s/epoch (fwd/bck in 506.20s/epoch)
+13-05-22 03:03 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 03:03 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 03:03 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 03:06 nm_1 Best F1: 0.772901 at 0.475000. Pr: 0.770926, Re: 0.811391
+13-05-22 03:06 nm_1 Returning seg_loss_weight 0.030000000000000027 and dec_loss_weight 0.0097
+13-05-22 03:06 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 326/1896
+13-05-22 03:15 nm_1 Epoch 98/100 ==> avg_loss_seg=0.01822, avg_loss_dec=0.00000, avg_loss=0.00055, correct=3780/3790, in 539.68s/epoch (fwd/bck in 504.19s/epoch)
+13-05-22 03:15 nm_1 Last computing learning rate by optimizer: 0.001
+13-05-22 03:15 nm_1 Returning seg_loss_weight 0.020000000000000018 and dec_loss_weight 0.0098
+13-05-22 03:15 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 228/1896
+13-05-22 03:24 nm_1 Epoch 99/100 ==> avg_loss_seg=0.01629, avg_loss_dec=0.00000, avg_loss=0.00033, correct=3780/3790, in 538.88s/epoch (fwd/bck in 505.61s/epoch)
+13-05-22 03:24 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 03:24 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 03:24 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 03:27 nm_1 Best F1: 0.783485 at 0.270000. Pr: 0.772435, Re: 0.830820
+13-05-22 03:27 nm_1 Returning seg_loss_weight 0.010000000000000009 and dec_loss_weight 0.0099
+13-05-22 03:27 nm_1 Returning dec_gradient_multiplier 0
+Number of hard samples present: 245/1896
+13-05-22 03:36 nm_1 Epoch 100/100 ==> avg_loss_seg=0.01547, avg_loss_dec=0.00000, avg_loss=0.00015, correct=3780/3790, in 538.40s/epoch (fwd/bck in 504.50s/epoch)
+13-05-22 03:36 nm_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+13-05-22 03:36 nm_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=1.000000 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+13-05-22 03:36 nm_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+13-05-22 03:39 nm_1 Best F1: 0.786098 at 0.310000. Pr: 0.776506, Re: 0.831535
+13-05-22 03:39 nm_1 Saving current model state to ./RESULTS/CRACK500/nm_1/models/final_state_dict.pth
+13-05-22 03:39 nm_1 Loading model state from ./RESULTS/CRACK500/nm_1/models/best_state_dict.pth
+13-05-22 03:40 TEST: Number of positives: 1124, Number of negatives: 0, Sum: 1124
+13-05-22 03:40 nm_1 Decision EVAL on TEST. Pr: 0.000000, Re: 0.000000, F1: 0.000000, Accuracy: 0.000000, Threshold: 1.0
+13-05-22 03:40 nm_1 TP: 0, FP: 0, FN: 1124, TN: 0
+13-05-22 03:40 nm_1 Evaluation metrics on TEST set. 2 pixel distance used.
+13-05-22 03:49 nm_1 Pr: 0.711602, Re: 0.797762, F1: 0.730465, threshold: 0.3800000000000002
