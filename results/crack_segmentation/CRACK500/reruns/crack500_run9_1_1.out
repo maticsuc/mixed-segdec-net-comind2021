@@ -1,0 +1,739 @@
+nohup: ignoring input
+16-05-22 22:28 crack500_run9_1_1 Executing run with path ./RESULTS/CRACK500/crack500_run9_1_1
+16-05-22 22:28 crack500_run9_1_1 AUGMENTATION              : True
+16-05-22 22:28 crack500_run9_1_1 BATCH_SIZE                : 10
+16-05-22 22:28 crack500_run9_1_1 BEST_MODEL_TYPE           : seg
+16-05-22 22:28 crack500_run9_1_1 DATASET                   : CRACK500
+16-05-22 22:28 crack500_run9_1_1 DATASET_PATH              : ./datasets/CRACK500
+16-05-22 22:28 crack500_run9_1_1 DELTA_CLS_LOSS            : 0.01
+16-05-22 22:28 crack500_run9_1_1 DILATE                    : 1
+16-05-22 22:28 crack500_run9_1_1 DYN_BALANCED_LOSS         : True
+16-05-22 22:28 crack500_run9_1_1 EPOCHS                    : 100
+16-05-22 22:28 crack500_run9_1_1 FOLD                      : None
+16-05-22 22:28 crack500_run9_1_1 FREQUENCY_SAMPLING        : False
+16-05-22 22:28 crack500_run9_1_1 GPU                       : 1
+16-05-22 22:28 crack500_run9_1_1 GRADIENT_ADJUSTMENT       : True
+16-05-22 22:28 crack500_run9_1_1 HARD_NEG_MINING           : None
+16-05-22 22:28 crack500_run9_1_1 INPUT_CHANNELS            : 3
+16-05-22 22:28 crack500_run9_1_1 INPUT_HEIGHT              : 360
+16-05-22 22:28 crack500_run9_1_1 INPUT_WIDTH               : 640
+16-05-22 22:28 crack500_run9_1_1 LEARNING_RATE             : 0.001
+16-05-22 22:28 crack500_run9_1_1 MEMORY_FIT                : 1
+16-05-22 22:28 crack500_run9_1_1 NUM_SEGMENTED             : 1896
+16-05-22 22:28 crack500_run9_1_1 ON_DEMAND_READ            : False
+16-05-22 22:28 crack500_run9_1_1 OPTIMIZER                 : adam
+16-05-22 22:28 crack500_run9_1_1 REPRODUCIBLE_RUN          : False
+16-05-22 22:28 crack500_run9_1_1 RESULTS_PATH              : ./RESULTS
+16-05-22 22:28 crack500_run9_1_1 SAVE_IMAGES               : True
+16-05-22 22:28 crack500_run9_1_1 SCHEDULER                 : None
+16-05-22 22:28 crack500_run9_1_1 TRAIN_NUM                 : None
+16-05-22 22:28 crack500_run9_1_1 USE_BEST_MODEL            : True
+16-05-22 22:28 crack500_run9_1_1 USE_NEGATIVES             : train_negative_480_270_1
+16-05-22 22:28 crack500_run9_1_1 VALIDATE                  : True
+16-05-22 22:28 crack500_run9_1_1 VALIDATE_ON_TEST          : False
+16-05-22 22:28 crack500_run9_1_1 VALIDATION_N_EPOCHS       : 2
+16-05-22 22:28 crack500_run9_1_1 WEIGHTED_SEG_LOSS         : False
+16-05-22 22:28 crack500_run9_1_1 WEIGHTED_SEG_LOSS_MAX     : None
+16-05-22 22:28 crack500_run9_1_1 WEIGHTED_SEG_LOSS_P       : None
+16-05-22 22:29 TRAIN: Number of positives: 1896, Number of negatives: 757, Sum: 2653
+16-05-22 22:29 VAL: Number of positives: 348, Number of negatives: 0, Sum: 348
+16-05-22 22:29 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_00.pth
+16-05-22 22:30 crack500_run9_1_1 Returning seg_loss_weight 1.0 and dec_loss_weight 0.0
+16-05-22 22:30 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 22:36 crack500_run9_1_1 Epoch 1/100 ==> avg_loss_seg=0.56278, avg_loss_dec=1.83221, avg_loss=0.56278, correct=753/2650, in 389.89s/epoch (fwd/bck in 357.87s/epoch)
+16-05-22 22:36 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+16-05-22 22:36 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000031 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+16-05-22 22:36 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+16-05-22 22:42 crack500_run9_1_1 Best F1: 0.743853 at 0.595000. Pr: 0.794481, Re: 0.745794
+16-05-22 22:42 crack500_run9_1_1 New best model based on seg metrics.
+16-05-22 22:42 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+16-05-22 22:42 crack500_run9_1_1 Returning seg_loss_weight 0.99 and dec_loss_weight 0.0001
+16-05-22 22:42 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 22:49 crack500_run9_1_1 Epoch 2/100 ==> avg_loss_seg=0.43231, avg_loss_dec=0.42811, avg_loss=0.42803, correct=2210/2650, in 388.90s/epoch (fwd/bck in 357.13s/epoch)
+16-05-22 22:49 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+16-05-22 22:49 crack500_run9_1_1 Returning seg_loss_weight 0.98 and dec_loss_weight 0.0002
+16-05-22 22:49 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 22:55 crack500_run9_1_1 Epoch 3/100 ==> avg_loss_seg=0.36255, avg_loss_dec=0.28154, avg_loss=0.35536, correct=2389/2650, in 383.09s/epoch (fwd/bck in 358.56s/epoch)
+16-05-22 22:55 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+16-05-22 22:55 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.232655 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+16-05-22 22:55 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+16-05-22 23:01 crack500_run9_1_1 Best F1: 0.761286 at 0.445000. Pr: 0.779674, Re: 0.788941
+16-05-22 23:01 crack500_run9_1_1 New best model based on seg metrics.
+16-05-22 23:01 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+16-05-22 23:01 crack500_run9_1_1 Returning seg_loss_weight 0.97 and dec_loss_weight 0.0003
+16-05-22 23:01 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 23:07 crack500_run9_1_1 Epoch 4/100 ==> avg_loss_seg=0.31129, avg_loss_dec=0.21968, avg_loss=0.30202, correct=2443/2650, in 384.94s/epoch (fwd/bck in 356.60s/epoch)
+16-05-22 23:07 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+16-05-22 23:07 crack500_run9_1_1 Returning seg_loss_weight 0.96 and dec_loss_weight 0.0004
+16-05-22 23:07 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 23:14 crack500_run9_1_1 Epoch 5/100 ==> avg_loss_seg=0.27736, avg_loss_dec=0.20976, avg_loss=0.26635, correct=2446/2650, in 387.06s/epoch (fwd/bck in 358.59s/epoch)
+16-05-22 23:14 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+16-05-22 23:14 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.175965 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+16-05-22 23:14 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+16-05-22 23:19 crack500_run9_1_1 Best F1: 0.770369 at 0.435000. Pr: 0.776233, Re: 0.803437
+16-05-22 23:19 crack500_run9_1_1 New best model based on seg metrics.
+16-05-22 23:19 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+16-05-22 23:19 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_05.pth
+16-05-22 23:19 crack500_run9_1_1 Returning seg_loss_weight 0.95 and dec_loss_weight 0.0005
+16-05-22 23:19 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 23:25 crack500_run9_1_1 Epoch 6/100 ==> avg_loss_seg=0.24361, avg_loss_dec=0.20622, avg_loss=0.23153, correct=2445/2650, in 380.56s/epoch (fwd/bck in 357.02s/epoch)
+16-05-22 23:25 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+16-05-22 23:25 crack500_run9_1_1 Returning seg_loss_weight 0.94 and dec_loss_weight 0.0006
+16-05-22 23:25 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 23:32 crack500_run9_1_1 Epoch 7/100 ==> avg_loss_seg=0.21841, avg_loss_dec=0.18694, avg_loss=0.20542, correct=2466/2650, in 385.61s/epoch (fwd/bck in 359.82s/epoch)
+16-05-22 23:32 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+16-05-22 23:32 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.044095 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+16-05-22 23:32 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+16-05-22 23:37 crack500_run9_1_1 Best F1: 0.758391 at 0.265000. Pr: 0.748027, Re: 0.821454
+16-05-22 23:37 crack500_run9_1_1 Returning seg_loss_weight 0.9299999999999999 and dec_loss_weight 0.0007000000000000001
+16-05-22 23:37 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 23:44 crack500_run9_1_1 Epoch 8/100 ==> avg_loss_seg=0.19372, avg_loss_dec=0.18237, avg_loss=0.18029, correct=2468/2650, in 385.72s/epoch (fwd/bck in 356.78s/epoch)
+16-05-22 23:44 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+16-05-22 23:44 crack500_run9_1_1 Returning seg_loss_weight 0.92 and dec_loss_weight 0.0008
+16-05-22 23:44 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+16-05-22 23:50 crack500_run9_1_1 Epoch 9/100 ==> avg_loss_seg=0.17607, avg_loss_dec=0.15323, avg_loss=0.16211, correct=2496/2650, in 380.35s/epoch (fwd/bck in 359.18s/epoch)
+16-05-22 23:50 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+16-05-22 23:50 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.073791 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+16-05-22 23:50 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+16-05-22 23:56 crack500_run9_1_1 Best F1: 0.776367 at 0.325000. Pr: 0.781443, Re: 0.822299
+16-05-22 23:56 crack500_run9_1_1 New best model based on seg metrics.
+16-05-22 23:56 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+16-05-22 23:56 crack500_run9_1_1 Returning seg_loss_weight 0.91 and dec_loss_weight 0.0009
+16-05-22 23:56 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 00:02 crack500_run9_1_1 Epoch 10/100 ==> avg_loss_seg=0.16190, avg_loss_dec=0.14658, avg_loss=0.14746, correct=2498/2650, in 387.33s/epoch (fwd/bck in 356.78s/epoch)
+17-05-22 00:02 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 00:02 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_10.pth
+17-05-22 00:02 crack500_run9_1_1 Returning seg_loss_weight 0.9 and dec_loss_weight 0.001
+17-05-22 00:02 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 00:09 crack500_run9_1_1 Epoch 11/100 ==> avg_loss_seg=0.14819, avg_loss_dec=0.14416, avg_loss=0.13352, correct=2512/2650, in 381.43s/epoch (fwd/bck in 358.93s/epoch)
+17-05-22 00:09 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 00:09 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.030637 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 00:09 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 00:14 crack500_run9_1_1 Best F1: 0.775867 at 0.320000. Pr: 0.795218, Re: 0.816137
+17-05-22 00:14 crack500_run9_1_1 Returning seg_loss_weight 0.89 and dec_loss_weight 0.0011
+17-05-22 00:14 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 00:20 crack500_run9_1_1 Epoch 12/100 ==> avg_loss_seg=0.13415, avg_loss_dec=0.12102, avg_loss=0.11953, correct=2533/2650, in 378.77s/epoch (fwd/bck in 356.43s/epoch)
+17-05-22 00:20 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 00:20 crack500_run9_1_1 Returning seg_loss_weight 0.88 and dec_loss_weight 0.0012
+17-05-22 00:20 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 00:27 crack500_run9_1_1 Epoch 13/100 ==> avg_loss_seg=0.12582, avg_loss_dec=0.11678, avg_loss=0.11086, correct=2542/2650, in 385.51s/epoch (fwd/bck in 359.21s/epoch)
+17-05-22 00:27 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 00:27 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.021688 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 00:27 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 00:32 crack500_run9_1_1 Best F1: 0.775051 at 0.360000. Pr: 0.792551, Re: 0.816330
+17-05-22 00:32 crack500_run9_1_1 Returning seg_loss_weight 0.87 and dec_loss_weight 0.0013000000000000002
+17-05-22 00:32 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 00:39 crack500_run9_1_1 Epoch 14/100 ==> avg_loss_seg=0.11663, avg_loss_dec=0.09543, avg_loss=0.10160, correct=2551/2650, in 385.71s/epoch (fwd/bck in 356.46s/epoch)
+17-05-22 00:39 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 00:39 crack500_run9_1_1 Returning seg_loss_weight 0.86 and dec_loss_weight 0.0014000000000000002
+17-05-22 00:39 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 00:45 crack500_run9_1_1 Epoch 15/100 ==> avg_loss_seg=0.10885, avg_loss_dec=0.09913, avg_loss=0.09375, correct=2561/2650, in 387.17s/epoch (fwd/bck in 358.52s/epoch)
+17-05-22 00:45 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 00:45 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.034596 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 00:45 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 00:51 crack500_run9_1_1 Best F1: 0.757634 at 0.155000. Pr: 0.741065, Re: 0.824220
+17-05-22 00:51 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_15.pth
+17-05-22 00:51 crack500_run9_1_1 Returning seg_loss_weight 0.85 and dec_loss_weight 0.0015
+17-05-22 00:51 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 00:57 crack500_run9_1_1 Epoch 16/100 ==> avg_loss_seg=0.10126, avg_loss_dec=0.08249, avg_loss=0.08620, correct=2576/2650, in 383.64s/epoch (fwd/bck in 356.69s/epoch)
+17-05-22 00:57 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 00:57 crack500_run9_1_1 Returning seg_loss_weight 0.84 and dec_loss_weight 0.0016
+17-05-22 00:57 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 01:03 crack500_run9_1_1 Epoch 17/100 ==> avg_loss_seg=0.09652, avg_loss_dec=0.06559, avg_loss=0.08119, correct=2593/2650, in 380.51s/epoch (fwd/bck in 358.61s/epoch)
+17-05-22 01:03 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 01:04 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.002091 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 01:04 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 01:09 crack500_run9_1_1 Best F1: 0.730132 at 0.200000. Pr: 0.767210, Re: 0.785704
+17-05-22 01:09 crack500_run9_1_1 Returning seg_loss_weight 0.83 and dec_loss_weight 0.0017000000000000001
+17-05-22 01:09 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 01:15 crack500_run9_1_1 Epoch 18/100 ==> avg_loss_seg=0.09317, avg_loss_dec=0.07335, avg_loss=0.07746, correct=2586/2650, in 382.74s/epoch (fwd/bck in 356.55s/epoch)
+17-05-22 01:15 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 01:15 crack500_run9_1_1 Returning seg_loss_weight 0.8200000000000001 and dec_loss_weight 0.0018
+17-05-22 01:15 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 01:22 crack500_run9_1_1 Epoch 19/100 ==> avg_loss_seg=0.08587, avg_loss_dec=0.04719, avg_loss=0.07050, correct=2610/2650, in 384.17s/epoch (fwd/bck in 358.29s/epoch)
+17-05-22 01:22 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 01:22 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.008563 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 01:22 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 01:27 crack500_run9_1_1 Best F1: 0.789092 at 0.420000. Pr: 0.799417, Re: 0.826700
+17-05-22 01:27 crack500_run9_1_1 New best model based on seg metrics.
+17-05-22 01:27 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+17-05-22 01:27 crack500_run9_1_1 Returning seg_loss_weight 0.81 and dec_loss_weight 0.0019
+17-05-22 01:27 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 01:34 crack500_run9_1_1 Epoch 20/100 ==> avg_loss_seg=0.08273, avg_loss_dec=0.04589, avg_loss=0.06709, correct=2614/2650, in 375.36s/epoch (fwd/bck in 356.17s/epoch)
+17-05-22 01:34 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 01:34 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_20.pth
+17-05-22 01:34 crack500_run9_1_1 Returning seg_loss_weight 0.8 and dec_loss_weight 0.002
+17-05-22 01:34 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 01:40 crack500_run9_1_1 Epoch 21/100 ==> avg_loss_seg=0.07805, avg_loss_dec=0.06083, avg_loss=0.06256, correct=2589/2650, in 384.15s/epoch (fwd/bck in 358.60s/epoch)
+17-05-22 01:40 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 01:40 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.014694 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 01:40 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 01:45 crack500_run9_1_1 Best F1: 0.761698 at 0.220000. Pr: 0.791123, Re: 0.806404
+17-05-22 01:45 crack500_run9_1_1 Returning seg_loss_weight 0.79 and dec_loss_weight 0.0021
+17-05-22 01:45 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 01:52 crack500_run9_1_1 Epoch 22/100 ==> avg_loss_seg=0.07521, avg_loss_dec=0.05253, avg_loss=0.05952, correct=2603/2650, in 379.19s/epoch (fwd/bck in 356.02s/epoch)
+17-05-22 01:52 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 01:52 crack500_run9_1_1 Returning seg_loss_weight 0.78 and dec_loss_weight 0.0022
+17-05-22 01:52 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 01:58 crack500_run9_1_1 Epoch 23/100 ==> avg_loss_seg=0.07171, avg_loss_dec=0.05176, avg_loss=0.05604, correct=2607/2650, in 383.49s/epoch (fwd/bck in 359.10s/epoch)
+17-05-22 01:58 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 01:58 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.002092 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 01:58 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 02:03 crack500_run9_1_1 Best F1: 0.786523 at 0.230000. Pr: 0.790639, Re: 0.835050
+17-05-22 02:03 crack500_run9_1_1 Returning seg_loss_weight 0.77 and dec_loss_weight 0.0023
+17-05-22 02:03 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 02:10 crack500_run9_1_1 Epoch 24/100 ==> avg_loss_seg=0.06961, avg_loss_dec=0.04937, avg_loss=0.05371, correct=2603/2650, in 383.66s/epoch (fwd/bck in 356.85s/epoch)
+17-05-22 02:10 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 02:10 crack500_run9_1_1 Returning seg_loss_weight 0.76 and dec_loss_weight 0.0024
+17-05-22 02:10 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 02:16 crack500_run9_1_1 Epoch 25/100 ==> avg_loss_seg=0.06726, avg_loss_dec=0.03412, avg_loss=0.05120, correct=2620/2650, in 378.97s/epoch (fwd/bck in 359.07s/epoch)
+17-05-22 02:16 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 02:16 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.001100 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 02:16 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 02:22 crack500_run9_1_1 Best F1: 0.788171 at 0.210000. Pr: 0.806318, Re: 0.829159
+17-05-22 02:22 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_25.pth
+17-05-22 02:22 crack500_run9_1_1 Returning seg_loss_weight 0.75 and dec_loss_weight 0.0025
+17-05-22 02:22 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 02:28 crack500_run9_1_1 Epoch 26/100 ==> avg_loss_seg=0.06580, avg_loss_dec=0.04713, avg_loss=0.04947, correct=2608/2650, in 382.93s/epoch (fwd/bck in 355.82s/epoch)
+17-05-22 02:28 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 02:28 crack500_run9_1_1 Returning seg_loss_weight 0.74 and dec_loss_weight 0.0026000000000000003
+17-05-22 02:28 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 02:35 crack500_run9_1_1 Epoch 27/100 ==> avg_loss_seg=0.06325, avg_loss_dec=0.03611, avg_loss=0.04690, correct=2621/2650, in 380.50s/epoch (fwd/bck in 358.27s/epoch)
+17-05-22 02:35 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 02:35 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.001668 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 02:35 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 02:40 crack500_run9_1_1 Best F1: 0.799935 at 0.305000. Pr: 0.812225, Re: 0.831415
+17-05-22 02:40 crack500_run9_1_1 New best model based on seg metrics.
+17-05-22 02:40 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+17-05-22 02:40 crack500_run9_1_1 Returning seg_loss_weight 0.73 and dec_loss_weight 0.0027
+17-05-22 02:40 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 02:46 crack500_run9_1_1 Epoch 28/100 ==> avg_loss_seg=0.06195, avg_loss_dec=0.03823, avg_loss=0.04532, correct=2623/2650, in 375.85s/epoch (fwd/bck in 355.92s/epoch)
+17-05-22 02:46 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 02:46 crack500_run9_1_1 Returning seg_loss_weight 0.72 and dec_loss_weight 0.0028000000000000004
+17-05-22 02:46 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 02:53 crack500_run9_1_1 Epoch 29/100 ==> avg_loss_seg=0.06041, avg_loss_dec=0.03404, avg_loss=0.04359, correct=2623/2650, in 382.62s/epoch (fwd/bck in 358.47s/epoch)
+17-05-22 02:53 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 02:53 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000180 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 02:53 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 02:58 crack500_run9_1_1 Best F1: 0.806217 at 0.240000. Pr: 0.817203, Re: 0.839670
+17-05-22 02:58 crack500_run9_1_1 New best model based on seg metrics.
+17-05-22 02:58 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+17-05-22 02:58 crack500_run9_1_1 Returning seg_loss_weight 0.71 and dec_loss_weight 0.0029
+17-05-22 02:58 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 03:04 crack500_run9_1_1 Epoch 30/100 ==> avg_loss_seg=0.05905, avg_loss_dec=0.04642, avg_loss=0.04206, correct=2605/2650, in 379.78s/epoch (fwd/bck in 357.00s/epoch)
+17-05-22 03:04 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 03:04 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_30.pth
+17-05-22 03:04 crack500_run9_1_1 Returning seg_loss_weight 0.7 and dec_loss_weight 0.003
+17-05-22 03:04 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 03:11 crack500_run9_1_1 Epoch 31/100 ==> avg_loss_seg=0.05863, avg_loss_dec=0.04491, avg_loss=0.04118, correct=2608/2650, in 382.19s/epoch (fwd/bck in 358.62s/epoch)
+17-05-22 03:11 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 03:11 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.001335 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 03:11 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 03:16 crack500_run9_1_1 Best F1: 0.800162 at 0.525000. Pr: 0.807000, Re: 0.837365
+17-05-22 03:16 crack500_run9_1_1 Returning seg_loss_weight 0.69 and dec_loss_weight 0.0031
+17-05-22 03:16 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 03:23 crack500_run9_1_1 Epoch 32/100 ==> avg_loss_seg=0.05736, avg_loss_dec=0.02535, avg_loss=0.03966, correct=2627/2650, in 381.48s/epoch (fwd/bck in 356.75s/epoch)
+17-05-22 03:23 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 03:23 crack500_run9_1_1 Returning seg_loss_weight 0.6799999999999999 and dec_loss_weight 0.0032
+17-05-22 03:23 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 03:29 crack500_run9_1_1 Epoch 33/100 ==> avg_loss_seg=0.05642, avg_loss_dec=0.02109, avg_loss=0.03843, correct=2634/2650, in 377.68s/epoch (fwd/bck in 358.07s/epoch)
+17-05-22 03:29 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 03:29 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000018 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 03:29 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 03:34 crack500_run9_1_1 Best F1: 0.797355 at 0.400000. Pr: 0.801176, Re: 0.842943
+17-05-22 03:34 crack500_run9_1_1 Returning seg_loss_weight 0.6699999999999999 and dec_loss_weight 0.0033000000000000004
+17-05-22 03:34 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 03:41 crack500_run9_1_1 Epoch 34/100 ==> avg_loss_seg=0.05629, avg_loss_dec=0.02834, avg_loss=0.03781, correct=2623/2650, in 380.70s/epoch (fwd/bck in 356.61s/epoch)
+17-05-22 03:41 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 03:41 crack500_run9_1_1 Returning seg_loss_weight 0.6599999999999999 and dec_loss_weight 0.0034000000000000002
+17-05-22 03:41 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 03:47 crack500_run9_1_1 Epoch 35/100 ==> avg_loss_seg=0.05471, avg_loss_dec=0.02824, avg_loss=0.03620, correct=2625/2650, in 382.00s/epoch (fwd/bck in 358.85s/epoch)
+17-05-22 03:47 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 03:47 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000146 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 03:47 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 03:53 crack500_run9_1_1 Best F1: 0.803187 at 0.355000. Pr: 0.809845, Re: 0.838429
+17-05-22 03:53 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_35.pth
+17-05-22 03:53 crack500_run9_1_1 Returning seg_loss_weight 0.65 and dec_loss_weight 0.0034999999999999996
+17-05-22 03:53 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 03:59 crack500_run9_1_1 Epoch 36/100 ==> avg_loss_seg=0.05477, avg_loss_dec=0.01864, avg_loss=0.03566, correct=2630/2650, in 375.34s/epoch (fwd/bck in 355.94s/epoch)
+17-05-22 03:59 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 03:59 crack500_run9_1_1 Returning seg_loss_weight 0.64 and dec_loss_weight 0.0036
+17-05-22 03:59 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 04:05 crack500_run9_1_1 Epoch 37/100 ==> avg_loss_seg=0.05453, avg_loss_dec=0.02851, avg_loss=0.03500, correct=2631/2650, in 384.40s/epoch (fwd/bck in 359.14s/epoch)
+17-05-22 04:05 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 04:06 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000813 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 04:06 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 04:11 crack500_run9_1_1 Best F1: 0.804857 at 0.400000. Pr: 0.811601, Re: 0.838977
+17-05-22 04:11 crack500_run9_1_1 Returning seg_loss_weight 0.63 and dec_loss_weight 0.0037
+17-05-22 04:11 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 04:17 crack500_run9_1_1 Epoch 38/100 ==> avg_loss_seg=0.05304, avg_loss_dec=0.02906, avg_loss=0.03352, correct=2625/2650, in 381.92s/epoch (fwd/bck in 356.91s/epoch)
+17-05-22 04:17 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 04:17 crack500_run9_1_1 Returning seg_loss_weight 0.62 and dec_loss_weight 0.0038
+17-05-22 04:17 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 04:23 crack500_run9_1_1 Epoch 39/100 ==> avg_loss_seg=0.05234, avg_loss_dec=0.02428, avg_loss=0.03254, correct=2627/2650, in 384.03s/epoch (fwd/bck in 358.48s/epoch)
+17-05-22 04:23 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 04:24 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000051 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 04:24 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 04:29 crack500_run9_1_1 Best F1: 0.811201 at 0.320000. Pr: 0.815904, Re: 0.846432
+17-05-22 04:29 crack500_run9_1_1 New best model based on seg metrics.
+17-05-22 04:29 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+17-05-22 04:29 crack500_run9_1_1 Returning seg_loss_weight 0.61 and dec_loss_weight 0.0039000000000000003
+17-05-22 04:29 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 04:35 crack500_run9_1_1 Epoch 40/100 ==> avg_loss_seg=0.05163, avg_loss_dec=0.02339, avg_loss=0.03159, correct=2631/2650, in 383.32s/epoch (fwd/bck in 356.43s/epoch)
+17-05-22 04:35 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 04:35 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_40.pth
+17-05-22 04:35 crack500_run9_1_1 Returning seg_loss_weight 0.6 and dec_loss_weight 0.004
+17-05-22 04:35 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 04:42 crack500_run9_1_1 Epoch 41/100 ==> avg_loss_seg=0.05121, avg_loss_dec=0.01894, avg_loss=0.03080, correct=2634/2650, in 379.33s/epoch (fwd/bck in 358.70s/epoch)
+17-05-22 04:42 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 04:42 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.004123 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 04:42 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 04:47 crack500_run9_1_1 Best F1: 0.806094 at 0.360000. Pr: 0.805062, Re: 0.847507
+17-05-22 04:47 crack500_run9_1_1 Returning seg_loss_weight 0.5900000000000001 and dec_loss_weight 0.0040999999999999995
+17-05-22 04:47 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 04:53 crack500_run9_1_1 Epoch 42/100 ==> avg_loss_seg=0.05089, avg_loss_dec=0.02454, avg_loss=0.03013, correct=2623/2650, in 380.20s/epoch (fwd/bck in 356.88s/epoch)
+17-05-22 04:53 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 04:53 crack500_run9_1_1 Returning seg_loss_weight 0.5800000000000001 and dec_loss_weight 0.0042
+17-05-22 04:53 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 05:00 crack500_run9_1_1 Epoch 43/100 ==> avg_loss_seg=0.05096, avg_loss_dec=0.01876, avg_loss=0.02963, correct=2632/2650, in 381.31s/epoch (fwd/bck in 358.81s/epoch)
+17-05-22 05:00 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 05:00 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000160 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 05:00 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 05:05 crack500_run9_1_1 Best F1: 0.802820 at 0.255000. Pr: 0.811225, Re: 0.835850
+17-05-22 05:05 crack500_run9_1_1 Returning seg_loss_weight 0.5700000000000001 and dec_loss_weight 0.0043
+17-05-22 05:05 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 05:11 crack500_run9_1_1 Epoch 44/100 ==> avg_loss_seg=0.05024, avg_loss_dec=0.02425, avg_loss=0.02874, correct=2631/2650, in 376.79s/epoch (fwd/bck in 357.17s/epoch)
+17-05-22 05:11 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 05:11 crack500_run9_1_1 Returning seg_loss_weight 0.56 and dec_loss_weight 0.0044
+17-05-22 05:11 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 05:18 crack500_run9_1_1 Epoch 45/100 ==> avg_loss_seg=0.04985, avg_loss_dec=0.02348, avg_loss=0.02802, correct=2631/2650, in 382.91s/epoch (fwd/bck in 358.46s/epoch)
+17-05-22 05:18 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 05:18 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000017 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 05:18 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 05:23 crack500_run9_1_1 Best F1: 0.788550 at 0.290000. Pr: 0.792327, Re: 0.826511
+17-05-22 05:23 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_45.pth
+17-05-22 05:23 crack500_run9_1_1 Returning seg_loss_weight 0.55 and dec_loss_weight 0.0045000000000000005
+17-05-22 05:23 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 05:30 crack500_run9_1_1 Epoch 46/100 ==> avg_loss_seg=0.04890, avg_loss_dec=0.02434, avg_loss=0.02701, correct=2632/2650, in 380.10s/epoch (fwd/bck in 356.74s/epoch)
+17-05-22 05:30 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 05:30 crack500_run9_1_1 Returning seg_loss_weight 0.54 and dec_loss_weight 0.0046
+17-05-22 05:30 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 05:36 crack500_run9_1_1 Epoch 47/100 ==> avg_loss_seg=0.04956, avg_loss_dec=0.02810, avg_loss=0.02689, correct=2627/2650, in 382.73s/epoch (fwd/bck in 359.01s/epoch)
+17-05-22 05:36 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 05:36 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000001 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 05:36 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 05:41 crack500_run9_1_1 Best F1: 0.797122 at 0.510000. Pr: 0.800737, Re: 0.827607
+17-05-22 05:41 crack500_run9_1_1 Returning seg_loss_weight 0.53 and dec_loss_weight 0.0047
+17-05-22 05:41 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 05:48 crack500_run9_1_1 Epoch 48/100 ==> avg_loss_seg=0.04949, avg_loss_dec=0.01570, avg_loss=0.02630, correct=2637/2650, in 382.36s/epoch (fwd/bck in 356.33s/epoch)
+17-05-22 05:48 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 05:48 crack500_run9_1_1 Returning seg_loss_weight 0.52 and dec_loss_weight 0.0048
+17-05-22 05:48 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 05:54 crack500_run9_1_1 Epoch 49/100 ==> avg_loss_seg=0.04758, avg_loss_dec=0.01205, avg_loss=0.02480, correct=2640/2650, in 379.01s/epoch (fwd/bck in 358.19s/epoch)
+17-05-22 05:54 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 05:54 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000132 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 05:54 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 05:59 crack500_run9_1_1 Best F1: 0.791776 at 0.270000. Pr: 0.792040, Re: 0.829834
+17-05-22 05:59 crack500_run9_1_1 Returning seg_loss_weight 0.51 and dec_loss_weight 0.0049
+17-05-22 05:59 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 06:06 crack500_run9_1_1 Epoch 50/100 ==> avg_loss_seg=0.04818, avg_loss_dec=0.01996, avg_loss=0.02467, correct=2631/2650, in 379.87s/epoch (fwd/bck in 356.53s/epoch)
+17-05-22 06:06 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 06:06 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_50.pth
+17-05-22 06:06 crack500_run9_1_1 Returning seg_loss_weight 0.5 and dec_loss_weight 0.005
+17-05-22 06:06 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 06:12 crack500_run9_1_1 Epoch 51/100 ==> avg_loss_seg=0.04750, avg_loss_dec=0.01237, avg_loss=0.02381, correct=2640/2650, in 382.09s/epoch (fwd/bck in 359.11s/epoch)
+17-05-22 06:12 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 06:12 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000001 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 06:12 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 06:18 crack500_run9_1_1 Best F1: 0.795149 at 0.395000. Pr: 0.792203, Re: 0.829490
+17-05-22 06:18 crack500_run9_1_1 Returning seg_loss_weight 0.49 and dec_loss_weight 0.0051
+17-05-22 06:18 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 06:24 crack500_run9_1_1 Epoch 52/100 ==> avg_loss_seg=0.04638, avg_loss_dec=0.01762, avg_loss=0.02281, correct=2630/2650, in 377.89s/epoch (fwd/bck in 356.56s/epoch)
+17-05-22 06:24 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 06:24 crack500_run9_1_1 Returning seg_loss_weight 0.48 and dec_loss_weight 0.005200000000000001
+17-05-22 06:24 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 06:30 crack500_run9_1_1 Epoch 53/100 ==> avg_loss_seg=0.04734, avg_loss_dec=0.02298, avg_loss=0.02284, correct=2633/2650, in 385.05s/epoch (fwd/bck in 358.67s/epoch)
+17-05-22 06:30 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 06:31 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.001146 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 06:31 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 06:36 crack500_run9_1_1 Best F1: 0.804460 at 0.475000. Pr: 0.807935, Re: 0.832458
+17-05-22 06:36 crack500_run9_1_1 Returning seg_loss_weight 0.47 and dec_loss_weight 0.0053
+17-05-22 06:36 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 06:42 crack500_run9_1_1 Epoch 54/100 ==> avg_loss_seg=0.04593, avg_loss_dec=0.00810, avg_loss=0.02163, correct=2642/2650, in 381.92s/epoch (fwd/bck in 357.26s/epoch)
+17-05-22 06:42 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 06:42 crack500_run9_1_1 Returning seg_loss_weight 0.45999999999999996 and dec_loss_weight 0.0054
+17-05-22 06:42 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 06:48 crack500_run9_1_1 Epoch 55/100 ==> avg_loss_seg=0.04637, avg_loss_dec=0.00977, avg_loss=0.02138, correct=2643/2650, in 381.90s/epoch (fwd/bck in 358.97s/epoch)
+17-05-22 06:48 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 06:49 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000035 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 06:49 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 06:54 crack500_run9_1_1 Best F1: 0.795064 at 0.495000. Pr: 0.795168, Re: 0.829680
+17-05-22 06:54 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_55.pth
+17-05-22 06:54 crack500_run9_1_1 Returning seg_loss_weight 0.44999999999999996 and dec_loss_weight 0.0055000000000000005
+17-05-22 06:54 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 07:00 crack500_run9_1_1 Epoch 56/100 ==> avg_loss_seg=0.04559, avg_loss_dec=0.01013, avg_loss=0.02057, correct=2640/2650, in 381.66s/epoch (fwd/bck in 357.23s/epoch)
+17-05-22 07:00 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 07:00 crack500_run9_1_1 Returning seg_loss_weight 0.43999999999999995 and dec_loss_weight 0.005600000000000001
+17-05-22 07:00 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 07:07 crack500_run9_1_1 Epoch 57/100 ==> avg_loss_seg=0.04497, avg_loss_dec=0.01210, avg_loss=0.01986, correct=2639/2650, in 378.84s/epoch (fwd/bck in 358.71s/epoch)
+17-05-22 07:07 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 07:07 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.001131 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 07:07 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 07:12 crack500_run9_1_1 Best F1: 0.808186 at 0.300000. Pr: 0.812526, Re: 0.844162
+17-05-22 07:12 crack500_run9_1_1 Returning seg_loss_weight 0.43000000000000005 and dec_loss_weight 0.005699999999999999
+17-05-22 07:12 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 07:18 crack500_run9_1_1 Epoch 58/100 ==> avg_loss_seg=0.04517, avg_loss_dec=0.00440, avg_loss=0.01945, correct=2649/2650, in 381.85s/epoch (fwd/bck in 355.87s/epoch)
+17-05-22 07:18 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 07:18 crack500_run9_1_1 Returning seg_loss_weight 0.42000000000000004 and dec_loss_weight 0.0058
+17-05-22 07:18 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 07:25 crack500_run9_1_1 Epoch 59/100 ==> avg_loss_seg=0.04355, avg_loss_dec=0.00994, avg_loss=0.01835, correct=2638/2650, in 380.83s/epoch (fwd/bck in 359.02s/epoch)
+17-05-22 07:25 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 07:25 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000528 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 07:25 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 07:30 crack500_run9_1_1 Best F1: 0.813629 at 0.310000. Pr: 0.813848, Re: 0.846012
+17-05-22 07:30 crack500_run9_1_1 New best model based on seg metrics.
+17-05-22 07:30 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+17-05-22 07:30 crack500_run9_1_1 Returning seg_loss_weight 0.41000000000000003 and dec_loss_weight 0.0059
+17-05-22 07:30 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 07:37 crack500_run9_1_1 Epoch 60/100 ==> avg_loss_seg=0.04340, avg_loss_dec=0.01067, avg_loss=0.01786, correct=2639/2650, in 375.77s/epoch (fwd/bck in 356.43s/epoch)
+17-05-22 07:37 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 07:37 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_60.pth
+17-05-22 07:37 crack500_run9_1_1 Returning seg_loss_weight 0.4 and dec_loss_weight 0.006
+17-05-22 07:37 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 07:43 crack500_run9_1_1 Epoch 61/100 ==> avg_loss_seg=0.04312, avg_loss_dec=0.01253, avg_loss=0.01732, correct=2637/2650, in 383.46s/epoch (fwd/bck in 359.10s/epoch)
+17-05-22 07:43 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 07:43 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000076 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 07:43 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 07:48 crack500_run9_1_1 Best F1: 0.798367 at 0.235000. Pr: 0.795419, Re: 0.842565
+17-05-22 07:48 crack500_run9_1_1 Returning seg_loss_weight 0.39 and dec_loss_weight 0.0061
+17-05-22 07:48 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 07:55 crack500_run9_1_1 Epoch 62/100 ==> avg_loss_seg=0.04372, avg_loss_dec=0.03372, avg_loss=0.01726, correct=2621/2650, in 382.29s/epoch (fwd/bck in 356.76s/epoch)
+17-05-22 07:55 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 07:55 crack500_run9_1_1 Returning seg_loss_weight 0.38 and dec_loss_weight 0.0062
+17-05-22 07:55 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 08:01 crack500_run9_1_1 Epoch 63/100 ==> avg_loss_seg=0.04304, avg_loss_dec=0.01777, avg_loss=0.01647, correct=2631/2650, in 381.54s/epoch (fwd/bck in 358.60s/epoch)
+17-05-22 08:01 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 08:01 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000085 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 08:01 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 08:06 crack500_run9_1_1 Best F1: 0.807765 at 0.370000. Pr: 0.810879, Re: 0.847327
+17-05-22 08:06 crack500_run9_1_1 Returning seg_loss_weight 0.37 and dec_loss_weight 0.0063
+17-05-22 08:06 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 08:13 crack500_run9_1_1 Epoch 64/100 ==> avg_loss_seg=0.04200, avg_loss_dec=0.02049, avg_loss=0.01567, correct=2633/2650, in 382.98s/epoch (fwd/bck in 357.12s/epoch)
+17-05-22 08:13 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 08:13 crack500_run9_1_1 Returning seg_loss_weight 0.36 and dec_loss_weight 0.0064
+17-05-22 08:13 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 08:19 crack500_run9_1_1 Epoch 65/100 ==> avg_loss_seg=0.04273, avg_loss_dec=0.00698, avg_loss=0.01543, correct=2644/2650, in 378.87s/epoch (fwd/bck in 358.50s/epoch)
+17-05-22 08:19 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 08:19 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.002125 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 08:19 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 08:25 crack500_run9_1_1 Best F1: 0.807853 at 0.260000. Pr: 0.805872, Re: 0.851093
+17-05-22 08:25 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_65.pth
+17-05-22 08:25 crack500_run9_1_1 Returning seg_loss_weight 0.35 and dec_loss_weight 0.006500000000000001
+17-05-22 08:25 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 08:31 crack500_run9_1_1 Epoch 66/100 ==> avg_loss_seg=0.03993, avg_loss_dec=0.00362, avg_loss=0.01400, correct=2646/2650, in 381.31s/epoch (fwd/bck in 356.69s/epoch)
+17-05-22 08:31 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 08:31 crack500_run9_1_1 Returning seg_loss_weight 0.33999999999999997 and dec_loss_weight 0.006600000000000001
+17-05-22 08:31 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 08:37 crack500_run9_1_1 Epoch 67/100 ==> avg_loss_seg=0.04076, avg_loss_dec=0.01096, avg_loss=0.01393, correct=2642/2650, in 380.10s/epoch (fwd/bck in 359.39s/epoch)
+17-05-22 08:37 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 08:38 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.001485 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 08:38 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 08:43 crack500_run9_1_1 Best F1: 0.801689 at 0.350000. Pr: 0.798830, Re: 0.839248
+17-05-22 08:43 crack500_run9_1_1 Returning seg_loss_weight 0.32999999999999996 and dec_loss_weight 0.0067
+17-05-22 08:43 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 08:49 crack500_run9_1_1 Epoch 68/100 ==> avg_loss_seg=0.03934, avg_loss_dec=0.00778, avg_loss=0.01304, correct=2642/2650, in 376.04s/epoch (fwd/bck in 356.48s/epoch)
+17-05-22 08:49 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 08:49 crack500_run9_1_1 Returning seg_loss_weight 0.31999999999999995 and dec_loss_weight 0.0068000000000000005
+17-05-22 08:49 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 08:56 crack500_run9_1_1 Epoch 69/100 ==> avg_loss_seg=0.04011, avg_loss_dec=0.00254, avg_loss=0.01285, correct=2648/2650, in 385.46s/epoch (fwd/bck in 359.29s/epoch)
+17-05-22 08:56 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 08:56 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.001185 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 08:56 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 09:01 crack500_run9_1_1 Best F1: 0.807021 at 0.320000. Pr: 0.803955, Re: 0.852960
+17-05-22 09:01 crack500_run9_1_1 Returning seg_loss_weight 0.31000000000000005 and dec_loss_weight 0.0069
+17-05-22 09:01 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 09:07 crack500_run9_1_1 Epoch 70/100 ==> avg_loss_seg=0.04025, avg_loss_dec=0.00534, avg_loss=0.01252, correct=2647/2650, in 379.74s/epoch (fwd/bck in 356.74s/epoch)
+17-05-22 09:07 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 09:07 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_70.pth
+17-05-22 09:07 crack500_run9_1_1 Returning seg_loss_weight 0.30000000000000004 and dec_loss_weight 0.006999999999999999
+17-05-22 09:07 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 09:14 crack500_run9_1_1 Epoch 71/100 ==> avg_loss_seg=0.03908, avg_loss_dec=0.00407, avg_loss=0.01175, correct=2646/2650, in 384.45s/epoch (fwd/bck in 359.06s/epoch)
+17-05-22 09:14 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 09:14 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000004 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 09:14 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 09:19 crack500_run9_1_1 Best F1: 0.802357 at 0.455000. Pr: 0.807151, Re: 0.834934
+17-05-22 09:19 crack500_run9_1_1 Returning seg_loss_weight 0.29000000000000004 and dec_loss_weight 0.0070999999999999995
+17-05-22 09:19 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 09:26 crack500_run9_1_1 Epoch 72/100 ==> avg_loss_seg=0.03889, avg_loss_dec=0.00908, avg_loss=0.01134, correct=2641/2650, in 385.91s/epoch (fwd/bck in 356.91s/epoch)
+17-05-22 09:26 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 09:26 crack500_run9_1_1 Returning seg_loss_weight 0.28 and dec_loss_weight 0.0072
+17-05-22 09:26 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 09:32 crack500_run9_1_1 Epoch 73/100 ==> avg_loss_seg=0.03703, avg_loss_dec=0.00661, avg_loss=0.01042, correct=2641/2650, in 377.32s/epoch (fwd/bck in 358.40s/epoch)
+17-05-22 09:32 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 09:32 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000382 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 09:32 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 09:37 crack500_run9_1_1 Best F1: 0.807867 at 0.370000. Pr: 0.802564, Re: 0.849548
+17-05-22 09:37 crack500_run9_1_1 Returning seg_loss_weight 0.27 and dec_loss_weight 0.0073
+17-05-22 09:37 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 09:44 crack500_run9_1_1 Epoch 74/100 ==> avg_loss_seg=0.03860, avg_loss_dec=0.00616, avg_loss=0.01047, correct=2644/2650, in 380.64s/epoch (fwd/bck in 355.84s/epoch)
+17-05-22 09:44 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 09:44 crack500_run9_1_1 Returning seg_loss_weight 0.26 and dec_loss_weight 0.0074
+17-05-22 09:44 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 09:50 crack500_run9_1_1 Epoch 75/100 ==> avg_loss_seg=0.03829, avg_loss_dec=0.00469, avg_loss=0.00999, correct=2646/2650, in 380.82s/epoch (fwd/bck in 359.13s/epoch)
+17-05-22 09:50 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 09:50 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000250 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 09:50 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 09:56 crack500_run9_1_1 Best F1: 0.803353 at 0.355000. Pr: 0.804031, Re: 0.840756
+17-05-22 09:56 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_75.pth
+17-05-22 09:56 crack500_run9_1_1 Returning seg_loss_weight 0.25 and dec_loss_weight 0.0075
+17-05-22 09:56 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 10:02 crack500_run9_1_1 Epoch 76/100 ==> avg_loss_seg=0.03862, avg_loss_dec=0.01142, avg_loss=0.00974, correct=2638/2650, in 375.96s/epoch (fwd/bck in 356.44s/epoch)
+17-05-22 10:02 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 10:02 crack500_run9_1_1 Returning seg_loss_weight 0.24 and dec_loss_weight 0.0076
+17-05-22 10:02 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 10:08 crack500_run9_1_1 Epoch 77/100 ==> avg_loss_seg=0.03641, avg_loss_dec=0.00839, avg_loss=0.00880, correct=2642/2650, in 384.66s/epoch (fwd/bck in 358.67s/epoch)
+17-05-22 10:08 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 10:08 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000557 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 10:08 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 10:14 crack500_run9_1_1 Best F1: 0.806237 at 0.275000. Pr: 0.808758, Re: 0.839547
+17-05-22 10:14 crack500_run9_1_1 Returning seg_loss_weight 0.22999999999999998 and dec_loss_weight 0.0077
+17-05-22 10:14 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 10:20 crack500_run9_1_1 Epoch 78/100 ==> avg_loss_seg=0.03495, avg_loss_dec=0.00407, avg_loss=0.00807, correct=2646/2650, in 381.06s/epoch (fwd/bck in 356.95s/epoch)
+17-05-22 10:20 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 10:20 crack500_run9_1_1 Returning seg_loss_weight 0.21999999999999997 and dec_loss_weight 0.0078000000000000005
+17-05-22 10:20 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 10:26 crack500_run9_1_1 Epoch 79/100 ==> avg_loss_seg=0.03571, avg_loss_dec=0.01111, avg_loss=0.00794, correct=2640/2650, in 385.66s/epoch (fwd/bck in 359.31s/epoch)
+17-05-22 10:26 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 10:27 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000580 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 10:27 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 10:32 crack500_run9_1_1 Best F1: 0.795486 at 0.355000. Pr: 0.793321, Re: 0.838766
+17-05-22 10:32 crack500_run9_1_1 Returning seg_loss_weight 0.20999999999999996 and dec_loss_weight 0.0079
+17-05-22 10:32 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 10:38 crack500_run9_1_1 Epoch 80/100 ==> avg_loss_seg=0.03418, avg_loss_dec=0.00230, avg_loss=0.00720, correct=2648/2650, in 375.57s/epoch (fwd/bck in 356.91s/epoch)
+17-05-22 10:38 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 10:38 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_80.pth
+17-05-22 10:38 crack500_run9_1_1 Returning seg_loss_weight 0.19999999999999996 and dec_loss_weight 0.008
+17-05-22 10:38 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 10:44 crack500_run9_1_1 Epoch 81/100 ==> avg_loss_seg=0.03416, avg_loss_dec=0.00908, avg_loss=0.00691, correct=2642/2650, in 376.91s/epoch (fwd/bck in 357.71s/epoch)
+17-05-22 10:44 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 10:45 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000285 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 10:45 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 10:49 crack500_run9_1_1 Best F1: 0.786326 at 0.290000. Pr: 0.786619, Re: 0.828244
+17-05-22 10:49 crack500_run9_1_1 Returning seg_loss_weight 0.18999999999999995 and dec_loss_weight 0.008100000000000001
+17-05-22 10:49 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 10:56 crack500_run9_1_1 Epoch 82/100 ==> avg_loss_seg=0.03560, avg_loss_dec=0.00765, avg_loss=0.00683, correct=2643/2650, in 372.26s/epoch (fwd/bck in 354.86s/epoch)
+17-05-22 10:56 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 10:56 crack500_run9_1_1 Returning seg_loss_weight 0.18000000000000005 and dec_loss_weight 0.008199999999999999
+17-05-22 10:56 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 11:02 crack500_run9_1_1 Epoch 83/100 ==> avg_loss_seg=0.03354, avg_loss_dec=0.00662, avg_loss=0.00609, correct=2645/2650, in 374.56s/epoch (fwd/bck in 357.22s/epoch)
+17-05-22 11:02 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 11:02 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000198 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 11:02 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 11:07 crack500_run9_1_1 Best F1: 0.800741 at 0.265000. Pr: 0.807540, Re: 0.834926
+17-05-22 11:07 crack500_run9_1_1 Returning seg_loss_weight 0.17000000000000004 and dec_loss_weight 0.0083
+17-05-22 11:07 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 11:13 crack500_run9_1_1 Epoch 84/100 ==> avg_loss_seg=0.03483, avg_loss_dec=0.00477, avg_loss=0.00596, correct=2645/2650, in 374.16s/epoch (fwd/bck in 355.46s/epoch)
+17-05-22 11:13 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 11:13 crack500_run9_1_1 Returning seg_loss_weight 0.16000000000000003 and dec_loss_weight 0.0084
+17-05-22 11:13 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 11:19 crack500_run9_1_1 Epoch 85/100 ==> avg_loss_seg=0.03381, avg_loss_dec=0.00906, avg_loss=0.00549, correct=2641/2650, in 374.28s/epoch (fwd/bck in 356.94s/epoch)
+17-05-22 11:19 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 11:20 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000016 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 11:20 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 11:25 crack500_run9_1_1 Best F1: 0.806570 at 0.285000. Pr: 0.815554, Re: 0.833332
+17-05-22 11:25 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_85.pth
+17-05-22 11:25 crack500_run9_1_1 Returning seg_loss_weight 0.15000000000000002 and dec_loss_weight 0.0085
+17-05-22 11:25 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 11:31 crack500_run9_1_1 Epoch 86/100 ==> avg_loss_seg=0.03205, avg_loss_dec=0.00440, avg_loss=0.00484, correct=2645/2650, in 374.09s/epoch (fwd/bck in 354.78s/epoch)
+17-05-22 11:31 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 11:31 crack500_run9_1_1 Returning seg_loss_weight 0.14 and dec_loss_weight 0.0086
+17-05-22 11:31 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 11:37 crack500_run9_1_1 Epoch 87/100 ==> avg_loss_seg=0.03314, avg_loss_dec=0.00432, avg_loss=0.00468, correct=2645/2650, in 376.23s/epoch (fwd/bck in 357.10s/epoch)
+17-05-22 11:37 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 11:37 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000269 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 11:37 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 11:42 crack500_run9_1_1 Best F1: 0.802033 at 0.270000. Pr: 0.799668, Re: 0.840902
+17-05-22 11:42 crack500_run9_1_1 Returning seg_loss_weight 0.13 and dec_loss_weight 0.0087
+17-05-22 11:42 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 11:48 crack500_run9_1_1 Epoch 88/100 ==> avg_loss_seg=0.03214, avg_loss_dec=0.00645, avg_loss=0.00423, correct=2644/2650, in 372.38s/epoch (fwd/bck in 354.86s/epoch)
+17-05-22 11:48 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 11:48 crack500_run9_1_1 Returning seg_loss_weight 0.12 and dec_loss_weight 0.0088
+17-05-22 11:48 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 11:55 crack500_run9_1_1 Epoch 89/100 ==> avg_loss_seg=0.03257, avg_loss_dec=0.00573, avg_loss=0.00396, correct=2645/2650, in 375.49s/epoch (fwd/bck in 357.01s/epoch)
+17-05-22 11:55 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 11:55 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000001 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 11:55 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 12:00 crack500_run9_1_1 Best F1: 0.794524 at 0.240000. Pr: 0.795276, Re: 0.835050
+17-05-22 12:00 crack500_run9_1_1 Returning seg_loss_weight 0.10999999999999999 and dec_loss_weight 0.0089
+17-05-22 12:00 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 12:06 crack500_run9_1_1 Epoch 90/100 ==> avg_loss_seg=0.03208, avg_loss_dec=0.01124, avg_loss=0.00363, correct=2640/2650, in 376.32s/epoch (fwd/bck in 355.34s/epoch)
+17-05-22 12:06 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 12:06 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_90.pth
+17-05-22 12:06 crack500_run9_1_1 Returning seg_loss_weight 0.09999999999999998 and dec_loss_weight 0.009000000000000001
+17-05-22 12:06 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 12:12 crack500_run9_1_1 Epoch 91/100 ==> avg_loss_seg=0.03120, avg_loss_dec=0.00077, avg_loss=0.00313, correct=2650/2650, in 376.92s/epoch (fwd/bck in 357.60s/epoch)
+17-05-22 12:12 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 12:12 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000929 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 12:12 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 12:17 crack500_run9_1_1 Best F1: 0.795625 at 0.355000. Pr: 0.790126, Re: 0.839739
+17-05-22 12:17 crack500_run9_1_1 Returning seg_loss_weight 0.08999999999999997 and dec_loss_weight 0.0091
+17-05-22 12:17 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 12:23 crack500_run9_1_1 Epoch 92/100 ==> avg_loss_seg=0.03052, avg_loss_dec=0.00169, avg_loss=0.00276, correct=2649/2650, in 365.57s/epoch (fwd/bck in 354.67s/epoch)
+17-05-22 12:23 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 12:23 crack500_run9_1_1 Returning seg_loss_weight 0.07999999999999996 and dec_loss_weight 0.0092
+17-05-22 12:23 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 12:29 crack500_run9_1_1 Epoch 93/100 ==> avg_loss_seg=0.03035, avg_loss_dec=0.00110, avg_loss=0.00244, correct=2649/2650, in 370.46s/epoch (fwd/bck in 356.99s/epoch)
+17-05-22 12:29 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 12:30 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000149 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 12:30 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 12:34 crack500_run9_1_1 Best F1: 0.797698 at 0.350000. Pr: 0.790119, Re: 0.843149
+17-05-22 12:34 crack500_run9_1_1 Returning seg_loss_weight 0.06999999999999995 and dec_loss_weight 0.009300000000000001
+17-05-22 12:34 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 12:40 crack500_run9_1_1 Epoch 94/100 ==> avg_loss_seg=0.03005, avg_loss_dec=0.00075, avg_loss=0.00211, correct=2650/2650, in 373.59s/epoch (fwd/bck in 355.00s/epoch)
+17-05-22 12:40 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 12:40 crack500_run9_1_1 Returning seg_loss_weight 0.06000000000000005 and dec_loss_weight 0.0094
+17-05-22 12:40 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 12:46 crack500_run9_1_1 Epoch 95/100 ==> avg_loss_seg=0.03000, avg_loss_dec=0.00149, avg_loss=0.00181, correct=2648/2650, in 371.61s/epoch (fwd/bck in 356.02s/epoch)
+17-05-22 12:46 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 12:47 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000750 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 12:47 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 12:51 crack500_run9_1_1 Best F1: 0.805188 at 0.410000. Pr: 0.803935, Re: 0.842361
+17-05-22 12:51 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/ep_95.pth
+17-05-22 12:51 crack500_run9_1_1 Returning seg_loss_weight 0.050000000000000044 and dec_loss_weight 0.0095
+17-05-22 12:51 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 12:58 crack500_run9_1_1 Epoch 96/100 ==> avg_loss_seg=0.02905, avg_loss_dec=0.00019, avg_loss=0.00145, correct=2650/2650, in 369.72s/epoch (fwd/bck in 354.83s/epoch)
+17-05-22 12:58 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 12:58 crack500_run9_1_1 Returning seg_loss_weight 0.040000000000000036 and dec_loss_weight 0.0096
+17-05-22 12:58 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 13:04 crack500_run9_1_1 Epoch 97/100 ==> avg_loss_seg=0.02821, avg_loss_dec=0.00511, avg_loss=0.00118, correct=2646/2650, in 373.27s/epoch (fwd/bck in 357.22s/epoch)
+17-05-22 13:04 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 13:04 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000979 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 13:04 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 13:09 crack500_run9_1_1 Best F1: 0.796036 at 0.325000. Pr: 0.794183, Re: 0.839852
+17-05-22 13:09 crack500_run9_1_1 Returning seg_loss_weight 0.030000000000000027 and dec_loss_weight 0.0097
+17-05-22 13:09 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 13:15 crack500_run9_1_1 Epoch 98/100 ==> avg_loss_seg=0.02743, avg_loss_dec=0.00746, avg_loss=0.00090, correct=2644/2650, in 373.36s/epoch (fwd/bck in 354.76s/epoch)
+17-05-22 13:15 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+17-05-22 13:15 crack500_run9_1_1 Returning seg_loss_weight 0.020000000000000018 and dec_loss_weight 0.0098
+17-05-22 13:15 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 13:21 crack500_run9_1_1 Epoch 99/100 ==> avg_loss_seg=0.02623, avg_loss_dec=0.00083, avg_loss=0.00053, correct=2650/2650, in 374.11s/epoch (fwd/bck in 356.47s/epoch)
+17-05-22 13:21 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 13:21 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000002 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 13:21 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 13:26 crack500_run9_1_1 Best F1: 0.802237 at 0.245000. Pr: 0.800519, Re: 0.838416
+17-05-22 13:26 crack500_run9_1_1 Returning seg_loss_weight 0.010000000000000009 and dec_loss_weight 0.0099
+17-05-22 13:26 crack500_run9_1_1 Returning dec_gradient_multiplier 0
+17-05-22 13:32 crack500_run9_1_1 Epoch 100/100 ==> avg_loss_seg=0.02765, avg_loss_dec=0.00097, avg_loss=0.00029, correct=2649/2650, in 370.14s/epoch (fwd/bck in 353.73s/epoch)
+17-05-22 13:32 crack500_run9_1_1 Last computing learning rate by optimizer: 0.001
+/home/matics/conda/lib/python3.9/site-packages/sklearn/metrics/_ranking.py:990: UndefinedMetricWarning: No negative samples in y_true, false positive value should be meaningless
+  warnings.warn(
+17-05-22 13:33 crack500_run9_1_1 VALIDATION on VAL set || AUC=nan, and AP=1.000000, with best thr=0.000017 sat f-measure=1.000 and FP=0, FN=0, TOTAL SAMPLES=348
+17-05-22 13:33 crack500_run9_1_1 Validation metrics on VAL set. 2 pixel distance used. Threshold step: 0.005
+17-05-22 13:38 crack500_run9_1_1 Best F1: 0.801213 at 0.275000. Pr: 0.793661, Re: 0.842358
+17-05-22 13:38 crack500_run9_1_1 Saving current model state to ./RESULTS/CRACK500/crack500_run9_1_1/models/final_state_dict.pth
+17-05-22 13:38 crack500_run9_1_1 Loading model state from ./RESULTS/CRACK500/crack500_run9_1_1/models/best_state_dict.pth
+17-05-22 13:38 TEST: Number of positives: 1124, Number of negatives: 0, Sum: 1124
+17-05-22 13:52 crack500_run9_1_1 Decision EVAL on TEST. Pr: 1.000000, Re: 0.998221, F1: 0.999110, Accuracy: 0.998221, Threshold: 0.0005283071659505367
+17-05-22 13:52 crack500_run9_1_1 TP: 1122, FP: 0, FN: 2, TN: 0
+17-05-22 13:52 crack500_run9_1_1 Evaluation metrics on TEST set. 2 pixel distance used.
+17-05-22 14:03 crack500_run9_1_1 Pr: 0.756516, Re: 0.793254, F1: 0.754537, threshold: 0.31000000000000016
