@@ -34,7 +34,7 @@ class Config:
     USE_BEST_MODEL = False
 
     ON_DEMAND_READ = False
-    REPRODUCIBLE_RUN = False
+    REPRODUCIBLE_RUN = None
     MEMORY_FIT = 1
     SAVE_IMAGES = True
     DILATE = 1
@@ -50,6 +50,8 @@ class Config:
     OPTIMIZER = "sgd"
     SCHEDULER = None
     HARD_NEG_MINING = None
+    LOSS = "bce"
+    PXL_DISTANCE = 2
 
     def init_extra(self):
         if self.WEIGHTED_SEG_LOSS and (self.WEIGHTED_SEG_LOSS_P is None or self.WEIGHTED_SEG_LOSS_MAX is None):
@@ -115,6 +117,12 @@ class Config:
             self.INPUT_CHANNELS = 3
             if self.NUM_SEGMENTED is None:
                 raise Exception("Missing NUM_SEGMENTED for CRACK500 dataset!")
+        elif self.DATASET == 'DeepCrack':
+            self.INPUT_WIDTH = 544
+            self.INPUT_HEIGHT = 384
+            self.INPUT_CHANNELS = 3
+            if self.NUM_SEGMENTED is None:
+                raise Exception("Missing NUM_SEGMENTED for DeepCrack dataset!")
         else:
             raise Exception('Unknown dataset {}'.format(self.DATASET))
 
@@ -141,6 +149,8 @@ class Config:
         self.OPTIMIZER = args.OPTIMIZER
         self.SCHEDULER = args.SCHEDULER
         self.HARD_NEG_MINING = args.HARD_NEG_MINING
+        self.LOSS = args.LOSS
+        self.PXL_DISTANCE = args.PXL_DISTANCE
 
         if args.FOLD is not None: self.FOLD = args.FOLD
         if args.TRAIN_NUM is not None: self.TRAIN_NUM = args.TRAIN_NUM
@@ -191,7 +201,9 @@ class Config:
             "USE_NEGATIVES": self.USE_NEGATIVES,
             "OPTIMIZER": self.OPTIMIZER,
             "SCHEDULER": self.SCHEDULER,
-            "HARD_NEG_MINING": self.HARD_NEG_MINING
+            "HARD_NEG_MINING": self.HARD_NEG_MINING,
+            "LOSS": self.LOSS,
+            "PXL_DISTANCE": self.PXL_DISTANCE
         }
         return params
 
@@ -234,5 +246,7 @@ def load_from_dict(dictionary):
     cfg.OPTIMIZER = dictionary.get("OPTIMIZER", None)
     cfg.SCHEDULER = dictionary.get("SCHEDULER", None)
     cfg.HARD_NEG_MINING = dictionary.get("HARD_NEG_MINING", None)
+    cfg.LOSS = dictionary.get("LOSS", None)
+    cfg.PXL_DISTANCE = dictionary.get("PXL_DISTANCE", None)
 
     return cfg

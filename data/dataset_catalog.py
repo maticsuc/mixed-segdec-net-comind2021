@@ -24,7 +24,7 @@ def get_dataset(kind: str, cfg: Config) -> Optional[DataLoader]:
         ds = SteelDataset(kind, cfg)
     elif cfg.DATASET == "KSDD2":
         ds = KSDD2Dataset(kind, cfg)
-    elif cfg.DATASET == "crack_segmentation" or cfg.DATASET == 'CFD' or cfg.DATASET == 'CRACK500':
+    elif cfg.DATASET == "crack_segmentation" or cfg.DATASET == 'CFD' or cfg.DATASET == 'CRACK500' or cfg.DATASET == 'DeepCrack':
         ds = CrackSegmentationDataset(kind, cfg)
     else:
         raise Exception(f"Unknown dataset {cfg.DATASET}")

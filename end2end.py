@@ -5,7 +5,7 @@ from sklearn import metrics
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from models import SegDecNet
+from models import SegDecNet, FocalLoss, DiceLoss
 import numpy as np
 import os
 from torch import nn as nn
@@ -45,11 +45,11 @@ class End2End:
         self._set_results_path()
         self._create_results_dirs()
         self.print_run_params()
-        if self.cfg.REPRODUCIBLE_RUN:
-            self._log("Reproducible run, fixing all seeds to:1337", LVL_DEBUG)
-            np.random.seed(1337)
-            torch.manual_seed(1337)
-            random.seed(1337)
+        if self.cfg.REPRODUCIBLE_RUN is not None:
+            self._log(f"Reproducible run, fixing all seeds to: {self.cfg.REPRODUCIBLE_RUN}", LVL_DEBUG)
+            np.random.seed(self.cfg.REPRODUCIBLE_RUN)
+            torch.manual_seed(self.cfg.REPRODUCIBLE_RUN)
+            random.seed(self.cfg.REPRODUCIBLE_RUN)
             torch.backends.cudnn.deterministic = True
             torch.backends.cudnn.benchmark = False
 
@@ -213,7 +213,7 @@ class End2End:
                 if self.cfg.HARD_NEG_MINING is not None:
                     train_loader.batch_sampler.update_sample_loss_batch(data, difficulty_score, index_key=5)
 
-                difficulty_score_dict[epoch].append({index.item(): score for index, score in zip(data[-1], difficulty_score)})
+                difficulty_score_dict[epoch].append({index.item(): round(score, 2) for index, score in zip(data[-1], difficulty_score)})
 
             end = timer()
 
@@ -328,7 +328,7 @@ class End2End:
             decisions = np.array(predictions) > metrics['best_thr']
 
             # Najboljši F1, Pr, Re, threshold
-            val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind)
+            val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind, pxl_distance=self.cfg.PXL_DISTANCE)
             val_metrics['dec_threshold'] = metrics['best_thr']
 
             return metrics["AP"], metrics["accuracy"], val_metrics
@@ -352,9 +352,9 @@ class End2End:
 
             # Segmentation metrics + vizualizacija
 
-            self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. 2 pixel distance used.")
+            self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {self.cfg.PXL_DISTANCE} pixel distance used.")
            
-            pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path)
+            pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path, pxl_distance=self.cfg.PXL_DISTANCE)
 
             self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
 
@@ -497,6 +497,10 @@ class End2End:
             return p["lr"]
 
     def _get_loss(self, is_seg):
+        if is_seg and self.cfg.LOSS == 'focal':
+            return FocalLoss().to(self._get_device())
+        elif is_seg and self.cfg.LOSS == 'dice':
+            return DiceLoss().to(self._get_device())
         reduction = "none" if self.cfg.WEIGHTED_SEG_LOSS and is_seg else "mean"
         return nn.BCEWithLogitsLoss(reduction=reduction).to(self._get_device())
 

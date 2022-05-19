@@ -294,14 +294,13 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
     # Vrnemo povprečno vrednost ter standardno deviacijo za dice in IOU
     return np.mean(results_dice), np.std(results_dice), np.mean(result_iou), np.std(result_iou), mean_faktor
 
-def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=None, run_path=None):
+def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=None, run_path=None, pxl_distance=2):
     # Save folder
     if run_path is not None:
         save_folder = f"{run_path}/seg_metrics"
         create_folder(save_folder)
 
     n_samples = len(seg_truth)
-    pxl_distance = 2
     kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (1 + pxl_distance * 2, 1 + pxl_distance * 2))
     results = []
     

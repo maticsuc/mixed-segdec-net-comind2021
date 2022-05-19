@@ -9,15 +9,22 @@ class CrackSegmentationDataset(Dataset):
         super(CrackSegmentationDataset, self).__init__(cfg.DATASET_PATH, cfg, kind)
         self.read_contents()
 
-    def read_samples(self, path_to_samples, sample_kind):
+    def read_samples(self, path_to_samples, sample_kind, path_to_GTs=None):
         samples = [i for i in sorted(os.listdir(path_to_samples)) if 'GT' not in i]
-        gt_file_type = [i for i in sorted(os.listdir(path_to_samples)) if 'GT' in i][0].split('.')[1]
+
+        if path_to_GTs is not None:
+            gt_file_type = os.listdir(path_to_GTs)[0].split('.')[1] if len(os.listdir(path_to_GTs)) > 0 else None
+        else:
+            gt_file_type = [i for i in os.listdir(path_to_samples) if 'GT' in i][0].split('.')[1] if len([i for i in os.listdir(path_to_samples) if 'GT' in i]) > 0 else None
 
         for sample in samples:
             part, _ = sample.split(".")
             
             image_path = os.path.join(path_to_samples, sample)
-            seg_mask_path = os.path.join(path_to_samples, f"{part}_GT.{gt_file_type}")
+            if path_to_GTs is not None:
+                seg_mask_path = os.path.join(path_to_GTs, f"{part}.{gt_file_type}")
+            else:
+                seg_mask_path = os.path.join(path_to_samples, f"{part}_GT.{gt_file_type}")
             
             image = self.read_img_resize(image_path, self.grayscale, self.image_size)
             image = self.to_tensor(image)
@@ -45,6 +52,11 @@ class CrackSegmentationDataset(Dataset):
                     self.read_samples(os.path.join(self.cfg.DATASET_PATH, self.cfg.USE_NEGATIVES), 'neg')
             elif self.kind == 'VAL':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val'), 'pos')
+        elif self.cfg.DATASET == 'DeepCrack':
+            if self.kind == 'TEST':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_img'), 'pos', path_to_GTs=os.path.join(self.cfg.DATASET_PATH, 'test_lab'))
+            elif self.kind == 'TRAIN':
+                self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train_img'), 'pos', path_to_GTs=os.path.join(self.cfg.DATASET_PATH, 'train_lab'))
         else:
             if self.kind == 'TEST':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_positive'), 'pos')
