@@ -50,6 +50,8 @@ class End2End:
             np.random.seed(self.cfg.REPRODUCIBLE_RUN)
             torch.manual_seed(self.cfg.REPRODUCIBLE_RUN)
             random.seed(self.cfg.REPRODUCIBLE_RUN)
+            torch.cuda.manual_seed(self.cfg.REPRODUCIBLE_RUN)
+            torch.cuda.manual_seed_all(self.cfg.REPRODUCIBLE_RUN)
             torch.backends.cudnn.deterministic = True
             torch.backends.cudnn.benchmark = False
 

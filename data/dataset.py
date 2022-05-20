@@ -23,6 +23,9 @@ class Dataset(torch.utils.data.Dataset):
         self.num_negatives_per_one_positive: int = 1
         self.frequency_sampling: bool = self.cfg.FREQUENCY_SAMPLING and self.kind == 'TRAIN'
 
+        if self.cfg.REPRODUCIBLE_RUN is not None:
+            torch.random.manual_seed(self.cfg.REPRODUCIBLE_RUN)
+
     def init_extra(self):
         self.counter = 0
         self.neg_imgs_permutation = np.random.permutation(self.num_neg)
