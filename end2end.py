@@ -59,7 +59,8 @@ class End2End:
         model = self._get_model().to(device)
         optimizer = self._get_optimizer(model)
         scheduler = self._get_scheduler(optimizer)
-        loss_seg, loss_dec = self._get_loss(True), self._get_loss(False)
+        #loss_seg, loss_dec = self._get_loss(True), self._get_loss(False)
+        loss_seg = self._get_loss(True)
 
         train_loader = get_dataset("TRAIN", self.cfg)
         validation_loader = get_dataset("VAL", self.cfg)
@@ -69,7 +70,7 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
-        losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
+        losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, None, optimizer, scheduler, validation_loader, tensorboard_writer)
         train_results = (losses, validation_data, validation_metrics, lrs)
         self._save_train_results(train_results)
         self._save_model(model)
@@ -87,7 +88,7 @@ class End2End:
         if eval_loader is None:
             eval_loader = get_dataset("TEST", self.cfg)
             is_validation = False
-        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
+        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=None, two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
@@ -116,11 +117,12 @@ class End2End:
             if tensorboard_writer is not None and iter_index % 100 == 0:
                 tensorboard_writer.add_image(f"{iter_index}/image", images_[0, :, :, :])
 
-            decision, seg_mask_predicted = model(images_)
+            #decision, seg_mask_predicted = model(images_)
+            seg_mask_predicted = model(images_)
 
             if is_segmented[sub_iter]:
                 loss_seg = criterion_seg(seg_mask_predicted, seg_mask_)
-                loss_dec = criterion_dec(decision, is_pos_)
+                #loss_dec = criterion_dec(decision, is_pos_)
 
                 if self.cfg.HARD_NEG_MINING is not None:
                     _, _, difficulty_score_mode = self.cfg.HARD_NEG_MINING
@@ -137,16 +139,18 @@ class End2End:
                         difficulty_score[sub_iter] = loss_seg.item() * ((2 * fp) + fn + 1)
 
                 total_loss_seg += loss_seg.item()
-                total_loss_dec += loss_dec.item()
+                #total_loss_dec += loss_dec.item()
 
-                total_correct += (decision > 0.0).item() == is_pos_.item()
-                loss = weight_loss_seg * loss_seg + weight_loss_dec * loss_dec
+                #total_correct += (decision > 0.0).item() == is_pos_.item()
+                #loss = weight_loss_seg * loss_seg + weight_loss_dec * loss_dec
+                loss = weight_loss_seg * loss_seg
             else:
-                loss_dec = criterion_dec(decision, is_pos_)
-                total_loss_dec += loss_dec.item()
+                #loss_dec = criterion_dec(decision, is_pos_)
+                #total_loss_dec += loss_dec.item()
 
-                total_correct += (decision > 0.0).item() == is_pos_.item()
-                loss = weight_loss_dec * loss_dec
+                #total_correct += (decision > 0.0).item() == is_pos_.item()
+                #loss = weight_loss_dec * loss_dec
+                pass
 
             total_loss += loss.item()
 
@@ -286,11 +290,12 @@ class End2End:
             image, seg_mask = image.to(device), seg_mask.to(device)
             #is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
             is_pos = is_pos.item()
-            prediction, seg_mask_predicted = model(image)
-            prediction = nn.Sigmoid()(prediction)
+            #prediction, seg_mask_predicted = model(image)
+            seg_mask_predicted = model(image)
+            #prediction = nn.Sigmoid()(prediction)
             seg_mask_predicted = nn.Sigmoid()(seg_mask_predicted)
 
-            prediction = prediction.item()
+            #prediction = prediction.item()
             image = image.detach().cpu().numpy()
             seg_mask = seg_mask.detach().cpu().numpy()
             seg_mask_predicted = seg_mask_predicted.detach().cpu().numpy()
@@ -298,9 +303,9 @@ class End2End:
             image = cv2.resize(np.transpose(image[0, :, :, :], (1, 2, 0)), dsize)
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-            predictions.append(prediction)
-            predictions_truths.append(is_pos)
-            res.append((prediction, None, None, is_pos, sample_name[0]))
+            #predictions.append(prediction)
+            #predictions_truths.append(is_pos)
+            #res.append((prediction, None, None, is_pos, sample_name[0]))
 
             seg_mask_predicted = seg_mask_predicted[0][0]
             seg_mask = seg_mask[0][0]
@@ -317,24 +322,27 @@ class End2End:
                 else:
                     utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
                 """
-                utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
+                #utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
+                utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=None, plot_seg=plot_seg)
                 utils.save_predicted_segmentation(seg_mask_predicted, sample_name[0], self.run_path)
 
         if is_validation:
             # Računanje thresholda za decision net
-            metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
-            FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
-            self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
+            #metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
+            #FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
+            #self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
 
             # Naredim decisions z izračunanim thresholdom
-            decisions = np.array(predictions) > metrics['best_thr']
+            #decisions = np.array(predictions) > metrics['best_thr']
 
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind, pxl_distance=self.cfg.PXL_DISTANCE)
-            val_metrics['dec_threshold'] = metrics['best_thr']
+            #val_metrics['dec_threshold'] = metrics['best_thr']
 
-            return metrics["AP"], metrics["accuracy"], val_metrics
+            #return metrics["AP"], metrics["accuracy"], val_metrics
+            return None, None, val_metrics
         else:
+            """
             decisions = np.array(predictions) > dec_threshold
             samples["decisions"] = list(decisions)
             FP, FN, TN, TP = utils.calc_confusion_mat(decisions, np.array(predictions_truths))
@@ -351,6 +359,7 @@ class End2End:
 
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
+            """
 
             # Segmentation metrics + vizualizacija
 
@@ -407,9 +416,9 @@ class End2End:
     def _save_train_results(self, results):
         losses, validation_data, validation_metrics, lrs = results
         ls, ld, l, le = map(list, zip(*losses))
-        plt.plot(le, l, label="Loss", color="red")
+        #plt.plot(le, l, label="Loss", color="red")
         plt.plot(le, ls, label="Loss seg")
-        plt.plot(le, ld, label="Loss dec")
+        #plt.plot(le, ld, label="Loss dec")
         plt.ylim(bottom=0)
         plt.grid()
         plt.xlabel("Epochs")
@@ -445,11 +454,13 @@ class End2End:
 
         # Loss plot
         # Loss
+        """
         plt.clf()
         plt.plot(le, l)
         plt.xlabel("Epochs")
         plt.ylabel("Loss")
         plt.savefig(os.path.join(self.run_path, "loss"), dpi=200)
+        """
         
         # Loss Segmentation
         plt.clf()
@@ -459,11 +470,13 @@ class End2End:
         plt.savefig(os.path.join(self.run_path, "loss_seg"), dpi=200)
 
         # Loss Dec
+        """
         plt.clf()
         plt.plot(le, ld)
         plt.xlabel("Epochs")
         plt.ylabel("Loss Dec")
         plt.savefig(os.path.join(self.run_path, "loss_dec"), dpi=200)
+        """
 
         # Learning rate plot
         epochs, lr = map(list, zip(*lrs))

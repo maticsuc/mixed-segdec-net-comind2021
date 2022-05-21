@@ -323,7 +323,8 @@ def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=
         if samples is not None:
             image = samples['images'][i]
             image_name = samples['image_names'][i]
-            decision = samples['decisions'][i]
+            #decision = samples['decisions'][i]
+            decision = 0
 
             plt.figure()
             plt.clf()

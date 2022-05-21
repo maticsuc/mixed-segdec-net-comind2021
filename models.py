@@ -107,7 +107,7 @@ class SegDecNet(nn.Module):
         self.volume2 = DownSampling(pooling=True, n_conv_blocks=3, in_channels=32, out_channels=64, kernel_size=5, padding=2)
         self.volume3 = DownSampling(pooling=True, n_conv_blocks=4, in_channels=64, out_channels=64, kernel_size=5, padding=2)
         self.volume4 = DownSampling(pooling=True, n_conv_blocks=1, in_channels=64, out_channels=1024, kernel_size=15, padding=7)
-
+        """
         self.extractor = nn.Sequential(nn.MaxPool2d(kernel_size=2),
                                        _conv_block(in_chanels=1025, out_chanels=8, kernel_size=5, padding=2),
                                        nn.MaxPool2d(kernel_size=2),
@@ -119,13 +119,16 @@ class SegDecNet(nn.Module):
         self.global_avg_pool_feat = nn.AvgPool2d(kernel_size=32)
         self.global_max_pool_seg = nn.MaxPool2d(kernel_size=(self.input_height / 8, self.input_width / 8))
         self.global_avg_pool_seg = nn.AvgPool2d(kernel_size=(self.input_height / 8, self.input_width / 8))
+        """
 
-        self.fc = nn.Linear(in_features=66, out_features=1)
+        #self.fc = nn.Linear(in_features=66, out_features=1)
 
         # Custom autgrad funkcije - Gradient multiplyers
+        """
         self.volume_lr_multiplier_layer = GradientMultiplyLayer().apply
         self.glob_max_lr_multiplier_layer = GradientMultiplyLayer().apply
         self.glob_avg_lr_multiplier_layer = GradientMultiplyLayer().apply
+        """
 
         self.device = device
 
@@ -136,7 +139,7 @@ class SegDecNet(nn.Module):
         self.upsampling4 = nn.Sequential(Conv2d_init(in_channels=8, out_channels=1, kernel_size=5, padding=2, bias=False), FeatureNorm(num_features=1, eps=0.001, include_bias=False))
 
         # Downsampling
-        self.downsampling = nn.AvgPool2d(8)
+        #self.downsampling = nn.AvgPool2d(8)
 
         # 1x1 Convolution Skip Connections
         self.skip_convolution1 = _conv_block(in_chanels=32, out_chanels=32, kernel_size=1, padding=0)
@@ -164,30 +167,31 @@ class SegDecNet(nn.Module):
         seg_mask_upsampled = self.upsampling3(seg_mask_upsampled, v1)
         seg_mask_upsampled = self.upsampling4(seg_mask_upsampled)
 
-        seg_mask_downsampled = self.downsampling(seg_mask_upsampled)
+        #seg_mask_downsampled = self.downsampling(seg_mask_upsampled)
 
-        cat = torch.cat([v4, seg_mask_downsampled], dim=1)
+        #cat = torch.cat([v4, seg_mask_downsampled], dim=1)
 
-        cat = self.volume_lr_multiplier_layer(cat, self.volume_lr_multiplier_mask)
+        #cat = self.volume_lr_multiplier_layer(cat, self.volume_lr_multiplier_mask)
 
-        features = self.extractor(cat)
-        global_max_feat = torch.max(torch.max(features, dim=-1, keepdim=True)[0], dim=-2, keepdim=True)[0] # torch.Size([1, 32, 1, 1])
-        global_avg_feat = torch.mean(features, dim=(-1, -2), keepdim=True) # torch.Size([1, 32, 1, 1])
-        global_max_seg = torch.max(torch.max(seg_mask_upsampled, dim=-1, keepdim=True)[0], dim=-2, keepdim=True)[0] # torch.Size([1, 1, 1, 1])
-        global_avg_seg = torch.mean(seg_mask_upsampled, dim=(-1, -2), keepdim=True) # torch.Size([1, 1, 1, 1])
+        #features = self.extractor(cat)
+        #global_max_feat = torch.max(torch.max(features, dim=-1, keepdim=True)[0], dim=-2, keepdim=True)[0] # torch.Size([1, 32, 1, 1])
+        #global_avg_feat = torch.mean(features, dim=(-1, -2), keepdim=True) # torch.Size([1, 32, 1, 1])
+        #global_max_seg = torch.max(torch.max(seg_mask_upsampled, dim=-1, keepdim=True)[0], dim=-2, keepdim=True)[0] # torch.Size([1, 1, 1, 1])
+        #global_avg_seg = torch.mean(seg_mask_upsampled, dim=(-1, -2), keepdim=True) # torch.Size([1, 1, 1, 1])
 
-        global_max_feat = global_max_feat.reshape(global_max_feat.size(0), -1) # torch.Size([1, 32])
-        global_avg_feat = global_avg_feat.reshape(global_avg_feat.size(0), -1) # torch.Size([1, 32])
+        #global_max_feat = global_max_feat.reshape(global_max_feat.size(0), -1) # torch.Size([1, 32])
+        #global_avg_feat = global_avg_feat.reshape(global_avg_feat.size(0), -1) # torch.Size([1, 32])
 
-        global_max_seg = global_max_seg.reshape(global_max_seg.size(0), -1) # torch.Size([1, 1])
-        global_max_seg = self.glob_max_lr_multiplier_layer(global_max_seg, self.glob_max_lr_multiplier_mask) # (torch.Size([1, 1]), torch.Size([1])) -> torch.Size([1, 1])
-        global_avg_seg = global_avg_seg.reshape(global_avg_seg.size(0), -1) # torch.Size([1, 1])
-        global_avg_seg = self.glob_avg_lr_multiplier_layer(global_avg_seg, self.glob_avg_lr_multiplier_mask) # (torch.Size([1, 1]), torch.Size([1])) -> torch.Size([1, 1])
+        #global_max_seg = global_max_seg.reshape(global_max_seg.size(0), -1) # torch.Size([1, 1])
+        #global_max_seg = self.glob_max_lr_multiplier_layer(global_max_seg, self.glob_max_lr_multiplier_mask) # (torch.Size([1, 1]), torch.Size([1])) -> torch.Size([1, 1])
+        #global_avg_seg = global_avg_seg.reshape(global_avg_seg.size(0), -1) # torch.Size([1, 1])
+        #global_avg_seg = self.glob_avg_lr_multiplier_layer(global_avg_seg, self.glob_avg_lr_multiplier_mask) # (torch.Size([1, 1]), torch.Size([1])) -> torch.Size([1, 1])
 
-        fc_in = torch.cat([global_max_feat, global_avg_feat, global_max_seg, global_avg_seg], dim=1) # torch.Size([1, 66])
-        fc_in = fc_in.reshape(fc_in.size(0), -1) # torch.Size([1, 66])
-        prediction = self.fc(fc_in) # torch.Size([1, 1])
-        return prediction, seg_mask_upsampled
+        #fc_in = torch.cat([global_max_feat, global_avg_feat, global_max_seg, global_avg_seg], dim=1) # torch.Size([1, 66])
+        #fc_in = fc_in.reshape(fc_in.size(0), -1) # torch.Size([1, 66])
+        #prediction = self.fc(fc_in) # torch.Size([1, 1])
+        #return prediction, seg_mask_upsampled
+        return seg_mask_upsampled
 
 
 class GradientMultiplyLayer(torch.autograd.Function):
