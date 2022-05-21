@@ -59,7 +59,6 @@ class End2End:
         model = self._get_model().to(device)
         optimizer = self._get_optimizer(model)
         scheduler = self._get_scheduler(optimizer)
-        #loss_seg, loss_dec = self._get_loss(True), self._get_loss(False)
         loss_seg = self._get_loss(True)
 
         train_loader = get_dataset("TRAIN", self.cfg)
@@ -70,7 +69,7 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
-        losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, None, optimizer, scheduler, validation_loader, tensorboard_writer)
+        losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, optimizer, scheduler, validation_loader, tensorboard_writer)
         train_results = (losses, validation_data, validation_metrics, lrs)
         self._save_train_results(train_results)
         self._save_model(model)
@@ -90,39 +89,31 @@ class End2End:
             is_validation = False
         self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=None, two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
 
-    def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
-                           tensorboard_writer, iter_index):
-        images, seg_masks, is_segmented, sample_names, is_pos, _ = data
+    def training_iteration(self, data, device, model, criterion_seg, optimizer, tensorboard_writer, iter_index):
+        images, seg_masks, is_segmented, _, _, _ = data
 
         batch_size = self.cfg.BATCH_SIZE
         memory_fit = self.cfg.MEMORY_FIT  # Not supported yet for >1
 
         num_subiters = int(batch_size / memory_fit)
 
-        total_loss = 0
-        total_correct = 0
-
         optimizer.zero_grad()
 
         total_loss_seg = 0
-        total_loss_dec = 0
 
         difficulty_score = np.zeros(batch_size)
 
         for sub_iter in range(num_subiters):
             images_ = images[sub_iter * memory_fit:(sub_iter + 1) * memory_fit, :, :, :].to(device)
             seg_mask_ = seg_masks[sub_iter * memory_fit:(sub_iter + 1) * memory_fit, :, :, :].to(device)
-            is_pos_ = seg_mask_.max().reshape((memory_fit, 1)).to(device)
 
             if tensorboard_writer is not None and iter_index % 100 == 0:
                 tensorboard_writer.add_image(f"{iter_index}/image", images_[0, :, :, :])
 
-            #decision, seg_mask_predicted = model(images_)
             seg_mask_predicted = model(images_)
 
             if is_segmented[sub_iter]:
                 loss_seg = criterion_seg(seg_mask_predicted, seg_mask_)
-                #loss_dec = criterion_dec(decision, is_pos_)
 
                 if self.cfg.HARD_NEG_MINING is not None:
                     _, _, difficulty_score_mode = self.cfg.HARD_NEG_MINING
@@ -139,30 +130,16 @@ class End2End:
                         difficulty_score[sub_iter] = loss_seg.item() * ((2 * fp) + fn + 1)
 
                 total_loss_seg += loss_seg.item()
-                #total_loss_dec += loss_dec.item()
 
-                #total_correct += (decision > 0.0).item() == is_pos_.item()
-                #loss = weight_loss_seg * loss_seg + weight_loss_dec * loss_dec
-                loss = weight_loss_seg * loss_seg
-            else:
-                #loss_dec = criterion_dec(decision, is_pos_)
-                #total_loss_dec += loss_dec.item()
-
-                #total_correct += (decision > 0.0).item() == is_pos_.item()
-                #loss = weight_loss_dec * loss_dec
-                pass
-
-            total_loss += loss.item()
-
-            loss.backward()
+            loss_seg.backward()
 
         # Backward and optimize
         optimizer.step()
         optimizer.zero_grad()
 
-        return total_loss_seg, total_loss_dec, total_loss, total_correct, difficulty_score
+        return total_loss_seg, difficulty_score
 
-    def _train_model(self, device, model, train_loader, criterion_seg, criterion_dec, optimizer, scheduler, validation_set, tensorboard_writer):
+    def _train_model(self, device, model, train_loader, criterion_seg, optimizer, scheduler, validation_set, tensorboard_writer):
         losses = []
         validation_data = []
         validation_metrics = []
@@ -177,20 +154,13 @@ class End2End:
 
         difficulty_score_dict = dict()
 
-        self.set_dec_gradient_multiplier(model, 0.0)
-
         for epoch in range(num_epochs):
             if epoch % 5 == 0:
                 self._save_model(model, f"ep_{epoch:02}.pth")
 
             model.train()
 
-            weight_loss_seg, weight_loss_dec = self.get_loss_weights(epoch)
-            dec_gradient_multiplier = self.get_dec_gradient_multiplier()
-            self.set_dec_gradient_multiplier(model, dec_gradient_multiplier)
-
-            epoch_loss_seg, epoch_loss_dec, epoch_loss = 0, 0, 0
-            epoch_correct = 0
+            epoch_loss_seg = 0
 
             difficulty_score_dict[epoch] = []
 
@@ -200,21 +170,12 @@ class End2End:
             start = timer()
             for iter_index, (data) in enumerate(train_loader):
                 start_1 = timer()
-                curr_loss_seg, curr_loss_dec, curr_loss, correct, difficulty_score = self.training_iteration(data, device, model,
-                                                                                           criterion_seg,
-                                                                                           criterion_dec,
-                                                                                           optimizer, weight_loss_seg,
-                                                                                           weight_loss_dec,
-                                                                                           tensorboard_writer, (epoch * samples_per_epoch + iter_index))
+                curr_loss_seg, difficulty_score = self.training_iteration(data, device, model, criterion_seg, optimizer, tensorboard_writer, (epoch * samples_per_epoch + iter_index))
 
                 end_1 = timer()
                 time_acc = time_acc + (end_1 - start_1)
 
                 epoch_loss_seg += curr_loss_seg
-                epoch_loss_dec += curr_loss_dec
-                epoch_loss += curr_loss
-
-                epoch_correct += correct
 
                 if self.cfg.HARD_NEG_MINING is not None:
                     train_loader.batch_sampler.update_sample_loss_batch(data, difficulty_score, index_key=5)
@@ -223,13 +184,10 @@ class End2End:
 
             end = timer()
 
-
             epoch_loss_seg = epoch_loss_seg / samples_per_epoch
-            epoch_loss_dec = epoch_loss_dec / samples_per_epoch
-            epoch_loss = epoch_loss / samples_per_epoch
-            losses.append((epoch_loss_seg, epoch_loss_dec, epoch_loss, epoch))
+            losses.append((epoch_loss_seg, epoch))
 
-            self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, avg_loss_dec={epoch_loss_dec:.5f}, avg_loss={epoch_loss:.5f}, correct={epoch_correct}/{samples_per_epoch}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
+            self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
 
             if self.cfg.SCHEDULER is not None:
                 scheduler.step()
@@ -240,12 +198,6 @@ class End2End:
                 lrs.append((epoch, self._get_learning_rate(optimizer=optimizer)))
 
             self._log(f"Last computing learning rate by optimizer: {self._get_learning_rate(optimizer=optimizer)}")
-
-            if tensorboard_writer is not None:
-                tensorboard_writer.add_scalar("Loss/Train/segmentation", epoch_loss_seg, epoch)
-                tensorboard_writer.add_scalar("Loss/Train/classification", epoch_loss_dec, epoch)
-                tensorboard_writer.add_scalar("Loss/Train/joined", epoch_loss, epoch)
-                tensorboard_writer.add_scalar("Accuracy/Train/", epoch_correct / samples_per_epoch, epoch)
 
             if self.cfg.VALIDATE and (epoch % validation_step == 0 or epoch == num_epochs - 1):
                 validation_ap, validation_accuracy, val_metrics = self.eval_model(device=device, model=model, eval_loader=validation_set, save_folder=None, save_images=False, is_validation=True, plot_seg=False)
@@ -279,33 +231,21 @@ class End2End:
 
         dsize = self.cfg.INPUT_WIDTH, self.cfg.INPUT_HEIGHT
 
-        res = []
-        predictions, predictions_truths = [], []
-
         images, predicted_segs, true_segs = [], [], []
         samples = {"images": list(), "image_names": list()}
 
         for data_point in eval_loader:
-            image, seg_mask, _, sample_name, is_pos, _ = data_point
+            image, seg_mask, _, sample_name, _, _ = data_point
             image, seg_mask = image.to(device), seg_mask.to(device)
-            #is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
-            is_pos = is_pos.item()
-            #prediction, seg_mask_predicted = model(image)
             seg_mask_predicted = model(image)
-            #prediction = nn.Sigmoid()(prediction)
             seg_mask_predicted = nn.Sigmoid()(seg_mask_predicted)
 
-            #prediction = prediction.item()
             image = image.detach().cpu().numpy()
             seg_mask = seg_mask.detach().cpu().numpy()
             seg_mask_predicted = seg_mask_predicted.detach().cpu().numpy()
 
             image = cv2.resize(np.transpose(image[0, :, :, :], (1, 2, 0)), dsize)
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-
-            #predictions.append(prediction)
-            #predictions_truths.append(is_pos)
-            #res.append((prediction, None, None, is_pos, sample_name[0]))
 
             seg_mask_predicted = seg_mask_predicted[0][0]
             seg_mask = seg_mask[0][0]
@@ -322,47 +262,16 @@ class End2End:
                 else:
                     utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
                 """
-                #utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=prediction, plot_seg=plot_seg)
                 utils.plot_sample(sample_name[0], image, seg_mask_predicted, seg_mask, save_folder, decision=None, plot_seg=plot_seg)
                 utils.save_predicted_segmentation(seg_mask_predicted, sample_name[0], self.run_path)
 
         if is_validation:
-            # Računanje thresholda za decision net
-            #metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
-            #FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
-            #self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
-
-            # Naredim decisions z izračunanim thresholdom
-            #decisions = np.array(predictions) > metrics['best_thr']
-
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind, pxl_distance=self.cfg.PXL_DISTANCE)
-            #val_metrics['dec_threshold'] = metrics['best_thr']
 
-            #return metrics["AP"], metrics["accuracy"], val_metrics
             return None, None, val_metrics
         else:
-            """
-            decisions = np.array(predictions) > dec_threshold
-            samples["decisions"] = list(decisions)
-            FP, FN, TN, TP = utils.calc_confusion_mat(decisions, np.array(predictions_truths))
-
-            fp = sum(FP).item()
-            fn = sum(FN).item()
-            tn = sum(TN).item()
-            tp = sum(TP).item()
-
-            pr = tp / (tp + fp) if tp else 0
-            re = tp / (tp + fn) if tp else 0
-            f1 = (2 * pr * re) / (pr + re) if pr and re else 0
-            accuracy = (tp + tn) / (tp + tn + fp + fn)
-
-            self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
-            self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
-            """
-
             # Segmentation metrics + vizualizacija
-
             self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {self.cfg.PXL_DISTANCE} pixel distance used.")
            
             pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path, pxl_distance=self.cfg.PXL_DISTANCE)
@@ -377,9 +286,6 @@ class End2End:
 
         self._log(f"Returning dec_gradient_multiplier {grad_m}", LVL_DEBUG)
         return grad_m
-
-    def set_dec_gradient_multiplier(self, model, multiplier):
-        model.set_gradient_multipliers(multiplier)
 
     def get_loss_weights(self, epoch):
         total_epochs = float(self.cfg.EPOCHS)
@@ -415,10 +321,8 @@ class End2End:
 
     def _save_train_results(self, results):
         losses, validation_data, validation_metrics, lrs = results
-        ls, ld, l, le = map(list, zip(*losses))
-        #plt.plot(le, l, label="Loss", color="red")
+        ls, le = map(list, zip(*losses))
         plt.plot(le, ls, label="Loss seg")
-        #plt.plot(le, ld, label="Loss dec")
         plt.ylim(bottom=0)
         plt.grid()
         plt.xlabel("Epochs")
@@ -430,11 +334,11 @@ class End2End:
         plt.legend()
         plt.savefig(os.path.join(self.run_path, "loss_val"), dpi=200)
 
-        df_loss = pd.DataFrame(data={"loss_seg": ls, "loss_dec": ld, "loss": l, "epoch": le})
+        df_loss = pd.DataFrame(data={"loss_seg": ls, "epoch": le})
         df_loss.to_csv(os.path.join(self.run_path, "losses.csv"), index=False)
 
         if self.cfg.VALIDATE:
-            df_loss = pd.DataFrame(data={"validation_data": ls, "loss_dec": ld, "loss": l, "epoch": le})
+            df_loss = pd.DataFrame(data={"validation_data": ls, "loss_seg": ls, "epoch": le})
             df_loss.to_csv(os.path.join(self.run_path, "losses.csv"), index=False)
         
         # Dice & IOU plot
@@ -451,32 +355,13 @@ class End2End:
             plt.ylabel("Score")
             plt.legend()
             plt.savefig(os.path.join(self.run_path, "scores"), dpi=200)
-
-        # Loss plot
-        # Loss
-        """
-        plt.clf()
-        plt.plot(le, l)
-        plt.xlabel("Epochs")
-        plt.ylabel("Loss")
-        plt.savefig(os.path.join(self.run_path, "loss"), dpi=200)
-        """
         
-        # Loss Segmentation
+        # Loss Segmentation Plot
         plt.clf()
         plt.plot(le, ls)
         plt.xlabel("Epochs")
         plt.ylabel("Loss Segmentation")
         plt.savefig(os.path.join(self.run_path, "loss_seg"), dpi=200)
-
-        # Loss Dec
-        """
-        plt.clf()
-        plt.plot(le, ld)
-        plt.xlabel("Epochs")
-        plt.ylabel("Loss Dec")
-        plt.savefig(os.path.join(self.run_path, "loss_dec"), dpi=200)
-        """
 
         # Learning rate plot
         epochs, lr = map(list, zip(*lrs))
