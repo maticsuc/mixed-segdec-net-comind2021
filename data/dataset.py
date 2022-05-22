@@ -69,7 +69,7 @@ class Dataset(torch.utils.data.Dataset):
                 ix = index - self.num_neg
                 item = self.pos_samples[ix]
 
-        image, seg_mask, is_segmented, image_path, seg_mask_path, sample_name, is_pos = item
+        image, seg_mask, seg_loss_mask, is_segmented, image_path, seg_mask_path, sample_name, is_pos = item
 
         if self.cfg.ON_DEMAND_READ:  # STEEL only so far
             if image_path == -1 or seg_mask_path == -1:
@@ -115,7 +115,7 @@ class Dataset(torch.utils.data.Dataset):
                     color_jitter = T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2)
                     image = color_jitter(image)
 
-        return image, seg_mask, is_segmented, sample_name, is_pos, index
+        return image, seg_mask, seg_loss_mask, is_segmented, sample_name, is_pos, index
 
     def __len__(self):
         return self.len

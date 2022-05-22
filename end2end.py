@@ -5,7 +5,7 @@ from sklearn import metrics
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from models import SegDecNet, FocalLoss, DiceLoss
+from models import SegDecNet
 import numpy as np
 import os
 from torch import nn as nn
@@ -91,7 +91,7 @@ class End2End:
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
-        images, seg_masks, is_segmented, sample_names, is_pos, _ = data
+        images, seg_masks, seg_loss_masks, is_segmented, sample_names, is_pos, _ = data
 
         batch_size = self.cfg.BATCH_SIZE
         memory_fit = self.cfg.MEMORY_FIT  # Not supported yet for >1
@@ -111,6 +111,7 @@ class End2End:
         for sub_iter in range(num_subiters):
             images_ = images[sub_iter * memory_fit:(sub_iter + 1) * memory_fit, :, :, :].to(device)
             seg_mask_ = seg_masks[sub_iter * memory_fit:(sub_iter + 1) * memory_fit, :, :, :].to(device)
+            seg_loss_masks_ = seg_loss_masks[sub_iter * memory_fit:(sub_iter + 1) * memory_fit, :, :, :].to(device)
             is_pos_ = seg_mask_.max().reshape((memory_fit, 1)).to(device)
 
             if tensorboard_writer is not None and iter_index % 100 == 0:
@@ -119,7 +120,12 @@ class End2End:
             decision, seg_mask_predicted = model(images_)
 
             if is_segmented[sub_iter]:
-                loss_seg = criterion_seg(seg_mask_predicted, seg_mask_)
+
+                if self.cfg.WEIGHTED_SEG_LOSS:
+                    loss_seg = torch.mean(criterion_seg(seg_mask_predicted, seg_mask_) * seg_loss_masks_)
+                else:
+                    loss_seg = criterion_seg(seg_mask_predicted, seg_mask_)
+
                 loss_dec = criterion_dec(decision, is_pos_)
 
                 if self.cfg.HARD_NEG_MINING is not None:
@@ -282,9 +288,8 @@ class End2End:
         samples = {"images": list(), "image_names": list()}
 
         for data_point in eval_loader:
-            image, seg_mask, _, sample_name, is_pos, _ = data_point
+            image, seg_mask, seg_loss_mask, _, sample_name, is_pos, _ = data_point
             image, seg_mask = image.to(device), seg_mask.to(device)
-            #is_pos = (seg_mask.max() > 0).reshape((1, 1)).to(device).item()
             is_pos = is_pos.item()
             prediction, seg_mask_predicted = model(image)
             prediction = nn.Sigmoid()(prediction)
