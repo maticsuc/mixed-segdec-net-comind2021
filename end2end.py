@@ -135,6 +135,11 @@ class End2End:
                         fn = sum(sum((y_true==1)&(y_pred==0))).item()
 
                         difficulty_score[sub_iter] = loss_seg.item() * ((2 * fp) + fn + 1)
+                    elif difficulty_score_mode == 3:
+                        seg_mask_predicted = nn.Sigmoid()(seg_mask_predicted)
+                        seg_max = seg_mask_predicted.detach().cpu().numpy()[0][0].max().item()
+                        c = nn.Sigmoid()(decision).item()
+                        difficulty_score[sub_iter] = abs(seg_max - c)
 
                 total_loss_seg += loss_seg.item()
                 total_loss_dec += loss_dec.item()
