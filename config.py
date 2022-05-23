@@ -52,6 +52,8 @@ class Config:
     HARD_NEG_MINING = None
     LOSS = "bce"
     PXL_DISTANCE = 2
+    THR_ADJUSTMENT = False
+    SEG_BLACK = False
 
     def init_extra(self):
         if self.WEIGHTED_SEG_LOSS and (self.WEIGHTED_SEG_LOSS_P is None or self.WEIGHTED_SEG_LOSS_MAX is None):
@@ -151,6 +153,8 @@ class Config:
         self.HARD_NEG_MINING = args.HARD_NEG_MINING
         self.LOSS = args.LOSS
         self.PXL_DISTANCE = args.PXL_DISTANCE
+        self.THR_ADJUSTMENT = args.THR_ADJUSTMENT
+        self.SEG_BLACK = args.SEG_BLACK
 
         if args.FOLD is not None: self.FOLD = args.FOLD
         if args.TRAIN_NUM is not None: self.TRAIN_NUM = args.TRAIN_NUM
@@ -203,7 +207,9 @@ class Config:
             "SCHEDULER": self.SCHEDULER,
             "HARD_NEG_MINING": self.HARD_NEG_MINING,
             "LOSS": self.LOSS,
-            "PXL_DISTANCE": self.PXL_DISTANCE
+            "PXL_DISTANCE": self.PXL_DISTANCE,
+            "THR_ADJUSTMENT": self.THR_ADJUSTMENT,
+            "SEG_BLACK": self.SEG_BLACK
         }
         return params
 
@@ -248,5 +254,7 @@ def load_from_dict(dictionary):
     cfg.HARD_NEG_MINING = dictionary.get("HARD_NEG_MINING", None)
     cfg.LOSS = dictionary.get("LOSS", None)
     cfg.PXL_DISTANCE = dictionary.get("PXL_DISTANCE", None)
+    cfg.THR_ADJUSTMENT = dictionary.get("THR_ADJUSTMENT", None)
+    cfg.SEG_BLACK = dictionary.get("SEG_BLACK", None)
 
     return cfg
