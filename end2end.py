@@ -141,6 +141,11 @@ class End2End:
                         fn = sum(sum((y_true==1)&(y_pred==0))).item()
 
                         difficulty_score[sub_iter] = loss_seg.item() * ((2 * fp) + fn + 1)
+                    elif difficulty_score_mode == 3:
+                        seg_mask_predicted = nn.Sigmoid()(seg_mask_predicted)
+                        seg_max = seg_mask_predicted.detach().cpu().numpy()[0][0].max().item()
+                        c = nn.Sigmoid()(decision).item()
+                        difficulty_score[sub_iter] = abs(seg_max - c)
 
                 total_loss_seg += loss_seg.item()
                 total_loss_dec += loss_dec.item()
@@ -357,11 +362,27 @@ class End2End:
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
 
+            # Threshold adjustment
+            adjusted_thresholds = None
+            if self.cfg.THRESHOLD:
+                adjusted_thresholds = list(map(lambda x: two_pxl_threshold * (1 - (x - dec_threshold)), predictions))
+
+            # Črnenje
+            if self.cfg.SEG_BLACK:
+                black_seg = np.zeros(predicted_segs[0].shape)
+                black_seg_counter = 0
+                for i, decision in enumerate(decisions):
+                    if decision == False:
+                        predicted_segs[i] = black_seg
+                        black_seg_counter += 1
+                
+                self._log(f"{black_seg_counter} segmentations blacked.")                            
+
             # Segmentation metrics + vizualizacija
 
             self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {self.cfg.PXL_DISTANCE} pixel distance used.")
            
-            pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path, pxl_distance=self.cfg.PXL_DISTANCE)
+            pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path, pxl_distance=self.cfg.PXL_DISTANCE, adjusted_thresholds=adjusted_thresholds)
 
             self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
 
