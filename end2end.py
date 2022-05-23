@@ -236,7 +236,7 @@ class End2End:
             epoch_loss = epoch_loss / samples_per_epoch
             losses.append((epoch_loss_seg, epoch_loss_dec, epoch_loss, epoch))
 
-            self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, avg_loss_dec={epoch_loss_dec:.5f}, avg_loss={epoch_loss:.5f}, correct={epoch_correct}/{samples_per_epoch}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
+            self._log(f"Epoch {epoch + 1}/{num_epochs} ==> avg_loss_seg={epoch_loss_seg:.5f}, in {end - start:.2f}s/epoch (fwd/bck in {time_acc:.2f}s/epoch)")
 
             if self.cfg.SCHEDULER is not None:
                 scheduler.step()
@@ -362,27 +362,11 @@ class End2End:
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
 
-            # Threshold adjustment
-            adjusted_thresholds = None
-            if self.cfg.THRESHOLD:
-                adjusted_thresholds = list(map(lambda x: two_pxl_threshold * (1 - (x - dec_threshold)), predictions))
-
-            # Črnenje
-            if self.cfg.SEG_BLACK:
-                black_seg = np.zeros(predicted_segs[0].shape)
-                black_seg_counter = 0
-                for i, decision in enumerate(decisions):
-                    if decision == False:
-                        predicted_segs[i] = black_seg
-                        black_seg_counter += 1
-                
-                self._log(f"{black_seg_counter} segmentations blacked.")                            
-
             # Segmentation metrics + vizualizacija
 
             self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {self.cfg.PXL_DISTANCE} pixel distance used.")
            
-            pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path, pxl_distance=self.cfg.PXL_DISTANCE, adjusted_thresholds=adjusted_thresholds)
+            pr, re, f1 = utils.segmentation_metrics(seg_truth=true_segs, seg_predicted=predicted_segs, two_pixel_threshold=two_pxl_threshold, samples=samples, run_path=self.run_path, pxl_distance=self.cfg.PXL_DISTANCE)
 
             self._log(f"Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, threshold: {two_pxl_threshold}")
 
@@ -525,10 +509,6 @@ class End2End:
             return p["lr"]
 
     def _get_loss(self, is_seg):
-        if is_seg and self.cfg.LOSS == 'focal':
-            return FocalLoss().to(self._get_device())
-        elif is_seg and self.cfg.LOSS == 'dice':
-            return DiceLoss().to(self._get_device())
         reduction = "none" if self.cfg.WEIGHTED_SEG_LOSS and is_seg else "mean"
         return nn.BCEWithLogitsLoss(reduction=reduction).to(self._get_device())
 
