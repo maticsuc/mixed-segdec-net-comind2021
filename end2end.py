@@ -1,11 +1,7 @@
-import sched
-from tabnanny import verbose
 import matplotlib
-from sklearn import metrics
-
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from models import SegDecNet, FocalLoss, DiceLoss
+from models import SegDecNet
 import numpy as np
 import os
 from torch import nn as nn
@@ -17,7 +13,6 @@ import random
 import cv2
 from config import Config
 from torch.utils.tensorboard import SummaryWriter
-from sklearn.metrics import precision_score, recall_score
 from datetime import datetime
 
 LVL_ERROR = 10
@@ -59,10 +54,11 @@ class End2End:
         model = self._get_model().to(device)
         optimizer = self._get_optimizer(model)
         scheduler = self._get_scheduler(optimizer)
-        loss_seg, loss_dec = self._get_loss(True), self._get_loss(False)
 
         train_loader = get_dataset("TRAIN", self.cfg)
         validation_loader = get_dataset("VAL", self.cfg)
+
+        loss_seg, loss_dec = self._get_loss(is_seg=True, pos_weight=train_loader.dataset.pos_weight), self._get_loss(is_seg=False)
 
         tensorboard_writer = SummaryWriter(log_dir=self.tensorboard_path) if WRITE_TENSORBOARD else None
 
@@ -510,13 +506,12 @@ class End2End:
         for p in optimizer.param_groups:
             return p["lr"]
 
-    def _get_loss(self, is_seg):
-        if is_seg and self.cfg.LOSS == 'focal':
-            return FocalLoss().to(self._get_device())
-        elif is_seg and self.cfg.LOSS == 'dice':
-            return DiceLoss().to(self._get_device())
+    def _get_loss(self, is_seg, pos_weight=None):
         reduction = "none" if self.cfg.WEIGHTED_SEG_LOSS and is_seg else "mean"
-        return nn.BCEWithLogitsLoss(reduction=reduction).to(self._get_device())
+        if self.cfg.BCE_LOSS_W and pos_weight is not None:
+            return nn.BCEWithLogitsLoss(reduction=reduction, pos_weight=torch.Tensor([pos_weight])).to(self._get_device())
+        else:
+            return nn.BCEWithLogitsLoss(reduction=reduction).to(self._get_device())
 
     def _get_device(self):
         return f"cuda:{self.cfg.GPU}"

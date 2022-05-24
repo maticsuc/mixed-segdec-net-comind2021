@@ -56,12 +56,12 @@ def parse_args():
 
     parser.add_argument('--HARD_NEG_MINING', type=float, nargs="+", default=None, required=False, help="Hard negative mining parameters. First parameter is hard_sample_size, second hard_samples_selected_min_percent.")
     
-    parser.add_argument('--LOSS', type=str, default="bce", required=False, help="Loss function for learning.")
-
     parser.add_argument('--PXL_DISTANCE', type=int, default=2, required=False, help="Pixel distance for Pr, Re and F1 metrics at evaluation.")
-
+    
     parser.add_argument('--SEG_BLACK', type=str2bool, default=False, required=False, help="Wheter to use segmentation resetting.")
     parser.add_argument('--THR_ADJUSTMENT', type=str2bool, default=False, required=False, help="Wheter to use segmentation threshold adjustment.")
+    
+    parser.add_argument('--BCE_LOSS_W', type=str2bool, default=False, required=False, help="Wheter to use BCE pos_weight parameter.")
 
     args = parser.parse_args()
 

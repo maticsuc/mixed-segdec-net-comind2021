@@ -74,6 +74,13 @@ class CrackSegmentationDataset(Dataset):
         self.len = self.num_pos + self.num_neg
         
         time = datetime.now().strftime("%d-%m-%y %H:%M")
-        print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}")
+
+        if self.kind == 'TRAIN' and self.cfg.BCE_LOSS_W:
+            neg = sum(list(map(lambda x: np.unique(x[1], return_counts=True)[1][0], self.pos_samples))) + sum(list(map(lambda x: np.unique(x[1], return_counts=True)[1][0], self.neg_samples)))
+            pos = sum(list(map(lambda x: np.unique(x[1], return_counts=True)[1][1], self.pos_samples))) + sum(list(map(lambda x: np.unique(x[1], return_counts=True)[1][1], self.neg_samples)))
+            self.pos_weight = neg / pos
+            print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}, pos_weight: {self.pos_weight}")
+        else:
+            print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}")
 
         self.init_extra()
