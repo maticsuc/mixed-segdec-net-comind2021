@@ -14,6 +14,8 @@ import cv2
 from config import Config
 from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
+from timeit import default_timer as timer
+from datetime import timedelta
 
 LVL_ERROR = 10
 LVL_INFO = 5
@@ -65,7 +67,12 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
+        self._log(f"Model's trainable parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad)}")
+
+        train_start = timer()
         losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
+        end = timer()
+        self._log(f"Training time: {timedelta(seconds=end-train_start)}")
         train_results = (losses, validation_data, validation_metrics, lrs)
         self._save_train_results(train_results)
         self._save_model(model)
@@ -330,6 +337,13 @@ class End2End:
 
             # Naredim decisions z izračunanim thresholdom
             decisions = np.array(predictions) > metrics['best_thr']
+
+            # Črnenje
+            if self.cfg.SEG_BLACK:
+                black_seg = np.zeros(predicted_segs[0].shape)
+                for i, decision in enumerate(decisions):
+                    if decision == False:
+                        predicted_segs[i] = black_seg
 
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind, pxl_distance=self.cfg.PXL_DISTANCE)
