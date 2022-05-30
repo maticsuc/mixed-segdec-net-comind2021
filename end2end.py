@@ -98,7 +98,10 @@ class End2End:
         if eval_loader is None:
             eval_loader = get_dataset("TEST", self.cfg)
             is_validation = False
+        eval_start = timer()
         self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
+        end = timer()
+        self._log(f"Evaluation time: {timedelta(seconds=end-eval_start)}")
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
