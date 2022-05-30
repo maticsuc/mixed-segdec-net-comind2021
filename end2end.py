@@ -19,6 +19,9 @@ from config import Config
 from torch.utils.tensorboard import SummaryWriter
 from sklearn.metrics import precision_score, recall_score
 from datetime import datetime
+from timeit import default_timer as timer
+from datetime import timedelta
+from torchinfo import summary
 
 LVL_ERROR = 10
 LVL_INFO = 5
@@ -69,7 +72,15 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
+        # Print model's trainable parameters # and save model's summary to file
+        self._log(f"Model's trainable parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad)}")
+        self.set_dec_gradient_multiplier(model, 0.0)
+        print(summary(model, input_size=torch.Size([self.cfg.BATCH_SIZE, self.cfg.INPUT_CHANNELS, self.cfg.INPUT_HEIGHT, self.cfg.INPUT_WIDTH]), verbose=0), file=open(os.path.join(self.run_path, "model_summary.txt"), 'w', encoding="utf-8"))
+
+        train_start = timer()
         losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
+        end = timer()
+        self._log(f"Training time: {timedelta(seconds=end-train_start)}")
         train_results = (losses, validation_data, validation_metrics, lrs)
         self._save_train_results(train_results)
         self._save_model(model)
