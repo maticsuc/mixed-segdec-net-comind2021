@@ -286,7 +286,7 @@ class End2End:
 
         return losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict
 
-    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dec_threshold=None, two_pxl_threshold=None, faktor=None):
+    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dec_threshold=None, two_pxl_threshold=None):
         model.eval()
 
         dsize = self.cfg.INPUT_WIDTH, self.cfg.INPUT_HEIGHT
@@ -347,10 +347,13 @@ class End2End:
 
             # Črnenje
             if self.cfg.SEG_BLACK:
+                black_seg_counter = 0
                 black_seg = np.zeros(predicted_segs[0].shape)
                 for i, decision in enumerate(decisions):
                     if decision == False:
                         predicted_segs[i] = black_seg
+                        black_seg_counter += 1
+                self._log(f"Black Segmentations: {black_seg_counter}")
 
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind, pxl_distance=self.cfg.PXL_DISTANCE)
@@ -375,17 +378,27 @@ class End2End:
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {dec_threshold}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
 
-            # Threshold adjustment
-            adjusted_thresholds = None
-            if self.cfg.THR_ADJUSTMENT:
-                adjusted_thresholds = list(map(lambda x: two_pxl_threshold * (1 - (x - dec_threshold)), predictions))
-
             # Črnenje
             if self.cfg.SEG_BLACK:
+                black_seg_counter = 0
                 black_seg = np.zeros(predicted_segs[0].shape)
                 for i, decision in enumerate(decisions):
                     if decision == False:
                         predicted_segs[i] = black_seg
+                        black_seg_counter += 1
+                self._log(f"Black Segmentations: {black_seg_counter}")
+            
+            # Threshold adjustment
+            adjusted_thresholds = None
+            if self.cfg.THR_ADJUSTMENT is not None:
+                adjusted_thresholds_counter = 0
+                adjusted_thresholds = list(two_pxl_threshold for i in range(len(predicted_segs)))
+                for i, decision in enumerate(decisions):
+                    if decision == True:
+                        seg_pred_bin = (np.array(predicted_segs[i])>two_pxl_threshold).astype(np.uint8)
+                        if seg_pred_bin.max() == 0:
+                            adjusted_thresholds[i] *= self.cfg.THR_ADJUSTMENT
+                self._log(f"Adjusted thresholds: {adjusted_thresholds_counter}")
 
             # Segmentation metrics + vizualizacija
 
@@ -423,7 +436,7 @@ class End2End:
     def reload_model(self, model, load_final=False):
         if self.cfg.USE_BEST_MODEL:
             path = os.path.join(self.model_path, "best_state_dict.pth")
-            model.load_state_dict(torch.load(path, map_location='cuda:0')) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
+            model.load_state_dict(torch.load(path)) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
             self._log(f"Loading model state from {path}")
         elif load_final:
             path = os.path.join(self.model_path, "final_state_dict.pth")

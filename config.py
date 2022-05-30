@@ -51,7 +51,7 @@ class Config:
     SCHEDULER = None
     HARD_NEG_MINING = None
     PXL_DISTANCE = 2
-    THR_ADJUSTMENT = False
+    THR_ADJUSTMENT = None
     SEG_BLACK = False
     BCE_LOSS_W = False
 

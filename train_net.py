@@ -59,7 +59,7 @@ def parse_args():
     parser.add_argument('--PXL_DISTANCE', type=int, default=2, required=False, help="Pixel distance for Pr, Re and F1 metrics at evaluation.")
     
     parser.add_argument('--SEG_BLACK', type=str2bool, default=False, required=False, help="Wheter to use segmentation resetting.")
-    parser.add_argument('--THR_ADJUSTMENT', type=str2bool, default=False, required=False, help="Wheter to use segmentation threshold adjustment.")
+    parser.add_argument('--THR_ADJUSTMENT', type=float, default=None, required=False, help="Segmentation threshold adjustment.")
     
     parser.add_argument('--BCE_LOSS_W', type=str2bool, default=False, required=False, help="Wheter to use BCE pos_weight parameter.")
 
