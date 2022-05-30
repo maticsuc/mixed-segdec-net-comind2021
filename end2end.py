@@ -16,6 +16,7 @@ from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
 from timeit import default_timer as timer
 from datetime import timedelta
+from torchinfo import summary
 
 LVL_ERROR = 10
 LVL_INFO = 5
@@ -67,7 +68,10 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
+        # Print model's trainable parameters # and save model's summary to file
         self._log(f"Model's trainable parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad)}")
+        self.set_dec_gradient_multiplier(model, 0.0)
+        print(summary(model, input_size=torch.Size([self.cfg.BATCH_SIZE, self.cfg.INPUT_CHANNELS, self.cfg.INPUT_HEIGHT, self.cfg.INPUT_WIDTH]), verbose=0), file=open(os.path.join(self.run_path, "model_summary.txt"), 'w', encoding="utf-8"))
 
         train_start = timer()
         losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
@@ -90,7 +94,10 @@ class End2End:
         if eval_loader is None:
             eval_loader = get_dataset("TEST", self.cfg)
             is_validation = False
+        eval_start = timer()
         self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
+        end = timer()
+        self._log(f"Evaluation time: {timedelta(seconds=end-eval_start)}")
 
     def training_iteration(self, data, device, model, criterion_seg, criterion_dec, optimizer, weight_loss_seg, weight_loss_dec,
                            tensorboard_writer, iter_index):
