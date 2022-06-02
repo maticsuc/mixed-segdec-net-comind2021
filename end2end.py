@@ -68,11 +68,6 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
-        # Print model's trainable parameters # and save model's summary to file
-        self._log(f"Model's trainable parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad)}")
-        self.set_dec_gradient_multiplier(model, 0.0)
-        print(summary(model, input_size=torch.Size([self.cfg.BATCH_SIZE, self.cfg.INPUT_CHANNELS, self.cfg.INPUT_HEIGHT, self.cfg.INPUT_WIDTH]), verbose=0), file=open(os.path.join(self.run_path, "model_summary.txt"), 'w', encoding="utf-8"))
-
         train_start = timer()
         losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
         end = timer()
@@ -87,6 +82,10 @@ class End2End:
         self.eval(model=model, device=device, save_images=self.cfg.SAVE_IMAGES, plot_seg=False, reload_final=False, best_model_metrics=best_model_metrics)
 
         self._save_params()
+
+        # Print model's trainable parameters # and save model's summary to file
+        self._log(f"Model's trainable parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad)}")
+        print(summary(model, input_size=torch.Size([self.cfg.BATCH_SIZE, self.cfg.INPUT_CHANNELS, self.cfg.INPUT_HEIGHT, self.cfg.INPUT_WIDTH]), verbose=0), file=open(os.path.join(self.run_path, "model_summary.txt"), 'w', encoding="utf-8"))
 
     def eval(self, model, device, save_images, plot_seg, reload_final, eval_loader=None, best_model_metrics=None):
         self.reload_model(model, reload_final)
@@ -398,6 +397,7 @@ class End2End:
                         seg_pred_bin = (np.array(predicted_segs[i])>two_pxl_threshold).astype(np.uint8)
                         if seg_pred_bin.max() == 0:
                             adjusted_thresholds[i] *= self.cfg.THR_ADJUSTMENT
+                            adjusted_thresholds_counter += 1
                 self._log(f"Adjusted thresholds: {adjusted_thresholds_counter}")
 
             # Segmentation metrics + vizualizacija
