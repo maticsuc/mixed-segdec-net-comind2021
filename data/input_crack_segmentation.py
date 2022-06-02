@@ -38,6 +38,9 @@ class CrackSegmentationDataset(Dataset):
             else:
                 self.neg_samples.append((image, seg_mask, True, image_path, seg_mask_path, part, False))
 
+    def _count_pixels(self, pixel_type):
+        return sum([(s[1] == pixel_type).sum().item() for s in self.pos_samples]) + sum([(s[1] == pixel_type).sum().item() for s in self.neg_samples])
+    
     def read_contents(self):
 
         self.pos_samples = list()
@@ -78,8 +81,8 @@ class CrackSegmentationDataset(Dataset):
         self.pos_weight = None
 
         if self.kind == 'TRAIN' and self.cfg.BCE_LOSS_W:
-            neg = sum(list(map(lambda x: np.unique(x[1], return_counts=True)[1][0], self.pos_samples))) + sum(list(map(lambda x: np.array(x[1][0]).size, self.neg_samples)))
-            pos = sum(list(map(lambda x: np.unique(x[1], return_counts=True)[1][1], self.pos_samples)))
+            neg = self._count_pixels(0)
+            pos = self._count_pixels(1)
             self.pos_weight = neg / pos
             print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}, pos_weight: {self.pos_weight}")
         else:
