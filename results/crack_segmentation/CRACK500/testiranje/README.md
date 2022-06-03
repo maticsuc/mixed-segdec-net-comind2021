@@ -93,4 +93,7 @@
 | Augmentacija + negativni primeri + črnenje + neg mining  | 105  | 572       | 0.731879  | 0.805741 | 0.746229 | 1122 | 0    | 2    | 0    |
 
 
-![Runs](./seed_runs.png) 
+![Runs](./seed_runs.png)
+
+
+![Error Bar](./error_bar.png)
