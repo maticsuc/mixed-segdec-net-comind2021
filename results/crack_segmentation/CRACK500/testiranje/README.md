@@ -39,6 +39,36 @@
 | Baseline arhitektura + upsampling         | 105  | 0.714322  | 0.811605 | 0.735004 | 1124 | 0    | 0    | 0    |
 | Baseline arhitektura + upsampling + bce_w | 105  | 0.748435  | 0.786258 | 0.746841 | 1123 | 0    | 1    | 0    |
 
+### 3 + Črnenje
+
+| Vrsta                                       | Seed | Precision | Recall   | F1       | TP   | FP   | FN   | TN   |
+| --------------------------------------------| -----| ----------| ---------|----------|------|------|------|------|
+| Baseline arhitektura + upsampling + črnenje | 101  | 0.725677  | 0.799854 | 0.734326 | 1124 | 0    | 0    | 0    |
+| Baseline arhitektura + upsampling + črnenje | 102  | 0.717048  | 0.771972 | 0.722771 | 1121 | 0    | 3    | 0    |
+| Baseline arhitektura + upsampling + črnenje | 103  | 0.741123  | 0.792890 | 0.748042 | 1124 | 0    | 0    | 0    |
+| Baseline arhitektura + upsampling + črnenje | 104  | 0.716070  | 0.792911 | 0.724582 | 1121 | 0    | 3    | 0    |
+| Baseline arhitektura + upsampling + črnenje | 105  | 0.711928  | 0.808288 | 0.732847 | 1121 | 0    | 3    | 0    |
+
+### 3 + Threshold Adjustment
+
+| Vrsta                                          | Seed | Thr adjustment | Precision | Recall   | F1       | TP   | FP   | FN   | TN   |
+| -----------------------------------------------| -----| ---------------| ----------| ---------|----------|------|------|------|------|
+| Baseline arhitektura + upsampling + thresholds | 101  | 0.8            | 0.738081  | 0.791008 | 0.741700 | 0    | 0    | 1124 | 0    |
+| Baseline arhitektura + upsampling + thresholds | 102  | 0.8            | 0.731677  | 0.798433 | 0.743884 | 0    | 0    | 1124 | 0    |
+| Baseline arhitektura + upsampling + thresholds | 103  | 0.8            | 0.741123  | 0.792890 | 0.748042 | 1124 | 0    | 0    | 0    |
+| Baseline arhitektura + upsampling + thresholds | 104  | 0.8            | 0.715996  | 0.803378 | 0.731436 | 0    | 0    | 1124 | 0    |
+| Baseline arhitektura + upsampling + thresholds | 105  | 0.8            | 0.714322  | 0.811605 | 0.735004 | 0    | 0    | 1124 | 0    |
+
+### 3 + Črnenje + Threshold Adjustment
+
+| Vrsta                | Seed | Thr adjustment | Precision | Recall   | F1       | TP   | FP   | FN   | TN   |
+| ---------------------| -----| ---------------| ----------| ---------|----------|------|------|------|------|
+| Črnenje + thresholds | 101  | 0.8            | 0.725677  | 0.799854 | 0.734326 | 1124 | 0    | 0    | 0    |
+| Črnenje + thresholds | 102  | 0.8            | 0.717048  | 0.771972 | 0.722771 | 1121 | 0    | 3    | 0    |
+| Črnenje + thresholds | 103  | 0.8            | 0.741123  | 0.792890 | 0.748042 | 1124 | 0    | 0    | 0    |
+| Črnenje + thresholds | 104  | 0.8            | 0.716070  | 0.792911 | 0.724582 | 1121 | 0    | 3    | 0    |
+| Črnenje + thresholds | 105  | 0.8            | 0.711928  | 0.808288 | 0.732847 | 1121 | 0    | 3    | 0    |
+
 ### 4
 
 | Vrsta                                     | Seed | Negativni | Precision | Recall   | F1       | TP   | FP   | FN   | TN   |

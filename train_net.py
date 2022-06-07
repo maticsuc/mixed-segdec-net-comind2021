@@ -50,6 +50,7 @@ def parse_args():
     parser.add_argument('--AUGMENTATION', type=str2bool, default=False, required=False, help="Wheter to use data augmentation.")
 
     parser.add_argument('--USE_NEGATIVES', type=str, default=None, required=False, help="Wheter to use negative samples with CRACK500 dataset.")
+    parser.add_argument('--VAL_NEG', type=str, default=None, required=False, help="Wheter to use negative samples in validation set with CRACK500 dataset.")
 
     parser.add_argument('--OPTIMIZER', type=str, default="sgd", required=False, help="Optimizer to be used.")
     parser.add_argument('--SCHEDULER', type=float, nargs="+", default=None, required=False, help="Learning rate scheduler parameters to be used.")

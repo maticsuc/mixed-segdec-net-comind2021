@@ -47,6 +47,7 @@ class Config:
     BEST_MODEL_TYPE = "dec"
     AUGMENTATION = False
     USE_NEGATIVES = None
+    VAL_NEG = None
     OPTIMIZER = "sgd"
     SCHEDULER = None
     HARD_NEG_MINING = None
@@ -101,7 +102,7 @@ class Config:
             self.INPUT_CHANNELS = 3
             if self.NUM_SEGMENTED is None:
                 raise Exception("Missing NUM_SEGMENTED for KSDD2 dataset!")
-        elif self.DATASET == 'crack_segmentation':
+        elif self.DATASET in ['crack_segmentation', 'sccdnet']:
             self.INPUT_WIDTH = 448
             self.INPUT_HEIGHT = 448
             self.INPUT_CHANNELS = 3
@@ -148,6 +149,7 @@ class Config:
         self.BEST_MODEL_TYPE = args.BEST_MODEL_TYPE
         self.AUGMENTATION = args.AUGMENTATION
         self.USE_NEGATIVES = args.USE_NEGATIVES
+        self.VAL_NEG = args.VAL_NEG
         self.OPTIMIZER = args.OPTIMIZER
         self.SCHEDULER = args.SCHEDULER
         self.HARD_NEG_MINING = args.HARD_NEG_MINING
@@ -203,6 +205,7 @@ class Config:
             "BEST_MODEL_TYPE": self.BEST_MODEL_TYPE,
             "AUGMENTATION": self.AUGMENTATION,
             "USE_NEGATIVES": self.USE_NEGATIVES,
+            "VAL_NEG": self.VAL_NEG,
             "OPTIMIZER": self.OPTIMIZER,
             "SCHEDULER": self.SCHEDULER,
             "HARD_NEG_MINING": self.HARD_NEG_MINING,
@@ -249,6 +252,7 @@ def load_from_dict(dictionary):
     cfg.BEST_MODEL_TYPE = dictionary.get("BEST_MODEL_TYPE", None)
     cfg.AUGMENTATION = dictionary.get("AUGMENTATION", None)
     cfg.USE_NEGATIVES = dictionary.get("USE_NEGATIVES", None)
+    cfg.VAL_NEG = dictionary.get("VAL_NEG", None)
     cfg.OPTIMIZER = dictionary.get("OPTIMIZER", None)
     cfg.SCHEDULER = dictionary.get("SCHEDULER", None)
     cfg.HARD_NEG_MINING = dictionary.get("HARD_NEG_MINING", None)

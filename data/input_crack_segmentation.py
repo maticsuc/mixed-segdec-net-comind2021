@@ -37,9 +37,6 @@ class CrackSegmentationDataset(Dataset):
                 self.pos_samples.append((image, seg_mask, True, image_path, seg_mask_path, part, True))
             else:
                 self.neg_samples.append((image, seg_mask, True, image_path, seg_mask_path, part, False))
-
-    def _count_pixels(self, pixel_type):
-        return sum([(s[1] == pixel_type).sum().item() for s in self.pos_samples]) + sum([(s[1] == pixel_type).sum().item() for s in self.neg_samples])
     
     def read_contents(self):
 
@@ -55,6 +52,8 @@ class CrackSegmentationDataset(Dataset):
                     self.read_samples(os.path.join(self.cfg.DATASET_PATH, self.cfg.USE_NEGATIVES), 'neg')
             elif self.kind == 'VAL':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val'), 'pos')
+                if self.cfg.VAL_NEG is not None:
+                    self.read_samples(os.path.join(self.cfg.DATASET_PATH, self.cfg.VAL_NEG), 'neg')
         elif self.cfg.DATASET == 'DeepCrack':
             if self.kind == 'TEST':
                 self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test_img'), 'pos', path_to_GTs=os.path.join(self.cfg.DATASET_PATH, 'test_lab'))
@@ -81,8 +80,8 @@ class CrackSegmentationDataset(Dataset):
         self.pos_weight = None
 
         if self.kind == 'TRAIN' and self.cfg.BCE_LOSS_W:
-            neg = self._count_pixels(0)
-            pos = self._count_pixels(1)
+            neg = self.count_pixels(0)
+            pos = self.count_pixels(1)
             self.pos_weight = neg / pos
             print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}, pos_weight: {self.pos_weight}")
         else:

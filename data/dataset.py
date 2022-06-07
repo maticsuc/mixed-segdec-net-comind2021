@@ -31,6 +31,9 @@ class Dataset(torch.utils.data.Dataset):
         self.neg_imgs_permutation = np.random.permutation(self.num_neg)
 
         self.neg_retrieval_freq = np.zeros(shape=self.num_neg)
+    
+    def count_pixels(self, pixel_type):
+        return sum([(s[1] == pixel_type).sum().item() for s in self.pos_samples]) + sum([(s[1] == pixel_type).sum().item() for s in self.neg_samples])
 
     def __getitem__(self, index) -> (torch.Tensor, torch.Tensor, bool, str, bool):
 

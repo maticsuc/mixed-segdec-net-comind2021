@@ -3,6 +3,7 @@ from .input_dagm import DagmDataset
 from .input_steel import SteelDataset
 from .input_ksdd2 import KSDD2Dataset
 from .input_crack_segmentation import CrackSegmentationDataset
+from .input_sccdnet_dataset import SccdnetDataset
 from config import Config
 from torch.utils.data import DataLoader
 from typing import Optional
@@ -26,6 +27,8 @@ def get_dataset(kind: str, cfg: Config) -> Optional[DataLoader]:
         ds = KSDD2Dataset(kind, cfg)
     elif cfg.DATASET == "crack_segmentation" or cfg.DATASET == 'CFD' or cfg.DATASET == 'CRACK500' or cfg.DATASET == 'DeepCrack':
         ds = CrackSegmentationDataset(kind, cfg)
+    elif cfg.DATASET == "sccdnet":
+        ds = SccdnetDataset(kind, cfg)
     else:
         raise Exception(f"Unknown dataset {cfg.DATASET}")
 
