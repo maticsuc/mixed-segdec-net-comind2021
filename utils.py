@@ -12,6 +12,8 @@ import errno
 import pickle
 import cv2
 import shutil
+import torch
+from matplotlib.colors import ListedColormap
 
 
 def create_folder(folder, exist_ok=True):
@@ -170,10 +172,10 @@ def save_predicted_segmentation(predicted_segmentation, sample_name, run_path):
         create_folder(save_folder)
     plt.imsave(f"{save_folder}/{sample_name}.png", predicted_segmentation, cmap='gray', vmin=0, vmax=1, dpi=200)
 
-def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=None, image_names=None, run_path=None, decisions=None, is_validation=False, faktor=None):
+def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=None, image_names=None, run_path=None, decisions=None, is_validation=False, faktor=None, save_images=False):
 
     results_dice = []
-    result_iou = []
+    results_iou = []
     spusceni_thresholdi = []
     faktorji_spustitve_thresholdov = []
     mean_faktor = None
@@ -189,16 +191,17 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
     # Save folder
     if run_path is not None:
         save_folder = f"{run_path}/dices"
-        save_folder_seg_pred = f"{run_path}/seg_pred"
-        save_folder_seg_pred_bin = f"{run_path}/seg_pred_bin"
         create_folder(save_folder)
-        create_folder(save_folder_seg_pred)
-        create_folder(save_folder_seg_pred_bin)
+        if save_images:
+            save_folder_seg_pred = f"{run_path}/seg_pred"
+            save_folder_seg_pred_bin = f"{run_path}/seg_pred_bin"
+            create_folder(save_folder_seg_pred)
+            create_folder(save_folder_seg_pred_bin)
 
     # Za vsak par izračunamo dice in IOU
     for i in range(len(segmentation_predicted)):
         seg_pred = segmentation_predicted[i]
-        seg_true_bin = segmentation_truth[i]
+        seg_true_bin = segmentation_truth[i].astype(np.uint8)
 
         # Naredimo binarne maske s ustreznim thresholdom
         seg_pred_bin = (seg_pred > seg_threshold).astype(np.uint8)
@@ -209,34 +212,15 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
             if decisions[i] and seg_pred_bin.max().item() == 0:
                 spuscen_threshold = faktor * seg_pred.max().item()
                 seg_pred_bin = (seg_pred > spuscen_threshold).astype(np.uint8)
-                spusceni_thresholdi.append(image_names[i])
-
-        # Računanje najboljšega faktorja za zmanjševanje thresholda (VALIDACIJA)
-        if is_validation and decisions is not None:
-            # Primer klasificiran kot razpoka, segmentacija pa crna - spustimo threshold na max pixel * faktor
-            if decisions[i] and seg_pred_bin.max().item() == 0:
-                best_dice = -1
-                best_faktor = -1
-                step = 0.01
-                for i in np.arange(0.01, 1, step):
-                    i = round(i, 2)
-                    spuscen_threshold = i * seg_pred.max().item()
-                    seg_pred_bin = (seg_pred > spuscen_threshold).astype(np.uint8)
-                    dice = (2 * (seg_true_bin * seg_pred_bin).sum() + 1e-15) / (seg_true_bin.sum() + seg_pred_bin.sum() + 1e-15)
-                    if dice > best_dice:
-                        best_dice = dice
-                        best_faktor = i
-                faktorji_spustitve_thresholdov.append(best_faktor)           
+                spusceni_thresholdi.append(image_names[i])          
 
         # Dice
-        dice = (2 * (seg_true_bin * seg_pred_bin).sum() + 1e-15) / (seg_true_bin.sum() + seg_pred_bin.sum() + 1e-15)
-        results_dice += [dice]
+        result_dice = dice(seg_true_bin, seg_pred_bin)
+        results_dice += [result_dice]
 
         # IOU
-        intersection = (seg_pred_bin * seg_true_bin).sum()
-        union = seg_pred_bin.sum() + seg_true_bin.sum() - intersection
-        iou = (intersection + 1e-15) / (union + 1e-15)
-        result_iou += [iou]
+        result_iou = iou(seg_true_bin, seg_pred_bin)
+        results_iou += [result_iou]
 
         # Vizualizacija
         if images is not None:
@@ -244,40 +228,49 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
             image_name = image_names[i]
 
             # Shanjevanje slik za diplomo
-            plt.imsave(f"{save_folder_seg_pred}/{image_name}.png", seg_pred, cmap='gray', vmin=0, vmax=1, dpi=200)
-            plt.imsave(f"{save_folder_seg_pred_bin}/{image_name}.png", seg_pred_bin, cmap='gray', vmin=0, vmax=1, dpi=200)
+            if save_images:
+                plt.imsave(f"{save_folder_seg_pred}/{image_name}.png", seg_pred, cmap='gray', vmin=0, vmax=1, dpi=200)
+                plt.imsave(f"{save_folder_seg_pred_bin}/{image_name}.png", seg_pred_bin, cmap='gray', vmin=0, vmax=1, dpi=200)
 
             plt.figure()
             plt.clf()
 
-            plt.subplot(1, 4, 1)
+            plt.subplot(1, 5, 1)
             plt.xticks([])
             plt.yticks([])
             plt.title('Image')
             plt.imshow(image)
-            plt.xlabel(f"Seg thr: {seg_threshold:f}")
+            plt.xlabel(f"Seg thr: {round(seg_threshold, 5)}")
             
-            plt.subplot(1, 4, 2)
+            plt.subplot(1, 5, 2)
             plt.xticks([])
             plt.yticks([])
             plt.title('Groundtruth')
-            plt.imshow(seg_true_bin, cmap='gray')
+            plt.imshow(seg_true_bin, cmap='gray', vmin=0, vmax=1)
             plt.xlabel(f"Dec out: {decisions[i]}")
             
-            plt.subplot(1, 4, 3)
+            plt.subplot(1, 5, 3)
             plt.xticks([])
             plt.yticks([])
             plt.title('Segmentation')
-            plt.imshow(seg_pred, cmap='gray', vmin=0, vmax=1) # Popravljeno z vmin in vmax argumenti
-            plt.xlabel(f"IOU: {round(iou, 5)}")
+            plt.imshow(seg_pred, cmap='gray', vmin=0, vmax=1)
+            plt.xlabel(f"IOU: {round(result_iou.item(), 5)}")
             
-            plt.subplot(1, 4, 4)
+            plt.subplot(1, 5, 4)
             plt.xticks([])
             plt.yticks([])
             plt.title('Segmentation\nmask')
             plt.imshow(seg_pred_bin, cmap='gray', vmin=0, vmax=1)
-            plt.xlabel(f"Dice: {round(dice, 5)}")
-            plt.savefig(f"{save_folder}/{round(dice, 3):.3f}_dice_{image_name}.png", bbox_inches='tight', dpi=300)
+            plt.xlabel(f"Dice: {round(result_dice.item(), 5)}")
+
+            plt.subplot(1, 5, 5)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title('Overlap')
+            plt.imshow((seg_pred_bin * 2) + seg_true_bin, cmap=ListedColormap([['black', 'gray', 'red', 'white'][i] for i in np.unique((seg_pred_bin * 2) + seg_true_bin)]))
+            plt.xlabel(f"Dice: {round(result_dice.item(), 5)}")
+
+            plt.savefig(f"{save_folder}/{round(result_dice.item(), 5):.3f}_dice_{image_name}.png", bbox_inches='tight', dpi=300)
             plt.close()
 
     # Zapisem primere s spuscenim thresholdom v txt datoteko
@@ -292,7 +285,7 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
         mean_faktor = np.mean(np.array(faktorji_spustitve_thresholdov))
 
     # Vrnemo povprečno vrednost ter standardno deviacijo za dice in IOU
-    return np.mean(results_dice), np.std(results_dice), np.mean(result_iou), np.std(result_iou), mean_faktor
+    return np.mean(results_dice), np.std(results_dice), np.mean(results_iou), np.std(results_iou), mean_faktor
 
 def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=None, run_path=None, pxl_distance=2, adjusted_thresholds=None):
     # Save folder
@@ -375,3 +368,26 @@ def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=
     f1 = np.mean(np.array(results)[:, 2])
 
     return pr, re, f1
+
+# Sccdnet metrics
+
+def dice(y_true, y_pred):
+    return (2 * (y_true * y_pred).sum() + 1e-15) / (y_true.sum() + y_pred.sum() + 1e-15)
+
+def iou(y_true, y_pred):
+    intersection = (y_true * y_pred).sum()
+    union = y_true.sum() + y_pred.sum() - intersection
+    return (intersection + 1e-15) / (union + 1e-15)
+
+def precision(y_true, y_pred):
+    one = torch.ones_like(torch.Tensor(y_true))
+    TP = (y_true * y_pred).sum()
+    FP = ((one-y_true)*y_pred).sum()
+    return (TP + 1e-15) / (TP + FP + 1e-15)
+
+def recall(y_true, y_pred):
+    one = torch.ones_like(torch.Tensor(y_pred))
+    one = one.numpy()
+    TP = (y_true * y_pred).sum()
+    FN = (y_true*(one - y_pred)).sum()
+    return (TP + 1e-15) / (TP + FN + 1e-15)

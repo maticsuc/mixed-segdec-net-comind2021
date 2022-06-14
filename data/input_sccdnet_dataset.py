@@ -23,13 +23,17 @@ class SccdnetDataset(Dataset):
 
             seg_mask, _ = self.read_label_resize(seg_mask_path, self.image_size, self.cfg.DILATE)
 
+            seg_mask = np.array((seg_mask > 0.5), dtype=np.float32)
+
+            positive = seg_mask.max() > 0
+
             seg_mask = self.to_tensor(seg_mask)
 
-            if 'noncrack' in sample:
-                self.neg_samples.append((image, seg_mask, True, image_path, seg_mask_path, id, False))
-            else:
+            if positive:
                 self.pos_samples.append((image, seg_mask, True, image_path, seg_mask_path, id, True))
-    
+            else:
+                self.neg_samples.append((image, seg_mask, True, image_path, seg_mask_path, id, False))
+                
     def read_contents(self):
 
         self.pos_samples = list()

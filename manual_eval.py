@@ -1,30 +1,39 @@
-from statistics import mode
 from config import Config
 from end2end import End2End
 from data.dataset_catalog import get_dataset
+import sys, os
+
+# nohup python -u manual_eval.py 5 crack500_3_1_van CRACK500 > eval_1.out 2>&1 &
+
+#gpu, run_name, dataset = sys.argv[1:]
+gpu, run_name, dataset = 0, "crack500_3_1_van", "CRACK500"
 
 # Konfiguracija
 configuration = Config()
 
-configuration.RUN_NAME = "run1"
-configuration.BATCH_SIZE = 1
-configuration.DATASET = "crack_segmentation"
-configuration.DATASET_PATH = "./datasets/crack_segmentation"
-configuration.DELTA_CLS_LOSS = 0.01
-configuration.DILATE = 1
-configuration.DYN_BALANCED_LOSS = True
-configuration.EPOCHS = 50
-configuration.FREQUENCY_SAMPLING = True
-configuration.GPU = 0
-configuration.LEARNING_RATE = 1.0
-configuration.WEIGHTED_SEG_LOSS = False
-configuration.GRADIENT_ADJUSTMENT = True
-configuration.NUM_SEGMENTED = 6921 # 6921, 230
-configuration.VALIDATE = True
-configuration.VALIDATE_ON_TEST = False
-configuration.VALIDATION_N_EPOCHS = 5
-configuration.USE_BEST_MODEL = True
-configuration.BEST_MODEL_TYPE = "both"
+params = [i.replace('\n', '') for i in open(os.path.join('RESULTS', dataset, run_name, 'run_params.txt'), 'r')]
+
+for p in params:
+    p, v = p.split(":")
+    try:
+        v = int(v)
+    except:
+        try:
+            v = float(v)
+        except:
+            pass
+
+    if v == 'True':
+        v = True
+    elif v == 'False':
+        v = False
+    elif v == "None":
+        v = None
+
+    setattr(configuration, p, v)
+
+configuration.RUN_NAME = run_name
+configuration.GPU = gpu
 
 configuration.init_extra()
 
@@ -40,10 +49,13 @@ end2end.reload_model(model=model, load_final=False)
 # Validacija na VAL setu
 
 validation_loader = get_dataset("VAL", end2end.cfg)
-_, _, val_metrics = end2end.eval_model(device=device, model=model, eval_loader=validation_loader, save_folder=end2end.outputs_path, save_images=False, is_validation=True, plot_seg=False, dice_threshold=None)
-end2end._log(f"From evaluation on VAL set. Dice threshold: {val_metrics['dice_threshold']:f}, Decision threshold: {val_metrics['dec_threshold']:f}")
+_, _, val_metrics = end2end.eval_model(device=device, model=model, eval_loader=validation_loader, save_folder=end2end.outputs_path, save_images=False, is_validation=True, plot_seg=False)
+end2end._log(f"From evaluation on VAL set. Decision threshold: {val_metrics['dec_threshold']:f}")
+end2end._log(f"From evaluation on VAL set. Segmentation threshold: {val_metrics['two_pxl_threshold']:f}")
 
 # Evalvacija na TEST setu
 
-test_loader = get_dataset("TEST", end2end.cfg)
-end2end.eval_model(device=device, model=model, eval_loader=test_loader, save_folder=end2end.outputs_path, save_images=end2end.cfg.SAVE_IMAGES, is_validation=False, plot_seg=False, dice_threshold=val_metrics['dice_threshold'], dec_threshold=val_metrics['dec_threshold'], faktor=val_metrics['faktor'])
+os.rename(os.path.join(end2end.run_path, 'seg_metrics'), os.path.join(end2end.run_path, 'seg_metrics_test'))
+
+#test_loader = get_dataset("TEST", end2end.cfg)
+end2end.eval_model(device=device, model=model, eval_loader=validation_loader, save_folder=end2end.outputs_path, save_images=end2end.cfg.SAVE_IMAGES, is_validation=False, plot_seg=False, dec_threshold=val_metrics['dec_threshold'], two_pxl_threshold=val_metrics['two_pxl_threshold'], dice_threshold=val_metrics['dice_threshold'])

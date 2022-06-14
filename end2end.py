@@ -94,7 +94,7 @@ class End2End:
             eval_loader = get_dataset("TEST", self.cfg)
             is_validation = False
         eval_start = timer()
-        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'])
+        self.eval_model(device, model, eval_loader, save_folder=self.outputs_path, save_images=save_images, is_validation=is_validation, plot_seg=plot_seg, dec_threshold=best_model_metrics['dec_threshold'], two_pxl_threshold=best_model_metrics['two_pxl_threshold'], dice_threshold=best_model_metrics['dice_threshold'])
         end = timer()
         self._log(f"Evaluation time: {timedelta(seconds=end-eval_start)}")
 
@@ -285,7 +285,7 @@ class End2End:
 
         return losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict
 
-    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dec_threshold=None, two_pxl_threshold=None):
+    def eval_model(self, device, model, eval_loader, save_folder, save_images, is_validation, plot_seg, dec_threshold=None, two_pxl_threshold=None, dice_threshold=None):
         model.eval()
 
         dsize = self.cfg.INPUT_WIDTH, self.cfg.INPUT_HEIGHT
@@ -293,7 +293,7 @@ class End2End:
         res = []
         predictions, predictions_truths = [], []
 
-        images, predicted_segs, true_segs = [], [], []
+        predicted_segs, true_segs = [], []
         samples = {"images": list(), "image_names": list()}
 
         for data_point in eval_loader:
@@ -323,7 +323,6 @@ class End2End:
             samples["image_names"].append(sample_name[0])
             samples["images"].append(image)
             true_segs.append(seg_mask)
-            images.append(image)
 
             if not is_validation and save_images:
                 """
@@ -354,13 +353,27 @@ class End2End:
                         black_seg_counter += 1
                 self._log(f"Black Segmentations: {black_seg_counter}")
 
+            # Dice
+            max_dice, dice_thr = 0, 0
+            for thr in np.arange(0.1, 1, 0.01):
+                result_dice = []
+                for i in range(len(predicted_segs)):
+                    y_true = np.array(true_segs[i]).astype(np.uint8)
+                    y_pred = (np.array(predicted_segs[i])>thr).astype(np.uint8)
+                    result_dice += [utils.dice(y_true, y_pred)]
+                if np.mean(result_dice) > max_dice:
+                    max_dice = np.mean(result_dice)
+                    dice_thr = thr
+            self._log(f"Validation best Dice: {max_dice:f} at {dice_thr:f}")
+
             # Najboljši F1, Pr, Re, threshold
             val_metrics = self.seg_val_metrics(true_segs, predicted_segs, eval_loader.dataset.kind, pxl_distance=self.cfg.PXL_DISTANCE)
             val_metrics['dec_threshold'] = metrics['best_thr']
+            val_metrics['dice_threshold'] = dice_thr
 
             return metrics["AP"], metrics["accuracy"], val_metrics
         else:
-            decisions = np.array(predictions) > dec_threshold
+            decisions = np.array(predictions) >= dec_threshold
             samples["decisions"] = list(decisions)
             FP, FN, TN, TP = utils.calc_confusion_mat(decisions, np.array(predictions_truths))
 
@@ -400,7 +413,33 @@ class End2End:
                             adjusted_thresholds_counter += 1
                 self._log(f"Adjusted thresholds: {adjusted_thresholds_counter}")
 
-            # Segmentation metrics + vizualizacija
+            # Segmentation metrics
+            result_precision = []
+            result_recall = []
+            result_dice = []
+            result_iou = []
+
+            for i in range(len(predicted_segs)):
+                y_true = np.array(true_segs[i]).astype(np.uint8)
+                y_pred = (np.array(predicted_segs[i])>dice_threshold).astype(np.uint8)
+
+                result_precision += [utils.precision(y_true, y_pred)]
+                result_recall += [utils.recall(y_true, y_pred)]
+                result_dice += [utils.dice(y_true, y_pred)]
+                result_iou += [utils.iou(y_true, y_pred)]
+
+            self._log(f"{eval_loader.dataset.kind} set. Precision mean = {np.mean(result_precision):f}, std = {np.std(result_precision):f}")
+            self._log(f"{eval_loader.dataset.kind} set. Recall mean = {np.mean(result_recall):f}, std = {np.std(result_recall):f}")
+            self._log(f"{eval_loader.dataset.kind} set. F1 mean = {2 * np.mean(result_precision) * np.mean(result_recall) / (np.mean(result_precision) + np.mean(result_recall)):f}, std = {2 * np.std(result_precision) * np.std(result_recall) / (np.std(result_precision) + np.std(result_recall)):f}")
+            self._log(f"{eval_loader.dataset.kind} set. Dice mean = {np.mean(result_dice):f}, std = {np.std(result_dice):f}")
+            self._log(f"{eval_loader.dataset.kind} set. IoU mean = {np.mean(result_iou):f}, std = {np.std(result_iou):f}")
+
+            # Dice & IoU Vizualizacija
+
+            dice_mean, dice_std, iou_mean, iou_std, _ = utils.dice_iou(predicted_segs, true_segs, dice_threshold, samples["images"], samples["image_names"], self.run_path, decisions)
+
+            self._log(f"{eval_loader.dataset.kind} set. Dice mean = {dice_mean:f}, std = {dice_std:f}")
+            self._log(f"{eval_loader.dataset.kind} set. IoU mean = {iou_mean:f}, std = {iou_std:f}")
 
             self._log(f"Evaluation metrics on {eval_loader.dataset.kind} set. {self.cfg.PXL_DISTANCE} pixel distance used.")
            
@@ -596,7 +635,7 @@ class End2End:
             results = []
             for i in range(n_samples):
                 y_true = np.array(truth_segmentations[i]).astype(np.uint8)
-                y_true_d = cv2.dilate(y_true, kernel)
+                y_true_d = cv2.dilate(y_true, kernel) if pxl_distance > 0 else y_true
                 y_pred = (np.array(predicted_segmentations[i])>threshold).astype(np.uint8)
 
                 tp_d = sum(sum((y_true_d==1)&(y_pred==1))).item()
