@@ -172,7 +172,7 @@ def save_predicted_segmentation(predicted_segmentation, sample_name, run_path):
         create_folder(save_folder)
     plt.imsave(f"{save_folder}/{sample_name}.png", predicted_segmentation, cmap='gray', vmin=0, vmax=1, dpi=200)
 
-def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=None, image_names=None, run_path=None, decisions=None, is_validation=False, faktor=None, save_images=False):
+def dice_iou(segmentation_predicted, segmentation_truth, seg_thresholds, images=None, image_names=None, run_path=None, decisions=None, is_validation=False, faktor=None, save_images=False):
 
     results_dice = []
     results_iou = []
@@ -204,7 +204,7 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
         seg_true_bin = segmentation_truth[i].astype(np.uint8)
 
         # Naredimo binarne maske s ustreznim thresholdom
-        seg_pred_bin = (seg_pred > seg_threshold).astype(np.uint8)
+        seg_pred_bin = (seg_pred > seg_thresholds["dice_threshold"]).astype(np.uint8)
 
         # Beljenje črnih segmentacij, ki so klasificirane kot razpoke
         if not is_validation and decisions is not None and faktor is not None:
@@ -219,8 +219,13 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
         results_dice += [result_dice]
 
         # IOU
-        result_iou = iou(seg_true_bin, seg_pred_bin)
+        result_iou = iou(seg_true_bin, (seg_pred > seg_thresholds["iou_threshold"]).astype(np.uint8))
         results_iou += [result_iou]
+
+        #F1
+        re = recall(seg_true_bin, (seg_pred > seg_thresholds["f1_threshold"]).astype(np.uint8))
+        pr = precision(seg_true_bin, (seg_pred > seg_thresholds["f1_threshold"]).astype(np.uint8))
+        result_f1 = (2 * pr * re) / (pr + re) 
 
         # Vizualizacija
         if images is not None:
@@ -240,35 +245,34 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_threshold, images=N
             plt.yticks([])
             plt.title('Image')
             plt.imshow(image)
-            plt.xlabel(f"Seg thr: {round(seg_threshold, 5)}")
+            plt.xlabel(f"Decision:\n{decisions[i]}")
             
             plt.subplot(1, 5, 2)
             plt.xticks([])
             plt.yticks([])
-            plt.title('Groundtruth')
+            plt.title('GT')
             plt.imshow(seg_true_bin, cmap='gray', vmin=0, vmax=1)
-            plt.xlabel(f"Dec out: {decisions[i]}")
             
             plt.subplot(1, 5, 3)
             plt.xticks([])
             plt.yticks([])
             plt.title('Segmentation')
             plt.imshow(seg_pred, cmap='gray', vmin=0, vmax=1)
-            plt.xlabel(f"IOU: {round(result_iou.item(), 5)}")
+            plt.xlabel(f"IOU: {round(result_iou.item(), 4)}\nThr: {round(seg_thresholds['iou_threshold'], 3)}")
             
             plt.subplot(1, 5, 4)
             plt.xticks([])
             plt.yticks([])
             plt.title('Segmentation\nmask')
             plt.imshow(seg_pred_bin, cmap='gray', vmin=0, vmax=1)
-            plt.xlabel(f"Dice: {round(result_dice.item(), 5)}")
+            plt.xlabel(f"Dice: {round(result_dice.item(), 4)}\nThr: {round(seg_thresholds['dice_threshold'], 3)}")
 
             plt.subplot(1, 5, 5)
             plt.xticks([])
             plt.yticks([])
             plt.title('Overlap')
             plt.imshow((seg_pred_bin * 2) + seg_true_bin, cmap=ListedColormap([['black', 'gray', 'red', 'white'][i] for i in np.unique((seg_pred_bin * 2) + seg_true_bin)]))
-            plt.xlabel(f"Dice: {round(result_dice.item(), 5)}")
+            plt.xlabel(f"F1: {round(result_f1.item(), 4)}\nThr: {round(seg_thresholds['f1_threshold'], 3)}")
 
             plt.savefig(f"{save_folder}/{round(result_dice.item(), 5):.3f}_dice_{image_name}.png", bbox_inches='tight', dpi=300)
             plt.close()

@@ -328,6 +328,7 @@ class End2End:
                 utils.save_predicted_segmentation(seg_mask_predicted, sample_name[0], self.run_path)
 
         if is_validation:
+            val_metrics = dict()
             # Računanje thresholda za decision net
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
@@ -348,10 +349,9 @@ class End2End:
 
             # Dice
             step = 0.005
-            max_dice, dice_thr = 0, 0
-            max_iou, iou_thr = 0, 0
-            max_f1, f1_thr = 0, 0
-            max_re, max_pr = 0, 0
+            dice = (0,0)
+            iou = (0, 0)
+            f1 = (0, 0)
             for thr in np.arange(0.1, 1, step):
                 result_dice = []
                 result_precision = []
@@ -367,35 +367,27 @@ class End2End:
                     result_recall += [utils.recall(y_true, y_pred)]
                     result_iou += [utils.iou(y_true, y_pred)]
 
-                if np.mean(result_dice) > max_dice:
-                    max_dice = np.mean(result_dice)
-                    dice_thr = thr
+                if np.mean(result_dice) > dice[0]:
+                    dice = (np.mean(result_dice), thr)
                 
-                if np.mean(result_iou) > max_iou:
-                    max_iou = np.mean(result_iou)
-                    iou_thr = thr
+                if np.mean(result_iou) > iou[0]:
+                    iou = (np.mean(result_iou), thr)
                 
-                f1 = 2 * np.mean(result_precision) * np.mean(result_recall) / (np.mean(result_precision) + np.mean(result_recall))
+                f1_tmp = 2 * np.mean(result_precision) * np.mean(result_recall) / (np.mean(result_precision) + np.mean(result_recall))
 
-                if f1 > max_f1:
-                    max_f1 = f1
-                    f1_thr = thr
-                    max_re = np.mean(result_recall)
-                    max_pr = np.mean(result_precision)                
+                if f1_tmp > f1[0]:
+                    f1 = (f1_tmp, thr)
+                    val_metrics['Pr'] = np.mean(result_precision)
+                    val_metrics['Re'] = np.mean(result_recall)         
                 
-            self._log(f"Validation best Dice: {max_dice:f} at {dice_thr:f}")
-            self._log(f"Validation best IoU: {max_iou:f} at {iou_thr:f}")
-            self._log(f"Validation best F1: {max_f1:f} at {f1_thr:f}")
+            self._log(f"Validation best Dice: {dice[0]:f} at {dice[1]:f}")
+            self._log(f"Validation best IoU: {iou[0]:f} at {iou[1]:f}")
+            self._log(f"Validation best F1: {f1[0]:f} at {f1[1]:f}")
 
-            # Najboljši F1, Pr, Re, threshold
-            val_metrics = dict()
             val_metrics['dec_threshold'] = metrics['best_thr']
-            val_metrics['dice_threshold'] = dice_thr
-            val_metrics['iou_threshold'] = iou_thr
-            val_metrics['Pr'] = max_pr
-            val_metrics['Re'] = max_re
-            val_metrics['F1'] = max_f1
-            val_metrics['f1_threshold'] = f1_thr
+            val_metrics['F1'], val_metrics['f1_threshold'] = f1
+            val_metrics['Dice'], val_metrics['dice_threshold'] = dice
+            val_metrics['IoU'], val_metrics['iou_threshold'] = iou
 
             return metrics["AP"], metrics["accuracy"], val_metrics
         else:
@@ -463,7 +455,7 @@ class End2End:
             self._log(f"{eval_loader.dataset.kind} set. IoU mean = {np.mean(result_iou):f}, std = {np.std(result_iou):f} at {thresholds['iou_threshold']:f}")
 
             # Dice & IoU Vizualizacija
-            utils.dice_iou(predicted_segs, true_segs, thresholds["dice_threshold"], samples["images"], samples["image_names"], self.run_path, decisions)
+            utils.dice_iou(predicted_segs, true_segs, thresholds, samples["images"], samples["image_names"], self.run_path, decisions)
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
@@ -539,10 +531,14 @@ class End2End:
             f1 = [i['F1'] for i in metrics]
             pr = [i['Pr'] for i in metrics]
             re = [i['Re'] for i in metrics]
+            dice = [i['Dice'] for i in metrics]
+            iou = [i['IoU'] for i in metrics]
             plt.clf()
             plt.plot(epochs, f1, label="F1")
             plt.plot(epochs, pr, label="Pr")
             plt.plot(epochs, re, label="Re")
+            plt.plot(epochs, dice, label="Dice")
+            plt.plot(epochs, iou, label="IoU")
             plt.xlabel("Epochs")
             plt.ylabel("Score")
             plt.legend()
