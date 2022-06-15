@@ -74,25 +74,12 @@ class Dataset(torch.utils.data.Dataset):
 
         image, seg_mask, is_segmented, image_path, seg_mask_path, sample_name, is_pos = item
 
-        if self.cfg.ON_DEMAND_READ:  # STEEL only so far
-            if image_path == -1 or seg_mask_path == -1:
-                raise Exception('For ON_DEMAND_READ image and seg_mask paths must be set in read_contents')
-            img = self.read_img_resize(image_path, self.grayscale, self.image_size)
-            if seg_mask_path is None:  # good sample
-                seg_mask = np.zeros_like(img)
-            elif isinstance(seg_mask_path, list):
-                seg_mask = self.rle_to_mask(seg_mask_path, self.image_size)
-            else:
-                seg_mask, _ = self.self.read_label_resize(seg_mask_path, self.image_size)
-
-            if np.max(seg_mask) == np.min(seg_mask):  # good sample
-                seg_loss_mask = np.ones_like(seg_mask)
-            else:
-                seg_loss_mask = self.distance_transform(seg_mask, self.cfg.WEIGHTED_SEG_LOSS_MAX, self.cfg.WEIGHTED_SEG_LOSS_P)
-
-            image = self.to_tensor(img)
-            seg_mask = self.to_tensor(self.downsize(seg_mask))
-            seg_loss_mask = self.to_tensor(self.downsize(seg_loss_mask))
+        if self.cfg.ON_DEMAND_READ:
+            image = self.read_img_resize(image_path, self.grayscale, self.image_size)
+            image = self.to_tensor(image)
+            seg_mask, _ = self.read_label_resize(seg_mask_path, self.image_size, self.cfg.DILATE)
+            seg_mask = np.array((seg_mask > 0.5), dtype=np.float32)
+            seg_mask = self.to_tensor(seg_mask)
 
         self.counter = self.counter + 1
 

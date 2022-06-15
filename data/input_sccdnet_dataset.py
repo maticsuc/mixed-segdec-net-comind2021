@@ -18,16 +18,20 @@ class SccdnetDataset(Dataset):
             image_path = os.path.join(path_to_samples, 'images', sample)
             seg_mask_path = os.path.join(path_to_samples, 'masks', sample)
             
-            image = self.read_img_resize(image_path, self.grayscale, self.image_size)
-            image = self.to_tensor(image)
-
             seg_mask, _ = self.read_label_resize(seg_mask_path, self.image_size, self.cfg.DILATE)
-
             seg_mask = np.array((seg_mask > 0.5), dtype=np.float32)
-
             positive = seg_mask.max() > 0
 
-            seg_mask = self.to_tensor(seg_mask)
+            self.pos_pixels += (seg_mask == 1).sum().item()
+            self.neg_pixels += (seg_mask == 0).sum().item()
+
+            if not self.cfg.ON_DEMAND_READ:
+                image = self.read_img_resize(image_path, self.grayscale, self.image_size)
+                image = self.to_tensor(image)
+                seg_mask = self.to_tensor(seg_mask)
+            else:
+                image = None
+                seg_mask = None
 
             if positive:
                 self.pos_samples.append((image, seg_mask, True, image_path, seg_mask_path, id, True))
@@ -38,6 +42,9 @@ class SccdnetDataset(Dataset):
 
         self.pos_samples = list()
         self.neg_samples = list()
+
+        self.neg_pixels = 0
+        self.pos_pixels = 0
 
         if self.kind == 'TRAIN':
             self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train'))
@@ -51,12 +58,9 @@ class SccdnetDataset(Dataset):
         
         time = datetime.now().strftime("%d-%m-%y %H:%M")
 
-        self.pos_weight = None
+        self.pos_weight = self.neg_pixels / self.pos_pixels
 
         if self.kind == 'TRAIN' and self.cfg.BCE_LOSS_W:
-            neg = self.count_pixels(0)
-            pos = self.count_pixels(1)
-            self.pos_weight = neg / pos
             print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}, pos_weight: {self.pos_weight}")
         else:
             print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}")

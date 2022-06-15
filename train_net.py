@@ -39,7 +39,7 @@ def parse_args():
     parser.add_argument('--VALIDATION_N_EPOCHS', type=int, default=None, help="Number of epochs between consecutive validation runs.")
     parser.add_argument('--USE_BEST_MODEL', type=str2bool, default=None, help="Whether to use the best model according to validation metrics for evaluation.")
 
-    parser.add_argument('--ON_DEMAND_READ', type=str2bool, default=None, help="Whether to use on-demand read of data from disk instead of storing it in memory.")
+    parser.add_argument('--ON_DEMAND_READ', type=str2bool, default=False, help="Whether to use on-demand read of data from disk instead of storing it in memory.")
     parser.add_argument('--REPRODUCIBLE_RUN', type=int, default=None, required=False, help="Whether to fix seeds and disable CUDA benchmark mode.")
 
     parser.add_argument('--MEMORY_FIT', type=int, default=None, help="How many images can be fitted in GPU memory.")
