@@ -61,7 +61,7 @@ class End2End:
         train_loader = get_dataset("TRAIN", self.cfg)
         validation_loader = get_dataset("VAL", self.cfg)
 
-        loss_seg, loss_dec = self._get_loss(is_seg=True, pos_weight=train_loader.dataset.pos_weight), self._get_loss(is_seg=False)
+        loss_seg, loss_dec = self._get_loss(is_seg=True, pos_weight=train_loader.dataset.pos_weight_seg), self._get_loss(is_seg=False, pos_weight=train_loader.dataset.pos_weight_dec)
 
         tensorboard_writer = SummaryWriter(log_dir=self.tensorboard_path) if WRITE_TENSORBOARD else None
 

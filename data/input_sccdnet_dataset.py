@@ -50,6 +50,8 @@ class SccdnetDataset(Dataset):
             self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train'))
         elif self.kind == 'TEST':
             self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test'))
+        elif self.kind == 'VAL':
+            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val'))
 
         self.num_pos = len(self.pos_samples)
         self.num_neg = len(self.neg_samples)
@@ -58,10 +60,11 @@ class SccdnetDataset(Dataset):
         
         time = datetime.now().strftime("%d-%m-%y %H:%M")
 
-        self.pos_weight = self.neg_pixels / self.pos_pixels
+        self.pos_weight_seg = self.neg_pixels / self.pos_pixels
+        self.pos_weight_dec = self.num_neg / self.num_pos
 
         if self.kind == 'TRAIN' and self.cfg.BCE_LOSS_W:
-            print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}, pos_weight: {self.pos_weight}")
+            print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}, Seg pos_weight: {round(self.pos_weight_seg, 3)}, Dec pos_weight: {round(self.pos_weight_dec, 3)}")
         else:
             print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}")
 
