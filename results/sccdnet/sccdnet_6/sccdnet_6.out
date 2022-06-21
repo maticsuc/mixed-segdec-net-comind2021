@@ -1,0 +1,741 @@
+17-06-22 09:28 sccdnet_6 Executing run with path ./RESULTS/sccdnet/sccdnet_6
+17-06-22 09:28 sccdnet_6 AUGMENTATION              : True
+17-06-22 09:28 sccdnet_6 BATCH_SIZE                : 10
+17-06-22 09:28 sccdnet_6 BCE_LOSS_W                : True
+17-06-22 09:28 sccdnet_6 BEST_MODEL_TYPE           : both
+17-06-22 09:28 sccdnet_6 DATASET                   : sccdnet
+17-06-22 09:28 sccdnet_6 DATASET_PATH              : ./datasets/SCCDNet_dataset
+17-06-22 09:28 sccdnet_6 DELTA_CLS_LOSS            : 0.1
+17-06-22 09:28 sccdnet_6 DILATE                    : 1
+17-06-22 09:28 sccdnet_6 DYN_BALANCED_LOSS         : False
+17-06-22 09:28 sccdnet_6 EPOCHS                    : 100
+17-06-22 09:28 sccdnet_6 FOLD                      : None
+17-06-22 09:28 sccdnet_6 FREQUENCY_SAMPLING        : False
+17-06-22 09:28 sccdnet_6 GPU                       : 1
+17-06-22 09:28 sccdnet_6 GRADIENT_ADJUSTMENT       : True
+17-06-22 09:28 sccdnet_6 HARD_NEG_MINING           : None
+17-06-22 09:28 sccdnet_6 INPUT_CHANNELS            : 3
+17-06-22 09:28 sccdnet_6 INPUT_HEIGHT              : 448
+17-06-22 09:28 sccdnet_6 INPUT_WIDTH               : 448
+17-06-22 09:28 sccdnet_6 LEARNING_RATE             : 0.001
+17-06-22 09:28 sccdnet_6 MEMORY_FIT                : 1
+17-06-22 09:28 sccdnet_6 NUM_SEGMENTED             : 6164
+17-06-22 09:28 sccdnet_6 ON_DEMAND_READ            : False
+17-06-22 09:28 sccdnet_6 OPTIMIZER                 : adam
+17-06-22 09:28 sccdnet_6 PXL_DISTANCE              : 2
+17-06-22 09:28 sccdnet_6 REPRODUCIBLE_RUN          : 102
+17-06-22 09:28 sccdnet_6 RESULTS_PATH              : ./RESULTS
+17-06-22 09:28 sccdnet_6 SAVE_IMAGES               : False
+17-06-22 09:28 sccdnet_6 SCHEDULER                 : None
+17-06-22 09:28 sccdnet_6 SEG_BLACK                 : True
+17-06-22 09:28 sccdnet_6 THR_ADJUSTMENT            : 0.9
+17-06-22 09:28 sccdnet_6 TRAIN_NUM                 : None
+17-06-22 09:28 sccdnet_6 USE_BEST_MODEL            : True
+17-06-22 09:28 sccdnet_6 USE_NEGATIVES             : None
+17-06-22 09:28 sccdnet_6 VALIDATE                  : True
+17-06-22 09:28 sccdnet_6 VALIDATE_ON_TEST          : True
+17-06-22 09:28 sccdnet_6 VALIDATION_N_EPOCHS       : 2
+17-06-22 09:28 sccdnet_6 VAL_NEG                   : None
+17-06-22 09:28 sccdnet_6 WEIGHTED_SEG_LOSS         : False
+17-06-22 09:28 sccdnet_6 WEIGHTED_SEG_LOSS_MAX     : None
+17-06-22 09:28 sccdnet_6 WEIGHTED_SEG_LOSS_P       : None
+17-06-22 09:28 sccdnet_6 Reproducible run, fixing all seeds to: 102
+17-06-22 09:31 TRAIN: Number of positives: 4935, Number of negatives: 1229, Sum: 6164, Seg pos_weight: 47.752, Dec pos_weight: 0.249
+17-06-22 09:31 TEST: Number of positives: 787, Number of negatives: 218, Sum: 1005
+17-06-22 09:31 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_00.pth
+17-06-22 09:31 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 09:31 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 09:45 sccdnet_6 Epoch 1/100 ==> avg_loss_seg=0.74802, avg_loss_dec=0.16535, avg_loss=0.76456, correct=4922/6160, in 850.39s/epoch (fwd/bck in 819.90s/epoch)
+17-06-22 09:45 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 09:46 sccdnet_6 VALIDATION on TEST set || AUC=0.968210, and AP=0.991601, with best thr=0.109249 sat f-measure=0.951 and FP=35, FN=42, TOTAL SAMPLES=1005
+17-06-22 09:46 sccdnet_6 Black Segmentations: 226
+17-06-22 10:02 sccdnet_6 Validation best Dice: 0.609314 at 0.965000
+17-06-22 10:02 sccdnet_6 Validation best IoU: 0.493651 at 0.965000
+17-06-22 10:02 sccdnet_6 Validation best F1: 0.679937 at 0.965000
+17-06-22 10:02 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+17-06-22 10:02 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 10:02 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 10:16 sccdnet_6 Epoch 2/100 ==> avg_loss_seg=0.55472, avg_loss_dec=0.08772, avg_loss=0.56349, correct=5597/6160, in 856.12s/epoch (fwd/bck in 820.86s/epoch)
+17-06-22 10:16 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 10:16 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 10:16 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 10:30 sccdnet_6 Epoch 3/100 ==> avg_loss_seg=0.45036, avg_loss_dec=0.07013, avg_loss=0.45737, correct=5720/6160, in 852.50s/epoch (fwd/bck in 822.80s/epoch)
+17-06-22 10:30 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 10:31 sccdnet_6 VALIDATION on TEST set || AUC=0.975782, and AP=0.993030, with best thr=0.161918 sat f-measure=0.963 and FP=21, FN=36, TOTAL SAMPLES=1005
+17-06-22 10:31 sccdnet_6 Black Segmentations: 234
+17-06-22 10:45 sccdnet_6 Validation best Dice: 0.633175 at 0.940000
+17-06-22 10:45 sccdnet_6 Validation best IoU: 0.517430 at 0.940000
+17-06-22 10:45 sccdnet_6 Validation best F1: 0.693991 at 0.940000
+17-06-22 10:45 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 10:45 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 10:59 sccdnet_6 Epoch 4/100 ==> avg_loss_seg=0.39740, avg_loss_dec=0.05784, avg_loss=0.40318, correct=5799/6160, in 862.80s/epoch (fwd/bck in 819.63s/epoch)
+17-06-22 10:59 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 10:59 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 10:59 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 11:14 sccdnet_6 Epoch 5/100 ==> avg_loss_seg=0.34993, avg_loss_dec=0.04289, avg_loss=0.35422, correct=5894/6160, in 867.19s/epoch (fwd/bck in 820.93s/epoch)
+17-06-22 11:14 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 11:15 sccdnet_6 VALIDATION on TEST set || AUC=0.981517, and AP=0.994944, with best thr=0.503803 sat f-measure=0.966 and FP=14, FN=38, TOTAL SAMPLES=1005
+17-06-22 11:15 sccdnet_6 Black Segmentations: 243
+17-06-22 11:28 sccdnet_6 Validation best Dice: 0.650625 at 0.965000
+17-06-22 11:28 sccdnet_6 Validation best IoU: 0.534903 at 0.970000
+17-06-22 11:28 sccdnet_6 Validation best F1: 0.705087 at 0.965000
+17-06-22 11:28 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+17-06-22 11:28 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_05.pth
+17-06-22 11:28 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 11:28 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 11:42 sccdnet_6 Epoch 6/100 ==> avg_loss_seg=0.31698, avg_loss_dec=0.03323, avg_loss=0.32030, correct=5937/6160, in 849.93s/epoch (fwd/bck in 819.89s/epoch)
+17-06-22 11:42 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 11:42 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 11:42 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 11:57 sccdnet_6 Epoch 7/100 ==> avg_loss_seg=0.29761, avg_loss_dec=0.03143, avg_loss=0.30075, correct=5969/6160, in 850.42s/epoch (fwd/bck in 821.42s/epoch)
+17-06-22 11:57 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 11:57 sccdnet_6 VALIDATION on TEST set || AUC=0.994504, and AP=0.998533, with best thr=0.359826 sat f-measure=0.983 and FP=12, FN=14, TOTAL SAMPLES=1005
+17-06-22 11:57 sccdnet_6 Black Segmentations: 221
+17-06-22 12:12 sccdnet_6 Validation best Dice: 0.678289 at 0.950000
+17-06-22 12:12 sccdnet_6 Validation best IoU: 0.559212 at 0.950000
+17-06-22 12:12 sccdnet_6 Validation best F1: 0.713808 at 0.950000
+17-06-22 12:12 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 12:12 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 12:27 sccdnet_6 Epoch 8/100 ==> avg_loss_seg=0.27289, avg_loss_dec=0.02554, avg_loss=0.27544, correct=6010/6160, in 870.01s/epoch (fwd/bck in 819.87s/epoch)
+17-06-22 12:27 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 12:27 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 12:27 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 12:41 sccdnet_6 Epoch 9/100 ==> avg_loss_seg=0.26082, avg_loss_dec=0.02144, avg_loss=0.26296, correct=6026/6160, in 848.56s/epoch (fwd/bck in 820.97s/epoch)
+17-06-22 12:41 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 12:41 sccdnet_6 VALIDATION on TEST set || AUC=0.998100, and AP=0.999482, with best thr=0.501465 sat f-measure=0.990 and FP=14, FN=2, TOTAL SAMPLES=1005
+17-06-22 12:41 sccdnet_6 Black Segmentations: 207
+17-06-22 12:56 sccdnet_6 Validation best Dice: 0.690695 at 0.925000
+17-06-22 12:56 sccdnet_6 Validation best IoU: 0.570253 at 0.930000
+17-06-22 12:56 sccdnet_6 Validation best F1: 0.719944 at 0.930000
+17-06-22 12:56 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 12:56 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 13:10 sccdnet_6 Epoch 10/100 ==> avg_loss_seg=0.24406, avg_loss_dec=0.01924, avg_loss=0.24598, correct=6036/6160, in 873.10s/epoch (fwd/bck in 821.61s/epoch)
+17-06-22 13:10 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 13:10 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_10.pth
+17-06-22 13:10 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 13:10 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 13:25 sccdnet_6 Epoch 11/100 ==> avg_loss_seg=0.23340, avg_loss_dec=0.01695, avg_loss=0.23510, correct=6048/6160, in 854.82s/epoch (fwd/bck in 824.14s/epoch)
+17-06-22 13:25 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 13:25 sccdnet_6 VALIDATION on TEST set || AUC=0.996794, and AP=0.999096, with best thr=0.953430 sat f-measure=0.988 and FP=10, FN=9, TOTAL SAMPLES=1005
+17-06-22 13:25 sccdnet_6 Black Segmentations: 218
+17-06-22 13:39 sccdnet_6 Validation best Dice: 0.698796 at 0.965000
+17-06-22 13:39 sccdnet_6 Validation best IoU: 0.579026 at 0.965000
+17-06-22 13:39 sccdnet_6 Validation best F1: 0.727012 at 0.965000
+17-06-22 13:39 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+17-06-22 13:39 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 13:39 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 13:53 sccdnet_6 Epoch 12/100 ==> avg_loss_seg=0.23038, avg_loss_dec=0.01866, avg_loss=0.23225, correct=6046/6160, in 865.28s/epoch (fwd/bck in 824.25s/epoch)
+17-06-22 13:53 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 13:53 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 13:53 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 14:08 sccdnet_6 Epoch 13/100 ==> avg_loss_seg=0.21931, avg_loss_dec=0.01372, avg_loss=0.22068, correct=6077/6160, in 865.40s/epoch (fwd/bck in 825.29s/epoch)
+17-06-22 14:08 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 14:08 sccdnet_6 VALIDATION on TEST set || AUC=0.997721, and AP=0.999390, with best thr=0.074405 sat f-measure=0.990 and FP=5, FN=11, TOTAL SAMPLES=1005
+17-06-22 14:08 sccdnet_6 Black Segmentations: 225
+17-06-22 14:24 sccdnet_6 Validation best Dice: 0.689905 at 0.930000
+17-06-22 14:24 sccdnet_6 Validation best IoU: 0.571416 at 0.930000
+17-06-22 14:24 sccdnet_6 Validation best F1: 0.724077 at 0.925000
+17-06-22 14:24 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 14:24 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 14:39 sccdnet_6 Epoch 14/100 ==> avg_loss_seg=0.21227, avg_loss_dec=0.01125, avg_loss=0.21340, correct=6092/6160, in 862.47s/epoch (fwd/bck in 824.85s/epoch)
+17-06-22 14:39 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 14:39 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 14:39 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 14:53 sccdnet_6 Epoch 15/100 ==> avg_loss_seg=0.21184, avg_loss_dec=0.01043, avg_loss=0.21289, correct=6096/6160, in 869.88s/epoch (fwd/bck in 824.95s/epoch)
+17-06-22 14:53 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 14:54 sccdnet_6 VALIDATION on TEST set || AUC=0.998467, and AP=0.999585, with best thr=0.228396 sat f-measure=0.990 and FP=8, FN=7, TOTAL SAMPLES=1005
+17-06-22 14:54 sccdnet_6 Black Segmentations: 218
+17-06-22 15:12 sccdnet_6 Validation best Dice: 0.701106 at 0.965000
+17-06-22 15:12 sccdnet_6 Validation best IoU: 0.580287 at 0.965000
+17-06-22 15:12 sccdnet_6 Validation best F1: 0.726913 at 0.965000
+17-06-22 15:12 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+17-06-22 15:12 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_15.pth
+17-06-22 15:12 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 15:12 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 15:27 sccdnet_6 Epoch 16/100 ==> avg_loss_seg=0.21101, avg_loss_dec=0.01486, avg_loss=0.21250, correct=6072/6160, in 871.05s/epoch (fwd/bck in 825.23s/epoch)
+17-06-22 15:27 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 15:27 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 15:27 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 15:41 sccdnet_6 Epoch 17/100 ==> avg_loss_seg=0.19800, avg_loss_dec=0.00858, avg_loss=0.19886, correct=6109/6160, in 869.52s/epoch (fwd/bck in 825.20s/epoch)
+17-06-22 15:41 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 15:42 sccdnet_6 VALIDATION on TEST set || AUC=0.999021, and AP=0.999734, with best thr=0.004728 sat f-measure=0.994 and FP=6, FN=4, TOTAL SAMPLES=1005
+17-06-22 15:42 sccdnet_6 Black Segmentations: 217
+17-06-22 16:00 sccdnet_6 Validation best Dice: 0.694038 at 0.945000
+17-06-22 16:00 sccdnet_6 Validation best IoU: 0.574816 at 0.945000
+17-06-22 16:00 sccdnet_6 Validation best F1: 0.721177 at 0.945000
+17-06-22 16:00 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 16:00 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 16:14 sccdnet_6 Epoch 18/100 ==> avg_loss_seg=0.19809, avg_loss_dec=0.01299, avg_loss=0.19939, correct=6084/6160, in 870.43s/epoch (fwd/bck in 824.48s/epoch)
+17-06-22 16:14 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 16:14 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 16:14 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 16:29 sccdnet_6 Epoch 19/100 ==> avg_loss_seg=0.18973, avg_loss_dec=0.01072, avg_loss=0.19080, correct=6091/6160, in 872.28s/epoch (fwd/bck in 826.13s/epoch)
+17-06-22 16:29 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 16:29 sccdnet_6 VALIDATION on TEST set || AUC=0.998904, and AP=0.999696, with best thr=0.939778 sat f-measure=0.993 and FP=6, FN=5, TOTAL SAMPLES=1005
+17-06-22 16:29 sccdnet_6 Black Segmentations: 218
+17-06-22 16:47 sccdnet_6 Validation best Dice: 0.712061 at 0.960000
+17-06-22 16:47 sccdnet_6 Validation best IoU: 0.592538 at 0.960000
+17-06-22 16:47 sccdnet_6 Validation best F1: 0.735235 at 0.955000
+17-06-22 16:47 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 16:47 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 17:01 sccdnet_6 Epoch 20/100 ==> avg_loss_seg=0.19159, avg_loss_dec=0.00956, avg_loss=0.19255, correct=6107/6160, in 872.14s/epoch (fwd/bck in 825.24s/epoch)
+17-06-22 17:01 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 17:01 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_20.pth
+17-06-22 17:01 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 17:01 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 17:16 sccdnet_6 Epoch 21/100 ==> avg_loss_seg=0.18736, avg_loss_dec=0.00594, avg_loss=0.18795, correct=6124/6160, in 868.53s/epoch (fwd/bck in 826.08s/epoch)
+17-06-22 17:16 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 17:17 sccdnet_6 VALIDATION on TEST set || AUC=0.999201, and AP=0.999782, with best thr=0.156854 sat f-measure=0.992 and FP=10, FN=2, TOTAL SAMPLES=1005
+17-06-22 17:17 sccdnet_6 Black Segmentations: 211
+17-06-22 17:33 sccdnet_6 Validation best Dice: 0.710439 at 0.970000
+17-06-22 17:33 sccdnet_6 Validation best IoU: 0.589700 at 0.970000
+17-06-22 17:33 sccdnet_6 Validation best F1: 0.732126 at 0.970000
+17-06-22 17:33 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+17-06-22 17:33 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 17:33 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 17:48 sccdnet_6 Epoch 22/100 ==> avg_loss_seg=0.17551, avg_loss_dec=0.00627, avg_loss=0.17614, correct=6124/6160, in 863.92s/epoch (fwd/bck in 824.42s/epoch)
+17-06-22 17:48 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 17:48 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 17:48 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 18:02 sccdnet_6 Epoch 23/100 ==> avg_loss_seg=0.17444, avg_loss_dec=0.00504, avg_loss=0.17494, correct=6134/6160, in 865.98s/epoch (fwd/bck in 826.44s/epoch)
+17-06-22 18:02 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 18:03 sccdnet_6 VALIDATION on TEST set || AUC=0.999056, and AP=0.999739, with best thr=0.005383 sat f-measure=0.993 and FP=9, FN=2, TOTAL SAMPLES=1005
+17-06-22 18:03 sccdnet_6 Black Segmentations: 212
+17-06-22 18:19 sccdnet_6 Validation best Dice: 0.708941 at 0.960000
+17-06-22 18:19 sccdnet_6 Validation best IoU: 0.590700 at 0.965000
+17-06-22 18:19 sccdnet_6 Validation best F1: 0.736152 at 0.965000
+17-06-22 18:19 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 18:19 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 18:33 sccdnet_6 Epoch 24/100 ==> avg_loss_seg=0.18111, avg_loss_dec=0.01298, avg_loss=0.18241, correct=6096/6160, in 851.35s/epoch (fwd/bck in 820.56s/epoch)
+17-06-22 18:33 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 18:33 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 18:33 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 18:47 sccdnet_6 Epoch 25/100 ==> avg_loss_seg=0.17592, avg_loss_dec=0.00601, avg_loss=0.17652, correct=6123/6160, in 853.46s/epoch (fwd/bck in 822.51s/epoch)
+17-06-22 18:47 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 18:48 sccdnet_6 VALIDATION on TEST set || AUC=0.998858, and AP=0.999685, with best thr=0.834764 sat f-measure=0.992 and FP=7, FN=6, TOTAL SAMPLES=1005
+17-06-22 18:48 sccdnet_6 Black Segmentations: 218
+17-06-22 19:03 sccdnet_6 Validation best Dice: 0.710363 at 0.970000
+17-06-22 19:03 sccdnet_6 Validation best IoU: 0.590502 at 0.970000
+17-06-22 19:03 sccdnet_6 Validation best F1: 0.735677 at 0.965000
+17-06-22 19:03 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_25.pth
+17-06-22 19:03 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 19:03 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 19:17 sccdnet_6 Epoch 26/100 ==> avg_loss_seg=0.17465, avg_loss_dec=0.00982, avg_loss=0.17563, correct=6102/6160, in 854.46s/epoch (fwd/bck in 821.39s/epoch)
+17-06-22 19:17 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 19:17 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 19:17 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 19:32 sccdnet_6 Epoch 27/100 ==> avg_loss_seg=0.16287, avg_loss_dec=0.00297, avg_loss=0.16317, correct=6140/6160, in 860.77s/epoch (fwd/bck in 823.08s/epoch)
+17-06-22 19:32 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 19:32 sccdnet_6 VALIDATION on TEST set || AUC=0.999522, and AP=0.999869, with best thr=0.679925 sat f-measure=0.994 and FP=6, FN=3, TOTAL SAMPLES=1005
+17-06-22 19:32 sccdnet_6 Black Segmentations: 216
+17-06-22 19:49 sccdnet_6 Validation best Dice: 0.719896 at 0.955000
+17-06-22 19:49 sccdnet_6 Validation best IoU: 0.600686 at 0.960000
+17-06-22 19:49 sccdnet_6 Validation best F1: 0.743042 at 0.950000
+17-06-22 19:49 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 19:49 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 20:03 sccdnet_6 Epoch 28/100 ==> avg_loss_seg=0.16905, avg_loss_dec=0.00937, avg_loss=0.16999, correct=6101/6160, in 872.26s/epoch (fwd/bck in 822.49s/epoch)
+17-06-22 20:03 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 20:03 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 20:03 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 20:18 sccdnet_6 Epoch 29/100 ==> avg_loss_seg=0.16455, avg_loss_dec=0.00544, avg_loss=0.16509, correct=6133/6160, in 875.30s/epoch (fwd/bck in 822.81s/epoch)
+17-06-22 20:18 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 20:19 sccdnet_6 VALIDATION on TEST set || AUC=0.998863, and AP=0.999687, with best thr=0.420943 sat f-measure=0.991 and FP=10, FN=4, TOTAL SAMPLES=1005
+17-06-22 20:19 sccdnet_6 Black Segmentations: 213
+17-06-22 20:35 sccdnet_6 Validation best Dice: 0.716386 at 0.965000
+17-06-22 20:35 sccdnet_6 Validation best IoU: 0.595924 at 0.965000
+17-06-22 20:35 sccdnet_6 Validation best F1: 0.740834 at 0.965000
+17-06-22 20:35 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 20:35 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 20:50 sccdnet_6 Epoch 30/100 ==> avg_loss_seg=0.15851, avg_loss_dec=0.00531, avg_loss=0.15904, correct=6130/6160, in 874.21s/epoch (fwd/bck in 822.76s/epoch)
+17-06-22 20:50 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 20:50 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_30.pth
+17-06-22 20:50 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 20:50 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 21:05 sccdnet_6 Epoch 31/100 ==> avg_loss_seg=0.16532, avg_loss_dec=0.00670, avg_loss=0.16599, correct=6122/6160, in 875.35s/epoch (fwd/bck in 823.99s/epoch)
+17-06-22 21:05 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 21:05 sccdnet_6 VALIDATION on TEST set || AUC=0.999236, and AP=0.999792, with best thr=0.970780 sat f-measure=0.995 and FP=4, FN=4, TOTAL SAMPLES=1005
+17-06-22 21:05 sccdnet_6 Black Segmentations: 219
+17-06-22 21:22 sccdnet_6 Validation best Dice: 0.721374 at 0.960000
+17-06-22 21:22 sccdnet_6 Validation best IoU: 0.603403 at 0.965000
+17-06-22 21:22 sccdnet_6 Validation best F1: 0.746619 at 0.955000
+17-06-22 21:22 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 21:22 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 21:37 sccdnet_6 Epoch 32/100 ==> avg_loss_seg=0.16272, avg_loss_dec=0.00776, avg_loss=0.16349, correct=6119/6160, in 880.37s/epoch (fwd/bck in 823.81s/epoch)
+17-06-22 21:37 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 21:37 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 21:37 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 21:52 sccdnet_6 Epoch 33/100 ==> avg_loss_seg=0.15125, avg_loss_dec=0.00314, avg_loss=0.15156, correct=6142/6160, in 873.97s/epoch (fwd/bck in 823.47s/epoch)
+17-06-22 21:52 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 21:52 sccdnet_6 VALIDATION on TEST set || AUC=0.998432, and AP=0.999563, with best thr=0.709374 sat f-measure=0.994 and FP=8, FN=2, TOTAL SAMPLES=1005
+17-06-22 21:52 sccdnet_6 Black Segmentations: 213
+17-06-22 22:06 sccdnet_6 Validation best Dice: 0.717610 at 0.970000
+17-06-22 22:06 sccdnet_6 Validation best IoU: 0.597661 at 0.970000
+17-06-22 22:06 sccdnet_6 Validation best F1: 0.737339 at 0.965000
+17-06-22 22:06 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 22:06 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 22:20 sccdnet_6 Epoch 34/100 ==> avg_loss_seg=0.14919, avg_loss_dec=0.00304, avg_loss=0.14949, correct=6140/6160, in 842.24s/epoch (fwd/bck in 819.13s/epoch)
+17-06-22 22:20 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 22:20 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 22:20 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 22:34 sccdnet_6 Epoch 35/100 ==> avg_loss_seg=0.15052, avg_loss_dec=0.00838, avg_loss=0.15135, correct=6119/6160, in 842.76s/epoch (fwd/bck in 819.49s/epoch)
+17-06-22 22:34 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 22:35 sccdnet_6 VALIDATION on TEST set || AUC=0.999470, and AP=0.999858, with best thr=0.452203 sat f-measure=0.996 and FP=3, FN=4, TOTAL SAMPLES=1005
+17-06-22 22:35 sccdnet_6 Black Segmentations: 220
+17-06-22 22:48 sccdnet_6 Validation best Dice: 0.714237 at 0.930000
+17-06-22 22:48 sccdnet_6 Validation best IoU: 0.597219 at 0.935000
+17-06-22 22:48 sccdnet_6 Validation best F1: 0.747664 at 0.925000
+17-06-22 22:48 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_35.pth
+17-06-22 22:48 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 22:48 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 23:02 sccdnet_6 Epoch 36/100 ==> avg_loss_seg=0.16026, avg_loss_dec=0.00662, avg_loss=0.16093, correct=6124/6160, in 843.90s/epoch (fwd/bck in 820.15s/epoch)
+17-06-22 23:02 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 23:02 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 23:02 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 23:16 sccdnet_6 Epoch 37/100 ==> avg_loss_seg=0.15095, avg_loss_dec=0.00234, avg_loss=0.15118, correct=6147/6160, in 842.00s/epoch (fwd/bck in 819.10s/epoch)
+17-06-22 23:16 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 23:17 sccdnet_6 VALIDATION on TEST set || AUC=0.999714, and AP=0.999922, with best thr=0.357008 sat f-measure=0.996 and FP=4, FN=2, TOTAL SAMPLES=1005
+17-06-22 23:17 sccdnet_6 Black Segmentations: 217
+17-06-22 23:29 sccdnet_6 Validation best Dice: 0.729401 at 0.960000
+17-06-22 23:29 sccdnet_6 Validation best IoU: 0.609304 at 0.955000
+17-06-22 23:29 sccdnet_6 Validation best F1: 0.748498 at 0.955000
+17-06-22 23:29 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 23:29 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 23:43 sccdnet_6 Epoch 38/100 ==> avg_loss_seg=0.14563, avg_loss_dec=0.00231, avg_loss=0.14587, correct=6148/6160, in 842.31s/epoch (fwd/bck in 819.79s/epoch)
+17-06-22 23:43 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 23:43 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+17-06-22 23:43 sccdnet_6 Returning dec_gradient_multiplier 0
+17-06-22 23:58 sccdnet_6 Epoch 39/100 ==> avg_loss_seg=0.14570, avg_loss_dec=0.00185, avg_loss=0.14588, correct=6151/6160, in 850.35s/epoch (fwd/bck in 821.40s/epoch)
+17-06-22 23:58 sccdnet_6 Last computing learning rate by optimizer: 0.001
+17-06-22 23:58 sccdnet_6 VALIDATION on TEST set || AUC=0.999633, and AP=0.999900, with best thr=0.547008 sat f-measure=0.996 and FP=6, FN=1, TOTAL SAMPLES=1005
+17-06-22 23:58 sccdnet_6 Black Segmentations: 214
+18-06-22 00:15 sccdnet_6 Validation best Dice: 0.724523 at 0.940000
+18-06-22 00:15 sccdnet_6 Validation best IoU: 0.604396 at 0.945000
+18-06-22 00:15 sccdnet_6 Validation best F1: 0.741030 at 0.940000
+18-06-22 00:15 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 00:15 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 00:30 sccdnet_6 Epoch 40/100 ==> avg_loss_seg=0.14328, avg_loss_dec=0.00413, avg_loss=0.14370, correct=6136/6160, in 879.07s/epoch (fwd/bck in 825.65s/epoch)
+18-06-22 00:30 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 00:30 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_40.pth
+18-06-22 00:30 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 00:30 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 00:45 sccdnet_6 Epoch 41/100 ==> avg_loss_seg=0.14796, avg_loss_dec=0.01036, avg_loss=0.14900, correct=6111/6160, in 879.65s/epoch (fwd/bck in 826.97s/epoch)
+18-06-22 00:45 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 00:46 sccdnet_6 VALIDATION on TEST set || AUC=0.999609, and AP=0.999893, with best thr=0.906634 sat f-measure=0.995 and FP=2, FN=6, TOTAL SAMPLES=1005
+18-06-22 00:46 sccdnet_6 Black Segmentations: 223
+18-06-22 01:04 sccdnet_6 Validation best Dice: 0.728687 at 0.960000
+18-06-22 01:04 sccdnet_6 Validation best IoU: 0.610354 at 0.960000
+18-06-22 01:04 sccdnet_6 Validation best F1: 0.748845 at 0.960000
+18-06-22 01:04 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 01:04 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 01:19 sccdnet_6 Epoch 42/100 ==> avg_loss_seg=0.13956, avg_loss_dec=0.00520, avg_loss=0.14008, correct=6131/6160, in 879.29s/epoch (fwd/bck in 826.35s/epoch)
+18-06-22 01:19 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 01:19 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 01:19 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 01:33 sccdnet_6 Epoch 43/100 ==> avg_loss_seg=0.14447, avg_loss_dec=0.00205, avg_loss=0.14467, correct=6150/6160, in 882.21s/epoch (fwd/bck in 827.02s/epoch)
+18-06-22 01:33 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 01:34 sccdnet_6 VALIDATION on TEST set || AUC=0.999429, and AP=0.999844, with best thr=0.743680 sat f-measure=0.995 and FP=4, FN=4, TOTAL SAMPLES=1005
+18-06-22 01:34 sccdnet_6 Black Segmentations: 219
+18-06-22 01:53 sccdnet_6 Validation best Dice: 0.723385 at 0.945000
+18-06-22 01:53 sccdnet_6 Validation best IoU: 0.603660 at 0.945000
+18-06-22 01:53 sccdnet_6 Validation best F1: 0.742808 at 0.945000
+18-06-22 01:53 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 01:53 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 02:08 sccdnet_6 Epoch 44/100 ==> avg_loss_seg=0.13560, avg_loss_dec=0.00182, avg_loss=0.13578, correct=6148/6160, in 880.27s/epoch (fwd/bck in 826.28s/epoch)
+18-06-22 02:08 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 02:08 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 02:08 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 02:22 sccdnet_6 Epoch 45/100 ==> avg_loss_seg=0.13479, avg_loss_dec=0.00343, avg_loss=0.13514, correct=6141/6160, in 880.10s/epoch (fwd/bck in 827.61s/epoch)
+18-06-22 02:22 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 02:23 sccdnet_6 VALIDATION on TEST set || AUC=0.999860, and AP=0.999962, with best thr=0.139065 sat f-measure=0.997 and FP=4, FN=1, TOTAL SAMPLES=1005
+18-06-22 02:23 sccdnet_6 Black Segmentations: 216
+18-06-22 02:42 sccdnet_6 Validation best Dice: 0.728242 at 0.965000
+18-06-22 02:42 sccdnet_6 Validation best IoU: 0.610110 at 0.970000
+18-06-22 02:42 sccdnet_6 Validation best F1: 0.749266 at 0.970000
+18-06-22 02:42 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_45.pth
+18-06-22 02:42 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 02:42 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 02:57 sccdnet_6 Epoch 46/100 ==> avg_loss_seg=0.13298, avg_loss_dec=0.00113, avg_loss=0.13309, correct=6157/6160, in 880.90s/epoch (fwd/bck in 826.48s/epoch)
+18-06-22 02:57 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 02:57 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 02:57 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 03:12 sccdnet_6 Epoch 47/100 ==> avg_loss_seg=0.13693, avg_loss_dec=0.00634, avg_loss=0.13756, correct=6131/6160, in 879.40s/epoch (fwd/bck in 827.60s/epoch)
+18-06-22 03:12 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 03:12 sccdnet_6 VALIDATION on TEST set || AUC=0.999755, and AP=0.999933, with best thr=0.967445 sat f-measure=0.997 and FP=1, FN=4, TOTAL SAMPLES=1005
+18-06-22 03:12 sccdnet_6 Black Segmentations: 222
+18-06-22 03:31 sccdnet_6 Validation best Dice: 0.730086 at 0.960000
+18-06-22 03:31 sccdnet_6 Validation best IoU: 0.611539 at 0.960000
+18-06-22 03:31 sccdnet_6 Validation best F1: 0.747754 at 0.955000
+18-06-22 03:31 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 03:31 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 03:46 sccdnet_6 Epoch 48/100 ==> avg_loss_seg=0.13306, avg_loss_dec=0.00189, avg_loss=0.13325, correct=6149/6160, in 879.20s/epoch (fwd/bck in 825.06s/epoch)
+18-06-22 03:46 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 03:46 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 03:46 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 04:01 sccdnet_6 Epoch 49/100 ==> avg_loss_seg=0.13774, avg_loss_dec=0.00530, avg_loss=0.13827, correct=6126/6160, in 879.67s/epoch (fwd/bck in 826.30s/epoch)
+18-06-22 04:01 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 04:02 sccdnet_6 VALIDATION on TEST set || AUC=0.999854, and AP=0.999960, with best thr=0.985842 sat f-measure=0.997 and FP=2, FN=3, TOTAL SAMPLES=1005
+18-06-22 04:02 sccdnet_6 Black Segmentations: 220
+18-06-22 04:21 sccdnet_6 Validation best Dice: 0.727169 at 0.955000
+18-06-22 04:21 sccdnet_6 Validation best IoU: 0.610102 at 0.955000
+18-06-22 04:21 sccdnet_6 Validation best F1: 0.748742 at 0.950000
+18-06-22 04:21 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 04:21 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 04:36 sccdnet_6 Epoch 50/100 ==> avg_loss_seg=0.12941, avg_loss_dec=0.00244, avg_loss=0.12965, correct=6147/6160, in 880.38s/epoch (fwd/bck in 825.46s/epoch)
+18-06-22 04:36 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 04:36 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_50.pth
+18-06-22 04:36 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 04:36 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 04:50 sccdnet_6 Epoch 51/100 ==> avg_loss_seg=0.12671, avg_loss_dec=0.00396, avg_loss=0.12711, correct=6140/6160, in 878.43s/epoch (fwd/bck in 826.38s/epoch)
+18-06-22 04:50 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 04:51 sccdnet_6 VALIDATION on TEST set || AUC=0.999260, and AP=0.999796, with best thr=0.006096 sat f-measure=0.994 and FP=7, FN=2, TOTAL SAMPLES=1005
+18-06-22 04:51 sccdnet_6 Black Segmentations: 214
+18-06-22 05:07 sccdnet_6 Validation best Dice: 0.721097 at 0.965000
+18-06-22 05:07 sccdnet_6 Validation best IoU: 0.603216 at 0.965000
+18-06-22 05:07 sccdnet_6 Validation best F1: 0.745410 at 0.965000
+18-06-22 05:07 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 05:07 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 05:21 sccdnet_6 Epoch 52/100 ==> avg_loss_seg=0.12727, avg_loss_dec=0.00170, avg_loss=0.12744, correct=6152/6160, in 844.47s/epoch (fwd/bck in 820.26s/epoch)
+18-06-22 05:21 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 05:21 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 05:21 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 05:36 sccdnet_6 Epoch 53/100 ==> avg_loss_seg=0.12967, avg_loss_dec=0.00595, avg_loss=0.13026, correct=6140/6160, in 864.51s/epoch (fwd/bck in 823.16s/epoch)
+18-06-22 05:36 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 05:36 sccdnet_6 VALIDATION on TEST set || AUC=0.999032, and AP=0.999750, with best thr=0.000212 sat f-measure=0.994 and FP=6, FN=3, TOTAL SAMPLES=1005
+18-06-22 05:36 sccdnet_6 Black Segmentations: 216
+18-06-22 05:51 sccdnet_6 Validation best Dice: 0.719426 at 0.950000
+18-06-22 05:51 sccdnet_6 Validation best IoU: 0.600443 at 0.955000
+18-06-22 05:51 sccdnet_6 Validation best F1: 0.739332 at 0.950000
+18-06-22 05:51 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 05:51 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 06:05 sccdnet_6 Epoch 54/100 ==> avg_loss_seg=0.12885, avg_loss_dec=0.00617, avg_loss=0.12947, correct=6131/6160, in 866.23s/epoch (fwd/bck in 823.21s/epoch)
+18-06-22 06:05 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 06:05 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 06:05 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 06:20 sccdnet_6 Epoch 55/100 ==> avg_loss_seg=0.12245, avg_loss_dec=0.00183, avg_loss=0.12264, correct=6151/6160, in 868.03s/epoch (fwd/bck in 824.54s/epoch)
+18-06-22 06:20 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 06:20 sccdnet_6 VALIDATION on TEST set || AUC=0.999586, and AP=0.999882, with best thr=0.988949 sat f-measure=0.997 and FP=2, FN=3, TOTAL SAMPLES=1005
+18-06-22 06:20 sccdnet_6 Black Segmentations: 220
+18-06-22 06:35 sccdnet_6 Validation best Dice: 0.734131 at 0.955000
+18-06-22 06:35 sccdnet_6 Validation best IoU: 0.615564 at 0.955000
+18-06-22 06:35 sccdnet_6 Validation best F1: 0.750348 at 0.950000
+18-06-22 06:35 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_55.pth
+18-06-22 06:35 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 06:35 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 06:49 sccdnet_6 Epoch 56/100 ==> avg_loss_seg=0.12374, avg_loss_dec=0.00110, avg_loss=0.12385, correct=6152/6160, in 865.81s/epoch (fwd/bck in 822.93s/epoch)
+18-06-22 06:49 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 06:49 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 06:49 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 07:04 sccdnet_6 Epoch 57/100 ==> avg_loss_seg=0.12075, avg_loss_dec=0.00180, avg_loss=0.12093, correct=6153/6160, in 867.21s/epoch (fwd/bck in 824.43s/epoch)
+18-06-22 07:04 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 07:04 sccdnet_6 VALIDATION on TEST set || AUC=0.999592, and AP=0.999886, with best thr=0.760780 sat f-measure=0.996 and FP=5, FN=1, TOTAL SAMPLES=1005
+18-06-22 07:04 sccdnet_6 Black Segmentations: 215
+18-06-22 07:19 sccdnet_6 Validation best Dice: 0.732968 at 0.965000
+18-06-22 07:19 sccdnet_6 Validation best IoU: 0.614396 at 0.965000
+18-06-22 07:19 sccdnet_6 Validation best F1: 0.749564 at 0.960000
+18-06-22 07:19 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 07:19 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 07:33 sccdnet_6 Epoch 58/100 ==> avg_loss_seg=0.12081, avg_loss_dec=0.00073, avg_loss=0.12089, correct=6157/6160, in 866.03s/epoch (fwd/bck in 821.00s/epoch)
+18-06-22 07:33 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 07:33 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 07:33 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 07:48 sccdnet_6 Epoch 59/100 ==> avg_loss_seg=0.11961, avg_loss_dec=0.00446, avg_loss=0.12005, correct=6135/6160, in 862.81s/epoch (fwd/bck in 821.73s/epoch)
+18-06-22 07:48 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 07:48 sccdnet_6 VALIDATION on TEST set || AUC=0.999796, and AP=0.999943, with best thr=0.990328 sat f-measure=0.997 and FP=3, FN=2, TOTAL SAMPLES=1005
+18-06-22 07:48 sccdnet_6 Black Segmentations: 218
+18-06-22 08:03 sccdnet_6 Validation best Dice: 0.737874 at 0.965000
+18-06-22 08:03 sccdnet_6 Validation best IoU: 0.619140 at 0.965000
+18-06-22 08:03 sccdnet_6 Validation best F1: 0.752628 at 0.960000
+18-06-22 08:03 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 08:03 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 08:17 sccdnet_6 Epoch 60/100 ==> avg_loss_seg=0.12345, avg_loss_dec=0.00294, avg_loss=0.12374, correct=6147/6160, in 863.38s/epoch (fwd/bck in 821.76s/epoch)
+18-06-22 08:17 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 08:17 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_60.pth
+18-06-22 08:17 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 08:17 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 08:32 sccdnet_6 Epoch 61/100 ==> avg_loss_seg=0.12265, avg_loss_dec=0.00172, avg_loss=0.12282, correct=6147/6160, in 865.72s/epoch (fwd/bck in 822.98s/epoch)
+18-06-22 08:32 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 08:32 sccdnet_6 VALIDATION on TEST set || AUC=0.999738, and AP=0.999928, with best thr=0.858911 sat f-measure=0.996 and FP=4, FN=3, TOTAL SAMPLES=1005
+18-06-22 08:32 sccdnet_6 Black Segmentations: 218
+18-06-22 08:47 sccdnet_6 Validation best Dice: 0.734269 at 0.960000
+18-06-22 08:47 sccdnet_6 Validation best IoU: 0.615432 at 0.960000
+18-06-22 08:47 sccdnet_6 Validation best F1: 0.750821 at 0.960000
+18-06-22 08:47 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 08:47 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 09:01 sccdnet_6 Epoch 62/100 ==> avg_loss_seg=0.11613, avg_loss_dec=0.00066, avg_loss=0.11620, correct=6157/6160, in 861.38s/epoch (fwd/bck in 822.06s/epoch)
+18-06-22 09:01 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 09:01 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 09:01 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 09:16 sccdnet_6 Epoch 63/100 ==> avg_loss_seg=0.11612, avg_loss_dec=0.00437, avg_loss=0.11656, correct=6140/6160, in 863.18s/epoch (fwd/bck in 822.87s/epoch)
+18-06-22 09:16 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 09:16 sccdnet_6 VALIDATION on TEST set || AUC=0.999639, and AP=0.999901, with best thr=0.384698 sat f-measure=0.995 and FP=2, FN=6, TOTAL SAMPLES=1005
+18-06-22 09:16 sccdnet_6 Black Segmentations: 223
+18-06-22 09:31 sccdnet_6 Validation best Dice: 0.735267 at 0.965000
+18-06-22 09:31 sccdnet_6 Validation best IoU: 0.616259 at 0.965000
+18-06-22 09:31 sccdnet_6 Validation best F1: 0.755893 at 0.960000
+18-06-22 09:31 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 09:31 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 09:45 sccdnet_6 Epoch 64/100 ==> avg_loss_seg=0.11895, avg_loss_dec=0.00321, avg_loss=0.11927, correct=6148/6160, in 864.84s/epoch (fwd/bck in 822.34s/epoch)
+18-06-22 09:45 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 09:45 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 09:45 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 09:59 sccdnet_6 Epoch 65/100 ==> avg_loss_seg=0.11374, avg_loss_dec=0.00069, avg_loss=0.11381, correct=6156/6160, in 842.92s/epoch (fwd/bck in 820.69s/epoch)
+18-06-22 09:59 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 10:00 sccdnet_6 VALIDATION on TEST set || AUC=0.999639, and AP=0.999900, with best thr=0.895329 sat f-measure=0.996 and FP=3, FN=3, TOTAL SAMPLES=1005
+18-06-22 10:00 sccdnet_6 Black Segmentations: 219
+18-06-22 10:13 sccdnet_6 Validation best Dice: 0.740135 at 0.970000
+18-06-22 10:13 sccdnet_6 Validation best IoU: 0.620660 at 0.970000
+18-06-22 10:13 sccdnet_6 Validation best F1: 0.756558 at 0.965000
+18-06-22 10:13 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+18-06-22 10:13 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_65.pth
+18-06-22 10:13 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 10:13 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 10:27 sccdnet_6 Epoch 66/100 ==> avg_loss_seg=0.11381, avg_loss_dec=0.00071, avg_loss=0.11388, correct=6156/6160, in 845.38s/epoch (fwd/bck in 820.96s/epoch)
+18-06-22 10:27 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 10:27 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 10:27 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 10:41 sccdnet_6 Epoch 67/100 ==> avg_loss_seg=0.11558, avg_loss_dec=0.00118, avg_loss=0.11570, correct=6155/6160, in 863.13s/epoch (fwd/bck in 823.40s/epoch)
+18-06-22 10:41 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 10:42 sccdnet_6 VALIDATION on TEST set || AUC=0.999784, and AP=0.999940, with best thr=0.899082 sat f-measure=0.997 and FP=2, FN=3, TOTAL SAMPLES=1005
+18-06-22 10:42 sccdnet_6 Black Segmentations: 220
+18-06-22 10:57 sccdnet_6 Validation best Dice: 0.739274 at 0.940000
+18-06-22 10:57 sccdnet_6 Validation best IoU: 0.619918 at 0.940000
+18-06-22 10:57 sccdnet_6 Validation best F1: 0.756794 at 0.930000
+18-06-22 10:57 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 10:57 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 11:11 sccdnet_6 Epoch 68/100 ==> avg_loss_seg=0.11260, avg_loss_dec=0.00077, avg_loss=0.11268, correct=6156/6160, in 863.90s/epoch (fwd/bck in 822.66s/epoch)
+18-06-22 11:11 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 11:11 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 11:11 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 11:25 sccdnet_6 Epoch 69/100 ==> avg_loss_seg=0.11179, avg_loss_dec=0.00030, avg_loss=0.11182, correct=6159/6160, in 863.15s/epoch (fwd/bck in 823.40s/epoch)
+18-06-22 11:25 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 11:26 sccdnet_6 VALIDATION on TEST set || AUC=0.999883, and AP=0.999968, with best thr=0.665326 sat f-measure=0.997 and FP=2, FN=2, TOTAL SAMPLES=1005
+18-06-22 11:26 sccdnet_6 Black Segmentations: 219
+18-06-22 11:41 sccdnet_6 Validation best Dice: 0.741875 at 0.960000
+18-06-22 11:41 sccdnet_6 Validation best IoU: 0.623100 at 0.960000
+18-06-22 11:41 sccdnet_6 Validation best F1: 0.757205 at 0.955000
+18-06-22 11:41 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 11:41 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 11:55 sccdnet_6 Epoch 70/100 ==> avg_loss_seg=0.11417, avg_loss_dec=0.00375, avg_loss=0.11455, correct=6145/6160, in 860.85s/epoch (fwd/bck in 823.08s/epoch)
+18-06-22 11:55 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 11:55 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_70.pth
+18-06-22 11:55 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 11:55 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 12:09 sccdnet_6 Epoch 71/100 ==> avg_loss_seg=0.10821, avg_loss_dec=0.00451, avg_loss=0.10866, correct=6143/6160, in 862.12s/epoch (fwd/bck in 824.78s/epoch)
+18-06-22 12:09 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 12:10 sccdnet_6 VALIDATION on TEST set || AUC=0.999889, and AP=0.999969, with best thr=0.961174 sat f-measure=0.997 and FP=3, FN=2, TOTAL SAMPLES=1005
+18-06-22 12:10 sccdnet_6 Black Segmentations: 218
+18-06-22 12:24 sccdnet_6 Validation best Dice: 0.737899 at 0.955000
+18-06-22 12:24 sccdnet_6 Validation best IoU: 0.619877 at 0.955000
+18-06-22 12:24 sccdnet_6 Validation best F1: 0.753993 at 0.950000
+18-06-22 12:24 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 12:24 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 12:39 sccdnet_6 Epoch 72/100 ==> avg_loss_seg=0.10780, avg_loss_dec=0.00196, avg_loss=0.10800, correct=6153/6160, in 860.48s/epoch (fwd/bck in 821.67s/epoch)
+18-06-22 12:39 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 12:39 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 12:39 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 12:53 sccdnet_6 Epoch 73/100 ==> avg_loss_seg=0.11243, avg_loss_dec=0.00077, avg_loss=0.11250, correct=6155/6160, in 859.06s/epoch (fwd/bck in 822.35s/epoch)
+18-06-22 12:53 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 12:54 sccdnet_6 VALIDATION on TEST set || AUC=0.999662, and AP=0.999907, with best thr=0.990117 sat f-measure=0.996 and FP=3, FN=4, TOTAL SAMPLES=1005
+18-06-22 12:54 sccdnet_6 Black Segmentations: 220
+18-06-22 13:08 sccdnet_6 Validation best Dice: 0.742200 at 0.980000
+18-06-22 13:08 sccdnet_6 Validation best IoU: 0.622999 at 0.980000
+18-06-22 13:08 sccdnet_6 Validation best F1: 0.756931 at 0.975000
+18-06-22 13:08 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+18-06-22 13:08 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 13:08 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 13:23 sccdnet_6 Epoch 74/100 ==> avg_loss_seg=0.10621, avg_loss_dec=0.00016, avg_loss=0.10623, correct=6160/6160, in 857.75s/epoch (fwd/bck in 822.34s/epoch)
+18-06-22 13:23 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 13:23 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 13:23 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 13:37 sccdnet_6 Epoch 75/100 ==> avg_loss_seg=0.10811, avg_loss_dec=0.00356, avg_loss=0.10847, correct=6143/6160, in 858.74s/epoch (fwd/bck in 822.99s/epoch)
+18-06-22 13:37 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 13:38 sccdnet_6 VALIDATION on TEST set || AUC=0.999767, and AP=0.999936, with best thr=0.976168 sat f-measure=0.998 and FP=2, FN=1, TOTAL SAMPLES=1005
+18-06-22 13:38 sccdnet_6 Black Segmentations: 218
+18-06-22 13:52 sccdnet_6 Validation best Dice: 0.734433 at 0.965000
+18-06-22 13:52 sccdnet_6 Validation best IoU: 0.616786 at 0.970000
+18-06-22 13:52 sccdnet_6 Validation best F1: 0.752483 at 0.965000
+18-06-22 13:52 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_75.pth
+18-06-22 13:52 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 13:52 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 14:06 sccdnet_6 Epoch 76/100 ==> avg_loss_seg=0.10785, avg_loss_dec=0.00331, avg_loss=0.10818, correct=6144/6160, in 859.10s/epoch (fwd/bck in 821.88s/epoch)
+18-06-22 14:06 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 14:06 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 14:06 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 14:21 sccdnet_6 Epoch 77/100 ==> avg_loss_seg=0.10501, avg_loss_dec=0.00274, avg_loss=0.10529, correct=6150/6160, in 855.43s/epoch (fwd/bck in 822.72s/epoch)
+18-06-22 14:21 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 14:22 sccdnet_6 VALIDATION on TEST set || AUC=0.999895, and AP=0.999971, with best thr=0.716831 sat f-measure=0.997 and FP=1, FN=3, TOTAL SAMPLES=1005
+18-06-22 14:22 sccdnet_6 Black Segmentations: 221
+18-06-22 14:36 sccdnet_6 Validation best Dice: 0.742257 at 0.960000
+18-06-22 14:36 sccdnet_6 Validation best IoU: 0.623581 at 0.960000
+18-06-22 14:36 sccdnet_6 Validation best F1: 0.756630 at 0.955000
+18-06-22 14:36 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 14:36 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 14:50 sccdnet_6 Epoch 78/100 ==> avg_loss_seg=0.10711, avg_loss_dec=0.00121, avg_loss=0.10723, correct=6149/6160, in 861.84s/epoch (fwd/bck in 823.30s/epoch)
+18-06-22 14:50 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 14:50 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 14:50 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 15:05 sccdnet_6 Epoch 79/100 ==> avg_loss_seg=0.10705, avg_loss_dec=0.00321, avg_loss=0.10737, correct=6146/6160, in 864.70s/epoch (fwd/bck in 823.87s/epoch)
+18-06-22 15:05 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 15:06 sccdnet_6 VALIDATION on TEST set || AUC=0.999784, and AP=0.999941, with best thr=0.993268 sat f-measure=0.996 and FP=2, FN=4, TOTAL SAMPLES=1005
+18-06-22 15:06 sccdnet_6 Black Segmentations: 221
+18-06-22 15:20 sccdnet_6 Validation best Dice: 0.746124 at 0.970000
+18-06-22 15:20 sccdnet_6 Validation best IoU: 0.627187 at 0.970000
+18-06-22 15:20 sccdnet_6 Validation best F1: 0.759511 at 0.965000
+18-06-22 15:20 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 15:20 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 15:34 sccdnet_6 Epoch 80/100 ==> avg_loss_seg=0.10298, avg_loss_dec=0.00013, avg_loss=0.10299, correct=6159/6160, in 864.43s/epoch (fwd/bck in 822.23s/epoch)
+18-06-22 15:34 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 15:34 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_80.pth
+18-06-22 15:34 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 15:34 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 15:49 sccdnet_6 Epoch 81/100 ==> avg_loss_seg=0.10431, avg_loss_dec=0.00066, avg_loss=0.10438, correct=6156/6160, in 864.20s/epoch (fwd/bck in 823.51s/epoch)
+18-06-22 15:49 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 15:50 sccdnet_6 VALIDATION on TEST set || AUC=0.999094, and AP=0.999755, with best thr=0.992688 sat f-measure=0.994 and FP=3, FN=6, TOTAL SAMPLES=1005
+18-06-22 15:50 sccdnet_6 Black Segmentations: 222
+18-06-22 16:04 sccdnet_6 Validation best Dice: 0.719096 at 0.970000
+18-06-22 16:04 sccdnet_6 Validation best IoU: 0.602727 at 0.970000
+18-06-22 16:04 sccdnet_6 Validation best F1: 0.744342 at 0.965000
+18-06-22 16:04 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 16:04 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 16:18 sccdnet_6 Epoch 82/100 ==> avg_loss_seg=0.10486, avg_loss_dec=0.00362, avg_loss=0.10523, correct=6144/6160, in 861.47s/epoch (fwd/bck in 822.06s/epoch)
+18-06-22 16:18 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 16:18 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 16:18 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 16:33 sccdnet_6 Epoch 83/100 ==> avg_loss_seg=0.10179, avg_loss_dec=0.00267, avg_loss=0.10206, correct=6149/6160, in 874.81s/epoch (fwd/bck in 823.50s/epoch)
+18-06-22 16:33 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 16:34 sccdnet_6 VALIDATION on TEST set || AUC=0.999942, and AP=0.999984, with best thr=0.894162 sat f-measure=0.998 and FP=3, FN=0, TOTAL SAMPLES=1005
+18-06-22 16:34 sccdnet_6 Black Segmentations: 216
+18-06-22 16:58 sccdnet_6 Validation best Dice: 0.745672 at 0.970000
+18-06-22 16:58 sccdnet_6 Validation best IoU: 0.626171 at 0.970000
+18-06-22 16:58 sccdnet_6 Validation best F1: 0.757779 at 0.965000
+18-06-22 16:58 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 16:58 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 17:14 sccdnet_6 Epoch 84/100 ==> avg_loss_seg=0.10120, avg_loss_dec=0.00017, avg_loss=0.10122, correct=6158/6160, in 972.18s/epoch (fwd/bck in 840.80s/epoch)
+18-06-22 17:14 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 17:14 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 17:14 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 17:29 sccdnet_6 Epoch 85/100 ==> avg_loss_seg=0.10193, avg_loss_dec=0.00027, avg_loss=0.10195, correct=6158/6160, in 909.57s/epoch (fwd/bck in 830.36s/epoch)
+18-06-22 17:29 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 17:30 sccdnet_6 VALIDATION on TEST set || AUC=0.999843, and AP=0.999957, with best thr=0.858959 sat f-measure=0.997 and FP=1, FN=3, TOTAL SAMPLES=1005
+18-06-22 17:30 sccdnet_6 Black Segmentations: 221
+18-06-22 17:56 sccdnet_6 Validation best Dice: 0.745628 at 0.965000
+18-06-22 17:56 sccdnet_6 Validation best IoU: 0.626076 at 0.965000
+18-06-22 17:56 sccdnet_6 Validation best F1: 0.759962 at 0.960000
+18-06-22 17:56 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_85.pth
+18-06-22 17:56 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 17:56 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 18:12 sccdnet_6 Epoch 86/100 ==> avg_loss_seg=0.10334, avg_loss_dec=0.00451, avg_loss=0.10379, correct=6140/6160, in 933.95s/epoch (fwd/bck in 835.88s/epoch)
+18-06-22 18:12 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 18:12 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 18:12 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 18:26 sccdnet_6 Epoch 87/100 ==> avg_loss_seg=0.10024, avg_loss_dec=0.00012, avg_loss=0.10025, correct=6160/6160, in 882.14s/epoch (fwd/bck in 825.14s/epoch)
+18-06-22 18:26 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 18:27 sccdnet_6 VALIDATION on TEST set || AUC=0.999580, and AP=0.999886, with best thr=0.741675 sat f-measure=0.996 and FP=1, FN=6, TOTAL SAMPLES=1005
+18-06-22 18:27 sccdnet_6 Black Segmentations: 224
+18-06-22 18:47 sccdnet_6 Validation best Dice: 0.740747 at 0.960000
+18-06-22 18:47 sccdnet_6 Validation best IoU: 0.620790 at 0.960000
+18-06-22 18:47 sccdnet_6 Validation best F1: 0.757518 at 0.955000
+18-06-22 18:47 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 18:47 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 19:02 sccdnet_6 Epoch 88/100 ==> avg_loss_seg=0.10969, avg_loss_dec=0.00320, avg_loss=0.11001, correct=6142/6160, in 923.24s/epoch (fwd/bck in 833.59s/epoch)
+18-06-22 19:02 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 19:02 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 19:02 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 19:17 sccdnet_6 Epoch 89/100 ==> avg_loss_seg=0.09900, avg_loss_dec=0.00165, avg_loss=0.09917, correct=6152/6160, in 882.25s/epoch (fwd/bck in 825.82s/epoch)
+18-06-22 19:17 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 19:18 sccdnet_6 VALIDATION on TEST set || AUC=0.999656, and AP=0.999905, with best thr=0.996839 sat f-measure=0.996 and FP=1, FN=6, TOTAL SAMPLES=1005
+18-06-22 19:18 sccdnet_6 Black Segmentations: 224
+18-06-22 19:37 sccdnet_6 Validation best Dice: 0.737693 at 0.960000
+18-06-22 19:37 sccdnet_6 Validation best IoU: 0.621587 at 0.965000
+18-06-22 19:37 sccdnet_6 Validation best F1: 0.757736 at 0.955000
+18-06-22 19:37 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 19:37 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 19:52 sccdnet_6 Epoch 90/100 ==> avg_loss_seg=0.09729, avg_loss_dec=0.00035, avg_loss=0.09732, correct=6159/6160, in 897.98s/epoch (fwd/bck in 822.81s/epoch)
+18-06-22 19:52 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 19:52 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_90.pth
+18-06-22 19:52 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 19:52 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 20:06 sccdnet_6 Epoch 91/100 ==> avg_loss_seg=0.09771, avg_loss_dec=0.00008, avg_loss=0.09772, correct=6160/6160, in 848.18s/epoch (fwd/bck in 820.94s/epoch)
+18-06-22 20:06 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 20:07 sccdnet_6 VALIDATION on TEST set || AUC=0.999749, and AP=0.999931, with best thr=0.844480 sat f-measure=0.996 and FP=2, FN=4, TOTAL SAMPLES=1005
+18-06-22 20:07 sccdnet_6 Black Segmentations: 221
+18-06-22 20:23 sccdnet_6 Validation best Dice: 0.747069 at 0.955000
+18-06-22 20:23 sccdnet_6 Validation best IoU: 0.628379 at 0.955000
+18-06-22 20:23 sccdnet_6 Validation best F1: 0.761163 at 0.950000
+18-06-22 20:23 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 20:23 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 20:38 sccdnet_6 Epoch 92/100 ==> avg_loss_seg=0.09720, avg_loss_dec=0.00103, avg_loss=0.09731, correct=6155/6160, in 893.60s/epoch (fwd/bck in 821.08s/epoch)
+18-06-22 20:38 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 20:38 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 20:38 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 20:52 sccdnet_6 Epoch 93/100 ==> avg_loss_seg=0.10235, avg_loss_dec=0.00610, avg_loss=0.10296, correct=6135/6160, in 846.12s/epoch (fwd/bck in 819.15s/epoch)
+18-06-22 20:52 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 20:53 sccdnet_6 VALIDATION on TEST set || AUC=0.999580, and AP=0.999884, with best thr=0.797552 sat f-measure=0.994 and FP=8, FN=2, TOTAL SAMPLES=1005
+18-06-22 20:53 sccdnet_6 Black Segmentations: 213
+18-06-22 21:09 sccdnet_6 Validation best Dice: 0.738906 at 0.965000
+18-06-22 21:09 sccdnet_6 Validation best IoU: 0.619842 at 0.965000
+18-06-22 21:09 sccdnet_6 Validation best F1: 0.754815 at 0.965000
+18-06-22 21:09 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 21:09 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 21:23 sccdnet_6 Epoch 94/100 ==> avg_loss_seg=0.09849, avg_loss_dec=0.00119, avg_loss=0.09861, correct=6152/6160, in 898.55s/epoch (fwd/bck in 822.06s/epoch)
+18-06-22 21:23 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 21:23 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 21:23 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 21:38 sccdnet_6 Epoch 95/100 ==> avg_loss_seg=0.11000, avg_loss_dec=0.00198, avg_loss=0.11020, correct=6152/6160, in 876.09s/epoch (fwd/bck in 823.57s/epoch)
+18-06-22 21:38 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 21:39 sccdnet_6 VALIDATION on TEST set || AUC=0.999732, and AP=0.999927, with best thr=0.955313 sat f-measure=0.997 and FP=0, FN=5, TOTAL SAMPLES=1005
+18-06-22 21:39 sccdnet_6 Black Segmentations: 224
+18-06-22 22:01 sccdnet_6 Validation best Dice: 0.749184 at 0.965000
+18-06-22 22:01 sccdnet_6 Validation best IoU: 0.630651 at 0.965000
+18-06-22 22:01 sccdnet_6 Validation best F1: 0.763212 at 0.960000
+18-06-22 22:01 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/ep_95.pth
+18-06-22 22:01 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 22:01 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 22:16 sccdnet_6 Epoch 96/100 ==> avg_loss_seg=0.09688, avg_loss_dec=0.00082, avg_loss=0.09696, correct=6154/6160, in 910.28s/epoch (fwd/bck in 827.99s/epoch)
+18-06-22 22:16 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 22:16 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 22:16 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 22:30 sccdnet_6 Epoch 97/100 ==> avg_loss_seg=0.09618, avg_loss_dec=0.00048, avg_loss=0.09623, correct=6157/6160, in 871.55s/epoch (fwd/bck in 822.91s/epoch)
+18-06-22 22:30 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 22:31 sccdnet_6 VALIDATION on TEST set || AUC=0.999790, and AP=0.999942, with best thr=0.001645 sat f-measure=0.997 and FP=0, FN=4, TOTAL SAMPLES=1005
+18-06-22 22:31 sccdnet_6 Black Segmentations: 223
+18-06-22 22:53 sccdnet_6 Validation best Dice: 0.748000 at 0.960000
+18-06-22 22:53 sccdnet_6 Validation best IoU: 0.629562 at 0.960000
+18-06-22 22:53 sccdnet_6 Validation best F1: 0.764614 at 0.950000
+18-06-22 22:53 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 22:53 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 23:08 sccdnet_6 Epoch 98/100 ==> avg_loss_seg=0.09425, avg_loss_dec=0.00033, avg_loss=0.09429, correct=6158/6160, in 914.48s/epoch (fwd/bck in 830.92s/epoch)
+18-06-22 23:08 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 23:08 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 23:08 sccdnet_6 Returning dec_gradient_multiplier 0
+18-06-22 23:23 sccdnet_6 Epoch 99/100 ==> avg_loss_seg=0.09557, avg_loss_dec=0.00008, avg_loss=0.09558, correct=6160/6160, in 876.73s/epoch (fwd/bck in 822.24s/epoch)
+18-06-22 23:23 sccdnet_6 Last computing learning rate by optimizer: 0.001
+18-06-22 23:23 sccdnet_6 VALIDATION on TEST set || AUC=0.999854, and AP=0.999961, with best thr=0.940116 sat f-measure=0.999 and FP=1, FN=1, TOTAL SAMPLES=1005
+18-06-22 23:23 sccdnet_6 Black Segmentations: 219
+18-06-22 23:49 sccdnet_6 Validation best Dice: 0.745925 at 0.960000
+18-06-22 23:49 sccdnet_6 Validation best IoU: 0.627215 at 0.965000
+18-06-22 23:49 sccdnet_6 Validation best F1: 0.759832 at 0.955000
+18-06-22 23:49 sccdnet_6 Returning seg_loss_weight 1 and dec_loss_weight 0.1
+18-06-22 23:49 sccdnet_6 Returning dec_gradient_multiplier 0
+19-06-22 00:04 sccdnet_6 Epoch 100/100 ==> avg_loss_seg=0.09391, avg_loss_dec=0.00018, avg_loss=0.09393, correct=6159/6160, in 933.27s/epoch (fwd/bck in 831.77s/epoch)
+19-06-22 00:04 sccdnet_6 Last computing learning rate by optimizer: 0.001
+19-06-22 00:05 sccdnet_6 VALIDATION on TEST set || AUC=0.999918, and AP=0.999978, with best thr=0.948334 sat f-measure=0.998 and FP=0, FN=3, TOTAL SAMPLES=1005
+19-06-22 00:05 sccdnet_6 Black Segmentations: 222
+19-06-22 00:24 sccdnet_6 Validation best Dice: 0.748294 at 0.960000
+19-06-22 00:24 sccdnet_6 Validation best IoU: 0.629783 at 0.960000
+19-06-22 00:24 sccdnet_6 Validation best F1: 0.761216 at 0.950000
+19-06-22 00:24 sccdnet_6 Training time: 1 day, 14:52:37.913296
+19-06-22 00:24 sccdnet_6 Saving current model state to ./RESULTS/sccdnet/sccdnet_6/models/final_state_dict.pth
+19-06-22 00:24 sccdnet_6 Loading model state from ./RESULTS/sccdnet/sccdnet_6/models/best_state_dict.pth
+19-06-22 00:24 TEST: Number of positives: 787, Number of negatives: 218, Sum: 1005
+19-06-22 00:25 sccdnet_6 Decision EVAL on TEST. Pr: 0.996183, Re: 0.994917, F1: 0.995550, Accuracy: 0.993035, Threshold: 0.9901170134544373
+19-06-22 00:25 sccdnet_6 TP: 783, FP: 3, FN: 4, TN: 215
+19-06-22 00:25 sccdnet_6 Black Segmentations: 219
+19-06-22 00:25 sccdnet_6 Adjusted thresholds: 0
+19-06-22 00:25 sccdnet_6 TEST set. Precision mean = 0.690713, std = 0.204603
+19-06-22 00:25 sccdnet_6 TEST set. Recall mean = 0.837305, std = 0.153702
+19-06-22 00:25 sccdnet_6 TEST set. F1 mean = 0.756977, std = 0.175537 at 0.975000
+19-06-22 00:25 sccdnet_6 TEST set. Dice mean = 0.742840, std = 0.182504 at 0.980000
+19-06-22 00:25 sccdnet_6 TEST set. IoU mean = 0.623471, std = 0.230300 at 0.980000
+19-06-22 00:36 sccdnet_6 Evaluation time: 0:11:53.420201
+19-06-22 00:36 sccdnet_6 Model's trainable parameters: 16161373
