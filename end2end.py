@@ -179,6 +179,7 @@ class End2End:
         validation_metrics = []
         lrs = []
         max_validation = -1
+        max_f_measure = -1
         best_dice = -1
         best_f1 = -1
         validation_step = self.cfg.VALIDATION_N_EPOCHS
@@ -273,10 +274,10 @@ class End2End:
                     best_model_metrics = val_metrics
                     best_f1 = val_metrics['F1']
                 
-                elif self.cfg.BEST_MODEL_TYPE == "both" and ((validation_ap > max_validation and val_metrics['dice_threshold'] >= best_dice) or (val_metrics['dice_threshold'] > best_dice and validation_ap >= max_validation)):
+                elif self.cfg.BEST_MODEL_TYPE == "both" and ((val_metrics['best_f_measure'] > max_f_measure and val_metrics['Dice'] >= best_dice) or (val_metrics['Dice'] > best_dice and val_metrics['best_f_measure'] >= max_f_measure)):
                     self._save_model(model, "best_state_dict.pth")
-                    max_validation = validation_ap
-                    best_dice = val_metrics['dice_threshold']
+                    max_f_measure = val_metrics['best_f_measure']
+                    best_dice = val_metrics['Dice']
                     best_model_metrics = val_metrics
 
                 model.train()
@@ -333,7 +334,6 @@ class End2End:
             metrics = utils.get_metrics(np.array(predictions_truths), np.array(predictions))
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
-
             # Naredim decisions z izračunanim thresholdom
             decisions = np.array(predictions) > metrics['best_thr']
 
@@ -380,14 +380,15 @@ class End2End:
                     val_metrics['Pr'] = np.mean(result_precision)
                     val_metrics['Re'] = np.mean(result_recall)         
                 
-            self._log(f"Validation best Dice: {dice[0]:f} at {dice[1]:f}")
-            self._log(f"Validation best IoU: {iou[0]:f} at {iou[1]:f}")
-            self._log(f"Validation best F1: {f1[0]:f} at {f1[1]:f}")
+            self._log(f"Validation best Dice: {dice[0]:f} at {round(dice[1], 3)}")
+            self._log(f"Validation best IoU: {iou[0]:f} at {round(iou[1], 3)}")
+            self._log(f"Validation best F1: {f1[0]:f} at {round(f1[1], 3)}")
 
             val_metrics['dec_threshold'] = metrics['best_thr']
             val_metrics['F1'], val_metrics['f1_threshold'] = f1
             val_metrics['Dice'], val_metrics['dice_threshold'] = dice
             val_metrics['IoU'], val_metrics['iou_threshold'] = iou
+            val_metrics['best_f_measure'] = metrics['best_f_measure']
 
             return metrics["AP"], metrics["accuracy"], val_metrics
         else:
