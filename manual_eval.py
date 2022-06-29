@@ -3,10 +3,9 @@ from end2end import End2End
 from data.dataset_catalog import get_dataset
 import sys, os
 
-# nohup python -u manual_eval.py 5 crack500_3_1_van CRACK500 > eval_1.out 2>&1 &
+# nohup python -u manual_eval.py 7 sccdnet_6on sccdnet ./datasets/SCCDNet_dataset_opening > sccdnet_6on_eval_opening.out 2>&1 &
 
-#gpu, run_name, dataset = sys.argv[1:]
-gpu, run_name, dataset = 0, "crack500_3_1_van", "CRACK500"
+gpu, run_name, dataset, dataset_path = sys.argv[1:]
 
 # Konfiguracija
 configuration = Config()
@@ -34,6 +33,7 @@ for p in params:
 
 configuration.RUN_NAME = run_name
 configuration.GPU = gpu
+configuration.DATASET_PATH = dataset_path
 
 configuration.init_extra()
 
@@ -41,6 +41,7 @@ configuration.init_extra()
 
 end2end = End2End(cfg=configuration)
 end2end._set_results_path()
+end2end.set_seed()
 device = end2end._get_device()
 model = end2end._get_model().to(device)
 end2end.set_dec_gradient_multiplier(model, 0.0)
@@ -50,12 +51,8 @@ end2end.reload_model(model=model, load_final=False)
 
 validation_loader = get_dataset("VAL", end2end.cfg)
 _, _, val_metrics = end2end.eval_model(device=device, model=model, eval_loader=validation_loader, save_folder=end2end.outputs_path, save_images=False, is_validation=True, plot_seg=False)
-end2end._log(f"From evaluation on VAL set. Decision threshold: {val_metrics['dec_threshold']:f}")
-end2end._log(f"From evaluation on VAL set. Segmentation threshold: {val_metrics['two_pxl_threshold']:f}")
 
 # Evalvacija na TEST setu
 
-os.rename(os.path.join(end2end.run_path, 'seg_metrics'), os.path.join(end2end.run_path, 'seg_metrics_test'))
-
-#test_loader = get_dataset("TEST", end2end.cfg)
-end2end.eval_model(device=device, model=model, eval_loader=validation_loader, save_folder=end2end.outputs_path, save_images=end2end.cfg.SAVE_IMAGES, is_validation=False, plot_seg=False, dec_threshold=val_metrics['dec_threshold'], two_pxl_threshold=val_metrics['two_pxl_threshold'], dice_threshold=val_metrics['dice_threshold'])
+test_loader = get_dataset("TEST", end2end.cfg)
+end2end.eval_model(device=device, model=model, eval_loader=test_loader, save_folder=end2end.outputs_path, save_images=end2end.cfg.SAVE_IMAGES, is_validation=False, plot_seg=False, thresholds=val_metrics)

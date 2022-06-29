@@ -172,13 +172,14 @@ def save_predicted_segmentation(predicted_segmentation, sample_name, run_path):
         create_folder(save_folder)
     plt.imsave(f"{save_folder}/{sample_name}.png", predicted_segmentation, cmap='gray', vmin=0, vmax=1, dpi=200)
 
-def dice_iou(segmentation_predicted, segmentation_truth, seg_thresholds, images=None, image_names=None, run_path=None, decisions=None, is_validation=False, faktor=None, save_images=False):
+def dice_iou(segmentation_predicted, segmentation_truth, seg_thresholds, images=None, image_names=None, run_path=None, decisions=None, save_images=False, adjusted_threshold=None):
 
     results_dice = []
     results_iou = []
-    spusceni_thresholdi = []
-    faktorji_spustitve_thresholdov = []
-    mean_faktor = None
+    results_f1 = []
+    results_pr = []
+    results_re = []
+    spusceni_thresholdi = {"Dice": [], "IoU": [], "F1": []}
 
     # Preverimo ali so vsi listi enako dolgi
     if images is not None:
@@ -200,96 +201,108 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_thresholds, images=
 
     # Za vsak par izračunamo dice in IOU
     for i in range(len(segmentation_predicted)):
+        image = images[i]
+        image_name = image_names[i]
         seg_pred = segmentation_predicted[i]
         seg_true_bin = segmentation_truth[i].astype(np.uint8)
 
-        # Naredimo binarne maske s ustreznim thresholdom
-        seg_pred_bin = (seg_pred > seg_thresholds["dice_threshold"]).astype(np.uint8)
+        # Thresholds
+        thr_dice = seg_thresholds["dice_threshold"]
+        thr_iou = seg_thresholds["iou_threshold"]
+        thr_f1 = seg_thresholds["f1_threshold"]
 
-        # Beljenje črnih segmentacij, ki so klasificirane kot razpoke
-        if not is_validation and decisions is not None and faktor is not None:
-            # Primer klasificiran kot razpoka, segmentacija pa crna - spustimo threshold na max pixel * faktor
-            if decisions[i] and seg_pred_bin.max().item() == 0:
-                spuscen_threshold = faktor * seg_pred.max().item()
-                seg_pred_bin = (seg_pred > spuscen_threshold).astype(np.uint8)
-                spusceni_thresholdi.append(image_names[i])          
+        # Masks
+        seg_pred_bin_dice = (seg_pred > thr_dice).astype(np.uint8)
+        seg_pred_bin_iou = (seg_pred > seg_thresholds["iou_threshold"]).astype(np.uint8)
+        seg_pred_bin_f1 = (seg_pred > seg_thresholds["f1_threshold"]).astype(np.uint8)
 
-        # Dice
-        result_dice = dice(seg_true_bin, seg_pred_bin)
+        # Adjusted thresholds
+        if adjusted_threshold and decisions[i]:
+            if seg_pred_bin_dice.max() == 0:
+                thr_dice *= adjusted_threshold
+                seg_pred_bin_dice = (seg_pred > thr_dice).astype(np.uint8)
+                spusceni_thresholdi['Dice'].append(image_name)
+            if seg_pred_bin_iou.max() == 0:
+                thr_iou *= adjusted_threshold
+                seg_pred_bin_iou = (seg_pred > thr_iou).astype(np.uint8)
+                spusceni_thresholdi['IoU'].append(image_name)
+            if seg_pred_bin_f1.max() == 0:
+                thr_f1 *= adjusted_threshold
+                seg_pred_bin_f1 = (seg_pred > thr_f1).astype(np.uint8)
+                spusceni_thresholdi['F1'].append(image_name)
+
+        result_dice = dice(seg_true_bin, seg_pred_bin_dice)
         results_dice += [result_dice]
 
-        # IOU
-        result_iou = iou(seg_true_bin, (seg_pred > seg_thresholds["iou_threshold"]).astype(np.uint8))
+        result_iou = iou(seg_true_bin, seg_pred_bin_iou)
         results_iou += [result_iou]
 
-        #F1
-        re = recall(seg_true_bin, (seg_pred > seg_thresholds["f1_threshold"]).astype(np.uint8))
-        pr = precision(seg_true_bin, (seg_pred > seg_thresholds["f1_threshold"]).astype(np.uint8))
-        result_f1 = (2 * pr * re) / (pr + re) 
+        re = recall(seg_true_bin, seg_pred_bin_f1)
+        pr = precision(seg_true_bin, seg_pred_bin_f1)
+        result_f1 = (2 * pr * re) / (pr + re)
+        results_f1 += [result_f1]
+        results_pr += [pr]
+        results_re += [re]
+        
+        # Shanjevanje slik za diplomo
+        if save_images:
+            plt.imsave(f"{save_folder_seg_pred}/{image_name}.png", seg_pred, cmap='gray', vmin=0, vmax=1, dpi=200)
+            plt.imsave(f"{save_folder_seg_pred_bin}/{image_name}.png", seg_pred_bin_dice, cmap='gray', vmin=0, vmax=1, dpi=200)
 
         # Vizualizacija
-        if images is not None:
-            image = images[i]
-            image_name = image_names[i]
+        plt.figure()
+        plt.clf()
 
-            # Shanjevanje slik za diplomo
-            if save_images:
-                plt.imsave(f"{save_folder_seg_pred}/{image_name}.png", seg_pred, cmap='gray', vmin=0, vmax=1, dpi=200)
-                plt.imsave(f"{save_folder_seg_pred_bin}/{image_name}.png", seg_pred_bin, cmap='gray', vmin=0, vmax=1, dpi=200)
+        plt.subplot(1, 5, 1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.title('Image')
+        plt.imshow(image)
+        plt.xlabel(f"Decision:\n{decisions[i]}")
+        
+        plt.subplot(1, 5, 2)
+        plt.xticks([])
+        plt.yticks([])
+        plt.title('GT')
+        plt.imshow(seg_true_bin, cmap='gray', vmin=0, vmax=1)
+        
+        plt.subplot(1, 5, 3)
+        plt.xticks([])
+        plt.yticks([])
+        plt.title('Segmentation')
+        plt.imshow(seg_pred, cmap='gray', vmin=0, vmax=1)
+        plt.xlabel(f"IOU: {round(result_iou.item(), 4)}\nThr: {round(thr_iou, 3)}")
+        
+        plt.subplot(1, 5, 4)
+        plt.xticks([])
+        plt.yticks([])
+        plt.title('Segmentation\nmask')
+        plt.imshow(seg_pred_bin_dice, cmap='gray', vmin=0, vmax=1)
+        plt.xlabel(f"Dice: {round(result_dice.item(), 4)}\nThr: {round(thr_dice, 3)}")
 
-            plt.figure()
-            plt.clf()
+        plt.subplot(1, 5, 5)
+        plt.xticks([])
+        plt.yticks([])
+        plt.title('Overlap')
+        plt.imshow((seg_pred_bin_dice * 2) + seg_true_bin, cmap=ListedColormap([['black', 'gray', 'red', 'white'][i] for i in np.unique((seg_pred_bin_dice * 2) + seg_true_bin)]))
+        plt.xlabel(f"F1: {round(result_f1.item(), 4)}\nThr: {round(thr_f1, 3)}")
 
-            plt.subplot(1, 5, 1)
-            plt.xticks([])
-            plt.yticks([])
-            plt.title('Image')
-            plt.imshow(image)
-            plt.xlabel(f"Decision:\n{decisions[i]}")
-            
-            plt.subplot(1, 5, 2)
-            plt.xticks([])
-            plt.yticks([])
-            plt.title('GT')
-            plt.imshow(seg_true_bin, cmap='gray', vmin=0, vmax=1)
-            
-            plt.subplot(1, 5, 3)
-            plt.xticks([])
-            plt.yticks([])
-            plt.title('Segmentation')
-            plt.imshow(seg_pred, cmap='gray', vmin=0, vmax=1)
-            plt.xlabel(f"IOU: {round(result_iou.item(), 4)}\nThr: {round(seg_thresholds['iou_threshold'], 3)}")
-            
-            plt.subplot(1, 5, 4)
-            plt.xticks([])
-            plt.yticks([])
-            plt.title('Segmentation\nmask')
-            plt.imshow(seg_pred_bin, cmap='gray', vmin=0, vmax=1)
-            plt.xlabel(f"Dice: {round(result_dice.item(), 4)}\nThr: {round(seg_thresholds['dice_threshold'], 3)}")
-
-            plt.subplot(1, 5, 5)
-            plt.xticks([])
-            plt.yticks([])
-            plt.title('Overlap')
-            plt.imshow((seg_pred_bin * 2) + seg_true_bin, cmap=ListedColormap([['black', 'gray', 'red', 'white'][i] for i in np.unique((seg_pred_bin * 2) + seg_true_bin)]))
-            plt.xlabel(f"F1: {round(result_f1.item(), 4)}\nThr: {round(seg_thresholds['f1_threshold'], 3)}")
-
-            plt.savefig(f"{save_folder}/{round(result_dice.item(), 5):.3f}_dice_{image_name}.png", bbox_inches='tight', dpi=300)
-            plt.close()
+        plt.savefig(f"{save_folder}/{round(result_dice.item(), 5):.3f}_dice_{image_name}.png", bbox_inches='tight', dpi=300)
+        plt.close()
 
     # Zapisem primere s spuscenim thresholdom v txt datoteko
-    if len(spusceni_thresholdi) > 0:
-        txt_file = "spusceni_thresholdi.txt"
-        file = open(os.path.join(run_path, txt_file), "w")
-        for sample in spusceni_thresholdi:
-            file.write(sample + "\n")
-        file.close()
+    adjusted_threshold_s = set()
+    for m, n in spusceni_thresholdi.items():
+        if n:
+            txt_file = f"{m}_spusceni_thresholdi.txt"
+            file = open(os.path.join(run_path, txt_file), "w")
+            for sample in n:
+                file.write(sample + "\n")
+                adjusted_threshold_s.add(sample)
+            file.close()
 
-    if len(faktorji_spustitve_thresholdov) > 0:
-        mean_faktor = np.mean(np.array(faktorji_spustitve_thresholdov))
-
-    # Vrnemo povprečno vrednost ter standardno deviacijo za dice in IOU
-    return np.mean(results_dice), np.std(results_dice), np.mean(results_iou), np.std(results_iou), mean_faktor
+    # Vrnemo povprečno vrednost ter standardno deviacijo za Dice, IOU in F1
+    return np.mean(results_dice), np.std(results_dice), np.mean(results_iou), np.std(results_iou), np.mean(results_pr), np.std(results_pr), np.mean(results_re), np.std(results_re), len(adjusted_threshold_s)
 
 def segmentation_metrics(seg_truth, seg_predicted, two_pixel_threshold, samples=None, run_path=None, pxl_distance=2, adjusted_thresholds=None):
     # Save folder

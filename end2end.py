@@ -43,15 +43,7 @@ class End2End:
         self._set_results_path()
         self._create_results_dirs()
         self.print_run_params()
-        if self.cfg.REPRODUCIBLE_RUN is not None:
-            self._log(f"Reproducible run, fixing all seeds to: {self.cfg.REPRODUCIBLE_RUN}", LVL_DEBUG)
-            np.random.seed(self.cfg.REPRODUCIBLE_RUN)
-            torch.manual_seed(self.cfg.REPRODUCIBLE_RUN)
-            random.seed(self.cfg.REPRODUCIBLE_RUN)
-            torch.cuda.manual_seed(self.cfg.REPRODUCIBLE_RUN)
-            torch.cuda.manual_seed_all(self.cfg.REPRODUCIBLE_RUN)
-            torch.backends.cudnn.deterministic = True
-            torch.backends.cudnn.benchmark = False
+        self.set_seed()
 
         device = self._get_device()
         model = self._get_model().to(device)
@@ -67,6 +59,12 @@ class End2End:
 
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
+
+        """
+        # Reload final model, resume learning
+        if os.path.exists(os.path.join(self.model_path, "final_state_dict.pth")):
+            pass
+        """
 
         train_start = timer()
         losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
@@ -335,7 +333,7 @@ class End2End:
             FP, FN, TP, TN = list(map(sum, [metrics["FP"], metrics["FN"], metrics["TP"], metrics["TN"]]))
             self._log(f"VALIDATION on {eval_loader.dataset.kind} set || AUC={metrics['AUC']:f}, and AP={metrics['AP']:f}, with best thr={metrics['best_thr']:f} sat f-measure={metrics['best_f_measure']:.3f} and FP={FP:d}, FN={FN:d}, TOTAL SAMPLES={FP + FN + TP + TN:d}")
             # Naredim decisions z izračunanim thresholdom
-            decisions = np.array(predictions) > metrics['best_thr']
+            decisions = np.array(predictions) >= metrics['best_thr']
 
             # Črnenje
             if self.cfg.SEG_BLACK:
@@ -419,44 +417,18 @@ class End2End:
                         black_seg_counter += 1
                 self._log(f"Black Segmentations: {black_seg_counter}")
             
-            # Threshold adjustment
-            adjusted_thresholds = None
-            if self.cfg.THR_ADJUSTMENT is not None:
-                adjusted_thresholds_counter = 0
-                adjusted_thresholds = list(thresholds["f1_threshold"] for i in range(len(predicted_segs)))
-                for i, decision in enumerate(decisions):
-                    if decision == True:
-                        seg_pred_bin = (np.array(predicted_segs[i])>thresholds["f1_threshold"]).astype(np.uint8)
-                        if seg_pred_bin.max() == 0:
-                            adjusted_thresholds[i] *= self.cfg.THR_ADJUSTMENT
-                            adjusted_thresholds_counter += 1
-                self._log(f"Adjusted thresholds: {adjusted_thresholds_counter}")
+            # Dice, IoU in F1 - Vizualizacija
+            mean_dice, std_dice, mean_iou, std_iou, mean_pr, std_pr, mean_re, std_re, adj_thr_c = utils.dice_iou(predicted_segs, true_segs, thresholds, samples["images"], samples["image_names"], self.run_path, decisions, adjusted_threshold=self.cfg.THR_ADJUSTMENT)
+            
+            # Adjusted threshold
+            if self.cfg.THR_ADJUSTMENT:
+                self._log(f"Adjusted thresholds: {adj_thr_c}")
 
-            # Segmentation metrics
-            result_precision = []
-            result_recall = []
-            result_dice = []
-            result_iou = []
-
-            for i in range(len(predicted_segs)):
-                y_true = np.array(true_segs[i]).astype(np.uint8)
-
-                result_dice += [utils.dice(y_true, (np.array(predicted_segs[i])>thresholds["dice_threshold"]).astype(np.uint8))]
-                result_iou += [utils.iou(y_true, (np.array(predicted_segs[i])>thresholds["iou_threshold"]).astype(np.uint8))]
-                
-                y_pred = (np.array(predicted_segs[i])>thresholds["f1_threshold"]).astype(np.uint8)
-
-                result_precision += [utils.precision(y_true, y_pred)]
-                result_recall += [utils.recall(y_true, y_pred)]
-
-            self._log(f"{eval_loader.dataset.kind} set. Precision mean = {np.mean(result_precision):f}, std = {np.std(result_precision):f}")
-            self._log(f"{eval_loader.dataset.kind} set. Recall mean = {np.mean(result_recall):f}, std = {np.std(result_recall):f}")
-            self._log(f"{eval_loader.dataset.kind} set. F1 mean = {2 * np.mean(result_precision) * np.mean(result_recall) / (np.mean(result_precision) + np.mean(result_recall)):f}, std = {2 * np.std(result_precision) * np.std(result_recall) / (np.std(result_precision) + np.std(result_recall)):f} at {thresholds['f1_threshold']:f}")
-            self._log(f"{eval_loader.dataset.kind} set. Dice mean = {np.mean(result_dice):f}, std = {np.std(result_dice):f} at {thresholds['dice_threshold']:f}")
-            self._log(f"{eval_loader.dataset.kind} set. IoU mean = {np.mean(result_iou):f}, std = {np.std(result_iou):f} at {thresholds['iou_threshold']:f}")
-
-            # Dice & IoU Vizualizacija
-            utils.dice_iou(predicted_segs, true_segs, thresholds, samples["images"], samples["image_names"], self.run_path, decisions)
+            self._log(f"{eval_loader.dataset.kind} set. Precision mean = {mean_pr:f}, std = {std_pr:f}")
+            self._log(f"{eval_loader.dataset.kind} set. Recall mean = {mean_re:f}, std = {std_re:f}")
+            self._log(f"{eval_loader.dataset.kind} set. F1 mean = {2 * mean_pr * mean_re / (mean_pr + mean_re):f}, std = {2 * std_pr * std_re / (std_pr + std_re):f} at {thresholds['f1_threshold']:f}")
+            self._log(f"{eval_loader.dataset.kind} set. Dice mean = {mean_dice:f}, std = {std_dice:f} at {thresholds['dice_threshold']:f}")
+            self._log(f"{eval_loader.dataset.kind} set. IoU mean = {mean_iou:f}, std = {std_iou:f} at {thresholds['iou_threshold']:f}")
 
     def get_dec_gradient_multiplier(self):
         if self.cfg.GRADIENT_ADJUSTMENT:
@@ -486,11 +458,11 @@ class End2End:
     def reload_model(self, model, load_final=False):
         if self.cfg.USE_BEST_MODEL:
             path = os.path.join(self.model_path, "best_state_dict.pth")
-            model.load_state_dict(torch.load(path)) # model.load_state_dict(torch.load(path, map_location='cuda:0'))
+            model.load_state_dict(torch.load(path, map_location=f"cuda:{self.cfg.GPU}"))
             self._log(f"Loading model state from {path}")
         elif load_final:
             path = os.path.join(self.model_path, "final_state_dict.pth")
-            model.load_state_dict(torch.load(path))
+            model.load_state_dict(torch.load(path, map_location=f"cuda:{self.cfg.GPU}"))
             self._log(f"Loading model state from {path}")
         else:
             self._log("Keeping same model state")
@@ -637,6 +609,17 @@ class End2End:
         for l in sorted(map(lambda e: e[0] + ":" + str(e[1]) + "\n", self.cfg.get_as_dict().items())):
             k, v = l.split(":")
             self._log(f"{k:25s} : {str(v.strip())}")
+    
+    def set_seed(self):
+        if self.cfg.REPRODUCIBLE_RUN is not None:
+            self._log(f"Reproducible run, fixing all seeds to: {self.cfg.REPRODUCIBLE_RUN}", LVL_DEBUG)
+            np.random.seed(self.cfg.REPRODUCIBLE_RUN)
+            torch.manual_seed(self.cfg.REPRODUCIBLE_RUN)
+            random.seed(self.cfg.REPRODUCIBLE_RUN)
+            torch.cuda.manual_seed(self.cfg.REPRODUCIBLE_RUN)
+            torch.cuda.manual_seed_all(self.cfg.REPRODUCIBLE_RUN)
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
         
     def seg_val_metrics(self, truth_segmentations, predicted_segmentations, dataset_kind, threshold_step=0.005, pxl_distance=2):
         n_samples = len(truth_segmentations)

@@ -75,6 +75,44 @@ class UpSampling(nn.Module):
         x = self.conv(x)
         return x
 
+class Se_module_diff(nn.Module):
+    def __init__(self, inp, oup, Avg_size = 1, se_ratio = 1):
+        super().__init__()
+        self.avg = nn.AdaptiveAvgPool2d((Avg_size, Avg_size))
+        num_squeezed_channels = max(1,int(inp / se_ratio))
+        self._se_reduce = nn.Conv2d(in_channels=inp, out_channels=num_squeezed_channels, kernel_size=1)
+        self._se_expand = nn.Conv2d(in_channels=num_squeezed_channels, out_channels=oup, kernel_size=1)
+        self.Avg_size = Avg_size
+        self.reset_parameters()
+
+    #x and z are different conv layer and z pass through more convs
+    def reset_parameters(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[0] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+                if m.bias is not None:
+                    m.bias.data.zero_()
+            elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
+            elif isinstance(m, nn.Linear):
+                n = m.weight.size(1)
+                m.weight.data.normal_(0, 0.01)
+                m.bias.data.zero_()
+
+
+    def forward(self, x, z):
+        SIZE = z.size()
+        y = self.avg(x)
+        y = self._se_reduce(y)
+        y = y * torch.sigmoid(y)
+        y = self._se_expand(y)
+        if self.Avg_size != 1:
+            y = F.upsample_bilinear(y, size=[SIZE[2], SIZE[3]])
+        z = torch.sigmoid(y) * z
+        return z
+
 class DownSampling(nn.Module):
     """
     DownSampling blok - na zacetku lahko dodamo MaxPooling
@@ -138,10 +176,14 @@ class SegDecNet(nn.Module):
         # Downsampling
         self.downsampling = nn.AvgPool2d(8)
 
-        # 1x1 Convolution Skip Connections
-        self.skip_convolution1 = _conv_block(in_chanels=32, out_chanels=32, kernel_size=1, padding=0)
-        self.skip_convolution2 = _conv_block(in_chanels=64, out_chanels=64, kernel_size=1, padding=0)
-        self.skip_convolution3 = _conv_block(in_chanels=64, out_chanels=64, kernel_size=1, padding=0)
+        # SSE Module
+        self.conv1_s = nn.Conv2d(32, 32, kernel_size=1, stride=1, bias=False)
+        self.conv2_s = nn.Conv2d(64, 64, kernel_size=1, stride=1, bias=False)
+        self.conv3_s = nn.Conv2d(64, 64, kernel_size=1, stride=1, bias=False)
+
+        self.se_module_diff1 = Se_module_diff(inp=32, oup=32)
+        self.se_module_diff2 = Se_module_diff(inp=64, oup=64)
+        self.se_module_diff2 = Se_module_diff(inp=64, oup=64)
 
     def set_gradient_multipliers(self, multiplier):
         self.volume_lr_multiplier_mask = (torch.ones((1,)) * multiplier).to(self.device)
@@ -154,14 +196,18 @@ class SegDecNet(nn.Module):
         v3 = self.volume3(v2)
         v4 = self.volume4(v3)
 
-        # 1x1 Convolution Skip Connections
-        v1 = self.skip_convolution1(v1)
-        v2 = self.skip_convolution2(v2)
-        v3 = self.skip_convolution3(v3)
+        conv1_s = self.conv1_s(v1)
+        conv1_sse = self.se_module_diff1(v1, conv1_s)
+
+        conv2_s = self.conv2_s(v2)
+        conv2_sse = self.se_module_diff2(v2, conv2_s)
         
-        seg_mask_upsampled = self.upsampling1(v4, v3)
-        seg_mask_upsampled = self.upsampling2(seg_mask_upsampled, v2)
-        seg_mask_upsampled = self.upsampling3(seg_mask_upsampled, v1)
+        conv3_s = self.conv3_s(v3)
+        conv3_sse = self.se_module_diff2(v3, conv3_s)
+
+        seg_mask_upsampled = self.upsampling1(v4, conv3_sse)
+        seg_mask_upsampled = self.upsampling2(seg_mask_upsampled, conv2_sse)
+        seg_mask_upsampled = self.upsampling3(seg_mask_upsampled, conv1_sse)
         seg_mask_upsampled = self.upsampling4(seg_mask_upsampled)
 
         seg_mask_downsampled = self.downsampling(seg_mask_upsampled)
