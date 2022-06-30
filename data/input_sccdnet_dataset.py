@@ -10,7 +10,19 @@ class SccdnetDataset(Dataset):
         self.read_contents()
 
     def read_samples(self, path_to_samples):
-        samples = [i for i in sorted(os.listdir(os.path.join(path_to_samples, 'images')))]
+
+        samples = []
+
+        if self.cfg.TRAIN_SPLIT is not None:
+            if self.kind == 'TRAIN':
+                for f in range(1, 6):
+                    if f != self.cfg.TRAIN_SPLIT:
+                        samples += [s.strip() for s in open(os.path.join(self.cfg.DATASET_PATH, "splits", f"split_{f}.txt"), "r").readlines()]
+            
+            elif self.kind == 'VAL':
+                samples = [s.strip() for s in open(os.path.join(self.cfg.DATASET_PATH, "splits", f"split_{self.cfg.TRAIN_SPLIT}.txt"), "r").readlines()]
+        else:
+            samples = [i for i in sorted(os.listdir(os.path.join(path_to_samples, 'images')))]
 
         for sample in samples:
             id, file_type = sample.rsplit(".", 1)

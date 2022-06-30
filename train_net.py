@@ -64,6 +64,8 @@ def parse_args():
     
     parser.add_argument('--BCE_LOSS_W', type=str2bool, default=False, required=False, help="Wheter to use BCE pos_weight parameter.")
 
+    parser.add_argument('--TRAIN_SPLIT', type=int, default=None, required=False, help="Index of train split to use as validation set.")
+
     args = parser.parse_args()
 
     return args
