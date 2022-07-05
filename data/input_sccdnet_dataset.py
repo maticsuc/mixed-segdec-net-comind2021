@@ -11,18 +11,17 @@ class SccdnetDataset(Dataset):
 
     def read_samples(self, path_to_samples):
 
-        samples = []
+        samples = [i for i in sorted(os.listdir(os.path.join(path_to_samples, 'images')))]
 
         if self.cfg.TRAIN_SPLIT is not None:
             if self.kind == 'TRAIN':
+                samples = []
                 for f in range(1, 6):
                     if f != self.cfg.TRAIN_SPLIT:
                         samples += [s.strip() for s in open(os.path.join(self.cfg.DATASET_PATH, "splits", f"split_{f}.txt"), "r").readlines()]
             
             elif self.kind == 'VAL':
                 samples = [s.strip() for s in open(os.path.join(self.cfg.DATASET_PATH, "splits", f"split_{self.cfg.TRAIN_SPLIT}.txt"), "r").readlines()]
-        else:
-            samples = [i for i in sorted(os.listdir(os.path.join(path_to_samples, 'images')))]
 
         for sample in samples:
             id, file_type = sample.rsplit(".", 1)
@@ -58,12 +57,10 @@ class SccdnetDataset(Dataset):
         self.neg_pixels = 0
         self.pos_pixels = 0
 
-        if self.kind == 'TRAIN':
+        if self.kind == 'TRAIN' or self.kind == 'VAL':
             self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'train'))
         elif self.kind == 'TEST':
             self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'test'))
-        elif self.kind == 'VAL':
-            self.read_samples(os.path.join(self.cfg.DATASET_PATH, 'val'))
 
         self.num_pos = len(self.pos_samples)
         self.num_neg = len(self.neg_samples)
@@ -72,8 +69,8 @@ class SccdnetDataset(Dataset):
         
         time = datetime.now().strftime("%d-%m-%y %H:%M")
 
-        self.pos_weight_seg = self.neg_pixels / self.pos_pixels
-        self.pos_weight_dec = self.num_neg / self.num_pos
+        self.pos_weight_seg = self.neg_pixels / self.pos_pixels if self.pos_pixels else 0
+        self.pos_weight_dec = self.num_neg / self.num_pos if self.num_pos else 0
 
         if self.kind == 'TRAIN' and self.cfg.BCE_LOSS_W:
             print(f"{time} {self.kind}: Number of positives: {self.num_pos}, Number of negatives: {self.num_neg}, Sum: {self.len}, Seg pos_weight: {round(self.pos_weight_seg, 3)}, Dec pos_weight: {round(self.pos_weight_dec, 3)}")

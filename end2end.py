@@ -376,11 +376,11 @@ class End2End:
                 if f1_tmp > f1[0]:
                     f1 = (f1_tmp, thr)
                     val_metrics['Pr'] = np.mean(result_precision)
-                    val_metrics['Re'] = np.mean(result_recall)         
-                
-            self._log(f"Validation best Dice: {dice[0]:f} at {round(dice[1], 3)}")
-            self._log(f"Validation best IoU: {iou[0]:f} at {round(iou[1], 3)}")
-            self._log(f"Validation best F1: {f1[0]:f} at {round(f1[1], 3)}")
+                    val_metrics['Re'] = np.mean(result_recall)
+
+            self._log(f"Validation best Dice: {dice[0]:.4f} at {dice[1]:.3f}")
+            self._log(f"Validation best IoU: {iou[0]:.4f} at {iou[1]:.3f}")
+            self._log(f"Validation best F1: {f1[0]:.4f} at {f1[1]:.3f}")
 
             val_metrics['dec_threshold'] = metrics['best_thr']
             val_metrics['F1'], val_metrics['f1_threshold'] = f1

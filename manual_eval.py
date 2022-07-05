@@ -1,11 +1,12 @@
 from config import Config
 from end2end import End2End
 from data.dataset_catalog import get_dataset
-import sys, os
+from utils import create_folder
+import sys, os, torch
 
-# nohup python -u manual_eval.py 7 sccdnet_6on sccdnet ./datasets/SCCDNet_dataset_opening > sccdnet_6on_eval_opening.out 2>&1 &
+# nohup python -u manual_eval.py 5 sccdnet_1 sccdnet ./datasets/SCCDNet_dataset sccdnet_1_best_seg > sccdnet_1_best_seg.out 2>&1 &
 
-gpu, run_name, dataset, dataset_path = sys.argv[1:]
+gpu, run_name, dataset, dataset_path, eval_name = sys.argv[1:]
 
 # Konfiguracija
 configuration = Config()
@@ -34,6 +35,7 @@ for p in params:
 configuration.RUN_NAME = run_name
 configuration.GPU = gpu
 configuration.DATASET_PATH = dataset_path
+configuration.SAVE_IMAGES = True
 
 configuration.init_extra()
 
@@ -45,7 +47,22 @@ end2end.set_seed()
 device = end2end._get_device()
 model = end2end._get_model().to(device)
 end2end.set_dec_gradient_multiplier(model, 0.0)
-end2end.reload_model(model=model, load_final=False)
+#end2end.reload_model(model=model, load_final=False)
+
+"""
+"""
+path = os.path.join(end2end.model_path, "ep_175.pth")
+model.load_state_dict(torch.load(path, map_location=f"cuda:{end2end.cfg.GPU}"))
+end2end._log(f"Loading model state from {path}")
+
+# Make new eval save folder 
+
+end2end.run_path = os.path.join(end2end.cfg.RESULTS_PATH, end2end.cfg.DATASET, eval_name)
+end2end.outputs_path = os.path.join(end2end.run_path, "test_outputs")
+create_folder(end2end.run_path)
+create_folder(end2end.outputs_path)
+
+end2end._log(f"Dataset: {dataset}, Path: {dataset_path}")
 
 # Validacija na VAL setu
 
