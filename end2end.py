@@ -60,12 +60,6 @@ class End2End:
         # Save current learning method to model's directory
         utils.save_current_learning_method(save_path=self.run_path)
 
-        """
-        # Reload final model, resume learning
-        if os.path.exists(os.path.join(self.model_path, "final_state_dict.pth")):
-            pass
-        """
-
         train_start = timer()
         losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict = self._train_model(device, model, train_loader, loss_seg, loss_dec, optimizer, scheduler, validation_loader, tensorboard_writer)
         end = timer()
@@ -262,25 +256,30 @@ class End2End:
                 validation_data.append((validation_ap, epoch))
                 validation_metrics.append((epoch, val_metrics))
 
-                if self.cfg.BEST_MODEL_TYPE == "dec" and validation_ap > max_validation:
-                    self._save_model(model, "best_state_dict.pth")
-                    max_validation = validation_ap
-
-                elif self.cfg.BEST_MODEL_TYPE == "seg" and val_metrics['F1'] > best_f1:
-                    self._log(f"New best model based on {self.cfg.BEST_MODEL_TYPE} metrics.")
-                    self._save_model(model, "best_state_dict.pth")
-                    best_model_metrics = val_metrics
-                    best_f1 = val_metrics['F1']
-                
-                elif self.cfg.BEST_MODEL_TYPE == "both" and ((val_metrics['best_f_measure'] > max_f_measure and val_metrics['Dice'] >= best_dice) or (val_metrics['Dice'] > best_dice and val_metrics['best_f_measure'] >= max_f_measure)):
-                    self._save_model(model, "best_state_dict.pth")
-                    max_f_measure = val_metrics['best_f_measure']
+                if val_metrics['Dice'] > best_dice:
                     best_dice = val_metrics['Dice']
+                    best_seg_model_metrics = val_metrics
+                    self._save_model(model, "best_seg_dict.pth")
+                
+                if val_metrics['best_f_measure'] > max_f_measure:
+                    max_f_measure = val_metrics['best_f_measure']
+                    best_dec_model_metrics = val_metrics
+                    self._save_model(model, "best_dec_dict.pth")
+
+                if val_metrics['Dice'] >= best_dice and val_metrics['best_f_measure'] >= max_f_measure:
+                    best_dice = val_metrics['Dice']
+                    max_f_measure = val_metrics['best_f_measure']
                     best_model_metrics = val_metrics
+                    self._save_model(model, "best_state_dict.pth")
 
                 model.train()
                 if tensorboard_writer is not None:
                     tensorboard_writer.add_scalar("Accuracy/Validation/", validation_accuracy, epoch)
+
+        if self.cfg.BEST_MODEL_TYPE == "dec":
+            best_model_metrics = best_dec_model_metrics
+        elif self.cfg.BEST_MODEL_TYPE == "seg":
+            best_model_metrics = best_seg_model_metrics
 
         return losses, validation_data, best_model_metrics, validation_metrics, lrs, difficulty_score_dict
 
@@ -457,7 +456,12 @@ class End2End:
 
     def reload_model(self, model, load_final=False):
         if self.cfg.USE_BEST_MODEL:
-            path = os.path.join(self.model_path, "best_state_dict.pth")
+            if self.cfg.BEST_MODEL_TYPE == "dec":
+                path = os.path.join(self.model_path, "best_dec_dict.pth")
+            elif self.cfg.BEST_MODEL_TYPE == "seg":
+                path = os.path.join(self.model_path, "best_seg_dict.pth")
+            else:
+                path = os.path.join(self.model_path, "best_state_dict.pth")
             model.load_state_dict(torch.load(path, map_location=f"cuda:{self.cfg.GPU}"))
             self._log(f"Loading model state from {path}")
         elif load_final:

@@ -43,11 +43,11 @@
 
 # Datasets
 
-| Set         | Train    | Test     | Opis                                               |
-| ----------- | -------- | -------- | -------------------------------------------------- |
-| Original    | 6164     | 1005     | Originalen dataset iz članka                       |
-| Opening     | 6164     | 1005     | Opening narejen na originalnem članku              |
-| Clean       | 2915     | 432      | Odstranjeni slabi primeri iz originalnega dataseta |
+| Set         | Train    | Test     | Opis                                                                    |
+| ----------- | -------- | -------- | ----------------------------------------------------------------------- |
+| Original    | 6164     | 1005     | Originalen dataset iz članka                                            |
+| Opening     | 6164     | 1005     | Opening narejen na originalnem članku                                   |
+| Clean       | 2915     | 432      | Odstranjeni slabi primeri iz originalnega dataseta - samo za testiranje |
 
 # Runs
 
@@ -75,6 +75,7 @@
 
 | Run                  | Precision | Recall   | F1       | Dice     | IoU      | Dataset  |
 | ---------------------| ----------| ---------| ---------|----------|----------|----------|
+| SCCDNet Članek       | 0.7294    | 0.8296   | 0.7763   | 0.7541   | 0.6402   | Original |
 | Run 1 best seg+dec   | 0.761628  | 0.861588 | 0.808530 | 0.797259 | 0.692042 | Opening  |
 | Run 1 best seg+dec   | 0.748002  | 0.775889 | 0.761690 | 0.743794 | 0.622765 | Original |
 | Run 1 best seg+dec   | 0.770487  | 0.908299 | 0.833736 | 0.812214 | 0.743119 | Clean    |
@@ -93,3 +94,9 @@
 | ---------| --------| ---------| ---------|----------|----------|----------|
 | Fold 1   | 6       | 5        | 0.783203 | 0.742407 | 0.639357 | Opening  |
 | Fold 2   | 3       | 5        | 0.796758 | 0.768059 | 0.669756 | Opening  |
+| Fold 2   | 3       | 5        | 0.736729 | 0.695658 | 0.575168 | Original |
+| Fold 3   | 8       | 4        | 0.800613 | 0.776133 | 0.674688 | Opening  |
+| Fold 4   | 8       | 3        | 0.803886 | 0.777554 | 0.678392 | Opening  |
+| Fold 4   | 9       | 1        | 0.745337 | 0.709324 | 0.590062 | Original |
+| Fold 5   | 8       | 13       | 0.759626 | 0.725968 | 0.615041 | Opening  |
+| Fold 5   | 13      | 5        | 0.735733 | 0.698533 | 0.578679 | Original |
