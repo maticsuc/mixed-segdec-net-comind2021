@@ -219,6 +219,7 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_thresholds, images=
         # Adjusted thresholds
         if adjusted_threshold and decisions[i]:
             if seg_pred_bin_dice.max() == 0:
+                print(seg_pred.max())
                 thr_dice *= adjusted_threshold
                 seg_pred_bin_dice = (seg_pred > thr_dice).astype(np.uint8)
                 spusceni_thresholdi['Dice'].append(image_name)

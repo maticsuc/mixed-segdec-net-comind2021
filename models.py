@@ -175,7 +175,8 @@ class SegDecNet(nn.Module):
 
         # Downsampling
         self.downsampling = nn.AvgPool2d(8)
-
+        
+        """
         # SSE Module
         self.conv1_s = nn.Conv2d(32, 32, kernel_size=1, stride=1, bias=False)
         self.conv2_s = nn.Conv2d(64, 64, kernel_size=1, stride=1, bias=False)
@@ -184,6 +185,7 @@ class SegDecNet(nn.Module):
         self.se_module_diff1 = Se_module_diff(inp=32, oup=32)
         self.se_module_diff2 = Se_module_diff(inp=64, oup=64)
         self.se_module_diff2 = Se_module_diff(inp=64, oup=64)
+        """
 
     def set_gradient_multipliers(self, multiplier):
         self.volume_lr_multiplier_mask = (torch.ones((1,)) * multiplier).to(self.device)
@@ -196,6 +198,7 @@ class SegDecNet(nn.Module):
         v3 = self.volume3(v2)
         v4 = self.volume4(v3)
 
+        """
         conv1_s = self.conv1_s(v1)
         conv1_sse = self.se_module_diff1(v1, conv1_s)
 
@@ -208,6 +211,12 @@ class SegDecNet(nn.Module):
         seg_mask_upsampled = self.upsampling1(v4, conv3_sse)
         seg_mask_upsampled = self.upsampling2(seg_mask_upsampled, conv2_sse)
         seg_mask_upsampled = self.upsampling3(seg_mask_upsampled, conv1_sse)
+        seg_mask_upsampled = self.upsampling4(seg_mask_upsampled)
+        """
+
+        seg_mask_upsampled = self.upsampling1(v4, v3)
+        seg_mask_upsampled = self.upsampling2(seg_mask_upsampled, v2)
+        seg_mask_upsampled = self.upsampling3(seg_mask_upsampled, v1)
         seg_mask_upsampled = self.upsampling4(seg_mask_upsampled)
 
         seg_mask_downsampled = self.downsampling(seg_mask_upsampled)

@@ -406,18 +406,60 @@ class End2End:
             self._log(f"Decision EVAL on {eval_loader.dataset.kind}. Pr: {pr:f}, Re: {re:f}, F1: {f1:f}, Accuracy: {accuracy:f}, Threshold: {thresholds['dec_threshold']}")
             self._log(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")
 
+            # Max(S) classification
+            seg_fp = 0
+            seg_fn = 0
+            seg_tp = 0
+            seg_tn = 0
+            for i in range(len(predictions_truths)):
+                max_s = (predicted_segs[i] > thresholds["dice_threshold"]).astype(np.uint8).max()
+
+                if max_s == 1:
+                    if predictions_truths[i] == 1:
+                        seg_tp += 1
+                    elif predictions_truths[i] == 0:
+                        seg_fp += 1
+                elif max_s == 0:
+                    if predictions_truths[i] == 1:
+                        seg_fn += 1
+                    elif predictions_truths[i] == 0:
+                        seg_tn += 1
+            self._log(f"Max(S) classification Pred crnenjem: TP: {seg_tp}, FP: {seg_fp}, FN: {seg_fn}, TN: {seg_tn}")
+
             # Črnenje
             if self.cfg.SEG_BLACK:
                 black_seg_counter = 0
                 black_seg = np.zeros(predicted_segs[0].shape)
                 for i, decision in enumerate(decisions):
                     if decision == False:
+                        if (predicted_segs[i] > thresholds["dice_threshold"]).astype(np.uint8).max() > 0:
+                            black_seg_counter += 1
+                            self._log(f"Blacked: {samples['image_names'][i]}\t{predictions_truths[i]}\t{true_segs[i].astype(np.uint8).max()}")
                         predicted_segs[i] = black_seg
-                        black_seg_counter += 1
                 self._log(f"Black Segmentations: {black_seg_counter}")
+
+            # Max(S) classification
+            seg_fp = 0
+            seg_fn = 0
+            seg_tp = 0
+            seg_tn = 0
+            for i in range(len(predictions_truths)):
+                max_s = (predicted_segs[i] > thresholds["dice_threshold"]).astype(np.uint8).max()
+
+                if max_s == 1:
+                    if predictions_truths[i] == 1:
+                        seg_tp += 1
+                    elif predictions_truths[i] == 0:
+                        seg_fp += 1
+                elif max_s == 0:
+                    if predictions_truths[i] == 1:
+                        seg_fn += 1
+                    elif predictions_truths[i] == 0:
+                        seg_tn += 1
+            self._log(f"Max(S) classification Po crnenjem: TP: {seg_tp}, FP: {seg_fp}, FN: {seg_fn}, TN: {seg_tn}")
             
             # Dice, IoU in F1 - Vizualizacija
-            mean_dice, std_dice, mean_iou, std_iou, mean_pr, std_pr, mean_re, std_re, adj_thr_c = utils.dice_iou(predicted_segs, true_segs, thresholds, samples["images"], samples["image_names"], self.run_path, decisions, adjusted_threshold=self.cfg.THR_ADJUSTMENT)
+            mean_dice, std_dice, mean_iou, std_iou, mean_pr, std_pr, mean_re, std_re, adj_thr_c = utils.dice_iou(predicted_segs, true_segs, thresholds, samples["images"], samples["image_names"], self.run_path, decisions, save_images=self.cfg.SAVE_IMAGES, adjusted_threshold=self.cfg.THR_ADJUSTMENT)
             
             # Adjusted threshold
             if self.cfg.THR_ADJUSTMENT:
