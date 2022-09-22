@@ -20,15 +20,15 @@ configuration.GRADIENT_ADJUSTMENT = True
 configuration.NUM_SEGMENTED = 61
 configuration.VALIDATE = True
 configuration.VALIDATE_ON_TEST = False
-configuration.VALIDATION_N_EPOCHS = 1
+configuration.VALIDATION_N_EPOCHS = 2
 configuration.USE_BEST_MODEL = True
 #configuration.HARD_NEG_MINING = [5, 0.1, 2]
-configuration.BEST_MODEL_TYPE = 'both'
+configuration.BEST_MODEL_TYPE = 'seg'
 configuration.BCE_LOSS_W = True
 configuration.REPRODUCIBLE_RUN = 420
 configuration.PXL_DISTANCE = 0
 configuration.ON_DEMAND_READ = False
-configuration.TRAIN_SPLIT = 2
+configuration.SAVE_IMAGES = True
 
 configuration.init_extra()
 

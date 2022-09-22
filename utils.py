@@ -216,6 +216,9 @@ def dice_iou(segmentation_predicted, segmentation_truth, seg_thresholds, images=
         seg_pred_bin_iou = (seg_pred > seg_thresholds["iou_threshold"]).astype(np.uint8)
         seg_pred_bin_f1 = (seg_pred > seg_thresholds["f1_threshold"]).astype(np.uint8)
 
+        if image_name == '0.000_dice_Rissbilder_for_Florian_9S6A2865_874_516_2613_2236.png':
+            a = 1
+
         # Adjusted thresholds
         if adjusted_threshold and decisions[i]:
             if seg_pred_bin_dice.max() == 0:

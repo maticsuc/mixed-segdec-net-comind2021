@@ -6,7 +6,9 @@ import sys, os, torch
 
 # nohup python -u manual_eval.py 5 sccdnet_1 sccdnet ./datasets/SCCDNet_dataset sccdnet_1_best_seg > sccdnet_1_best_seg.out 2>&1 &
 
-gpu, run_name, dataset, dataset_path, eval_name = sys.argv[1:]
+sys.argv = [None, 0, "diploma_3_x", "sccdnet", "./datasets/SCCDNet_dataset_opening", "neki", "best_seg_dict.pth"]
+
+gpu, run_name, dataset, dataset_path, eval_name = sys.argv[1:6]
 
 # Konfiguracija
 configuration = Config()
@@ -35,7 +37,10 @@ for p in params:
 configuration.RUN_NAME = run_name
 configuration.GPU = gpu
 configuration.DATASET_PATH = dataset_path
-configuration.SAVE_IMAGES = True
+configuration.SAVE_IMAGES = False
+
+configuration.THR_ADJUSTMENT = 0.9
+configuration.SEG_BLACK = True
 
 configuration.init_extra()
 
@@ -43,17 +48,18 @@ configuration.init_extra()
 
 end2end = End2End(cfg=configuration)
 end2end._set_results_path()
+end2end.print_run_params()
 end2end.set_seed()
 device = end2end._get_device()
 model = end2end._get_model().to(device)
 end2end.set_dec_gradient_multiplier(model, 0.0)
-#end2end.reload_model(model=model, load_final=False)
 
-"""
-"""
-path = os.path.join(end2end.model_path, "ep_175.pth")
-model.load_state_dict(torch.load(path, map_location=f"cuda:{end2end.cfg.GPU}"))
-end2end._log(f"Loading model state from {path}")
+if len(sys.argv) > 6:
+    path = os.path.join(end2end.model_path, str(sys.argv[6]))
+    model.load_state_dict(torch.load(path, map_location=f"cuda:{end2end.cfg.GPU}"))
+    end2end._log(f"Loading model state from {path}")
+else:
+    end2end.reload_model(model=model, load_final=False)
 
 # Make new eval save folder 
 
