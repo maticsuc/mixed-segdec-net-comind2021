@@ -141,3 +141,37 @@ For KSDD you need to combine the results of evaluation from all three folds, you
 You can use `read_results.py` to generate a table of results f0r all runs for selected dataset.        
 Note: The model is sensitive to random initialization and data shuffles during the training and will lead to different performance with different runs unless `--REPRODUCIBLE_RUN` is set.        
 
+## Posodobljena koda
+### Učenje
+`train_net.py`
+### Parametri
+Podrobneje opisani v `train_net.py`
+
+Primer:
+
+    python -u train_net.py \
+    --GPU 0 \
+    --RUN_NAME primer1 \
+    --REPRODUCIBLE_RUN 101 \
+    --OPTIMIZER adam \
+    --BCE_LOSS_W True \
+    --LEARNING_RATE 0.001 \
+    --DELTA_CLS_LOSS 0.01 \
+    --EPOCHS 100 \
+    --DATASET CRACK500 \
+    --DATASET_PATH ./datasets/CRACK500_JPG_PNG_MIXED \
+    --NUM_SEGMENTED 1896 \
+    --BATCH_SIZE 10 \
+    --DILATE 1 \
+    --WEIGHTED_SEG_LOSS False \
+    --DYN_BALANCED_LOSS True \
+    --GRADIENT_ADJUSTMENT True \
+    --FREQUENCY_SAMPLING False \
+    --VALIDATE True \
+    --VALIDATE_ON_TEST False \
+    --VALIDATION_N_EPOCHS 5 \
+    --USE_BEST_MODEL True \
+    --BEST_MODEL_TYPE seg \
+    --AUGMENTATION True \
+    --SAVE_IMAGES False \
+    --HARD_NEG_MINING 5 0.1 1

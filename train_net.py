@@ -45,7 +45,7 @@ def parse_args():
     parser.add_argument('--MEMORY_FIT', type=int, default=None, help="How many images can be fitted in GPU memory.")
     parser.add_argument('--SAVE_IMAGES', type=str2bool, default=None, help="Save test images or not.")
 
-    parser.add_argument('--BEST_MODEL_TYPE', type=str, default="dec", required=False, help="Best model save depend on segmentation or decision.")
+    parser.add_argument('--BEST_MODEL_TYPE', type=str, default="dec", required=False, help="Best model save depend on segmentation or decision. Options: seg, dec")
 
     parser.add_argument('--AUGMENTATION', type=str2bool, default=False, required=False, help="Wheter to use data augmentation.")
 
@@ -53,9 +53,9 @@ def parse_args():
     parser.add_argument('--VAL_NEG', type=str, default=None, required=False, help="Wheter to use negative samples in validation set with CRACK500 dataset.")
 
     parser.add_argument('--OPTIMIZER', type=str, default="sgd", required=False, help="Optimizer to be used.")
-    parser.add_argument('--SCHEDULER', type=float, nargs="+", default=None, required=False, help="Learning rate scheduler parameters to be used.")
+    parser.add_argument('--SCHEDULER', type=float, nargs="+", default=None, required=False, help="Learning rate scheduler parameters to be used. Parameters: step_size, gamma.")
 
-    parser.add_argument('--HARD_NEG_MINING', type=float, nargs="+", default=None, required=False, help="Hard negative mining parameters. First parameter is hard_sample_size, second hard_samples_selected_min_percent.")
+    parser.add_argument('--HARD_NEG_MINING', type=float, nargs="+", default=None, required=False, help="Hard negative mining parameters. Parameters: hard_sample_size, hard_samples_selected_min_percent, difficulty_score_mode.")
     
     parser.add_argument('--PXL_DISTANCE', type=int, default=2, required=False, help="Pixel distance for Pr, Re and F1 metrics at evaluation.")
     

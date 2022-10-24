@@ -79,3 +79,26 @@ use the code on your own data, there is no need to generate or use split files, 
 
 After you implemented data loading, you need to include the new dataset in `data.dataset_catalog.py` and
 in `config.py` you need to set input dimensions.
+
+
+## SCCDNet Dataset - Popravljen
+
+Shranjen kot SCCDNet_dataset_opening.
+
+| Parameter         | Value       |
+| -----------       | ----------- |
+| Input channels    | 3           |
+| Input height      | 448         |
+| Input width       | 448         |
+
+| Set         | Positives   | Negatives   | Sum         |
+| ----------- | ----------- | ----------- | ----------- |
+| Train       | 4935        | 1229        | 6164        |
+| Test        | 787         | 218         | 1005        |
+
+| Set         | Popravljenih|
+| ----------- | ----------- |
+| Train       | 3219        |
+| Test        | 567         |
+
+Vse popravljene slike so tipa oz. iz dataseta *Rissbilder_for_Florian*. Vseh *Rissbilder_for_Florian* slik je v testni 573 in učni množici 3249. 6 slik v testni in 30 v učni množici ni bilo popravljenih saj so negativne. V originalnem članku *SCCDNet* je napaka oz. se pripradajoč dataset ne ujema.
