@@ -159,7 +159,7 @@ Primer:
     --DELTA_CLS_LOSS 0.01 \
     --EPOCHS 100 \
     --DATASET CRACK500 \
-    --DATASET_PATH ./datasets/CRACK500_JPG_PNG_MIXED \
+    --DATASET_PATH ./datasets/SCCDNet_opening \
     --NUM_SEGMENTED 1896 \
     --BATCH_SIZE 10 \
     --DILATE 1 \
